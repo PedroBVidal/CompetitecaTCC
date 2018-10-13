@@ -45,6 +45,15 @@ public class UsuarioParticipante2 implements Serializable {
         senha = "";
         atletas = new ArrayList<>();
     }
+    
+
+    public UsuarioParticipante2(int idUsuario, String email, String nome, String senha) {
+        this.idUsuario = idUsuario;
+        this.email = email;
+        this.nome = nome;
+        this.senha = senha;
+        this.atletas = new ArrayList<>();
+    }
 
     public UsuarioParticipante2(int idUsuario, String email, String nome, String senha, List<Atleta> atletas) {
         this.idUsuario = idUsuario;
@@ -53,6 +62,8 @@ public class UsuarioParticipante2 implements Serializable {
         this.senha = senha;
         this.atletas = atletas;
     }
+    
+    
 
 
     /**

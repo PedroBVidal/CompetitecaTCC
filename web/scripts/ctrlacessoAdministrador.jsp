@@ -22,6 +22,8 @@
         session.setAttribute("usuario",null);
         response.sendRedirect("../login.jsp?e="+e.getMessage());
     }
+    
+    
     if(request.getParameter("c") != null){
     int codigo = Integer.parseInt(request.getParameter("c"));
     

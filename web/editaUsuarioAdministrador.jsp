@@ -41,7 +41,7 @@
             UsuarioParticipante usuarioADM = (UsuarioParticipante) usuario;
         %>
 
-
+        
 
         <header>
             <jsp:include page="navbarUsuarioAdministrador.jsp" flush="true" />
@@ -49,32 +49,31 @@
 
         <!-- Page Content -->
         <div class="container">
-            <h1 class="my-4">Painel de Controle</h1>
+            <h1 class="my-4">Editar Usuário</h1>
 
-            <!-- Marketing Icons Section -->
-            <div class="row">
-                <div class="col">
-                    <div class="card h-100">
-                        <h4 class="card-header">Entre</h4>
-                        <div class="card-body">
-                            <form action="scripts/ctrlacessoAdministrador.jsp" method="POST" class="col">
-
+            
+                            <form action="scripts/scriptuserAdministrador.jsp" method="POST" class="col">
+                                <input type="hidden" name="c" value="2">
+                                <input type="hidden" name="id" value="<%=usuarioADM.getIdUsuario()%>">
+                                
                                 <label for="" class="col-md-12">
-                                    E-mail:
-                                    <input type="email" required class="form-control" name="email" placeholder="Informe seu e-mail">
+                                    Nome:
+                                    <input type="text" required class="form-control" name="nome" placeholder="Informe seu nome" value="<%=usuarioADM.getNome()%>">
+                                </label>
+                                <label for="" class="col-md-12">
+                                    Email:
+                                    <input type="email" required class="form-control" name="email" placeholder="Insira seu email" value="<%=usuarioADM.getEmail()%>">
                                 </label>
                                 <label for="" class="col-md-12">
                                     Senha:
-                                    <input type="password" required class="form-control" name="senha" placeholder="Insira sua senha">
+                                    <input type="text" required class="form-control" name="senha" placeholder="Insira sua senha" value="<%=usuarioADM.getSenha()%>">
                                 </label>
 
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-success">Logar</button>
+                        
+                            <button type="submit" class="btn btn-success">Alterar</button>
 
-                        </div>
+                        
                         </form> 
-                    </div>
                 </div>
 
 

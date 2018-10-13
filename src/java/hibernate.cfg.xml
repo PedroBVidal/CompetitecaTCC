@@ -32,6 +32,8 @@
     <mapping class="br.edu.ifpr.irati.ti.modelo.SistemaMisto"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.SistemaTodosContraTodos"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"/>
+    <mapping class="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"/>
+    
     
     
     

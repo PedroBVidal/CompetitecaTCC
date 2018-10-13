@@ -117,7 +117,7 @@
                     <div class="card h-100">
                         <h4 class="card-header">Entre</h4>
                         <div class="card-body">
-                            <form action="scripts/ctrlacesso.jsp" method="POST" class="col">
+                            <form action="scripts/ctrlacessoAdministrador.jsp" id="frm" method="POST" class="col">
 
                                 <label for="" class="col-md-12">
                                     E-mail:
@@ -130,7 +130,8 @@
 
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-success">Logar</button>   
+                            <button type="submit" class="btn btn-success">Entrar como administrador de competições</button>
+                            <button type="submit" class="btn btn-danger" onclick="mudarAction();">Entrar como participante de competições</button>   
                         </div>
                         </form> 
                     </div>
@@ -140,7 +141,13 @@
                 <!-- Bootstrap core JavaScript -->
                 <script src="vendor/jquery/jquery.min.js"></script>
                 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+                <script>
+                    
+                    function mudarAction(){
+                    $("#frm").attr("action","scripts/ctrlacessoParticipante.jsp");
+                    }
+                    
+                </script>
                 </body>
 
                 </html>
