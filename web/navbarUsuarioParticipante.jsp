@@ -46,6 +46,6 @@
         </nav>
                             
          <%} else {
-                    response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro (Ultimo else)");
+                    response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro.");
                     }
          %>
