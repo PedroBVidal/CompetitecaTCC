@@ -16,6 +16,7 @@
     
     UsuarioParticipante2Controle usuarioParticpanteControle = new UsuarioParticipante2Controle();
     
+    
     try {
         UsuarioParticipante2 usuarioParticipante = usuarioParticpanteControle.buscarLogin(email, senha);
         session.setAttribute("usuario",usuarioParticipante);
@@ -23,18 +24,19 @@
     }
     catch(Exception e){
         
-        
+        if(request.getParameter("c") == null){
         session.setAttribute("usuario",null);
         response.sendRedirect("../login.jsp?e="+e.getMessage());
+        }
+        else{
+           int codigo = Integer.parseInt(request.getParameter("c"));
+           if(codigo == 1 ){
+           session.setAttribute("usuario",null);
+           response.sendRedirect("../login.jsp?e=Saiu de sua conta.");
+        }
+        }
     }
     
-        if(request.getParameter("c") != null){
-        int codigo = Integer.parseInt(request.getParameter("c"));
-    
-        if(codigo == 1 ){
-        session.setAttribute("usuario",null);
-        //response.sendRedirect("../login.jsp?e=Sessão Finalizada com Sucesso");
-        }
-        }
+
 
 %>

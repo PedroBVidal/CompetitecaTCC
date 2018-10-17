@@ -19,19 +19,20 @@
         session.setAttribute("usuario",up);
         response.sendRedirect("../gerenciamento.jsp");
     }catch(Exception e){
-        session.setAttribute("usuario",null);
-        response.sendRedirect("../login.jsp?e="+e.getMessage());
+        
+                if (request.getParameter("c") == null) {
+                        session.setAttribute("usuario", null);
+                        response.sendRedirect("../login.jsp?e=" + e.getMessage());
+                    } else {
+                        int codigo = Integer.parseInt(request.getParameter("c"));
+                        if (codigo == 1) {
+                            session.setAttribute("usuario", null);
+                            response.sendRedirect("../login.jsp?e=Saiu de sua conta.");
+                        }
+                    }
     }
     
-    
-    if(request.getParameter("c") != null){
-    int codigo = Integer.parseInt(request.getParameter("c"));
-    
-    if(codigo == 1 ){
-        session.setAttribute("usuario",null);
-        //response.sendRedirect("../login.jsp?e=Sessão Finalizada com Sucesso");
-    }
-    }
+
     
     
     

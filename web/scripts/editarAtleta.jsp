@@ -19,6 +19,7 @@
     int op = Integer.parseInt(request.getParameter("op"));
     AtletaControle eqpc = new AtletaControle();
     
+    
     if(op == 3){
         
         String nome = request.getParameter("nome");
