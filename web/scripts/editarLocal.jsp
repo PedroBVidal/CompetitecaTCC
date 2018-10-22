@@ -9,6 +9,7 @@
 <%
     request.setCharacterEncoding("UTF-8");
     String nome = request.getParameter("nome");
+    
     String endereco = request.getParameter("endereco");
     String cidade = request.getParameter("cidade");
     int id = Integer.parseInt(request.getParameter("id"));
