@@ -117,7 +117,7 @@
                     <div class="card h-100">
                         <h4 class="card-header">Entre</h4>
                         <div class="card-body">
-                            <form action="scripts/ctrlacessoAdministrador.jsp" id="frm" method="POST" class="col">
+                            <form action="scripts/ctrlacesso.jsp" method="POST" class="col">
 
                                 <label for="" class="col-md-12">
                                     E-mail:
@@ -127,11 +127,18 @@
                                     Senha:
                                     <input type="password" required class="form-control" name="senha" placeholder="Insira sua senha">
                                 </label>
+                                <label for="" class="col-md-12">
+                                    Tipo de Usuário:
+                                    <select name="tipo" class="form-control">
+                                        <option value="2">Participante</option>
+                                        <option value="1">Administrador</option>
+                                    </select>
+                                </label>
 
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-success">Entrar como administrador de competições</button>
-                            <button type="submit" class="btn btn-danger" onclick="mudarAction();">Entrar como participante de competições</button>   
+                            <button type="submit" class="btn btn-success">Entrar</button>
+                               
                         </div>
                         </form> 
                     </div>
