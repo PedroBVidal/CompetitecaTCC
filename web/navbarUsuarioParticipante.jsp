@@ -29,7 +29,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="inscricaoCompeticoes.jsp"><i class="fas fa-trophy"></i>&nbsp;Competições</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Olá,&nbsp;<%=up.getNome()%>

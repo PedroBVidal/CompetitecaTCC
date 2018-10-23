@@ -15,14 +15,19 @@ import java.util.List;
  * @author Aluno
  */
 public class CompeticaoControle {
-    Dao<Competicao> competicao = new GenericDAO<>(Competicao.class);
+    Dao<Competicao> competicaoDAO = new GenericDAO<>(Competicao.class);
     
     public List<Competicao> buscarTodasCompeticoes(){
-        List<Competicao> cptc = competicao.buscarTodos(Competicao.class);
+        List<Competicao> cptc = competicaoDAO.buscarTodos(Competicao.class);
         return cptc;
     }
     public Competicao buscarCompeticaoPorId(int id){
-        Competicao cptc = competicao.buscarPorId(id);
+        Competicao cptc = competicaoDAO.buscarPorId(id);
         return cptc;
     }
+    
+    public void cadastrarCompeticao(Competicao competicao){
+        competicaoDAO.salvar(competicao);
+    }
+    
 }

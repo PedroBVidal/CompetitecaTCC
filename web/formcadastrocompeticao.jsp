@@ -1,16 +1,11 @@
-
-<%@page import="br.edu.ifpr.irati.ti.modelo.Local"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%-- 
-    Document   : index.jsp
-    Created on : 01/10/2018, 09:16:10
-    Author     : Aluno 
+    Document   : formcadastrogerenciamento
+    Created on : 23/10/2018, 17:14:12
+    Author     : Usuário
 --%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
-<%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -44,45 +39,47 @@
         <header>
             <jsp:include page="navbarUsuarioAdministrador.jsp" flush="true" />
         </header>
-
-        <!-- Page Content -->
-        <div class="container">
-
-            <!-- Page Heading/Breadcrumbs -->
-            <h1 class="mt-4 mb-3 text-center">Competições em gerenciamento    
-            </h1>
-            <p class="text-center"><a href="formcadastrocompeticao.jsp" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Nova competição</a></p>
-            
-
-            
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <a href="#">
-                                <img class="img-fluid rounded" src="http://placehold.it/750x300" alt="">
-                            </a>
-                        </div>
-                        <div class="col-lg-6">
-                            <h2 class="card-title">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                            <a href="#" class="btn btn-primary">Read More &rarr;</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer text-muted">
-                    Posted on January 1, 2017 by
-                    <a href="#">Start Bootstrap</a>
-                </div>
+            <%
+                request.setCharacterEncoding("UTF-8");
+                if (request.getParameter("e") != null) {
+                    String erro = request.getParameter("e");
+                    
+            %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><%=erro%></strong> .
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
 
-
-
-
+            <%
+                }
+            %>
+        <h1 class="text-center">Nova competição</h1>
+        
+        <div class="card">
+            <div class="card-header">
+                Cadastro de competição
+            </div>
+            <div class="card-body">
+                <form action="cadastrarcompeticao.jsp">
+                    <div class="form-group">
+                        <label>Nome da competição:</label>
+                        <input type="text" class="form-control" name="nomeCompeticao">
+                    </div>
+                    <div class="form-group">
+                        <label>Data de início da competição:</label>
+                        <input type="date" class="form-control" name="dataInicioCompeticao">
+                    </div>
+                    <div class="form-group">
+                        <label> Data de término da competição:</label>
+                        <input type="date" class="form-control" name="dataTerminoCompeticao">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </form>
+            </div>
         </div>
-
-    </div>
-
+        
         <!-- Bootstrap core JavaScript -->
     
         <script src="vendor/jquery/jquery.min.js"></script>
@@ -94,4 +91,3 @@
     </body>
 
 </html>
-
