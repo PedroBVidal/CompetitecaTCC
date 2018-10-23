@@ -180,7 +180,6 @@
            CompeticaoControle cptcc = new CompeticaoControle();
            //List<Competicao> cptcl = cptcc.buscarTodasCompeticoes();
             for(Competicao cptc : cptcc.buscarTodasCompeticoes()){
-                System.out.println("Alterei aqui!");
                 %>
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">
