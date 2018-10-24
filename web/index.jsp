@@ -30,6 +30,19 @@
     </head>
 
     <body>
+        
+        <%
+           Object usuario = session.getAttribute("usuario");
+           if (usuario == null) {
+        %>
+            <>
+           } else if (usuario instanceof UsuarioParticipante2) {
+
+           UsuarioParticipante2 up = (UsuarioParticipante2) usuario;
+        
+        %>
+        
+        
 
         <!-- Navigation -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top">
@@ -176,11 +189,11 @@
             <h2>Competições em Destaque</h2>
 
             <div class="row">
-                <%
+           <%
            CompeticaoControle cptcc = new CompeticaoControle();
            //List<Competicao> cptcl = cptcc.buscarTodasCompeticoes();
             for(Competicao cptc : cptcc.buscarTodasCompeticoes()){
-                %>
+           %>
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">

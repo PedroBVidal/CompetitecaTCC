@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 
@@ -40,7 +41,8 @@ public class Atleta implements Serializable {
     @ManyToMany(fetch=FetchType.EAGER)
     private List<ModalidadeSolo> modalidadesSolo;
     
-    
+    @OneToOne
+    private Competicao competicao;
     
     //VER!
     //@ManyToMany(fetch=FetchType.EAGER)
@@ -59,7 +61,7 @@ public class Atleta implements Serializable {
         aprovado = false;
         equipes = new ArrayList<>();
         modalidadesSolo = new ArrayList<>();
-        //competicao = new Competicao();
+        competicao = new Competicao();
         //confrontosModalidadeSolo = new ArrayList<>();
     }
 
@@ -71,7 +73,7 @@ public class Atleta implements Serializable {
         this.equipes = new ArrayList<>();
         this.modalidadesSolo = new ArrayList<>();
         //this.confrontosModalidadeSolo = new ArrayList<>();
-        //this.competicao = new Competicao();
+        this.competicao = new Competicao();
     }
     public Atleta(int idAtleta, String nome, String email, boolean aprovado, List<ModalidadeSolo> modalidades) {
         this.idAtleta = idAtleta;
@@ -81,7 +83,7 @@ public class Atleta implements Serializable {
         this.equipes = new ArrayList<>();
         this.modalidadesSolo = modalidades;
         //this.confrontosModalidadeSolo = new ArrayList<>();
-        //this.competicao = new Competicao();
+        this.competicao = new Competicao();
     }
     
     public Atleta(int idAtleta, String nome, String email, boolean aprovado, Competicao competicao) {
@@ -92,7 +94,7 @@ public class Atleta implements Serializable {
         this.equipes = new ArrayList<>();
         this.modalidadesSolo = new ArrayList<>();
         //this.confrontosModalidadeSolo = new ArrayList<>();
-        //this.competicao = competicao;
+        this.competicao = competicao;
     }
 
     public Atleta(int idAtleta, String nome, String email, boolean aprovado, List<Equipe> equipes, List<ModalidadeSolo> modalidadesSolo, Competicao competicao, List<Confronto> confrontos) {
@@ -102,7 +104,7 @@ public class Atleta implements Serializable {
         this.equipes = equipes;
         this.aprovado = aprovado;
         this.modalidadesSolo = modalidadesSolo;
-        //this.competicao = competicao;
+        this.competicao = competicao;
         //this.confrontosModalidadeSolo = confrontos;
     }
     
@@ -202,33 +204,6 @@ public class Atleta implements Serializable {
         this.modalidadesSolo = modalidadesSolo;
     }
 
-    /**
-     * @return the competicao
-     */
-    /*public Competicao getCompeticao() {
-        return competicao;
-    }*/
-
-    /**
-     * @param competicao the competicao to set
-     */
-    /*public void setCompeticao(Competicao competicao) {
-        this.competicao = competicao;
-    }*/
-
-    /**
-     * @return the confrontosModalidadeSolo
-     */
-    /*public List<Confronto> getConfrontosModalidadeSolo() {
-        return confrontosModalidadeSolo;
-    }*/
-
-    /**
-     * @param confrontosModalidadeSolo the confrontosModalidadeSolo to set
-     */
-    /*public void setConfrontosModalidadeSolo(List<Confronto> confrontosModalidadeSolo) {
-        this.confrontosModalidadeSolo = confrontosModalidadeSolo;
-    }*/
 
     /**
      * @return the aprovado
@@ -242,6 +217,20 @@ public class Atleta implements Serializable {
      */
     public void setAprovado(boolean aprovado) {
         this.aprovado = aprovado;
+    }
+
+    /**
+     * @return the competicao
+     */
+    public Competicao getCompeticao() {
+        return competicao;
+    }
+
+    /**
+     * @param competicao the competicao to set
+     */
+    public void setCompeticao(Competicao competicao) {
+        this.competicao = competicao;
     }
     
     

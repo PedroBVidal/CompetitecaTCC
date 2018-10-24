@@ -32,18 +32,21 @@
     dataInicioCompeticao = sdf.parse(sDataInicioCompeticao);
     dataTerminoCompeticao = sdf.parse(sDataTerminoCompeticao);
     
-    String msgErro = "As datas de início e termino da competição infromadas não conferem";
+    String msgErro = "Verifique as datas";
+    String msgSucesso = "Competição criada com sucesso";
     // COMPARA SE A DATA DE INICIO VEM ANTES DA DATA DE TERMINO
     if (dataInicioCompeticao.before(dataTerminoCompeticao)) {
                 Competicao competicao = new Competicao(0, nomeCompeticao,dataInicioCompeticao,dataTerminoCompeticao);
                 competicaoControle.cadastrarCompeticao(competicao);
-                response.sendRedirect("competicoes.jsp?e="+msgErro);
+                response.sendRedirect("competicoes.jsp?e="+ msgSucesso);
         }
     else{
         response.setCharacterEncoding("UTF-8");
         response.sendRedirect("formcadastrocompeticao.jsp?e="+msgErro);
         
-    }
+        }
+    
+            
     
     
 

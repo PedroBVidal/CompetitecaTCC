@@ -39,6 +39,7 @@
         <header>
             <jsp:include page="navbarUsuarioAdministrador.jsp" flush="true" />
         </header>
+        <div class="container">
             <%
                 request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("e") != null) {
@@ -57,7 +58,7 @@
             %>
         <h1 class="text-center">Nova competição</h1>
         
-        <div class="card">
+        <div class="card" style="margin: 50px;">
             <div class="card-header">
                 Cadastro de competição
             </div>
@@ -78,6 +79,7 @@
                     <button type="submit" class="btn btn-primary">Cadastrar</button>
                 </form>
             </div>
+        </div>
         </div>
         
         <!-- Bootstrap core JavaScript -->
