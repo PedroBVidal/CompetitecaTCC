@@ -25,7 +25,7 @@
     
     CompeticaoControle competicaoControle = new CompeticaoControle();
     
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
     Date dataInicioCompeticao, dataTerminoCompeticao;
     

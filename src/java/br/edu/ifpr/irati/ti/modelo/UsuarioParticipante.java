@@ -30,13 +30,13 @@ public class UsuarioParticipante implements Serializable {
     private String senha;
     
     @OneToMany
-    private List<Atleta> atletas;
+    private List<Competicao> competicoes;
 
     public UsuarioParticipante() {
         idUsuario = 0;
         email = "";
         senha = "";
-        atletas = new ArrayList<>();
+        competicoes = new ArrayList<>();
         nome = "";
     }
 
@@ -45,14 +45,14 @@ public class UsuarioParticipante implements Serializable {
         this.idUsuario = idUsuario;
         this.email = email;
         this.senha = senha;
-        this.atletas = new ArrayList<>();
+        this.competicoes = new ArrayList<>();
     }
 
-    public UsuarioParticipante(int idUsuario, String email, String senha, List<Atleta> atletas) {
+    public UsuarioParticipante(int idUsuario, String email, String senha, List<Competicao> competicoes) {
         this.idUsuario = idUsuario;
         this.email = email;
         this.senha = senha;
-        this.atletas = atletas;
+        this.competicoes = competicoes;
     }
 
     /**
@@ -98,17 +98,17 @@ public class UsuarioParticipante implements Serializable {
     }
 
     /**
-     * @return the atletas
+     * @return the competicoes
      */
-    public List<Atleta> getAtletas() {
-        return atletas;
+    public List<Competicao> getCompeticoes() {
+        return competicoes;
     }
 
     /**
-     * @param atletas the atletas to set
+     * @param competicoes the atletas to set
      */
-    public void setAtletas(List<Atleta> atletas) {
-        this.atletas = atletas;
+    public void setCompeticoes(List<Competicao> competicoes) {
+        this.competicoes = competicoes;
     }
 
     /**

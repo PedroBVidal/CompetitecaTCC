@@ -1,4 +1,3 @@
-
 package br.edu.ifpr.irati.ti.modelo;
 
 import java.io.Serializable;
@@ -7,87 +6,65 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.Proxy;
 
-
-@Entity(name="competicao")
+@Entity(name = "competicao")
 @Proxy(lazy = false)
 public class Competicao implements Serializable {
-    
+
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idCompeticao;
-    
-    @Column (name = "nome", nullable = false, length = 100)
+
+    @Column(name = "nome", nullable = false, length = 100)
     private String nome;
-    
     @OneToMany
-    private List<Atleta> atletas;
-    
+    private List<CompeticaoModalidadeColetiva> cmodalidadecole;
     @OneToMany
-    private List<Equipe> equipes;
-        
-    @OneToMany
-    private List<Confronto> confrontos;
-    
+    private List<CompeticaoModalidadeSolo> cmodalidadesolo;
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
-    
+
     @Temporal(TemporalType.DATE)
     private Date dataTermino;
 
     public Competicao() {
         idCompeticao = 0;
-        equipes = new ArrayList<>();
-        atletas = new ArrayList<>();
-        confrontos = new ArrayList<>();
+        cmodalidadecole = new ArrayList<>();
+        cmodalidadesolo = new ArrayList<>();
         dataInicio = new Date();
         dataTermino = new Date();
-        
+
     }
 
     public Competicao(int idCompeticao, String nome, Date dataInicio, Date dataTermino) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
-        this.equipes = new ArrayList<>();
-        this.atletas = new ArrayList<>();
-        this.confrontos = new ArrayList<>();
+        cmodalidadecole = new ArrayList<>();
+        cmodalidadesolo = new ArrayList<>();
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
     }
 
-    public Competicao(int idCompeticao, String nome, List<Equipe> equipes, List<Atleta> atletas, List<Confronto> confrontos, Date dataInicio, Date dataTermino) {
+    public Competicao(int idCompeticao, String nome, List<CompeticaoModalidadeSolo> cmodalidadesolo, List<CompeticaoModalidadeColetiva> cmodalidadecole, List<Confronto> confrontos, Date dataInicio, Date dataTermino) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
-        this.equipes = equipes;
-        this.atletas = atletas;
-        this.confrontos = confrontos;
+        this.cmodalidadesolo = cmodalidadesolo;
+        this.cmodalidadecole = cmodalidadecole;
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
     }
+
     
-    
-    public void adicionarConfronto(Confronto confronto){
-        this.confrontos.add(confronto);
-        
-        
-    }
-    
-    public void removerConfronto(Confronto confronto){
-        this.confrontos.remove(confronto);
-    }
-    
-    
-    public void adcionarLocal(Local local){
-        
+
+    public void adcionarLocal(Local local) {
+
     }
 
     /**
@@ -118,49 +95,7 @@ public class Competicao implements Serializable {
         this.nome = nome;
     }
 
-    /**
-     * @return the equipes
-     */
-    public List<Equipe> getEquipes() {
-        return equipes;
-    }
-
-    /**
-     * @param equipes the equipes to set
-     */
-    public void setEquipes(List<Equipe> equipes) {
-        this.equipes = equipes;
-    }
-
-    /**
-     * @return the atletas
-     */
-    public List<Atleta> getAtletas() {
-        return atletas;
-    }
-
-    /**
-     * @param atletas the atletas to set
-     */
-    public void setAtletas(List<Atleta> atletas) {
-        this.atletas = atletas;
-    }
-
-
-
-    /**
-     * @return the confrontos
-     */
-    public List<Confronto> getConfrontos() {
-        return confrontos;
-    }
-
-    /**
-     * @param confrontos the confrontos to set
-     */
-    public void setConfrontos(List<Confronto> confrontos) {
-        this.confrontos = confrontos;
-    }
+    
 
     /**
      * @return the dataInicio
@@ -189,10 +124,33 @@ public class Competicao implements Serializable {
     public void setDataTermino(Date dataTermino) {
         this.dataTermino = dataTermino;
     }
-    
-    
-    
-    
-    
-    
+
+    /**
+     * @return the cmodalidadecole
+     */
+    public List<CompeticaoModalidadeColetiva> getCmodalidadecole() {
+        return cmodalidadecole;
+    }
+
+    /**
+     * @param cmodalidadecole the cmodalidadecole to set
+     */
+    public void setCmodalidadecole(List<CompeticaoModalidadeColetiva> cmodalidadecole) {
+        this.cmodalidadecole = cmodalidadecole;
+    }
+
+    /**
+     * @return the cmodalidadesolo
+     */
+    public List<CompeticaoModalidadeSolo> getCmodalidadesolo() {
+        return cmodalidadesolo;
+    }
+
+    /**
+     * @param cmodalidadesolo the cmodalidadesolo to set
+     */
+    public void setCmodalidadesolo(List<CompeticaoModalidadeSolo> cmodalidadesolo) {
+        this.cmodalidadesolo = cmodalidadesolo;
+    }
+
 }

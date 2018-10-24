@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-import static org.eclipse.jdt.internal.compiler.parser.Parser.name;
 import org.hibernate.annotations.Proxy;
 
 @Entity(name = "competicaomodalidadesolo")

@@ -39,6 +39,7 @@
         <header>
             <jsp:include page="navbarUsuarioAdministrador.jsp" flush="true" />
         </header>
+        <div class="container">
             <%
                 request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("e") != null) {
@@ -69,21 +70,25 @@
                     </div>
                     <div class="form-group">
                         <label>Data de início da competição:</label>
-                        <input type="date" class="form-control" name="dataInicioCompeticao">
+                        <input type="text" class="naozeibeu form-control" name="dataInicioCompeticao">
                     </div>
                     <div class="form-group">
                         <label> Data de término da competição:</label>
-                        <input type="date" class="form-control" name="dataTerminoCompeticao">
+                        <input type="text" class="naozeibeu form-control" name="dataTerminoCompeticao">
                     </div>
                     <button type="submit" class="btn btn-primary">Cadastrar</button>
                 </form>
             </div>
         </div>
-        
+        </div>
         <!-- Bootstrap core JavaScript -->
     
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
+        <script>
+            $('.naozeibeu').mask('00/00/0000', {reverse: true});
+        </script>
         <%
             
         }

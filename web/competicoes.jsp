@@ -51,7 +51,7 @@
             <!-- Page Heading/Breadcrumbs -->
             <h1 class="mt-4 mb-3 text-center">Competições em gerenciamento    
             </h1>
-            <p class="text-center"><a href="formcadastrocompeticao.jsp" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Nova competição</a></p>
+            <p class="text-center"><a href="criarcompeticao.jsp" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Nova competição</a></p>
             
 
             
