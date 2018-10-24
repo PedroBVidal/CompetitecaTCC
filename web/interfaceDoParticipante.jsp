@@ -37,7 +37,7 @@
         </header>
         
         
-        <h1>Interface do particpante</h1>
+        <h1>Interface do particpante ALTERADO</h1>
     </body>
     
     <script src="vendor/jquery/jquery.min.js"></script>
