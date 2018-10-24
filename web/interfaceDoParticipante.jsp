@@ -35,7 +35,7 @@
            } else if (usuario instanceof UsuarioParticipante2) {
 
            UsuarioParticipante2 up = (UsuarioParticipante2) usuario;
-        
+           
         %>
         
         <header>
@@ -51,6 +51,7 @@
 
             <div class="row">
            <%
+               
             List<Atleta> atletas = up.getAtletas();
             List<Competicao> competicoes = new ArrayList<>();
             
@@ -60,6 +61,7 @@
             
             
             for(Competicao competicao : competicoes){
+            */
            %>
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">
@@ -67,13 +69,13 @@
                         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#"><%=competicao.getNome()%></a>
+                                <a href="#"></a>
                             </h4>
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
                         </div>
                     </div>
                 </div>
-                <%}%>
+                
 
             </div>
         </div>

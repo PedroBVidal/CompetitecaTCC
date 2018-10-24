@@ -37,7 +37,7 @@
                                 Olá,&nbsp;<%=up.getNome()%>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                                <a class="dropdown-item" href="scripts/ctrlacessoParticipante.jsp?c=1">Sair</a>
+                                <a class="dropdown-item" href="scripts/ctrlacesso.jsp?c=1">Sair</a>
                                 <a class="dropdown-item" href="editaUsuarioParticipante.jsp?c=<%=up.getIdUsuario()%>">Editar Perfil</a>
                             </div>
                         </li>
