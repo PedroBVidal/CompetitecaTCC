@@ -4,6 +4,12 @@
     Author     : Usuário
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -36,8 +42,42 @@
             <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
         </header>
         
+        <div class="container">
         
-        <h1>Interface do particpante ALTERADO</h1>
+        
+        
+        <!-- Portfolio Section -->
+            <h2>Competições que você participa: </h2>
+
+            <div class="row">
+           <%
+            List<Atleta> atletas = up.getAtletas();
+            List<Competicao> competicoes = new ArrayList<>();
+            
+            for(Atleta a: atletas){
+                competicoes.add(a.getCompeticao());
+            }
+            
+            
+            for(Competicao competicao : competicoes){
+           %>
+
+                <div class="col-lg-4 col-sm-6 portfolio-item">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#"><%=competicao.getNome()%></a>
+                            </h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+                        </div>
+                    </div>
+                </div>
+                <%}%>
+
+            </div>
+        </div>
+        
     </body>
     
     <script src="vendor/jquery/jquery.min.js"></script>

@@ -58,7 +58,7 @@
             %>
         <h1 class="text-center">Nova competição</h1>
         
-        <div class="card">
+        <div class="card" style="margin: 50px;">
             <div class="card-header">
                 Cadastro de competição
             </div>
@@ -81,6 +81,7 @@
             </div>
         </div>
         </div>
+        
         <!-- Bootstrap core JavaScript -->
     
         <script src="vendor/jquery/jquery.min.js"></script>
