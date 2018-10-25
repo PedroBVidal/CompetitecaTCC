@@ -31,16 +31,6 @@
 
     <body>
         
-        <%
-           Object usuario = session.getAttribute("usuario");
-           if (usuario == null) {
-        %>
-            <>
-           } else if (usuario instanceof UsuarioParticipante2) {
-
-           UsuarioParticipante2 up = (UsuarioParticipante2) usuario;
-        
-        %>
         
         
 

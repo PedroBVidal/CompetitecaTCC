@@ -1,10 +1,16 @@
+
 <%-- 
     Document   : index.jsp
     Created on : 01/10/2018, 09:16:10
     Author     : Usuário
 --%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
-<%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
+
+
+<%@page import="br.edu.ifpr.irati.ti.modelo.ModalidadeSolo"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.ModalidadeSoloControle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.AtletaControle"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -30,10 +36,24 @@
     </head>
 
     <body>
+        <script>
+            
 
-        <!-- Navigation -->
+            function validatePassword() {
+                var password = document.getElementById("password")
+                    , confirm_password = document.getElementById("confirm_password");
+                if (password.value != confirm_password.value) {
+                    confirm_password.setCustomValidity("As senhas não coincidem!");
+                } else {
+                    confirm_password.setCustomValidity('');
+                }
+            }
+
+           // password.onchange = validatePassword;
+            // confirm_password.onkeyup = validatePassword;
+        </script>
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top">
-            <div class="container ">
+            <div class="container">
                 <a class="navbar-brand" href="index.jsp">Competiteca</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -47,7 +67,7 @@
                             <a class="nav-link" href="services.html"><i class="fas fa-trophy"></i>&nbsp;Competições</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</a>
+                            <a class="nav-link" href="login.jsp"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -91,70 +111,96 @@
         <header>
 
         </header>
-
+        <% if(request.getParameter("p").equals("1")){%>
         <!-- Page Content -->
         <div class="container">
-            <%
-                request.setCharacterEncoding("UTF-8");
-            if(request.getParameter("e") != null){
-                String erro = request.getParameter("e");
-            %>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong><%=erro%></strong> .
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="col-12">
+                <br><h1 class="text-center">Qual é a sua intenção em nosso site?</h1><br>
+
+                <a href="signup.jsp?p=2"><button class="col-12 btn-lg btn-primary">Quero encontrar competições para eu ou minha equipe participar</button></a><br><br>
+                <a href="signup.jsp?p=3"><button  class="col-12 btn-lg btn-success">Quero ofertar competições</button></a>
+
             </div>
+        </div>
+        <%}
+        if(request.getParameter("p").equals("2")){
+        %>
+        <div class="container">
+            <h1 class="my-4">Cadastro para Participantes</h1>
 
-            <%
-            }
-            %>
-            <h1 class="my-4">Seja Bem-Vindo a Competiteca</h1>
 
-            <!-- Marketing Icons Section -->
-            <div class="row">
-                <div class="col">
-                    <div class="card h-100">
-                        <h4 class="card-header">Entre</h4>
-                        <div class="card-body">
-                            <form action="scripts/ctrlacesso.jsp" method="POST" class="col">
+            <form action="scripts/scriptuserParticipante.jsp" method="POST" class="col">
+                <input type="hidden" name="op" value="1">
 
-                                <label for="" class="col-md-12">
-                                    E-mail:
-                                    <input type="email" required class="form-control" name="email" placeholder="Informe seu e-mail">
-                                </label>
-                                <label for="" class="col-md-12">
-                                    Senha:
-                                    <input type="password" required class="form-control" name="senha" placeholder="Insira sua senha">
-                                </label>
-                                <label for="" class="col-md-12">
-                                    Tipo de Usuário:
-                                    <select name="tipo" class="form-control">
-                                        <option value="2">Participante</option>
-                                        <option value="1">Administrador</option>
-                                    </select>
-                                </label>
 
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-success">Entrar</button>&nbsp;&nbsp;<a href="signup.jsp?p=1">Não possui uma conta ainda? Cadastre-se aqui</a>
-                               
-                        </div>
-                        </form> 
+                 <input type="hidden" name="c" value="1">
+                <input type="hidden" name="id" value="0">
+
+                <label for="" class="col-md-12">
+                    Nome:
+                    <input type="text" required class="form-control" name="nome" placeholder="Informe o seu nome" >
+                </label>
+                <label for="" class="col-md-12">
+                    Email:
+                    <input type="text" required class="form-control" name="email" placeholder="Insira o seu email" >
+                </label>
+                <label for="" class="col-md-12">
+                    Senha:
+                    <input type="password" required class="form-control" id="password" name="senha" placeholder="Insira a sua senha">
+                    Confirme a Senha:
+                    <input onkeyup="validatePassword()" type="password" required class="form-control" id="confirm_password" placeholder="Confirme a sua senha">
+                    <div class="invalid-feedback">
+
                     </div>
-                </div>
+                </label>
 
 
-                <!-- Bootstrap core JavaScript -->
-                <script src="vendor/jquery/jquery.min.js"></script>
-                <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                <script>
-                    
-                    function mudarAction(){
-                    $("#frm").attr("action","scripts/ctrlacessoParticipante.jsp");
-                    }
-                    
-                </script>
-                </body>
+                <button type="submit" class="btn btn-success">Enviar</button>
 
-                </html>
+
+            </form> 
+        </div>
+        <%}
+        if(request.getParameter("p").equals("3")){
+        %>
+        <div class="container">
+            <h1 class="my-4">Cadastro para Administradores</h1>
+
+
+            <form action="scripts/scriptuserAdministrador.jsp" method="POST" class="col" validate>
+                <input type="hidden" name="c" value="1">
+                <input type="hidden" name="id" value="0">
+
+                <label for="" class="col-md-12">
+                    Nome:
+                    <input type="text" required class="form-control" name="nome" placeholder="Informe o seu nome" >
+                </label>
+                <label for="" class="col-md-12">
+                    Email:
+                    <input type="text" required class="form-control" name="email" placeholder="Insira o seu email" >
+                </label>
+                <label for="" class="col-md-12">
+                    Senha:
+                    <input type="password" required class="form-control" id="password" name="senha" placeholder="Insira a sua senha">
+                    Confirme a Senha:
+                    <input onkeyup="validatePassword()" type="password" required class="form-control" id="confirm_password" placeholder="Confirme a sua senha">
+                    <div class="invalid-feedback">
+
+                    </div>
+                </label>
+
+
+                <button type="submit" class="btn btn-success">Enviar</button>
+
+
+            </form> 
+        </div>
+        <%}%>
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    </body>
+
+</html>
+

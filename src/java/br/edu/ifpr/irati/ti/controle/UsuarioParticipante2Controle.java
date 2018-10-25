@@ -26,6 +26,9 @@ public class UsuarioParticipante2Controle {
     public void atualizarCad(UsuarioParticipante2 user) {
         usuarioParticipanteDAO.alterar(user);
     }
+    public void criar(UsuarioParticipante2 user) {
+        usuarioParticipanteDAO.salvar(user);
+    }
     
     
 

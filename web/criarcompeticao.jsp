@@ -6,7 +6,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -79,6 +79,7 @@
                     <form action="scripts/cadastrarcompeticao.jsp" method="POST" class="col">
                         <input type="hidden" name="op" value="1">
                         <input type="hidden" name="id" value="0">
+                        <input type="hidden" name="iduser" value="<%=up.getIdUsuario()%>">
 
                         <div class="form-group">
                             <label>Nome da competição:</label>

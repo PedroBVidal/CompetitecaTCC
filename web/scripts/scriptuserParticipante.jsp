@@ -23,6 +23,10 @@
        session.setAttribute("usuario",usp);
        response.sendRedirect("../interfaceDoParticipante.jsp");
        
+    }if(cmd == 1){
+        UsuarioParticipante2Controle uspc = new UsuarioParticipante2Controle();
+        uspc.criar(usp);
+        response.sendRedirect("../login.jsp?e=Cadastro efetuado, agora entre com o tipo Participante");
     }
 
 %>

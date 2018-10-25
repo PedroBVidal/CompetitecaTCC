@@ -8,6 +8,7 @@
 --%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipanteControle"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -45,46 +46,54 @@
             <jsp:include page="navbarUsuarioAdministrador.jsp" flush="true" />
         </header>
 
-        <!-- Page Content -->
         <div class="container">
+            <%
+                request.setCharacterEncoding("UTF-8");
+            if(request.getParameter("msg") != null){
+                String mensagem = request.getParameter("msg");
+                String cor = request.getParameter("color");
+            %>
+            <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
+                <strong><%=mensagem%></strong> .
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-            <!-- Page Heading/Breadcrumbs -->
-            <h1 class="mt-4 mb-3 text-center">Competições em gerenciamento    
-            </h1>
-            <p class="text-center"><a href="criarcompeticao.jsp" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Nova competição</a></p>
-            
+            <%
+            }
+            %>
+            <h1 class="my-4">Minhas Competições</h1>
+            <div class="row">
+                <%
+                UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
+                UsuarioParticipante upp = upc.buscarPorId(up.getIdUsuario());
+                for(Competicao cptc : upp.getCompeticoes()){
+                %>
 
-            
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <a href="#">
-                                <img class="img-fluid rounded" src="http://placehold.it/750x300" alt="">
-                            </a>
-                        </div>
-                        <div class="col-lg-6">
-                            <h2 class="card-title">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                            <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                <div class="col-lg-4 col-sm-6 portfolio-item">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#"><%=cptc.getNome()%></a>
+                            </h4>
+                            <p class="card-text"><b>Data de Início:</b></p>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer text-muted">
-                    Posted on January 1, 2017 by
-                    <a href="#">Start Bootstrap</a>
-                </div>
+                <%}%>
             </div>
-
-
-
+            <a href="criarcompeticao.jsp" class="btn btn-success">
+                <!-- Adicionar icone -->
+                <i class="fas fa-plus"></i>&nbsp;Novo Competição
+            </a>
 
         </div>
 
-    </div>
 
         <!-- Bootstrap core JavaScript -->
-    
+
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <%

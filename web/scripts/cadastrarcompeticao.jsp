@@ -3,7 +3,8 @@
     Created on : 23/10/2018, 17:39:55
     Author     : Usuário
 --%>
-
+<%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipanteControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -24,9 +25,9 @@
     */
     
     CompeticaoControle competicaoControle = new CompeticaoControle();
-    
+    UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    
+    UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
     Date dataInicioCompeticao, dataTerminoCompeticao;
     
     dataInicioCompeticao = sdf.parse(sDataInicioCompeticao);
@@ -37,11 +38,13 @@
     if (dataInicioCompeticao.before(dataTerminoCompeticao)) {
                 Competicao competicao = new Competicao(0, nomeCompeticao,dataInicioCompeticao,dataTerminoCompeticao);
                 competicaoControle.cadastrarCompeticao(competicao);
-                response.sendRedirect("competicoes.jsp?e="+msgErro);
+                up.adicionarCompeticao(competicao);
+                upc.atualizarCad(up);
+                response.sendRedirect("../competicoes.jsp?msg=Competicao criada com sucesso&color=success");
         }
     else{
         response.setCharacterEncoding("UTF-8");
-        response.sendRedirect("formcadastrocompeticao.jsp?e="+msgErro);
+        response.sendRedirect("../criarcompeticao.jsp?msg="+msgErro+"&color=danger");
         
     }
     

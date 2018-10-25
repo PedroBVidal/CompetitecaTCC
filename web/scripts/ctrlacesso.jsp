@@ -37,7 +37,7 @@ if(request.getParameter("tipo").equals("1")){
         //response.sendRedirect("../login.jsp?e=Sessão Finalizada com Sucesso");
     }
     }
-}else{
+}else if(request.getParameter("tipo").equals("2")){
     UsuarioParticipante2Controle usuarioParticpanteControle = new UsuarioParticipante2Controle();
     
     try {

@@ -15,8 +15,12 @@ import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
  */
 public class UsuarioParticipanteControle {
     Dao<UsuarioParticipante> uspd = new GenericDAO<>(UsuarioParticipante.class);
-    
-    
+    public void criar(UsuarioParticipante up){
+        uspd.salvar(up);
+    }
+    public UsuarioParticipante buscarPorId(int id){
+        return uspd.buscarPorId(id);
+    }
     public UsuarioParticipante buscarLogin(String email, String senha) throws Exception{
         UsuarioParticipante uspdc = uspd.buscarLogin(email, senha);
         if (uspdc == null) {

@@ -22,5 +22,10 @@
        response.sendRedirect("../gerenciamento.jsp");
        
     }
+    if(cmd == 1){
+        UsuarioParticipanteControle uspc = new UsuarioParticipanteControle();
+        uspc.criar(usp);
+        response.sendRedirect("../login.jsp?e=Cadastro efetuado, agora entre com o tipo Administrador");
+    }
 
 %>
