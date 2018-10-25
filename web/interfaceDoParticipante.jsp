@@ -52,7 +52,7 @@
             <div class="row">
            <%
                
-            List<Atleta> atletas = up.getAtletas();
+            /*List<Atleta> atletas = up.getAtletas();
             List<Competicao> competicoes = new ArrayList<>();
             
             for(Atleta a: atletas){
