@@ -29,5 +29,9 @@ public class CompeticaoControle {
     public void cadastrarCompeticao(Competicao competicao){
         competicaoDAO.salvar(competicao);
     }
+    public void eliminarCompeticao(int id){
+        Competicao cp = buscarCompeticaoPorId(id);
+        competicaoDAO.excluir(cp);
+    }
     
 }
