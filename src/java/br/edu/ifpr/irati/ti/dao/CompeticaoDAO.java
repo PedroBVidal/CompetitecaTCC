@@ -58,5 +58,15 @@ public class CompeticaoDAO {
         return competicao;
     }
     
+        public List<Competicao> buscarPorParteNome(String str){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from competicao c where c.nome LIKE '%"+ str +"%'";
+        Query query = session.createQuery(hql);
+        List results = query.list();
+        session.clear();
+        session.close();
+        return results;
+    }
+    
     
 }

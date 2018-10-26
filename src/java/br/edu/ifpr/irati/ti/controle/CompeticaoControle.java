@@ -5,6 +5,7 @@
  */
 package br.edu.ifpr.irati.ti.controle;
 
+import br.edu.ifpr.irati.ti.dao.CompeticaoDAO;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.modelo.Competicao;
@@ -15,19 +16,25 @@ import java.util.List;
  * @author Aluno
  */
 public class CompeticaoControle {
-    Dao<Competicao> competicaoDAO = new GenericDAO<>(Competicao.class);
+    Dao<Competicao> competicaoDAOGeneric = new GenericDAO<>(Competicao.class);
+    CompeticaoDAO competicaoDAO = new CompeticaoDAO();
+    
     
     public List<Competicao> buscarTodasCompeticoes(){
-        List<Competicao> cptc = competicaoDAO.buscarTodos(Competicao.class);
+        List<Competicao> cptc = competicaoDAOGeneric.buscarTodos(Competicao.class);
         return cptc;
     }
     public Competicao buscarCompeticaoPorId(int id){
-        Competicao cptc = competicaoDAO.buscarPorId(id);
+        Competicao cptc = competicaoDAOGeneric.buscarPorId(id);
         return cptc;
     }
     
     public void cadastrarCompeticao(Competicao competicao){
-        competicaoDAO.salvar(competicao);
+        competicaoDAOGeneric.salvar(competicao);
+    }
+    
+    public List<Competicao> buscarCompeticaoPorParteNome(String str){
+        return competicaoDAO.buscarPorParteNome(str);
     }
     
 }

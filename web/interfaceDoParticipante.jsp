@@ -51,8 +51,8 @@
 
             <div class="row">
            <%
-            /*   
-            List<Atleta> atletas = up.getAtletas();
+               
+            /*List<Atleta> atletas = up.getAtletas();
             List<Competicao> competicoes = new ArrayList<>();
             
             for(Atleta a: atletas){
@@ -61,7 +61,7 @@
             
             
             for(Competicao competicao : competicoes){
-            */   
+            */
            %>
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">

@@ -15,7 +15,7 @@
     int cmd = Integer.parseInt(request.getParameter("c"));
     int id = Integer.parseInt(request.getParameter("id"));
     
-    UsuarioParticipante2 usp = new UsuarioParticipante2(id,nome,email,senha);
+    UsuarioParticipante2 usp = new UsuarioParticipante2(id,email,nome,senha);
     if(cmd == 2){
        UsuarioParticipante2Controle uspc = new UsuarioParticipante2Controle();
        uspc.atualizarCad(usp);
