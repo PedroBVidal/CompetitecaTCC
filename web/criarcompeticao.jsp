@@ -77,7 +77,7 @@
                     }
                     %>
                     <form action="scripts/cadastrarcompeticao.jsp" method="POST" class="col">
-                        <input type="hidden" name="op" value="1">
+                        <input type="hidden" name="op" value="2">
                         <input type="hidden" name="id" value="0">
                         <input type="hidden" name="iduser" value="<%=up.getIdUsuario()%>">
 

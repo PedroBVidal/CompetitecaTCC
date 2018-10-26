@@ -10,6 +10,7 @@
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipanteControle"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -66,6 +67,7 @@
             <h1 class="my-4">Minhas Competições</h1>
             <div class="row">
                 <%
+                SimpleDateFormat formate = new SimpleDateFormat("dd/MM/yyyy");
                 UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
                 UsuarioParticipante upp = upc.buscarPorId(up.getIdUsuario());
                 for(Competicao cptc : upp.getCompeticoes()){
@@ -78,7 +80,9 @@
                             <h4 class="card-title">
                                 <a href="#"><%=cptc.getNome()%></a>
                             </h4>
-                            <p class="card-text"><b>Data de Início:</b></p>
+                            <p class="card-text"><b>Data de Início:</b><%=formate.format(cptc.getDataInicio())%></p>
+                            <p class="card-text"><b>Data de Encerramento:</b><%=formate.format(cptc.getDataTermino())%></p>
+                            <a href="scripts/cadastrarcompeticao.jsp?op=1&id=<%=cptc.getIdCompeticao()%>"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>&nbsp;<button class="btn btn-success">Gerenciar Competição</button></a>
                         </div>
                     </div>
                 </div>

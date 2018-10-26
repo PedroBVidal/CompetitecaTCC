@@ -12,9 +12,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     request.setCharacterEncoding("UTF-8");
+    CompeticaoControle competicaoControle = new CompeticaoControle();
     
-    
-    
+    if(request.getParameter("op").equals("1")){
+        int id = Integer.parseInt(request.getParameter("id"));
+        competicaoControle.eliminarCompeticao(id);
+        response.sendRedirect("../competicoes.jsp?msg=Competicao apagada com sucesso&color=warning");
+        
+    }else if(request.getParameter("op").equals("2")){
     String nomeCompeticao = request.getParameter("nomeCompeticao");
     String sDataInicioCompeticao = request.getParameter("dataInicioCompeticao");
     String sDataTerminoCompeticao = request.getParameter("dataTerminoCompeticao");
@@ -24,7 +29,7 @@
     System.out.println(sDataTerminoCompeticao);
     */
     
-    CompeticaoControle competicaoControle = new CompeticaoControle();
+    
     UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
@@ -46,6 +51,7 @@
         response.setCharacterEncoding("UTF-8");
         response.sendRedirect("../criarcompeticao.jsp?msg="+msgErro+"&color=danger");
         
+    }
     }
     
     
