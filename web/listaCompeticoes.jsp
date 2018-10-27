@@ -4,6 +4,8 @@
     Author     : Usuário
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
@@ -39,6 +41,8 @@
             if (up == null) {
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             } else {
+                
+                boolean busca = false;
         %>
 
         <header>
@@ -74,19 +78,24 @@
                 
             
                 
-                <form class="form-inline col" style="margin-bottom: 10px;" action="scripts/buscarCompeticoes.jsp" method="POST">
+                <form class="form-inline col" style="margin-bottom: 10px;" action="<%= busca = true%>" method="POST">
                     <p class="my-4 fontOverpass col-3">Pesquisar competição:</p>
-                    <input class="form-control col-7" type="search"aria-label="Search" >
+                    <input class="form-control col-7" type="search"aria-label="Search" name="nomeCompeticao">
                     <button class="btn btn-outline-success col-2" type="submit">Search</button>
                 </form>
                 
             <div class="card-group">
 
             <%
-                
+                List<Competicao> competicoes = new ArrayList<>();
                 CompeticaoControle competicaoControle = new CompeticaoControle();
+
+                    competicoes = competicaoControle.buscarTodasCompeticoes();
+
                 
-                for(Competicao competicao : competicaoControle.buscarTodasCompeticoes()){
+                
+                
+                for(Competicao competicao : competicoes){
                     
                 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -99,14 +108,14 @@
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <a href="inscricaoCompeticao?id=<%=competicao.getIdCompeticao()%>"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
                                 <p class="fontOverpass"><a href="#"><%=competicao.getNome()%></a></p>
                             </h4>
                                 <p class="card-text fontOverpass"><b>Data de Início:</b><span style="margin-left: 5px;"><%=dataInicio%></span></p>
                                 <p class="card-text fontOverpass"><b>Data de Termino:</b><span style="margin-left: 5px;"><%=dataTermino%></span></p>
-                                <p class="fontOverpass"><a class="btn btn-success" href="#" role="button">Realizar inscrição</a><p>
+                                <p class="fontOverpass"><a class="btn btn-success" href="forminscricaocompeticao.jsp?id=<%=competicao.getIdCompeticao()%>" role="button">Realizar inscrição</a><p>
                         </div>
                     </div>
                 </div>
