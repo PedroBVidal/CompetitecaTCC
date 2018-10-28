@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
@@ -25,9 +27,16 @@ public class ModalidadeColetiva implements Serializable {
     @Column(name="nome", nullable = false)
     private String nome;
     
+    /*
     @OneToMany //(mappedBy = "modalidade")
     private List<Equipe> equipes;
-     
+    */
+    
+    @ManyToMany(mappedBy = "modalidadesColetivas", fetch=FetchType.EAGER)
+    private List<Competicao> competicoes;
+    
+    
+    
     // FICAR DE OLHO
     //@OneToOne
     //private CompeticaoModalidadeColetiva competicaoModalidadeColetiva;
@@ -35,32 +44,38 @@ public class ModalidadeColetiva implements Serializable {
     public ModalidadeColetiva() {
         idModColetiva = 0;
         nome = "";
-        equipes = new ArrayList<>();
+        //equipes = new ArrayList<>();
+        competicoes = new ArrayList<>();
        // competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva();
     }
 
     public ModalidadeColetiva(int idModColetiva, String nome) {
         this.idModColetiva = idModColetiva;
         this.nome = nome;
-        this.equipes = new ArrayList<>();
+        //this.equipes = new ArrayList<>();
+        competicoes = new ArrayList<>();
         //competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva();
     }
 
-    public ModalidadeColetiva(int idModColetiva, String nome, List<Equipe> equipes, CompeticaoModalidadeColetiva competicaoModalidadeColetiva) {
+    public ModalidadeColetiva(int idModColetiva, String nome,List<Competicao> competicoes) {
         this.idModColetiva = idModColetiva;
         this.nome = nome;
-        this.equipes = equipes;
-        //this.competicaoModalidadeColetiva = competicaoModalidadeColetiva;
+        //this.equipes = equipes;
+        this.competicoes = competicoes;
     }
+
     
     
+    /*
     public void adicionarEquipe(Equipe equipe){
         this.getEquipes().add(equipe);
     }
     public void removerEquipe(Equipe equipe){
         this.getEquipes().remove(equipe);
     }
-
+    */
+    
+    
     /**
      * @return the idModColetiva
      */
@@ -88,19 +103,20 @@ public class ModalidadeColetiva implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+    
+    
     /**
-     * @return the equipes
+     * @return the competicoes
      */
-    public List<Equipe> getEquipes() {
-        return equipes;
+    public List<Competicao> getCompeticoes() {
+        return competicoes;
     }
 
     /**
-     * @param equipes the equipes to set
+     * @param competicoes the competicoes to set
      */
-    public void setEquipes(List<Equipe> equipes) {
-        this.equipes = equipes;
+    public void setCompeticoes(List<Competicao> competicoes) {
+        this.competicoes = competicoes;
     }
 
     /**

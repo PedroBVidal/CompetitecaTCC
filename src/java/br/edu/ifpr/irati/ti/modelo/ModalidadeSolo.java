@@ -25,8 +25,12 @@ public class ModalidadeSolo implements Serializable {
     @Column (name = "nome", nullable = false, length = 100)
     private String nome;
     
-    @ManyToMany(mappedBy = "modalidadesSolo" , fetch=FetchType.EAGER)
+    /*@ManyToMany(mappedBy = "modalidadesSolo" , fetch=FetchType.EAGER)
     private List<Atleta> atletas;
+    */
+    
+    @ManyToMany(mappedBy = "modalidadesSolo", fetch=FetchType.EAGER)
+    private List<Competicao> competicoes;
     
     // FICAR DE OLHO
     //@Transient
@@ -37,25 +41,28 @@ public class ModalidadeSolo implements Serializable {
     public ModalidadeSolo() {
         idModalidadeSolo = 0;
         nome = "";
-        atletas = new ArrayList<>();
+        //atletas = new ArrayList<>();
+        competicoes = new ArrayList<>();
         //competicaoModalidadeSolo = new CompeticaoModalidadeSolo();
     }
 
     public ModalidadeSolo(int idModalidadeSolo, String nome) {
         this.idModalidadeSolo = idModalidadeSolo;
         this.nome = nome;
-        this.atletas = new ArrayList<>();
+        //this.atletas = new ArrayList<>();
+        competicoes = new ArrayList<>();
         //this.competicaoModalidadeSolo = new CompeticaoModalidadeSolo();
     }
 
-    public ModalidadeSolo(int idModalidadeSolo, String nome, List<Atleta> atletas/*, CompeticaoModalidadeSolo competicaoModalidadeSolo*/) {
+    public ModalidadeSolo(int idModalidadeSolo, String nome,List<Competicao> competicoes) {
         this.idModalidadeSolo = idModalidadeSolo;
         this.nome = nome;
-        this.atletas = atletas;
-        //this.competicaoModalidadeSolo = competicaoModalidadeSolo;
+        //this.atletas = atletas;
+        this.competicoes = competicoes;
     }
+
     
-    
+    /*
     public void adicionarAtleta(Atleta atleta){
         
         this.atletas.add(atleta);
@@ -65,7 +72,8 @@ public class ModalidadeSolo implements Serializable {
         
         this.atletas.remove(atleta);
     }
-
+    */
+    
     /**
      * @return the idModalidadeSolo
      */
@@ -94,18 +102,20 @@ public class ModalidadeSolo implements Serializable {
         this.nome = nome;
     }
 
+
+
     /**
-     * @return the atletas
+     * @return the competicoes
      */
-    public List<Atleta> getAtletas() {
-        return atletas;
+    public List<Competicao> getCompeticoes() {
+        return competicoes;
     }
 
     /**
-     * @param atletas the atletas to set
+     * @param competicoes the competicoes to set
      */
-    public void setAtletas(List<Atleta> atletas) {
-        this.atletas = atletas;
+    public void setCompeticoes(List<Competicao> competicoes) {
+        this.competicoes = competicoes;
     }
 
     /**

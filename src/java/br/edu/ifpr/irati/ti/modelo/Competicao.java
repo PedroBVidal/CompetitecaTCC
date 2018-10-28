@@ -6,9 +6,11 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,10 +26,21 @@ public class Competicao implements Serializable {
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
+    
+    @ManyToMany()
+    private List<ModalidadeSolo> modalidadesSolo;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<ModalidadeColetiva> modalidadesColetivas;
+    
     @OneToMany
     private List<CompeticaoModalidadeColetiva> cmodalidadecole;
+    
+    
     @OneToMany
     private List<CompeticaoModalidadeSolo> cmodalidadesolo;
+    
+    
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
 
@@ -36,11 +49,12 @@ public class Competicao implements Serializable {
 
     public Competicao() {
         idCompeticao = 0;
+        modalidadesColetivas = new ArrayList<>();
+        modalidadesSolo = new ArrayList<>();
         cmodalidadecole = new ArrayList<>();
         cmodalidadesolo = new ArrayList<>();
         dataInicio = new Date();
         dataTermino = new Date();
-
     }
 
     public Competicao(int idCompeticao, String nome, Date dataInicio, Date dataTermino) {
@@ -48,18 +62,24 @@ public class Competicao implements Serializable {
         this.nome = nome;
         cmodalidadecole = new ArrayList<>();
         cmodalidadesolo = new ArrayList<>();
+        modalidadesSolo = new ArrayList<>();
+        modalidadesColetivas = new ArrayList<>();
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
     }
 
-    public Competicao(int idCompeticao, String nome, List<CompeticaoModalidadeSolo> cmodalidadesolo, List<CompeticaoModalidadeColetiva> cmodalidadecole, List<Confronto> confrontos, Date dataInicio, Date dataTermino) {
+    public Competicao(int idCompeticao, String nome, List<ModalidadeSolo> modalidadesSolo, List<ModalidadeColetiva> modalidadesColetivas, List<CompeticaoModalidadeColetiva> cmodalidadecole, List<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
-        this.cmodalidadesolo = cmodalidadesolo;
+        this.modalidadesSolo = modalidadesSolo;
+        this.modalidadesColetivas = modalidadesColetivas;
         this.cmodalidadecole = cmodalidadecole;
+        this.cmodalidadesolo = cmodalidadesolo;
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
     }
+
+    
 
     
 
@@ -152,5 +172,35 @@ public class Competicao implements Serializable {
     public void setCmodalidadesolo(List<CompeticaoModalidadeSolo> cmodalidadesolo) {
         this.cmodalidadesolo = cmodalidadesolo;
     }
+
+    /**
+     * @return the modalidadesSolo
+     */
+    public List<ModalidadeSolo> getModalidadesSolo() {
+        return modalidadesSolo;
+    }
+
+    /**
+     * @param modalidadesSolo the modalidadesSolo to set
+     */
+    public void setModalidadesSolo(List<ModalidadeSolo> modalidadesSolo) {
+        this.modalidadesSolo = modalidadesSolo;
+    }
+
+    /**
+     * @return the modalidadesColetivas
+     */
+    public List<ModalidadeColetiva> getModalidadesColetivas() {
+        return modalidadesColetivas;
+    }
+
+    /**
+     * @param modalidadesColetivas the modalidadesColetivas to set
+     */
+    public void setModalidadesColetivas(List<ModalidadeColetiva> modalidadesColetivas) {
+        this.modalidadesColetivas = modalidadesColetivas;
+    }
+    
+    
 
 }

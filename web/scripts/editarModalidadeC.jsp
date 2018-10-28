@@ -8,11 +8,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("UTF-8");
+
 String nome = request.getParameter("nome");
-int id = Integer.parseInt(request.getParameter("id"));
+//int id = Integer.parseInt(request.getParameter("id"));
+
 int op = Integer.parseInt(request.getParameter("op"));
+
 ModalidadeColetivaControle mcc = new ModalidadeColetivaControle();
-ModalidadeColetiva mc = new ModalidadeColetiva(id,nome);
+
+//ModalidadeColetiva mc = new ModalidadeColetiva(id,nome);
 if(op == 1){
     try{
         mcc.salvaModalidadeColetiva(mc);
