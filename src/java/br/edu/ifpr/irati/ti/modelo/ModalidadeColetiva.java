@@ -64,7 +64,15 @@ public class ModalidadeColetiva implements Serializable {
         this.competicoes = competicoes;
     }
 
-    
+    public void adicionarCompeticao(Competicao competicao) {
+
+        this.competicoes.add(competicao);
+    }
+
+    public void removerCompeticao(Competicao competicao) {
+
+        this.competicoes.remove(competicao);
+    }
     
     /*
     public void adicionarEquipe(Equipe equipe){

@@ -80,7 +80,9 @@ public class Competicao implements Serializable {
     }
 
     
-
+    public void adicionarModalidadeSolo(ModalidadeSolo modalidadeSolo){
+        this.modalidadesSolo.add(modalidadeSolo);
+    }
     
 
     public void adcionarLocal(Local local) {

@@ -108,7 +108,7 @@
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">
-                        <a href="inscricaoCompeticao?id=<%=competicao.getIdCompeticao()%>"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
                                 <p class="fontOverpass"><a href="#"><%=competicao.getNome()%></a></p>

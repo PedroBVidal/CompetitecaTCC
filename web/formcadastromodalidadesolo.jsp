@@ -35,6 +35,8 @@
             if(up == null){
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             }else{
+                
+                int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
         %>
 
         <!-- Navigation -->
@@ -78,7 +80,7 @@
                     %>
                     <form action="scripts/editarModalidadeS.jsp" method="POST" class="col">
                         <input type="hidden" name="op" value="1">
-                        <input type="hidden" name="id" value="0">
+                        <input type="hidden" name="idCompeticao" value="<%=idCompeticao%>">
                         
 
                         <div class="form-group">

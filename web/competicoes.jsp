@@ -82,7 +82,7 @@
                             </h4>
                             <p class="card-text"><b>Data de Início:</b><%=formate.format(cptc.getDataInicio())%></p>
                             <p class="card-text"><b>Data de Encerramento:</b><%=formate.format(cptc.getDataTermino())%></p>
-                            <a href="scripts/cadastrarcompeticao.jsp?op=1&id=<%=cptc.getIdCompeticao()%>"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>&nbsp;<a href="gerenciamentoDeCompeticao.jsp?id=<%=cptc.getIdCompeticao()%>"><button class="btn btn-success">Gerenciar Competição</button></a>
+                            <a href="scripts/cadastrarcompeticao.jsp?op=1&idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>&nbsp;<a href="gerenciamentoDeCompeticao.jsp?idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-success">Gerenciar Competição</button></a>
                         </div>
                     </div>
                 </div>

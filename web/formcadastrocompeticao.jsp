@@ -63,7 +63,7 @@
                 Cadastro de competição
             </div>
             <div class="card-body">
-                <form action="cadastrarcompeticao.jsp">
+                <form action="cadastrarcompeticao.jsp?op=2">
                     <div class="form-group">
                         <label>Nome da competição:</label>
                         <input type="text" class="form-control" name="nomeCompeticao">

@@ -15,9 +15,11 @@
     CompeticaoControle competicaoControle = new CompeticaoControle();
     
     if(request.getParameter("op").equals("1")){
+        /*
         int id = Integer.parseInt(request.getParameter("id"));
         competicaoControle.eliminarCompeticao(id);
         response.sendRedirect("../competicoes.jsp?msg=Competicao apagada com sucesso&color=warning");
+        */
         
     }else if(request.getParameter("op").equals("2")){
     String nomeCompeticao = request.getParameter("nomeCompeticao");

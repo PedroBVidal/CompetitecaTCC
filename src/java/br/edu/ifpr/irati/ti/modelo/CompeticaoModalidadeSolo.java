@@ -43,7 +43,7 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
     
 
     
-    
+/*   
     public void distribuirAtletasCompeticao(){
         
         if (statusFormularioInscricaoPublica == false) {
@@ -61,7 +61,7 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
         }
         
     }
-    
+*/
     
     public List<Confronto> gerarConfrontos(){
         

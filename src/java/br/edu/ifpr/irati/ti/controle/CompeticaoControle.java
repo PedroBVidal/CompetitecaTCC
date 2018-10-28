@@ -37,4 +37,8 @@ public class CompeticaoControle {
         return competicaoDAO.buscarPorParteNome(str);
     }
     
+    public void autualizarCompeticao(Competicao competicao){
+        competicaoDAOGeneric.alterar(competicao);
+    }
+    
 }

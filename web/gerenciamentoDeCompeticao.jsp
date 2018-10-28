@@ -42,9 +42,9 @@
                 CompeticaoControle competicaoControle = new CompeticaoControle();
                 
                 
-                String sIdCompeticao = request.getParameter("id");
-                int idCompeticao = Integer.parseInt(sIdCompeticao);
+                int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
                 Competicao competicao = competicaoControle.buscarCompeticaoPorId(idCompeticao);
+                
         %>
 
         <header>

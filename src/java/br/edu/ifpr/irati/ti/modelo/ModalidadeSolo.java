@@ -60,7 +60,16 @@ public class ModalidadeSolo implements Serializable {
         //this.atletas = atletas;
         this.competicoes = competicoes;
     }
-
+    
+    public void adicionarCompeticao(Competicao competicao){
+        
+        this.competicoes.add(competicao);
+    }
+    
+    public void removerCompeticao(Competicao competicao){
+        
+        this.competicoes.remove(competicao);
+    }
     
     /*
     public void adicionarAtleta(Atleta atleta){
