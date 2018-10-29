@@ -16,6 +16,7 @@ import java.util.List;
  * @author user
  */
 public class AtletaControle {
+    
     Dao<Atleta> atdl = new GenericDAO<>(Atleta.class);
     public List<Atleta> buscarTodosAtleta(){
         return atdl.buscarTodos(Atleta.class);

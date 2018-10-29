@@ -63,7 +63,9 @@ public class UsuarioParticipante2 implements Serializable {
         this.atletas = atletas;
     }
     
-    
+    public void adicionarAtleta(Atleta atleta){
+        this.atletas.add(atleta);
+    }
 
 
     /**

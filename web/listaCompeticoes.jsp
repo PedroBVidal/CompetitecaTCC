@@ -74,7 +74,7 @@
             %>
             
             <h1 class="my-4 fontCabinCondensed">Competições em andamento</h1>
-            <div class="row">
+            
                 
             
                 
@@ -124,7 +124,7 @@
             <%}%>
             </div>  
             
-        </div>
+        
         </div> 
 
         <!-- Bootstrap core JavaScript -->

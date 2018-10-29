@@ -45,7 +45,7 @@
                 request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("e") != null) {
                     String erro = request.getParameter("e");
-                    
+
             %>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong><%=erro%></strong> .
@@ -58,50 +58,109 @@
                 }
             %>
             
-        
             <h1 class="col fontCabinCondensed" style="margin: 20px 0px 20px -10px;">Inscrição</h1>
         
-        <div class="card">
-            <div class="card-header">
-                Insira seus dados pessoais
+            <div class="row">
+                <div class="col-2">
+                    <!-- List group -->
+                    <div class="list-group" id="myList" role="tablist">
+                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Passo 1</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">Passo 2</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#messages" role="tab">Passo 3</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Passo 4</a>
+                    </div>
+                </div>
+                <div class="col-10">
+                    <!-- Tab panes -->
+                    
+                        <div class="tab-content">
+
+                            <div class="tab-pane active" id="home" role="tabpanel">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Insira seus dados pessoais
+                                    </div>
+                                    <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Nome completo:</label>
+                                    <input type="text" name="nome" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Seu nome" value="<%=up.getNome()%>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Seu email:</label>
+                                    <input type="email" name="email" class="form-control" id="exampleInputPassword1" placeholder="Seu email" value="<%=up.getEmail()%>">
+                                </div>
+                                        <button type="button" class="btn btn-info" onclick="painelAnterior();">Passo anterior</button>
+                                        <button type="button" class="btn btn-info" onclick="proximoPainel();">Proximo passo</button>
+                                </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="profile" role="tabpanel">
+                                <form action="scripts/inscricaoAtletaCompeticao.jsp">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Selecione as microcompetições que você deseja participar
+                                    </div>
+                                <div class="card-body">
+                                        
+                                <div class="form-group">
+                                    <div class="card" style="width: 18rem;">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">    <div class="col-auto my-1">
+                                                    <div class="custom-control custom-checkbox mr-sm-2">
+                                                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                                                        <label class="custom-control-label" for="customControlAutosizing">Remember my preference</label>
+                                                    </div>
+                                                </div></li>
+                                            <li class="list-group-item">Dapibus ac facilisis in</li>
+                                            <li class="list-group-item">Vestibulum at eros</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                        <button type="button" class="btn btn-info" onclick="painelAnterior();">Passo anterior</button>
+                                        <button type="button" class="btn btn-info" onclick="proximoPainel();">Proximo passo</button>
+                                </div>
+                                </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="messages" role="tabpanel">3</div>
+                            <div class="tab-pane" id="settings" role="tabpanel"><button type="submit" class="btn btn-success">Enviar</button></div>
+
+                        </div>
+                    </form
+                </div>
             </div>
-            <div class="card-body">
-                <form action="vincularCompeticaoAtleta.jsp">
-                    <div class="form-group">
-                        <label class="">Nome completo:</label>
-                        <input type="text" class="form-control" name="nomeCompleto">
-                    </div>
-                    <div class="form-group">
-                        <label>Email:</label>
-                        <input type="text" class="form-control" name="email">
-                    </div>
-                    <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                        <label style="margin-left: -20px;">Selecione as modalidades que você participará dentro da competição:</label><br>
-                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                        <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
-                    </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="">Inscrever-se</button>
-                </form>
-            </div>
-        </div>
-        </div>
-        
-        
-        <!-- Bootstrap core JavaScript -->
+
+
+
+            <!-- Bootstrap core JavaScript -->
+
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
+            <script>
+
+                $('.naozeibeu').mask('00/00/0000', {reverse: true});
+                    
+                var prox = 1;
     
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
-        <script>
-            
-            $('.naozeibeu').mask('00/00/0000', {reverse: true});
-        </script>
-        <%
-            
-        }
-        %>
+                function proximoPainel(){
+                    if(prox != 4){
+                    prox = prox + 1;
+                    $('#myList a:nth-child('+prox+')').tab('show');
+                    }
+                }
+    
+                function painelAnterior(){
+                    if(prox != 1){
+                    prox = prox - 1;
+                    $('#myList a:nth-child('+prox+')').tab('show');
+                    }
+                }
+            </script>
+            <%
+                }
+            %>
     </body>
 
 </html>

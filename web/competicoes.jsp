@@ -41,6 +41,7 @@
             if (up == null) {
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             } else {
+                
         %>
 
         <header>
