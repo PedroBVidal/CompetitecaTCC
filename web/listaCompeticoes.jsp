@@ -115,7 +115,7 @@
                             </h4>
                                 <p class="card-text fontOverpass"><b>Data de Início:</b><span style="margin-left: 5px;"><%=dataInicio%></span></p>
                                 <p class="card-text fontOverpass"><b>Data de Termino:</b><span style="margin-left: 5px;"><%=dataTermino%></span></p>
-                                <p class="fontOverpass"><a class="btn btn-success" href="forminscricaocompeticao.jsp?id=<%=competicao.getIdCompeticao()%>" role="button">Realizar inscrição</a><p>
+                                <p class="fontOverpass"><a class="btn btn-success" href="forminscricaocompeticao.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" role="button">Realizar inscrição</a><p>
                         </div>
                     </div>
                 </div>

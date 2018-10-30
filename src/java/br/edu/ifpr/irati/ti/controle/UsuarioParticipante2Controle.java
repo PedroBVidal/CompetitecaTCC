@@ -30,6 +30,10 @@ public class UsuarioParticipante2Controle {
         usuarioParticipanteDAO.salvar(user);
     }
     
+    public UsuarioParticipante2 buscarPorId(int id){
+        return usuarioParticipanteDAO.buscarPorId(id);
+    }
+    
     
 
 }

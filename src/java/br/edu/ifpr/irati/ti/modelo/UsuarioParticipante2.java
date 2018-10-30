@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class UsuarioParticipante2 implements Serializable {
     private String senha;
     
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Atleta> atletas;
 
     public UsuarioParticipante2() {
