@@ -43,10 +43,10 @@ public class Equipe implements Serializable {
     private Competicao competicao;
     
     @OneToMany (mappedBy = "equipe")
-    private List<InscricaoCompeticaoSolo> inscricoesCompeticoesColetivas;
+    private List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas;
 
     @ManyToMany
-    private List<CompeticaoModalidadeSolo> competicoesModalidadeColeivas;
+    private List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas;
         
         
     public Equipe() {
@@ -99,7 +99,7 @@ public class Equipe implements Serializable {
         this.competicoesModalidadeColeivas = new ArrayList<>();
     }
 
-    public Equipe(int idEquipe, String nome, List<Atleta> atletas, List<Confronto> confrontosModalidadeColetiva, List<Mensagem> mensagens, Competicao competicao, List<InscricaoCompeticaoSolo> inscricoesCompeticoesColetivas, List<CompeticaoModalidadeSolo> competicoesModalidadeColeivas) {
+    public Equipe(int idEquipe, String nome, List<Atleta> atletas, List<Confronto> confrontosModalidadeColetiva, List<Mensagem> mensagens, Competicao competicao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas) {
         this.idEquipe = idEquipe;
         this.nome = nome;
         this.atletas = atletas;
@@ -109,6 +109,9 @@ public class Equipe implements Serializable {
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
         this.competicoesModalidadeColeivas = competicoesModalidadeColeivas;
     }
+
+    
+    
 
     
 
@@ -219,30 +222,32 @@ public class Equipe implements Serializable {
     /**
      * @return the inscricoesCompeticoesColetivas
      */
-    public List<InscricaoCompeticaoSolo> getInscricoesCompeticoesColetivas() {
+    public List<InscricaoCompeticaoColetiva> getInscricoesCompeticoesColetivas() {
         return inscricoesCompeticoesColetivas;
     }
 
     /**
      * @param inscricoesCompeticoesColetivas the inscricoesCompeticoesColetivas to set
      */
-    public void setInscricoesCompeticoesColetivas(List<InscricaoCompeticaoSolo> inscricoesCompeticoesColetivas) {
+    public void setInscricoesCompeticoesColetivas(List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas) {
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
     }
 
     /**
      * @return the competicoesModalidadeColeivas
      */
-    public List<CompeticaoModalidadeSolo> getCompeticoesModalidadeColeivas() {
+    public List<CompeticaoModalidadeColetiva> getCompeticoesModalidadeColeivas() {
         return competicoesModalidadeColeivas;
     }
 
     /**
      * @param competicoesModalidadeColeivas the competicoesModalidadeColeivas to set
      */
-    public void setCompeticoesModalidadeColeivas(List<CompeticaoModalidadeSolo> competicoesModalidadeColeivas) {
+    public void setCompeticoesModalidadeColeivas(List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas) {
         this.competicoesModalidadeColeivas = competicoesModalidadeColeivas;
     }
+
+    
 
     
     
