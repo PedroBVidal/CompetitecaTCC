@@ -27,11 +27,7 @@ public class Competicao implements Serializable {
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
     
-    @ManyToMany()
-    private List<ModalidadeSolo> modalidadesSolo;
-    
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<ModalidadeColetiva> modalidadesColetivas;
+
     
     @OneToMany
     private List<CompeticaoModalidadeColetiva> cmodalidadecole;
@@ -49,8 +45,6 @@ public class Competicao implements Serializable {
 
     public Competicao() {
         idCompeticao = 0;
-        modalidadesColetivas = new ArrayList<>();
-        modalidadesSolo = new ArrayList<>();
         cmodalidadecole = new ArrayList<>();
         cmodalidadesolo = new ArrayList<>();
         dataInicio = new Date();
@@ -62,8 +56,6 @@ public class Competicao implements Serializable {
         this.nome = nome;
         cmodalidadecole = new ArrayList<>();
         cmodalidadesolo = new ArrayList<>();
-        modalidadesSolo = new ArrayList<>();
-        modalidadesColetivas = new ArrayList<>();
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
     }
@@ -71,8 +63,6 @@ public class Competicao implements Serializable {
     public Competicao(int idCompeticao, String nome, List<ModalidadeSolo> modalidadesSolo, List<ModalidadeColetiva> modalidadesColetivas, List<CompeticaoModalidadeColetiva> cmodalidadecole, List<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
-        this.modalidadesSolo = modalidadesSolo;
-        this.modalidadesColetivas = modalidadesColetivas;
         this.cmodalidadecole = cmodalidadecole;
         this.cmodalidadesolo = cmodalidadesolo;
         this.dataInicio = dataInicio;
@@ -80,9 +70,7 @@ public class Competicao implements Serializable {
     }
 
     
-    public void adicionarModalidadeSolo(ModalidadeSolo modalidadeSolo){
-        this.modalidadesSolo.add(modalidadeSolo);
-    }
+
     
 
     public void adcionarLocal(Local local) {
@@ -175,34 +163,7 @@ public class Competicao implements Serializable {
         this.cmodalidadesolo = cmodalidadesolo;
     }
 
-    /**
-     * @return the modalidadesSolo
-     */
-    public List<ModalidadeSolo> getModalidadesSolo() {
-        return modalidadesSolo;
-    }
 
-    /**
-     * @param modalidadesSolo the modalidadesSolo to set
-     */
-    public void setModalidadesSolo(List<ModalidadeSolo> modalidadesSolo) {
-        this.modalidadesSolo = modalidadesSolo;
-    }
-
-    /**
-     * @return the modalidadesColetivas
-     */
-    public List<ModalidadeColetiva> getModalidadesColetivas() {
-        return modalidadesColetivas;
-    }
-
-    /**
-     * @param modalidadesColetivas the modalidadesColetivas to set
-     */
-    public void setModalidadesColetivas(List<ModalidadeColetiva> modalidadesColetivas) {
-        this.modalidadesColetivas = modalidadesColetivas;
-    }
-    
     
 
 }

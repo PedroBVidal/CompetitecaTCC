@@ -27,13 +27,7 @@ public class ModalidadeColetiva implements Serializable {
     @Column(name="nome", nullable = false)
     private String nome;
     
-    /*
-    @OneToMany //(mappedBy = "modalidade")
-    private List<Equipe> equipes;
-    */
-    
-    @ManyToMany(mappedBy = "modalidadesColetivas", fetch=FetchType.EAGER)
-    private List<Competicao> competicoes;
+
     
     
     
@@ -45,7 +39,6 @@ public class ModalidadeColetiva implements Serializable {
         idModColetiva = 0;
         nome = "";
         //equipes = new ArrayList<>();
-        competicoes = new ArrayList<>();
        // competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva();
     }
 
@@ -53,26 +46,9 @@ public class ModalidadeColetiva implements Serializable {
         this.idModColetiva = idModColetiva;
         this.nome = nome;
         //this.equipes = new ArrayList<>();
-        competicoes = new ArrayList<>();
         //competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva();
     }
 
-    public ModalidadeColetiva(int idModColetiva, String nome,List<Competicao> competicoes) {
-        this.idModColetiva = idModColetiva;
-        this.nome = nome;
-        //this.equipes = equipes;
-        this.competicoes = competicoes;
-    }
-
-    public void adicionarCompeticao(Competicao competicao) {
-
-        this.competicoes.add(competicao);
-    }
-
-    public void removerCompeticao(Competicao competicao) {
-
-        this.competicoes.remove(competicao);
-    }
     
     /*
     public void adicionarEquipe(Equipe equipe){
@@ -113,19 +89,7 @@ public class ModalidadeColetiva implements Serializable {
     }
     
     
-    /**
-     * @return the competicoes
-     */
-    public List<Competicao> getCompeticoes() {
-        return competicoes;
-    }
 
-    /**
-     * @param competicoes the competicoes to set
-     */
-    public void setCompeticoes(List<Competicao> competicoes) {
-        this.competicoes = competicoes;
-    }
 
     /**
      * @return the competicaoModalidadeColetiva

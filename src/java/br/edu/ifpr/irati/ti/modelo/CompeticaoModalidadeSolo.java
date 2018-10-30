@@ -24,22 +24,41 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
     
     @OneToMany
     private List<AtletaCompeticao> atletasCompeticao;
+    
     @Column(name="status_formulario_inscricao_publica")
     private boolean statusFormularioInscricaoPublica;
+    
+    
+    @OneToMany
+    private List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo;
 
     public CompeticaoModalidadeSolo() {
         super();
         modalidadeSolo = new ModalidadeSolo();
         atletasCompeticao = new ArrayList<>();
+        inscricoesCompeticaoSolo = new ArrayList<>();
         statusFormularioInscricaoPublica = false;
     }
+    
 
-    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo, List<AtletaCompeticao> atletasCompeticao, boolean statusFormularioInscricaoPublica, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos) {
+    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,  boolean statusFormularioInscricaoPublica,int idCompeticaoModalidade, String nomeCompeticao) {
+        super(idCompeticaoModalidade, nomeCompeticao);
+        this.modalidadeSolo = modalidadeSolo;
+        this.atletasCompeticao = new ArrayList<>();
+        this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
+        this.inscricoesCompeticaoSolo = new ArrayList<>();
+    }
+
+    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo, List<AtletaCompeticao> atletasCompeticao, boolean statusFormularioInscricaoPublica, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos) {
         super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, confrontos);
         this.modalidadeSolo = modalidadeSolo;
         this.atletasCompeticao = atletasCompeticao;
         this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
+        this.inscricoesCompeticaoSolo = inscricoesCompeticaoSolo;
     }
+    
+    
+
     
 
     
@@ -94,6 +113,34 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
      */
     public void setAtletasCompeticao(List<AtletaCompeticao> atletasCompeticao) {
         this.atletasCompeticao = atletasCompeticao;
+    }
+
+    /**
+     * @return the statusFormularioInscricaoPublica
+     */
+    public boolean isStatusFormularioInscricaoPublica() {
+        return statusFormularioInscricaoPublica;
+    }
+
+    /**
+     * @param statusFormularioInscricaoPublica the statusFormularioInscricaoPublica to set
+     */
+    public void setStatusFormularioInscricaoPublica(boolean statusFormularioInscricaoPublica) {
+        this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
+    }
+
+    /**
+     * @return the inscricoesCompeticaoSolo
+     */
+    public List<InscricaoCompeticaoSolo> getInscricoesCompeticaoSolo() {
+        return inscricoesCompeticaoSolo;
+    }
+
+    /**
+     * @param inscricoesCompeticaoSolo the inscricoesCompeticaoSolo to set
+     */
+    public void setInscricoesCompeticaoSolo(List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo) {
+        this.inscricoesCompeticaoSolo = inscricoesCompeticaoSolo;
     }
     
     

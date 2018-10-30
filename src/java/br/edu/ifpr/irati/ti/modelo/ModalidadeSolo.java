@@ -25,12 +25,7 @@ public class ModalidadeSolo implements Serializable {
     @Column (name = "nome", nullable = false, length = 100)
     private String nome;
     
-    /*@ManyToMany(mappedBy = "modalidadesSolo" , fetch=FetchType.EAGER)
-    private List<Atleta> atletas;
-    */
-    
-    @ManyToMany(mappedBy = "modalidadesSolo", fetch=FetchType.EAGER)
-    private List<Competicao> competicoes;
+
     
     // FICAR DE OLHO
     //@Transient
@@ -42,7 +37,6 @@ public class ModalidadeSolo implements Serializable {
         idModalidadeSolo = 0;
         nome = "";
         //atletas = new ArrayList<>();
-        competicoes = new ArrayList<>();
         //competicaoModalidadeSolo = new CompeticaoModalidadeSolo();
     }
 
@@ -50,26 +44,12 @@ public class ModalidadeSolo implements Serializable {
         this.idModalidadeSolo = idModalidadeSolo;
         this.nome = nome;
         //this.atletas = new ArrayList<>();
-        competicoes = new ArrayList<>();
         //this.competicaoModalidadeSolo = new CompeticaoModalidadeSolo();
     }
 
-    public ModalidadeSolo(int idModalidadeSolo, String nome,List<Competicao> competicoes) {
-        this.idModalidadeSolo = idModalidadeSolo;
-        this.nome = nome;
-        //this.atletas = atletas;
-        this.competicoes = competicoes;
-    }
+
     
-    public void adicionarCompeticao(Competicao competicao){
-        
-        this.competicoes.add(competicao);
-    }
-    
-    public void removerCompeticao(Competicao competicao){
-        
-        this.competicoes.remove(competicao);
-    }
+
     
     /*
     public void adicionarAtleta(Atleta atleta){
@@ -112,20 +92,6 @@ public class ModalidadeSolo implements Serializable {
     }
 
 
-
-    /**
-     * @return the competicoes
-     */
-    public List<Competicao> getCompeticoes() {
-        return competicoes;
-    }
-
-    /**
-     * @param competicoes the competicoes to set
-     */
-    public void setCompeticoes(List<Competicao> competicoes) {
-        this.competicoes = competicoes;
-    }
 
     /**
      * @return the competicaoModalidadeSolo

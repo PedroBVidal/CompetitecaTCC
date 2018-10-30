@@ -2,6 +2,7 @@
 package br.edu.ifpr.irati.ti.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +35,16 @@ public abstract class CompeticaoModalidade implements Serializable{
    protected List<Confronto> confrontos;
 
     public CompeticaoModalidade() {
+        idCompeticaoModalidade = 0;
+        nomeCompeticao = "";
+        confrontos = new ArrayList<>();
         
+    }
+
+    public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao) {
+        this.idCompeticaoModalidade = idCompeticaoModalidade;
+        this.nomeCompeticao = nomeCompeticao;
+        this.confrontos = new ArrayList<>();
     }
 
     public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos) {
@@ -43,6 +53,8 @@ public abstract class CompeticaoModalidade implements Serializable{
         this.sistemaDeCompeticao = sistemaDeCompeticao;
         this.confrontos = confrontos;
     }
+    
+    
     
     
 

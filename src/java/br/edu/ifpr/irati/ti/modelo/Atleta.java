@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
@@ -38,11 +39,19 @@ public class Atleta implements Serializable {
     @ManyToMany(mappedBy = "atletas", fetch=FetchType.EAGER)
     private List<Equipe> equipes;
     
-    @ManyToMany(fetch=FetchType.EAGER)
-    private List<ModalidadeSolo> modalidadesSolo;
     
-    @OneToOne
+    @ManyToOne
     private Competicao competicao;
+    
+    
+    @OneToMany (mappedBy = "atleta")
+    private List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo;
+    
+    @OneToMany
+    private List<Mensagem> mensagens;
+    
+    @ManyToMany
+    private List<CompeticaoModalidadeSolo> competicoesModalidadeSolo;
     
     //VER!
     //@ManyToMany(fetch=FetchType.EAGER)
@@ -60,8 +69,9 @@ public class Atleta implements Serializable {
         email = "";
         aprovado = false;
         equipes = new ArrayList<>();
-        modalidadesSolo = new ArrayList<>();
         competicao = new Competicao();
+        inscricoesCompeticaoSolo = new ArrayList<>();
+        competicoesModalidadeSolo = new ArrayList<>();
         //confrontosModalidadeSolo = new ArrayList<>();
     }
 
@@ -71,42 +81,39 @@ public class Atleta implements Serializable {
         this.email = email;
         this.aprovado = aprovado;
         this.equipes = new ArrayList<>();
-        this.modalidadesSolo = new ArrayList<>();
         //this.confrontosModalidadeSolo = new ArrayList<>();
         this.competicao = new Competicao();
+        inscricoesCompeticaoSolo = new ArrayList<>();
+        competicoesModalidadeSolo = new ArrayList<>();
     }
-    public Atleta(int idAtleta, String nome, String email, boolean aprovado, List<ModalidadeSolo> modalidades) {
-        this.idAtleta = idAtleta;
-        this.nome = nome;
-        this.email = email;
-        this.aprovado = aprovado;
-        this.equipes = new ArrayList<>();
-        this.modalidadesSolo = modalidades;
-        //this.confrontosModalidadeSolo = new ArrayList<>();
-        this.competicao = new Competicao();
-    }
-    
+
     public Atleta(int idAtleta, String nome, String email, boolean aprovado, Competicao competicao) {
         this.idAtleta = idAtleta;
         this.nome = nome;
         this.email = email;
         this.aprovado = aprovado;
         this.equipes = new ArrayList<>();
-        this.modalidadesSolo = new ArrayList<>();
         //this.confrontosModalidadeSolo = new ArrayList<>();
         this.competicao = competicao;
+        inscricoesCompeticaoSolo = new ArrayList<>();
+        competicoesModalidadeSolo = new ArrayList<>();
     }
 
-    public Atleta(int idAtleta, String nome, String email, boolean aprovado, List<Equipe> equipes, List<ModalidadeSolo> modalidadesSolo, Competicao competicao, List<Confronto> confrontos) {
+    public Atleta(int idAtleta, String nome, String email, List<Equipe> equipes, Competicao competicao, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, List<Mensagem> mensagens, List<CompeticaoModalidadeSolo> competicoesModalidadeSolo, boolean aprovado) {
         this.idAtleta = idAtleta;
         this.nome = nome;
         this.email = email;
         this.equipes = equipes;
-        this.aprovado = aprovado;
-        this.modalidadesSolo = modalidadesSolo;
         this.competicao = competicao;
-        //this.confrontosModalidadeSolo = confrontos;
+        this.inscricoesCompeticaoSolo = inscricoesCompeticaoSolo;
+        this.mensagens = mensagens;
+        this.competicoesModalidadeSolo = competicoesModalidadeSolo;
+        this.aprovado = aprovado;
     }
+
+
+
+    
     
     public void adicionarEquipe(Equipe equipe){
         this.getEquipes().add(equipe);
@@ -116,14 +123,7 @@ public class Atleta implements Serializable {
         this.getEquipes().add(equipe);
     }
     
-    public void adicionarModalidadeSolo(ModalidadeSolo modalidadeSolo){
-        this.getModalidadesSolo().add(modalidadeSolo);
-    }
-    
-    public void removerModalidadeSolo(ModalidadeSolo modalidadeSolo){
-        this.getModalidadesSolo().remove(modalidadeSolo);
-    }
-    
+
     /*public void adicionarConfrontoSolo(Confronto confronto){
         this.getConfrontosModalidadeSolo().add(confronto);
     }
@@ -190,19 +190,6 @@ public class Atleta implements Serializable {
         this.equipes = equipes;
     }
 
-    /**
-     * @return the modalidadesSolo
-     */
-    public List<ModalidadeSolo> getModalidadesSolo() {
-        return modalidadesSolo;
-    }
-
-    /**
-     * @param modalidadesSolo the modalidadesSolo to set
-     */
-    public void setModalidadesSolo(List<ModalidadeSolo> modalidadesSolo) {
-        this.modalidadesSolo = modalidadesSolo;
-    }
 
 
     /**
@@ -231,6 +218,48 @@ public class Atleta implements Serializable {
      */
     public void setCompeticao(Competicao competicao) {
         this.competicao = competicao;
+    }
+
+    /**
+     * @return the inscricoesCompeticaoSolo
+     */
+    public List<InscricaoCompeticaoSolo> getInscricoesCompeticaoSolo() {
+        return inscricoesCompeticaoSolo;
+    }
+
+    /**
+     * @param inscricoesCompeticaoSolo the inscricoesCompeticaoSolo to set
+     */
+    public void setInscricoesCompeticaoSolo(List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo) {
+        this.inscricoesCompeticaoSolo = inscricoesCompeticaoSolo;
+    }
+
+    /**
+     * @return the mensagens
+     */
+    public List<Mensagem> getMensagens() {
+        return mensagens;
+    }
+
+    /**
+     * @param mensagens the mensagens to set
+     */
+    public void setMensagens(List<Mensagem> mensagens) {
+        this.mensagens = mensagens;
+    }
+
+    /**
+     * @return the competicoesModalidadeSolo
+     */
+    public List<CompeticaoModalidadeSolo> getCompeticoesModalidadeSolo() {
+        return competicoesModalidadeSolo;
+    }
+
+    /**
+     * @param competicoesModalidadeSolo the competicoesModalidadeSolo to set
+     */
+    public void setCompeticoesModalidadeSolo(List<CompeticaoModalidadeSolo> competicoesModalidadeSolo) {
+        this.competicoesModalidadeSolo = competicoesModalidadeSolo;
     }
     
     
