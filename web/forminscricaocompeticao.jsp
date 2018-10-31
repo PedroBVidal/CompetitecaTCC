@@ -5,6 +5,9 @@
 --%>
 
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -38,6 +41,9 @@
 
                 // Pega o id passado como parâmtro no botão "Realizar Inscrição" da jsp listaCompeticoes.jsp
                 int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
+                CompeticaoControle competicaoControle = new CompeticaoControle();
+                
+                Competicao competicao = competicaoControle.buscarCompeticaoPorId(idCompeticao);
                 System.out.println("ID COMPETICAO:"+ idCompeticao);
         %>
 
@@ -62,28 +68,78 @@
                 }
             %>
 
-            <h1 class="col fontCabinCondensed" style="margin: 20px 0px 20px -10px;">Inscrição</h1>
+            <h1 class="col" style="margin: 20px 0px 20px -10px;">Inscrição</h1>
+            <h2 class="col" style="margin: 20px 0px 20px -10px;">Selecione as competições que deseja partipar dentro de <%=competicao.getNome()%></h2>
 
             <div class="row">
 
-                <div class="col-10">
-                    <!-- O id da competicao e do usuário participante serão utilizados para vincular uma competicao a um atleta, e também vincular um atleta ao usuário participante-->
-                    <form action="scripts/inscricaoAtletaCompeticao.jsp?idCompeticao=<%=idCompeticao%>&idUsuarioParticipante=<%=up.getIdUsuario()%>" method="POST">
+                <div class="col-12">
+                    <form action="scripts/inscricaoAtletaEvento.jsp?idCompeticao=<%=idCompeticao%>&idUsuarioParticipante=<%=up.getIdUsuario()%>" method="POST">
 
                         <div class="card">
                             <div class="card-header">
-                                Insira seus dados pessoais
+                                Passo 2
                             </div>
+                            
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Nome completo:</label>
-                                    <input type="text" name="nome" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Seu nome" value="<%=up.getNome()%>">
+                                    <h4 style="margin: -5px 0px 0px -5px;">Competições individuais: </h4>
+                                </div>
+                                <%
+                                    if(competicao.getCmodalidadesolo() == null){
+                                       
+                                    }
+                                    else{
+                                    for(CompeticaoModalidadeSolo cms: competicao.getCmodalidadesolo()){
+                                %>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" aria-label="Checkbox for following text input">
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control disabled" readonly="true" aria-label="Text input with checkbox" value="<%=cms.getNomeCompeticao()%>">
+                                    </div>
+                                </div>
+                                <%}}%>
+                                
+                                <div class="form-group">
+                                    <h4 style="margin: 15px 0px 0px -5px;">Competições coletivas: </h4>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Seu email:</label>
-                                    <input type="email" name="email" class="form-control" id="exampleInputPassword1" placeholder="Seu email" value="<%=up.getEmail()%>">
+                                    <p>
+                                    <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
+                                    </a>
+                                    </p>
+                                    <!--Collapse de infromação sobre o cadastro de modalidades coletivas-->
+                                    <div class="collapse" id="collapseExample">
+                                        <div class="card card-body">
+                                            <ol> 
+                                                <li id="lista">Selecione as modalidades coletivas que você tenha interesse em participar.</li>
+                                                <li class="lista">Posteriormente você poderá escolher entre:</li>
+                                                <ul>
+                                                    <li class="lista"><span class="font-weight-bold">Enviar uma solicitação de entrada para uma equipe</span> ou <span class="font-weight-bold">Criar uma nova equipe.</span></li>
+                                                </ul>
+                                                <li class="lista">A escolha entre criar ou solicitar entrada em uma equipe <span class="font-weight-bold">deverá ser realizada para cada competição coletiva selecionada.</span></li>
+                                            </ol>  
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" aria-label="Checkbox for following text input">
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control disabled" readonly="true" aria-label="Text input with checkbox" value="Basquete 3x3">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                 <button type="submit" class="btn btn-success">Cadastrar-me</button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -98,24 +154,6 @@
                 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
                 <script>
-
-                    $('.naozeibeu').mask('00/00/0000', {reverse: true});
-
-                    var prox = 1;
-
-                    function proximoPainel() {
-                        if (prox != 4) {
-                            prox = prox + 1;
-                            $('#myList a:nth-child(' + prox + ')').tab('show');
-                        }
-                    }
-
-                    function painelAnterior() {
-                        if (prox != 1) {
-                            prox = prox - 1;
-                            $('#myList a:nth-child(' + prox + ')').tab('show');
-                        }
-                    }
                 </script>
                 <%
                     }

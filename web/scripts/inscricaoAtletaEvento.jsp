@@ -39,6 +39,8 @@
     // Instancia um atleta
     // O atributo aprovado é false.
     //O atleta é vinculado a competicao
+    
+    
     Atleta atleta = new Atleta(0, nome, email, false, competicao);
     
     //Salva no banco o atleta.
@@ -50,6 +52,8 @@
     //Atualiza o usuário participante, agora com um atleta a mais vinculado a ele.
     usuarioParticipante2Controle.atualizarCad(usuarioParticipante2);
     
+    //Redireciona para a página inscricaoAtletaCompeticao
+    response.sendRedirect("../forminscricaocompeticao.jsp?msg=Cadastro efetuado no evento "+ competicao.getNome()+"&idCompeticao="+competicao.getIdCompeticao());
     
 %>
 

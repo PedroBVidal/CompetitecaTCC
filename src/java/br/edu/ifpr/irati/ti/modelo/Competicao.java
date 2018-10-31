@@ -27,7 +27,6 @@ public class Competicao implements Serializable {
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
     
-
     
     @OneToMany
     private List<CompeticaoModalidadeColetiva> cmodalidadecole;
