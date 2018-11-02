@@ -4,6 +4,7 @@ package br.edu.ifpr.irati.ti.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
@@ -28,7 +30,8 @@ public abstract class CompeticaoModalidade implements Serializable{
     @Column(name = "nomecompeticao", nullable = false, length = 100)
     protected String nomeCompeticao;
     
-   @OneToOne
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name="sistemacomp_id", referencedColumnName="idSistemaDeCompeticao",nullable=false)  
    protected SistemaDeCompeticao sistemaDeCompeticao;
    
    @OneToMany
@@ -41,9 +44,10 @@ public abstract class CompeticaoModalidade implements Serializable{
         
     }
 
-    public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao) {
+    public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao) {
         this.idCompeticaoModalidade = idCompeticaoModalidade;
         this.nomeCompeticao = nomeCompeticao;
+        this.sistemaDeCompeticao = sistemaDeCompeticao;
         this.confrontos = new ArrayList<>();
     }
 

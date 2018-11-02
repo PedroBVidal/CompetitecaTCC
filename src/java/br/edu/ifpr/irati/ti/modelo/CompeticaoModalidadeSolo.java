@@ -41,8 +41,8 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
     }
     
 
-    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,  boolean statusFormularioInscricaoPublica,int idCompeticaoModalidade, String nomeCompeticao) {
-        super(idCompeticaoModalidade, nomeCompeticao);
+    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,  boolean statusFormularioInscricaoPublica,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao) {
+        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao);
         this.modalidadeSolo = modalidadeSolo;
         this.atletasCompeticao = new ArrayList<>();
         this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;

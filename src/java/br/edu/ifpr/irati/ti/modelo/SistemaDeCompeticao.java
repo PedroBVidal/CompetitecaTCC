@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
@@ -31,6 +32,7 @@ public abstract class SistemaDeCompeticao implements Serializable{
     protected List<Confronto> confrontosMarcados;
     
     @OneToOne
+    @JoinColumn(name="competicaoModalidade_id", referencedColumnName="idCompeticaoModalidade")  
     protected CompeticaoModalidade competicaoModalidade;
 
     public SistemaDeCompeticao() {
