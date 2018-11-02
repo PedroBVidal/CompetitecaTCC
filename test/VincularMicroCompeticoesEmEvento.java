@@ -17,7 +17,7 @@ public class VincularMicroCompeticoesEmEvento {
     
     public static void main(String[] args) {
         
-    
+    /*
     Dao<Competicao> eventoDAO = new GenericDAO<>(Competicao.class);
     Dao<CompeticaoModalidadeSolo> cptMcDAO = new GenericDAO<>(CompeticaoModalidadeSolo.class);
     Dao<CompeticaoModalidadeColetiva> cptMsDAO = new GenericDAO<>(CompeticaoModalidadeColetiva.class);
@@ -31,9 +31,11 @@ public class VincularMicroCompeticoesEmEvento {
     SistemaDeCompeticao sistemaDeCompeticao = new SistemaDeCompeticao(0, nome, competicaoModalidade) {
     }
     
-    CompeticaoModalidadeSolo competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, false, 0, "Compeonato Basquete IFPR", )
+    //CompeticaoModalidadeSolo competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, false, 0, "Compeonato Basquete IFPR", )
     
     
-    
+    */
     }
+
 }
+
