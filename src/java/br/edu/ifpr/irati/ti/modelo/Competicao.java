@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Proxy;
 
 @Entity(name = "competicao")
@@ -28,11 +29,11 @@ public class Competicao implements Serializable {
     private String nome;
     
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<CompeticaoModalidadeColetiva> cmodalidadecole;
     
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<CompeticaoModalidadeSolo> cmodalidadesolo;
     
     
@@ -74,6 +75,22 @@ public class Competicao implements Serializable {
 
     public void adcionarLocal(Local local) {
 
+    }
+    
+    public void adcionarCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo){
+        this.cmodalidadesolo.add(competicaoModalidadeSolo);        
+    }
+    
+    public void adicionarCompeticaoModalidadeColetiva(CompeticaoModalidadeColetiva competicaoModalidadeColetiva){
+        this.cmodalidadecole.add(competicaoModalidadeColetiva);
+    }
+    
+    public void removerCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo){
+        this.cmodalidadesolo.remove(competicaoModalidadeSolo);        
+    }
+    
+    public void removerCompeticaoModalidadeColetiva(CompeticaoModalidadeColetiva competicaoModalidadeColetiva){
+        this.cmodalidadecole.remove(competicaoModalidadeColetiva);
     }
 
     /**

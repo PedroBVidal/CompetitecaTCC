@@ -4,6 +4,7 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
@@ -85,9 +86,10 @@
                                 <div class="form-group">
                                     <h4 style="margin: -5px 0px 0px -5px;">Competições individuais: </h4>
                                 </div>
+                                
                                 <%
-                                    if(competicao.getCmodalidadesolo() == null){
-                                       
+                                    if(competicao.getCmodalidadesolo().size() == 0){
+                                // Para cada competição vinculada ao evento, adiciona um checkbox, para o atleta se inscrever, caso queira.
                                     }
                                     else{
                                     for(CompeticaoModalidadeSolo cms: competicao.getCmodalidadesolo()){
@@ -127,6 +129,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                <%
+                                    if(competicao.getCmodalidadecole().size() == 0){
+                                        
+                                    }
+                                    else {
+                                        
+                                    for (CompeticaoModalidadeColetiva competicaoModalidadeColetiva: competicao.getCmodalidadecole()){
+                                
+                                
+                                %>
+                                
                                 <div class="form-group">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -134,9 +147,10 @@
                                                 <input type="checkbox" aria-label="Checkbox for following text input">
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control disabled" readonly="true" aria-label="Text input with checkbox" value="Basquete 3x3">
+                                        <input type="text" class="form-control disabled" readonly="true" aria-label="Text input with checkbox" value="<%=competicaoModalidadeColetiva.getNomeCompeticao()%>">
                                     </div>
                                 </div>
+                                <%}}%>
                                 <div class="form-group">
                                 <button type="submit" class="btn btn-success">Cadastrar-me</button>
                                 </div>

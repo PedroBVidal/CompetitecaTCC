@@ -79,35 +79,51 @@
 
             <!-- List group -->
             <div class="row">
-            <div class="list-group col-3" id="myList" role="tablist">
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="#modalidadeSolo" role="tab">Gerenciar modalidade solo</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">Gerenciar modalidade coletiva</a>
+            <div class="list-group col-2" id="myList" role="tablist">
+                <a class="list-group-item list-group-item-action" data-toggle="list" href="#modalidadeSolo" role="tab">Nova competição coletiva</a>
+                <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">Nova competição individual</a>
                 <a class="list-group-item list-group-item-action" data-toggle="list" href="#messages" role="tab">Messages</a>
                 <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Settings</a>
             </div>
 
             <!-- Tab panes -->
-            <div class="tab-content col-9">
+            <div class="tab-content col-10">
                 <div class="tab-pane active dark" id="modalidadeSolo" role="tabpanel">
                     
                     <table class="table table-striped">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col">Identificador</th>
                                 <th scope="col">Nome</th>
+                                <th scope="col">Modalidade</th>
+                                <th scope="col">Sistema de Competição</th>
+                                <th scope="col">Ação</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             
-                            
+                        <td>Nome</td>
+                        <td>Modalidade</td>
+                        <td>Todos contra Todos</td>
+                        <td><a href="#" class="btn btn-success">
+                                <!-- Adicionar icone -->
+                                <i class="fas fa-edit"></i>
+                            </a> &nbsp;
+                            <a href="#" class="btn btn-danger">
+                                <!-- Adicionar icone -->
+                                <i class="fas fa-trash-alt"></i>
+                            </a> &nbsp;
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#">
+                                <!-- Adicionar icone -->
+                                <i class="fas fa-eye"></i>
+                            </button></td>
 
                         </tbody>
                     </table>
                 </div>
-                <a href="formcadastromodalidadesolo.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" class="btn btn-success">
+                <a href="formcadastrocompeticaomodalidadecoletiva.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" class="btn btn-success">
                     <!-- Adicionar icone -->
-                    <i class="fas fa-plus"></i>&nbsp;Nova modalidade solo
+                    <i class="fas fa-plus"></i>&nbsp;Nova competição coletiva
                 </a>
                 
                 <div class="tab-pane" id="profile" role="tabpanel">

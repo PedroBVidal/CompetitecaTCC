@@ -35,6 +35,14 @@ public class VincularMicroCompeticoesEmEvento {
     
     
     */
+    
+    Dao<Competicao> eventoDAO = new GenericDAO<>(Competicao.class);
+    Competicao competicao = eventoDAO.buscarPorId(1);
+    
+    
+    
+    
+    
     }
 
 }

@@ -20,19 +20,27 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     private ModalidadeColetiva modalidadeColetiva;
     
     @OneToMany
-    private List<EquipeCompeticao> equipeCompeticao;
+    private List<EquipeCompeticao> equipesCompeticao;
 
     public CompeticaoModalidadeColetiva() {
         super();
         this.modalidadeColetiva = new ModalidadeColetiva();
-        this.equipeCompeticao = new ArrayList<>();
+        this.equipesCompeticao = new ArrayList<>();
+    }
+    
+
+    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao) {
+        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao);
+        this.modalidadeColetiva = modalidadeColetiva;
     }
 
-    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva, List<EquipeCompeticao> equipeCompeticao, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos) {
+    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva, List<EquipeCompeticao> equipesCompeticao, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos) {
         super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, confrontos);
         this.modalidadeColetiva = modalidadeColetiva;
-        this.equipeCompeticao = equipeCompeticao;
+        this.equipesCompeticao = equipesCompeticao;
     }
+    
+    
 
     /**
      * @return the modalidadeColetiva
@@ -51,15 +59,15 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     /**
      * @return the equipeCompeticao
      */
-    public List<EquipeCompeticao> getEquipeCompeticao() {
-        return equipeCompeticao;
+    public List<EquipeCompeticao> getEquipesCompeticao() {
+        return equipesCompeticao;
     }
 
     /**
-     * @param equipeCompeticao the equipeCompeticao to set
+     * @param equipesCompeticao the equipeCompeticao to set
      */
-    public void setEquipeCompeticao(List<EquipeCompeticao> equipeCompeticao) {
-        this.equipeCompeticao = equipeCompeticao;
+    public void setEquipesCompeticao(List<EquipeCompeticao> equipesCompeticao) {
+        this.equipesCompeticao = equipesCompeticao;
     }
 
     
