@@ -33,22 +33,30 @@ public class SistemaDeContagem implements Serializable{
     
     @Column(name="valorEmpate", nullable=false)
     private int valorEmpate;
+    
+    @Column(name="nome", nullable=false)
+    private String nome;
+    
+
 
     public SistemaDeContagem() {
         this.idSistemaDeContagem = 0;
         this.valorVitoria = 0;
         this.valorDerrota = 0;
         this.valorEmpate = 0;
+        this.nome = "";
     }
 
-    
-
-    public SistemaDeContagem(int idSistemaDeContagem, int valorVitoria, int valorDerrota, int valorEmpate) {
+    public SistemaDeContagem(int idSistemaDeContagem, int valorVitoria, int valorDerrota, int valorEmpate, String nome) {
         this.idSistemaDeContagem = idSistemaDeContagem;
         this.valorVitoria = valorVitoria;
         this.valorDerrota = valorDerrota;
         this.valorEmpate = valorEmpate;
+        this.nome = nome;
     }
+
+    
+    
 
     
     
@@ -82,6 +90,20 @@ public class SistemaDeContagem implements Serializable{
 
     public void setValorEmpate(int valorEmpate) {
         this.valorEmpate = valorEmpate;
+    }
+
+    /**
+     * @return the nome
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    /**
+     * @param nome the nome to set
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
     
