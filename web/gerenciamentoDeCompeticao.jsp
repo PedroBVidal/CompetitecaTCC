@@ -4,6 +4,10 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.SistemaDeCompeticao"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.ModalidadeColetiva"%>
+<%@page import="java.util.List"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
@@ -101,10 +105,20 @@
                         </thead>
 
                         <tbody>
+                        <%
                             
-                        <td>Nome</td>
-                        <td>Modalidade</td>
-                        <td>Todos contra Todos</td>
+                            for(CompeticaoModalidadeColetiva cptMc: competicao.getCmodalidadecole()){
+                                
+                            String nomeCompeticaoColetiva = cptMc.getNomeCompeticao();
+                            ModalidadeColetiva modalidadeColetiva = cptMc.getModalidadeColetiva();
+                            String nomeModalidadeColetiva = modalidadeColetiva.getNome();
+                            SistemaDeCompeticao sistemaDeCompeticao = cptMc.getSistemaDeCompeticao();
+                            String nomeSistemaDeCompeticao = sistemaDeCompeticao.getNome();
+                            
+                        %>    
+                        <td><%=nomeCompeticaoColetiva%></td>
+                        <td><%=nomeModalidadeColetiva%></td>
+                        <td><%=nomeSistemaDeCompeticao%></td>
                         <td><a href="#" class="btn btn-success">
                                 <!-- Adicionar icone -->
                                 <i class="fas fa-edit"></i>
@@ -113,18 +127,39 @@
                                 <!-- Adicionar icone -->
                                 <i class="fas fa-trash-alt"></i>
                             </a> &nbsp;
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                                 <!-- Adicionar icone -->
                                 <i class="fas fa-eye"></i>
                             </button></td>
 
                         </tbody>
+                    
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-dager" data-dismiss="modal">Fechar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
                     </table>
+                    <a href="formcadastrocompeticaomodalidadecoletiva.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" class="btn btn-success">
+                        <!-- Adicionar icone -->
+                        <i class="fas fa-plus"></i>&nbsp;Nova competição coletiva
+                    </a>
                 </div>
-                <a href="formcadastrocompeticaomodalidadecoletiva.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" class="btn btn-success">
-                    <!-- Adicionar icone -->
-                    <i class="fas fa-plus"></i>&nbsp;Nova competição coletiva
-                </a>
+
                 
                 <div class="tab-pane" id="profile" role="tabpanel">
                     

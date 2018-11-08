@@ -23,4 +23,8 @@ public class SistemaDeDesempateControle {
         return sistemaDeDesempateDAO.buscarTodos(SistemaDeDesempate.class);
     }
     
+    public void salvar(SistemaDeDesempate sistemaDeDesempate){
+        sistemaDeDesempateDAO.salvar(sistemaDeDesempate);
+    }
+    
 }

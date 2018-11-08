@@ -23,4 +23,8 @@ public class SistemaDeContagemControle {
          return sistemaDeContagemDAO.buscarTodos(SistemaDeContagem.class);
      }
      
+     public SistemaDeContagem buscarPorId(int id){
+         return sistemaDeContagemDAO.buscarPorId(id);
+     }
+     
 }
