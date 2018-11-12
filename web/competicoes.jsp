@@ -69,9 +69,9 @@
             <div class="row">
                 <%
                 SimpleDateFormat formate = new SimpleDateFormat("dd/MM/yyyy");
-                UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
-                UsuarioParticipante upp = upc.buscarPorId(up.getIdUsuario());
-                for(Competicao cptc : upp.getCompeticoes()){
+                //UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
+                //UsuarioParticipante upp = upc.buscarPorId(up.getIdUsuario());
+                for(Competicao cptc : up.getCompeticoes()){
                 %>
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">
@@ -91,7 +91,7 @@
             </div>
             <a href="criarcompeticao.jsp" class="btn btn-success">
                 <!-- Adicionar icone -->
-                <i class="fas fa-plus"></i>&nbsp;Novo Competição
+                <i class="fas fa-plus"></i>&nbsp;Nova Competição
             </a>
 
         </div>

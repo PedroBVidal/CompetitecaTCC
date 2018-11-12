@@ -21,6 +21,9 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     
     @OneToMany
     private List<EquipeCompeticao> equipesCompeticao;
+    
+    @OneToMany
+    private List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas;
 
     public CompeticaoModalidadeColetiva() {
         super();
@@ -32,15 +35,18 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao) {
         super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao);
         this.modalidadeColetiva = modalidadeColetiva;
+        this.equipesCompeticao = new ArrayList<>();
+        this.inscricoesCompeticoesColetivas = new ArrayList<>();
     }
 
-    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva, List<EquipeCompeticao> equipesCompeticao, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos) {
-        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, confrontos);
+    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva, List<EquipeCompeticao> equipesCompeticao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica) {
+        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, confrontos, statusFormularioInscricaoPublica);
         this.modalidadeColetiva = modalidadeColetiva;
         this.equipesCompeticao = equipesCompeticao;
+        this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
     }
-    
-    
+
+
 
     /**
      * @return the modalidadeColetiva
@@ -68,6 +74,20 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
      */
     public void setEquipesCompeticao(List<EquipeCompeticao> equipesCompeticao) {
         this.equipesCompeticao = equipesCompeticao;
+    }
+
+    /**
+     * @return the inscricoesCompeticoesColetivas
+     */
+    public List<InscricaoCompeticaoColetiva> getInscricoesCompeticoesColetivas() {
+        return inscricoesCompeticoesColetivas;
+    }
+
+    /**
+     * @param inscricoesCompeticoesColetivas the inscricoesCompeticoesColetivas to set
+     */
+    public void setInscricoesCompeticoesColetivas(List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas) {
+        this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
     }
 
     

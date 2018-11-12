@@ -26,6 +26,7 @@ public class ModalidadeSolo3 {
         ModalidadeSolo modalidadeSolo = new ModalidadeSolo(0, "Xadrez");
         
         modalidadeColetivaDAO.salvar(modalidadeColetiva);
+        modalidadeSoloDAO.salvar(modalidadeSolo);
     }
     
 }

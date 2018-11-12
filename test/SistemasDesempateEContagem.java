@@ -40,9 +40,9 @@ public class SistemasDesempateEContagem {
         ModalidadeColetiva modalidadeColetiva = new ModalidadeColetiva(0, "Basquete 3x3");
         ModalidadeColetiva modalidadeColetiva1 = new ModalidadeColetiva(0, "Handbol");
         
-        //sistemaDeContagemDAO.salvar(sistemaDeContagem3);
-        //sistemaDeContagemDAO.salvar(sistemaDeContagem2);
-        //sistemaDeContagemDAO.salvar(sistemaDeContagem1);
+        sistemaDeContagemDAO.salvar(sistemaDeContagem3);
+        sistemaDeContagemDAO.salvar(sistemaDeContagem2);
+        sistemaDeContagemDAO.salvar(sistemaDeContagem1);
         
       /*  
         modalidadeSoloDAO.salvar(modalidadeSolo3);

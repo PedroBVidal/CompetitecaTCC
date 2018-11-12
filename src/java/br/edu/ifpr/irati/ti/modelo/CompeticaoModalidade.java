@@ -37,10 +37,14 @@ public abstract class CompeticaoModalidade implements Serializable{
    @OneToMany
    protected List<Confronto> confrontos;
 
+   @Column(name="status_formulario_inscricao_publica")
+   private boolean statusFormularioInscricaoPublica;
+   
     public CompeticaoModalidade() {
         idCompeticaoModalidade = 0;
         nomeCompeticao = "";
         confrontos = new ArrayList<>();
+        statusFormularioInscricaoPublica = false;
         
     }
 
@@ -49,14 +53,18 @@ public abstract class CompeticaoModalidade implements Serializable{
         this.nomeCompeticao = nomeCompeticao;
         this.sistemaDeCompeticao = sistemaDeCompeticao;
         this.confrontos = new ArrayList<>();
+        statusFormularioInscricaoPublica = false;
     }
 
-    public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos) {
+    public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica) {
         this.idCompeticaoModalidade = idCompeticaoModalidade;
         this.nomeCompeticao = nomeCompeticao;
         this.sistemaDeCompeticao = sistemaDeCompeticao;
         this.confrontos = confrontos;
+        this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
     }
+
+    
     
     
     
@@ -116,6 +124,20 @@ public abstract class CompeticaoModalidade implements Serializable{
      */
     public void setConfrontos(List<Confronto> confrontos) {
         this.confrontos = confrontos;
+    }
+
+    /**
+     * @return the statusFormularioInscricaoPublica
+     */
+    public boolean isStatusFormularioInscricaoPublica() {
+        return statusFormularioInscricaoPublica;
+    }
+
+    /**
+     * @param statusFormularioInscricaoPublica the statusFormularioInscricaoPublica to set
+     */
+    public void setStatusFormularioInscricaoPublica(boolean statusFormularioInscricaoPublica) {
+        this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
     }
 
     

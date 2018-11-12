@@ -4,6 +4,10 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeSoloControle"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.ModalidadeSoloControle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.ModalidadeSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.SistemaTodosContraTodos"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.SistemaMisto"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidade"%>
@@ -28,7 +32,7 @@
     
     int idEvento = Integer.parseInt(request.getParameter("idCompeticao"));
     String nomeCompeticao = request.getParameter("nomeCompeticao");
-    int idModalidadeColetiva  = Integer.parseInt(request.getParameter("modalidadeColetiva"));
+    int idModalidadeSolo  = Integer.parseInt(request.getParameter("modalidadeSolo"));
     String sistemaDesempate = request.getParameter("sistemaDesempate");
     String sistemaDesempateSecundario = request.getParameter("sistemaDesempateSecundario");
     String sRepesgagem = request.getParameter("respescagem");
@@ -40,7 +44,7 @@
     
     System.out.println("ID EVENTO: " + idEvento);
     System.out.println("Nome competicao:" + nomeCompeticao);
-    System.out.println("Modalidade coletiva: " + idModalidadeColetiva);
+    System.out.println("Modalidade coletiva: " + idModalidadeSolo);
     System.out.println("Sistema de desempate: " + sistemaDesempate);
     System.out.println("Sistema de desempate secundário: " + sistemaDesempateSecundario);
     System.out.println("Repescagem: " + sRepesgagem);
@@ -48,13 +52,13 @@
     System.out.println("Sistema de contagem: "+ idSistemaDeContagem);
     
     CompeticaoControle competicaoControle = new CompeticaoControle();
-    ModalidadeColetivaControle modalidadeColetivaControle = new ModalidadeColetivaControle();
-    CompeticaoModalidadeColetivaControle competicaoModalidadeColetivaControle = new CompeticaoModalidadeColetivaControle();
+    ModalidadeSoloControle modalidadeSoloControle = new ModalidadeSoloControle();
+    CompeticaoModalidadeSoloControle competicaoModalidadeSoloControle = new CompeticaoModalidadeSoloControle();
     SistemaDeDesempateControle sistemaDeDesempateControle = new SistemaDeDesempateControle();
     SistemaDeContagemControle sistemaDeContagemControle = new SistemaDeContagemControle();
     
     Competicao competicao = competicaoControle.buscarCompeticaoPorId(idEvento);
-    ModalidadeColetiva modalidadeColetiva = modalidadeColetivaControle.buscaPorId(idModalidadeColetiva);
+    ModalidadeSolo modalidadeSolo = modalidadeSoloControle.buscaPorId(idModalidadeSolo);
     SistemaDeContagem sistemaDeContagem = sistemaDeContagemControle.buscarPorId(idSistemaDeContagem);
     SistemaDeDesempate sistemaDeDesempate = new SistemaDeDesempate(0, sistemaDesempate, sistemaDesempateSecundario);
    
@@ -62,8 +66,9 @@
         System.out.println("É um sistema eliminatório");
         boolean repescagem;
         
-        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio());
+        CompeticaoModalidadeSolo competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaEliminatorio());
         
+        // Compra se o request consegui puxar uma parâmetro("sim"). Caso isso ocorre o sistema a ser cadastrado possui repescagem.
         if(sRepesgagem == null){
             repescagem = false;
         }
@@ -71,22 +76,22 @@
             repescagem = true;
         }
         
-        SistemaEliminatorio sistemaEliminatorio = new SistemaEliminatorio(repescagem, 0, sistemaCompeticao, new CompeticaoModalidadeColetiva());
+        SistemaEliminatorio sistemaEliminatorio = new SistemaEliminatorio(repescagem, 0, sistemaCompeticao, new CompeticaoModalidadeSolo());
         
-        sistemaEliminatorio.setCompeticaoModalidade(competicaoModalidadeColetiva);
-        competicaoModalidadeColetiva.setSistemaDeCompeticao(sistemaEliminatorio);
-        competicao.adicionarCompeticaoModalidadeColetiva(competicaoModalidadeColetiva);
+        sistemaEliminatorio.setCompeticaoModalidade(competicaoModalidadeSolo);
+        competicaoModalidadeSolo.setSistemaDeCompeticao(sistemaEliminatorio);
+        competicao.adcionarCompeticaoModalidadeSolo(competicaoModalidadeSolo);
         
         sistemaDeDesempateControle.salvar(sistemaDeDesempate);
-        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
+        competicaoModalidadeSoloControle.salvar(competicaoModalidadeSolo);
         competicaoControle.autualizarCompeticao(competicao);
     }
     else if(sistemaCompeticao.equals("Sistema misto")){
         System.out.println("É um sistema misto");
         boolean repescagem;
         
-        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaMisto());
-        
+        CompeticaoModalidadeSolo competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaMisto());
+
         
         if(sRepesgagem == null){
             repescagem = false;
@@ -95,30 +100,29 @@
             repescagem = true;
         }
         
-        SistemaMisto sistemaMisto = new SistemaMisto(repescagem, sistemaDeContagem, sistemaDeDesempate, 0, sistemaCompeticao, new CompeticaoModalidadeColetiva());
+        SistemaMisto sistemaMisto = new SistemaMisto(repescagem, sistemaDeContagem, sistemaDeDesempate, 0, sistemaCompeticao, new CompeticaoModalidadeSolo());
         
-        sistemaMisto.setCompeticaoModalidade(competicaoModalidadeColetiva);
-        competicaoModalidadeColetiva.setSistemaDeCompeticao(sistemaMisto);
-        competicao.adicionarCompeticaoModalidadeColetiva(competicaoModalidadeColetiva);
+        sistemaMisto.setCompeticaoModalidade(competicaoModalidadeSolo);
+        competicaoModalidadeSolo.setSistemaDeCompeticao(sistemaMisto);
+        competicao.adcionarCompeticaoModalidadeSolo(competicaoModalidadeSolo);
         
         sistemaDeDesempateControle.salvar(sistemaDeDesempate);
-        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
+        competicaoModalidadeSoloControle.salvar(competicaoModalidadeSolo);
         competicaoControle.autualizarCompeticao(competicao);
     }
     else{
         System.out.println("É um sistema todos contra todos");
         
-        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaTodosContraTodos());
+        CompeticaoModalidadeSolo competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaTodosContraTodos());
                
         
-        SistemaTodosContraTodos sistemaTodosContraTodos = new SistemaTodosContraTodos(sistemaDeContagem, sistemaDeDesempate, 0, sistemaCompeticao, new CompeticaoModalidadeColetiva());
+        SistemaTodosContraTodos sistemaTodosContraTodos = new SistemaTodosContraTodos(sistemaDeContagem, sistemaDeDesempate, 0, sistemaCompeticao, new CompeticaoModalidadeSolo());
         
-        sistemaTodosContraTodos.setCompeticaoModalidade(competicaoModalidadeColetiva);
-        competicaoModalidadeColetiva.setSistemaDeCompeticao(sistemaTodosContraTodos);
-        competicao.adicionarCompeticaoModalidadeColetiva(competicaoModalidadeColetiva);
+        sistemaTodosContraTodos.setCompeticaoModalidade(competicaoModalidadeSolo);
+        competicao.adcionarCompeticaoModalidadeSolo(competicaoModalidadeSolo);
         
         sistemaDeDesempateControle.salvar(sistemaDeDesempate);
-        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
+        competicaoModalidadeSoloControle.salvar(competicaoModalidadeSolo);
         competicaoControle.autualizarCompeticao(competicao);
         
     }

@@ -25,9 +25,7 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
     @OneToMany
     private List<AtletaCompeticao> atletasCompeticao;
     
-    @Column(name="status_formulario_inscricao_publica")
-    private boolean statusFormularioInscricaoPublica;
-    
+
     
     @OneToMany
     private List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo;
@@ -37,25 +35,24 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
         modalidadeSolo = new ModalidadeSolo();
         atletasCompeticao = new ArrayList<>();
         inscricoesCompeticaoSolo = new ArrayList<>();
-        statusFormularioInscricaoPublica = false;
     }
     
 
-    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,  boolean statusFormularioInscricaoPublica,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao) {
+    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao) {
         super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao);
         this.modalidadeSolo = modalidadeSolo;
         this.atletasCompeticao = new ArrayList<>();
-        this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
         this.inscricoesCompeticaoSolo = new ArrayList<>();
     }
 
-    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo, List<AtletaCompeticao> atletasCompeticao, boolean statusFormularioInscricaoPublica, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos) {
-        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, confrontos);
+    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo, List<AtletaCompeticao> atletasCompeticao, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica) {
+        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, confrontos, statusFormularioInscricaoPublica);
         this.modalidadeSolo = modalidadeSolo;
         this.atletasCompeticao = atletasCompeticao;
-        this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
         this.inscricoesCompeticaoSolo = inscricoesCompeticaoSolo;
     }
+
+    
     
     
 
@@ -115,19 +112,7 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
         this.atletasCompeticao = atletasCompeticao;
     }
 
-    /**
-     * @return the statusFormularioInscricaoPublica
-     */
-    public boolean isStatusFormularioInscricaoPublica() {
-        return statusFormularioInscricaoPublica;
-    }
 
-    /**
-     * @param statusFormularioInscricaoPublica the statusFormularioInscricaoPublica to set
-     */
-    public void setStatusFormularioInscricaoPublica(boolean statusFormularioInscricaoPublica) {
-        this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
-    }
 
     /**
      * @return the inscricoesCompeticaoSolo
