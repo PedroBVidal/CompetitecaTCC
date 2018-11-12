@@ -13,6 +13,5 @@
     CompeticaoControle competicaoControle = new CompeticaoControle();
     
     
-    
 
 %>
