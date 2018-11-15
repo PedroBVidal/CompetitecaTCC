@@ -89,20 +89,19 @@
                                 
                                 <%
                                     if(competicao.getCmodalidadesolo().size() == 0){
+                                        
                                 // Para cada competição vinculada ao evento, adiciona um checkbox, para o atleta se inscrever, caso queira.
                                     }
                                     else{
                                     for(CompeticaoModalidadeSolo cms: competicao.getCmodalidadesolo()){
                                 %>
                                 <div class="form-group">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input type="checkbox" aria-label="Checkbox for following text input">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <%=%>
                                             </div>
+                                        
                                         </div>
-                                        <input type="text" class="form-control disabled" readonly="true" aria-label="Text input with checkbox" value="<%=cms.getNomeCompeticao()%>">
-                                    </div>
                                 </div>
                                 <%}}%>
                                 
