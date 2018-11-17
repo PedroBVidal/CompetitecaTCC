@@ -4,8 +4,41 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
+<%
+    UsuarioParticipante2 up = (UsuarioParticipante2) session.getAttribute("usuario");
+    if (up == null) {
+        response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
+    }
+
+    int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
+
+    CompeticaoControle competicaoControle = new CompeticaoControle();
+    Competicao competicao = competicaoControle.buscarCompeticaoPorId(idCompeticao);
+
+    int flag = 0;
+
+    for (Atleta atleta : up.getAtletas()) {
+
+        System.out.println("ID COMPETICAO"+ competicao.getIdCompeticao());
+        System.out.println("ID COMPETICAO ATLETA" + atleta.getCompeticao().getIdCompeticao());
+        
+        if (atleta.getCompeticao().getIdCompeticao() == competicao.getIdCompeticao()) {
+            flag = 1;
+        }
+    }
+
+    if (flag == 1) {
+        System.out.println("ENTREI AQUIIIIIIIIIIIIIIIIIIIIIIIII");
+        response.sendRedirect("forminscricaocompeticao.jsp?idCompeticao=" + competicao.getIdCompeticao());
+    } else {
+        
+
+%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -30,16 +63,6 @@
     </head>
 
     <body>
-        <%
-            UsuarioParticipante2 up = (UsuarioParticipante2) session.getAttribute("usuario");
-            if (up == null) {
-                response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
-            } else {
-
-                // Pega o id passado como parâmtro no botão "Realizar Inscrição" da jsp listaCompeticoes.jsp
-                int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
-                System.out.println("ID COMPETICAO:"+ idCompeticao);
-        %>
 
         <header>
             <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
@@ -61,6 +84,9 @@
             <%
                 }
             %>
+            
+            
+            
 
             <h1 class="col fontCabinCondensed" style="margin: 20px 0px 20px -10px;">Inscrição</h1>
 
@@ -88,9 +114,9 @@
                         </div>
                     </form>
                 </div>
+                                
 
-
-
+                
 
                 <!-- Bootstrap core JavaScript -->
 

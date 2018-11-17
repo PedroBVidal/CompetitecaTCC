@@ -82,28 +82,58 @@
                                 Passo 2
                             </div>
                             
+                            <%
+                                if(competicao.getCmodalidadesolo().size() != 0){
+                                        
+                                // Para cada competição vinculada ao evento, adiciona um checkbox, para o atleta se inscrever, caso queira.
+                                
+                            %>
+                            
                             <div class="card-body">
                                 <div class="form-group">
                                     <h4 style="margin: -5px 0px 0px -5px;">Competições individuais: </h4>
                                 </div>
                                 
+                                    
                                 <%
-                                    if(competicao.getCmodalidadesolo().size() == 0){
-                                        
-                                // Para cada competição vinculada ao evento, adiciona um checkbox, para o atleta se inscrever, caso queira.
-                                    }
-                                    else{
+
+                                    
                                     for(CompeticaoModalidadeSolo cms: competicao.getCmodalidadesolo()){
                                 %>
-                                <div class="form-group">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <%=%>
+                                
+                                
+                                    <div class="form-group">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cms.getNomeCompeticao()%>">
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#<%=cms.getIdCompeticaoModalidade()%>">Inscrever-se</button>
                                             </div>
-                                        
                                         </div>
-                                </div>
+                                    </div>
+                                    <!-- Modal -->
+                                            <div class="modal fade" id="<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente realizar inscrição em <%=cms.getNomeCompeticao()%>?</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                 
+                                                        <div class="modal-footer">
+                                                            <a class="btn btn-warning" data-dismiss="modal">Não</a>
+                                                            <a class="btn btn-primary" href="scripts/inscreverAtletaEmCompeticaoSolo.jsp?idCms=<%=cms.getIdCompeticaoModalidade()%>">Sim</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                
                                 <%}}%>
+                                <%
+                                if (competicao.getCmodalidadecole().size() != 0) {
+                                
+                                                                
+                                %>  
                                 
                                 <div class="form-group">
                                     <h4 style="margin: 15px 0px 0px -5px;">Competições coletivas: </h4>
@@ -129,10 +159,8 @@
                                     </div>
                                 </div>
                                 <%
-                                    if(competicao.getCmodalidadecole().size() == 0){
-                                        
-                                    }
-                                    else {
+
+                                    
                                         
                                     for (CompeticaoModalidadeColetiva competicaoModalidadeColetiva: competicao.getCmodalidadecole()){
                                 
@@ -150,9 +178,7 @@
                                     </div>
                                 </div>
                                 <%}}%>
-                                <div class="form-group">
-                                <button type="submit" class="btn btn-success">Cadastrar-me</button>
-                                </div>
+
                             </div>
                         </div>
                     </form>

@@ -33,15 +33,27 @@
     // Busca uma competicao que tenha o id passado como parâmetro
     Competicao competicao = competicaoControle.buscarCompeticaoPorId(Integer.parseInt(sIdCompeticao)); 
     
-    // Busca uma competicao que tenha o id passado como parâmetro
+    // Busca um usuario partcipante que tenha o id passado como parâmetro
     UsuarioParticipante2 usuarioParticipante2 = usuarioParticipante2Controle.buscarPorId(Integer.parseInt(sIdUsuarioParticipante));
     
     // Instancia um atleta
     // O atributo aprovado é false.
     //O atleta é vinculado a competicao
     
+    int flag = 0;
     
+        for (Atleta a : usuarioParticipante2.getAtletas()) {
+                    System.out.println("ID COMPETICAO VINCULADA A ATLETA:" + a.getCompeticao().getIdCompeticao());
+                    System.out.println("ID COMPETICAO:" + competicao.getIdCompeticao());
+                    
+                if (a.getCompeticao().getIdCompeticao() == competicao.getIdCompeticao()) {
+                    flag = 1;
+                }
+            }
+    
+    if(flag == 0){
     Atleta atleta = new Atleta(0, nome, email, false, competicao);
+    
     
     //Salva no banco o atleta.
     atletaControle.criarAtleta(atleta);
@@ -54,6 +66,11 @@
     
     //Redireciona para a página inscricaoAtletaCompeticao
     response.sendRedirect("../forminscricaocompeticao.jsp?msg=Cadastro efetuado no evento "+ competicao.getNome()+"&idCompeticao="+competicao.getIdCompeticao());
+    }
     
+    else{
+        response.sendRedirect("../index.jsp");
+
+    }
 %>
 

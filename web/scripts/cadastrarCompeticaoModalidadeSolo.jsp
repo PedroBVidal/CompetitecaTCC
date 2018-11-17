@@ -119,6 +119,7 @@
         SistemaTodosContraTodos sistemaTodosContraTodos = new SistemaTodosContraTodos(sistemaDeContagem, sistemaDeDesempate, 0, sistemaCompeticao, new CompeticaoModalidadeSolo());
         
         sistemaTodosContraTodos.setCompeticaoModalidade(competicaoModalidadeSolo);
+        competicaoModalidadeSolo.setSistemaDeCompeticao(sistemaTodosContraTodos);
         competicao.adcionarCompeticaoModalidadeSolo(competicaoModalidadeSolo);
         
         sistemaDeDesempateControle.salvar(sistemaDeDesempate);

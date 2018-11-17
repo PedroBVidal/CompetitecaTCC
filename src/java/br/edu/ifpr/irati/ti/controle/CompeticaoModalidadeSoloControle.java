@@ -22,4 +22,8 @@ public class CompeticaoModalidadeSoloControle {
     public void salvar(CompeticaoModalidadeSolo competicaoModalidadeSolo){
         competicaoModalidadeSoloDAO.salvar(competicaoModalidadeSolo);
     }
+    
+    public CompeticaoModalidadeSolo buscarPorId(int id){
+        return competicaoModalidadeSoloDAO.buscarPorId(id);
+    }
 }
