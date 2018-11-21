@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -22,12 +23,12 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
     private ModalidadeSolo modalidadeSolo;
     
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<AtletaCompeticao> atletasCompeticao;
     
 
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo;
 
     public CompeticaoModalidadeSolo() {
@@ -78,6 +79,14 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
         
     }
 */
+    
+    public void adcionarInscricaoModalidadeSolo(InscricaoCompeticaoSolo inscricaoCompeticaoSolo){
+        this.inscricoesCompeticaoSolo.add(inscricaoCompeticaoSolo);
+    }
+    
+    public void removerInscricaoModalidadeSolo(InscricaoCompeticaoSolo inscricaoCompeticaoSolo){
+        this.inscricoesCompeticaoSolo.remove(inscricaoCompeticaoSolo);
+    }
     
     public List<Confronto> gerarConfrontos(){
         

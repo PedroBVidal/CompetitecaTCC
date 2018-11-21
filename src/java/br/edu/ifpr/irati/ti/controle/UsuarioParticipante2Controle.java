@@ -3,8 +3,10 @@ package br.edu.ifpr.irati.ti.controle;
 
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
+import br.edu.ifpr.irati.ti.modelo.Atleta;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2;
+import java.util.List;
 
 
 public class UsuarioParticipante2Controle {
@@ -32,6 +34,12 @@ public class UsuarioParticipante2Controle {
     
     public UsuarioParticipante2 buscarPorId(int id){
         return usuarioParticipanteDAO.buscarPorId(id);
+    }
+    
+    public List<Atleta> buscarAtletasVincualdadosAoUsuarioParticipante(UsuarioParticipante2 usuarioParticipante2){
+        
+        UsuarioParticipante2 up = usuarioParticipanteDAO.buscarPorId(usuarioParticipante2.getIdUsuario());
+        return up.getAtletas();       
     }
     
     

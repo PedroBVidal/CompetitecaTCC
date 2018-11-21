@@ -36,6 +36,9 @@
     // Busca um usuario partcipante que tenha o id passado como parâmetro
     UsuarioParticipante2 usuarioParticipante2 = usuarioParticipante2Controle.buscarPorId(Integer.parseInt(sIdUsuarioParticipante));
     
+    System.out.println("USUARIO PARTICIPANTE1 CRIADO (Atletas vicnulados):" + usuarioParticipante2.getAtletas());
+
+    
     // Instancia um atleta
     // O atributo aprovado é false.
     //O atleta é vinculado a competicao
@@ -54,18 +57,35 @@
     if(flag == 0){
     Atleta atleta = new Atleta(0, nome, email, false, competicao);
     
+    System.out.println("ATLETA CRIADO PELO BANCO:"+  atleta);
     
     //Salva no banco o atleta.
     atletaControle.criarAtleta(atleta);
     
+    System.out.println("USUARIO PARTICIPANTE2 CRIADO (Atletas vicnulados):" + usuarioParticipante2.getAtletas());
+
+    
     // Adiciona um atleta na List<Atleta> do usuário participante.
     usuarioParticipante2.adicionarAtleta(atleta);
+     
+    System.out.println("USUARIO PARTICIPANTE3 CRIADO (Atletas vicnulados):" + usuarioParticipante2.getAtletas());
     
     //Atualiza o usuário participante, agora com um atleta a mais vinculado a ele.
     usuarioParticipante2Controle.atualizarCad(usuarioParticipante2);
     
+    int idAtletaCriado = 0;
+    
+    for(Atleta a: usuarioParticipante2.getAtletas()){
+        
+        if(a.equals(atleta)){
+            idAtletaCriado = a.getIdAtleta();
+            break;
+        }
+    }
+    
+    
     //Redireciona para a página inscricaoAtletaCompeticao
-    response.sendRedirect("../forminscricaocompeticao.jsp?msg=Cadastro efetuado no evento "+ competicao.getNome()+"&idCompeticao="+competicao.getIdCompeticao());
+    response.sendRedirect("../forminscricaocompeticao.jsp?msg=Cadastro efetuado no evento "+ competicao.getNome()+"&idCompeticao="+competicao.getIdCompeticao()+"&idAtleta="+idAtletaCriado);
     }
     
     else{

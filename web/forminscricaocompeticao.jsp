@@ -42,6 +42,9 @@
 
                 // Pega o id passado como parâmtro no botão "Realizar Inscrição" da jsp listaCompeticoes.jsp
                 int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
+                int idAtleta = Integer.parseInt(request.getParameter("idAtleta"));
+                
+                
                 CompeticaoControle competicaoControle = new CompeticaoControle();
                 
                 Competicao competicao = competicaoControle.buscarCompeticaoPorId(idCompeticao);
@@ -106,7 +109,9 @@
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cms.getNomeCompeticao()%>">
                                             <div class="input-group-append">
-                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#<%=cms.getIdCompeticaoModalidade()%>">Inscrever-se</button>
+                                                <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                    <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
+                                                </a><button type="button" class="btn btn-success" data-toggle="modal" data-target="#<%=cms.getIdCompeticaoModalidade()%>">Inscrever-se</button>
                                             </div>
                                         </div>
                                     </div>
@@ -122,8 +127,8 @@
                                                         </div>
                                  
                                                         <div class="modal-footer">
+                                                            <a class="btn btn-primary" href="scripts/inscreverAtletaEmCompeticaoSolo.jsp?idCms=<%=cms.getIdCompeticaoModalidade()%>&idAtleta=<%=idAtleta%>">Sim</a>
                                                             <a class="btn btn-warning" data-dismiss="modal">Não</a>
-                                                            <a class="btn btn-primary" href="scripts/inscreverAtletaEmCompeticaoSolo.jsp?idCms=<%=cms.getIdCompeticaoModalidade()%>">Sim</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -138,45 +143,44 @@
                                 <div class="form-group">
                                     <h4 style="margin: 15px 0px 0px -5px;">Competições coletivas: </h4>
                                 </div>
-                                <div class="form-group">
-                                    <p>
-                                    <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                        <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
-                                    </a>
-                                    </p>
-                                    <!--Collapse de infromação sobre o cadastro de modalidades coletivas-->
-                                    <div class="collapse" id="collapseExample">
-                                        <div class="card card-body">
-                                            <ol> 
-                                                <li id="lista">Selecione as modalidades coletivas que você tenha interesse em participar.</li>
-                                                <li class="lista">Posteriormente você poderá escolher entre:</li>
-                                                <ul>
-                                                    <li class="lista"><span class="font-weight-bold">Enviar uma solicitação de entrada para uma equipe</span> ou <span class="font-weight-bold">Criar uma nova equipe.</span></li>
-                                                </ul>
-                                                <li class="lista">A escolha entre criar ou solicitar entrada em uma equipe <span class="font-weight-bold">deverá ser realizada para cada competição coletiva selecionada.</span></li>
-                                            </ol>  
-                                        </div>
-                                    </div>
-                                </div>
-                                <%
 
+                                <%
                                     
                                         
-                                    for (CompeticaoModalidadeColetiva competicaoModalidadeColetiva: competicao.getCmodalidadecole()){
-                                
+                                    for (CompeticaoModalidadeColetiva cmc: competicao.getCmodalidadecole()){
+                                        
+                                    
                                 
                                 %>
                                 
                                 <div class="form-group">
                                     <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input type="checkbox" aria-label="Checkbox for following text input">
-                                            </div>
+                                        <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cmc.getNomeCompeticao()%>">
+                                        <div class="input-group-append">
+                                            <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
+                                            </a><button type="button" class="btn btn-success" data-toggle="modal" data-target="#<%=cmc.getIdCompeticaoModalidade()%>">Inscrever-se</button>
                                         </div>
-                                        <input type="text" class="form-control disabled" readonly="true" aria-label="Text input with checkbox" value="<%=competicaoModalidadeColetiva.getNomeCompeticao()%>">
                                     </div>
                                 </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Deseja realmente realizar inscrição em <%=cmc.getNomeCompeticao()%>?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <a class="btn btn-warning" data-dismiss="modal">Não</a>
+                                                <a class="btn btn-primary" href="scripts/inscreverAtletaEmCompeticaoSolo.jsp?idCms=<%=cmc.getIdCompeticaoModalidade()%>">Sim</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>      
                                 <%}}%>
 
                             </div>

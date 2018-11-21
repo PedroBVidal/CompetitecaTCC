@@ -44,13 +44,14 @@ public class Atleta implements Serializable {
     private Competicao competicao;
     
     
-    @OneToMany (mappedBy = "atleta")
+    @OneToMany (mappedBy = "atleta", fetch = FetchType.EAGER)
     private List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo;
     
-    @OneToMany
+    
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Mensagem> mensagens;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<CompeticaoModalidadeSolo> competicoesModalidadeSolo;
     
     //VER!
@@ -112,8 +113,21 @@ public class Atleta implements Serializable {
     }
 
 
-
+    public void adicionarCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo){
+        this.competicoesModalidadeSolo.add(competicaoModalidadeSolo);
+    }
     
+    public void removerCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo){
+        this.competicoesModalidadeSolo.remove(competicaoModalidadeSolo);
+    }
+    
+    public void adicionarInscricaoCompeticaoSolo(InscricaoCompeticaoSolo inscricaoCompeticaoSolo){
+        this.inscricoesCompeticaoSolo.add(inscricaoCompeticaoSolo);
+    }
+    
+    public void removerInscricaoCompeticaoSolo(InscricaoCompeticaoSolo inscricaoCompeticaoSolo){
+        this.inscricoesCompeticaoSolo.remove(inscricaoCompeticaoSolo);
+    }
     
     public void adicionarEquipe(Equipe equipe){
         this.getEquipes().add(equipe);

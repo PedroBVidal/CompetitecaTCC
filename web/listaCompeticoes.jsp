@@ -4,6 +4,7 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -32,15 +33,19 @@
         
         <!-- Estilo CSS-->
         <link href="css/estilo.css" rel="stylesheet">
-        
+        <meta http-equiv="refresh" content="5(SIGNIFICA QUE IRÁ ATUALIZAR AUTOMÁTICAMENTE EM 5 segundos);url=URL_DESTINO(PODE SER A MESMA PÁGINA)">
     </head>
 
     <body>
+             
         <%
             UsuarioParticipante2 up = (UsuarioParticipante2) session.getAttribute("usuario");
             if (up == null) {
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             } else {
+                
+                
+                response.setIntHeader("Refresh", 100);
                 
                 boolean busca = false;
         %>
@@ -89,10 +94,10 @@
             <%
                 List<Competicao> competicoes = new ArrayList<>();
                 CompeticaoControle competicaoControle = new CompeticaoControle();
-
-                    competicoes = competicaoControle.buscarTodasCompeticoes();
-
                 
+                competicoes = competicaoControle.buscarTodasCompeticoes();
+               
+               //List<Atleta> atletas = up.getAtletas();
                 
                 
                 for(Competicao competicao : competicoes){
@@ -115,11 +120,39 @@
                             </h4>
                                 <p class="card-text fontOverpass"><b>Data de Início:</b><span style="margin-left: 5px;"><%=dataInicio%></span></p>
                                 <p class="card-text fontOverpass"><b>Data de Termino:</b><span style="margin-left: 5px;"><%=dataTermino%></span></p>
-                                <p class="fontOverpass"><a class="btn btn-success" href="forminscricaoatletaevento.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" role="button">Realizar inscrição</a><p>
+                                <%
+                                    int flag = 0;
+                                    int idAtleta = 0;
+                                    UsuarioParticipante2Controle usuarioParticipante2Controle = new UsuarioParticipante2Controle();
+                                    
+                                    for(Atleta atleta : usuarioParticipante2Controle.buscarAtletasVincualdadosAoUsuarioParticipante(up)){
+                                        
+                                        if(atleta.getCompeticao().getIdCompeticao() == competicao.getIdCompeticao()){
+                                            idAtleta = atleta.getIdAtleta();
+                                            flag = 1;
+                                        }
+                                        
+                                        if(flag == 1){
+                                            break;
+                                        }
+                                    }
+                                %>
+                                
+                                <div class="form-group">
+                                
+                                <%
+                                if(flag == 0){
+                                %>
+                                <p class="fontOverpass"><a class="btn btn-primary" href="forminscricaoatletaevento.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" role="button">Realizar inscrição em evento</a><p>
+                                <%}
+                                if(flag == 1){
+                                %>
+                                <p class="fontOverpass"><a class="btn btn-info" href="forminscricaocompeticao.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>&idAtleta=<%=idAtleta%>" role="button">Inscrever-se em competições do evento</a><p>
+                                <%}%>
+                                </div>
                         </div>
                     </div>
                 </div>
-                
             
             <%}%>
             </div>  
@@ -131,6 +164,8 @@
 
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        
+
         <%
         }
         %>

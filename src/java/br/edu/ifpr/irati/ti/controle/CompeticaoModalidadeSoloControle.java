@@ -26,4 +26,9 @@ public class CompeticaoModalidadeSoloControle {
     public CompeticaoModalidadeSolo buscarPorId(int id){
         return competicaoModalidadeSoloDAO.buscarPorId(id);
     }
+    
+    public void alterar(CompeticaoModalidadeSolo competicaoModalidadeSolo){
+        competicaoModalidadeSoloDAO.alterar(competicaoModalidadeSolo);
+    }
+    
 }

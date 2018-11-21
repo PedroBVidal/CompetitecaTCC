@@ -72,7 +72,7 @@
                 request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("msg") != null) {
                     String msg = request.getParameter("msg");
-
+                    
             %>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong><%=msg%></strong> .

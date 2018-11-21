@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -19,10 +20,10 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     @OneToOne
     private ModalidadeColetiva modalidadeColetiva;
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<EquipeCompeticao> equipesCompeticao;
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas;
 
     public CompeticaoModalidadeColetiva() {
