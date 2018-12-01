@@ -80,6 +80,8 @@
         sistemaDeDesempateControle.salvar(sistemaDeDesempate);
         competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
         competicaoControle.autualizarCompeticao(competicao);
+        
+        
     }
     else if(sistemaCompeticao.equals("Sistema misto")){
         System.out.println("É um sistema misto");
@@ -104,6 +106,7 @@
         sistemaDeDesempateControle.salvar(sistemaDeDesempate);
         competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
         competicaoControle.autualizarCompeticao(competicao);
+        
     }
     else{
         System.out.println("É um sistema todos contra todos");
@@ -121,7 +124,8 @@
         competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
         competicaoControle.autualizarCompeticao(competicao);
         
+        
     }
     
-    
+    response.sendRedirect("../gerenciamentoDeCompeticao.jsp?idCompeticao="+idEvento);
 %>
