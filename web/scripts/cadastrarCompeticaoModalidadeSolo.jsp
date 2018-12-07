@@ -58,7 +58,7 @@
     SistemaDeContagemControle sistemaDeContagemControle = new SistemaDeContagemControle();
     
     Competicao competicao = competicaoControle.buscarCompeticaoPorId(idEvento);
-    System.out.println("OlooooooooooooooooooooooooooooooooooooooooooooOoOoOoOo: "+ competicao.getCmodalidadesolo());
+    System.out.println("OlooooooooooooooooooooooooooooooooooooooooooooOoOoOoOo (SOLO): "+ competicao.getCmodalidadesolo());
     ModalidadeSolo modalidadeSolo = modalidadeSoloControle.buscaPorId(idModalidadeSolo);
     SistemaDeContagem sistemaDeContagem = sistemaDeContagemControle.buscarPorId(idSistemaDeContagem);
     SistemaDeDesempate sistemaDeDesempate = new SistemaDeDesempate(0, sistemaDesempate, sistemaDesempateSecundario);

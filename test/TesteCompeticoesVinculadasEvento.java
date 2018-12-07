@@ -1,7 +1,9 @@
 
+import br.edu.ifpr.irati.ti.dao.CompeticaoDAO;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.modelo.Competicao;
+import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidade;
 import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva;
 import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo;
 import br.edu.ifpr.irati.ti.modelo.ModalidadeColetiva;
@@ -25,22 +27,54 @@ public class TesteCompeticoesVinculadasEvento {
     public static void main(String[] args) {
         
         Dao<Competicao> eventoDAO = new GenericDAO<>(Competicao.class);
-        Dao<CompeticaoModalidadeSolo> cptMcDAO = new GenericDAO<>(CompeticaoModalidadeSolo.class);
-        Dao<CompeticaoModalidadeColetiva> cptMsDAO = new GenericDAO<>(CompeticaoModalidadeColetiva.class);
+        Dao<CompeticaoModalidadeSolo> cptMsDAO = new GenericDAO<>(CompeticaoModalidadeSolo.class);
+        Dao<CompeticaoModalidadeColetiva> cptMcDAO = new GenericDAO<>(CompeticaoModalidadeColetiva.class);
         Dao<ModalidadeSolo> modalidadeSoloDAO = new GenericDAO<>(br.edu.ifpr.irati.ti.modelo.ModalidadeSolo.class);
         Dao<ModalidadeColetiva> modalidadeColetivaDAO = new GenericDAO<>(ModalidadeColetiva.class);
-        Dao<Sis>
+        Dao<SistemaTodosContraTodos> sistemaTodosContraTodosDAO = new GenericDAO<>(SistemaTodosContraTodos.class);
+        Dao<SistemaDeContagem> sistemaDeContagemDAO = new GenericDAO<>(SistemaDeContagem.class);
+        Dao<SistemaDeDesempate> sistemaDeDesempateDAO = new GenericDAO<>(SistemaDeDesempate.class);
+        CompeticaoDAO competicaoDAO = new CompeticaoDAO();
         
+        /*
         ModalidadeSolo ms = modalidadeSoloDAO.buscarPorId(1);
-        SistemaDeContagem sC = 
+        ModalidadeColetiva mc = modalidadeColetivaDAO.buscarPorId(1);
+        SistemaDeContagem sC = sistemaDeContagemDAO.buscarPorId(1);
+        
         SistemaDeDesempate sD = new SistemaDeDesempate(0, "pontos marcados", "vitorias");
-        SistemaTodosContraTodos sisTodos = new SistemaTodosContraTodos(, sD, 0, nome, competicaoModalidade)
+        SistemaTodosContraTodos sisTodos = new SistemaTodosContraTodos(sC, sD, 0,"Sistema todos contra todos", new CompeticaoModalidadeSolo());
+        CompeticaoModalidadeSolo compSolo = new CompeticaoModalidadeSolo(ms, 0, "Competição inserida manualmente", new SistemaTodosContraTodos());
+        //CompeticaoModalidadeColetiva compColetiva = new CompeticaoModalidadeColetiva(mc, 0,"Comp teste", sisTodos);
         
         
-        Competicao competicao = new Competicao(0, "Comp Teste", new Date(), new Date());
+        Competicao competicao = eventoDAO.buscarPorId(11);
         
+        competicao.adcionarCompeticaoModalidadeSolo(compSolo);
+        //competicao.adicionarCompeticaoModalidadeColetiva(compColetiva);
+        sisTodos.setCompeticaoModalidade(compSolo);
+        //sisTodos.setCompeticaoModalidade(compColetiva);
+        compSolo.setSistemaDeCompeticao(sisTodos);
+        //compColetiva.setSistemaDeCompeticao(sisTodos);
+        sistemaDeDesempateDAO.salvar(sD);
+        
+        cptMsDAO.salvar(compSolo);
+        //cptMcDAO.salvar(compColetiva);
+        sistemaTodosContraTodosDAO.salvar(sisTodos);
 
         
+        eventoDAO.alterar(competicao);
+        
+        */
+        
+        Competicao competicao = competicaoDAO.buscarPorId(11);
+        
+        for(CompeticaoModalidade cm : competicao.getCmodalidadecole()){
+            System.out.println("Nome competição coletiva " + cm.getNomeCompeticao());
+        }
+        
+        for(CompeticaoModalidade cm : competicao.getCmodalidadesolo()){
+            System.out.println("Nome competição solo " + cm.getNomeCompeticao());
+        }
         
         System.exit(0);
     }

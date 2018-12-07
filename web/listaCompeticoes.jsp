@@ -45,9 +45,14 @@
             } else {
                 
                 
-                response.setIntHeader("Refresh", 100);
+                //sresponse.setIntHeader("Refresh", 100);
                 
                 boolean busca = false;
+                
+                List<Competicao> competicoes = new ArrayList<>();
+                CompeticaoControle competicaoControle = new CompeticaoControle();
+                UsuarioParticipante2Controle usuarioParticipante2Controle = new UsuarioParticipante2Controle();
+                competicoes = competicaoControle.buscarTodasCompeticoes();
         %>
 
         <header>
@@ -85,20 +90,28 @@
                 
                 <form class="form-inline col" style="margin-bottom: 10px;" action="<%= busca = true%>" method="POST">
                     <p class="my-4 fontOverpass col-3">Pesquisar competição:</p>
-                    <input class="form-control col-7" type="search"aria-label="Search" name="nomeCompeticao">
+                    <input class="form-control col-7" type="search" aria-label="Search" name="nomeCompeticao" list="competicoes">
+                    <datalist id="competicoes">
+                        
+                        <%
+                            for(Competicao c: competicoes){
+                        %>
+                        <option value="<%=c.getIdCompeticao()%>" title="yess"><%=c.getNome()%></option><%
+                            }
+                        %>
+                    </datalist>
                     <button class="btn btn-outline-success col-2" type="submit">Search</button>
                 </form>
                 
             <div class="card-group">
 
             <%
-                List<Competicao> competicoes = new ArrayList<>();
-                CompeticaoControle competicaoControle = new CompeticaoControle();
-                
-                competicoes = competicaoControle.buscarTodasCompeticoes();
+
                
                //List<Atleta> atletas = up.getAtletas();
                 
+                UsuarioParticipante2 usuarioParticipante = usuarioParticipante2Controle.buscarPorId(up.getIdUsuario());
+                List<Atleta> atletasVinculadosUp = usuarioParticipante.getAtletas();
                 
                 for(Competicao competicao : competicoes){
                     
@@ -123,18 +136,18 @@
                                 <%
                                     int flag = 0;
                                     int idAtleta = 0;
-                                    UsuarioParticipante2Controle usuarioParticipante2Controle = new UsuarioParticipante2Controle();
-                                    
-                                    for(Atleta atleta : usuarioParticipante2Controle.buscarAtletasVincualdadosAoUsuarioParticipante(up)){
+                                  
+                                    for(Atleta atleta : atletasVinculadosUp){
                                         
                                         if(atleta.getCompeticao().getIdCompeticao() == competicao.getIdCompeticao()){
                                             idAtleta = atleta.getIdAtleta();
                                             flag = 1;
+                                            atletasVinculadosUp.remove(atleta);
+                                            break;
+                                            
                                         }
                                         
-                                        if(flag == 1){
-                                            break;
-                                        }
+                 
                                     }
                                 %>
                                 
@@ -143,7 +156,7 @@
                                 <%
                                 if(flag == 0){
                                 %>
-                                <p class="fontOverpass"><a class="btn btn-primary" href="forminscricaoatletaevento.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" role="button">Realizar inscrição em evento</a><p>
+                                <p class="fontOverpass"><a class="btn btn-success" href="forminscricaoatletaevento.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" role="button">Realizar inscrição em evento</a><p>
                                 <%}
                                 if(flag == 1){
                                 %>
@@ -164,7 +177,11 @@
 
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        
+        <script>
+            function buscarEventos(){
+                alert("Modificou");
+            }
+        </script>
 
         <%
         }

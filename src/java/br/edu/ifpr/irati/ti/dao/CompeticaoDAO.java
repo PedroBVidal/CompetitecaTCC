@@ -68,5 +68,14 @@ public class CompeticaoDAO {
         return results;
     }
     
-    
+        public Competicao buscarPorId(int id){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from competicao c where c.idCompeticao = '"+id+"'";
+        Query query = session.createQuery(hql);
+        query.setMaxResults(1);
+        Competicao competicao = (Competicao) query.uniqueResult();        
+        session.clear();
+        session.close();
+        return competicao;
+    }
 }

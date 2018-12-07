@@ -25,7 +25,7 @@ public class CompeticaoControle {
         return cptc;
     }
     public Competicao buscarCompeticaoPorId(int id){
-        Competicao cptc = competicaoDAOGeneric.buscarPorId(id);
+        Competicao cptc = competicaoDAO.buscarPorId(id);
         return cptc;
     }
     

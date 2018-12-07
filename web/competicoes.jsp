@@ -71,6 +71,9 @@
                 SimpleDateFormat formate = new SimpleDateFormat("dd/MM/yyyy");
                 //UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
                 //UsuarioParticipante upp = upc.buscarPorId(up.getIdUsuario());
+                
+                System.out.println("Competições vinculadas ao usuário participante" + up.getCompeticoes());
+                
                 for(Competicao cptc : up.getCompeticoes()){
                 %>
 

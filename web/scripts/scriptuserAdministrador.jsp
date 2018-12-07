@@ -13,16 +13,25 @@
     String senha = request.getParameter("senha");
     int cmd = Integer.parseInt(request.getParameter("c"));
     int id = Integer.parseInt(request.getParameter("id"));
-    UsuarioParticipante usp = new UsuarioParticipante(id,nome,email,senha);
+    
+    
+    
     if(cmd == 2){
+       
        UsuarioParticipanteControle uspc = new UsuarioParticipanteControle();
-       uspc.atualizarCad(usp);
-       usp = uspc.buscarLogin(email,senha);
-       session.setAttribute("usuario",usp);
+       UsuarioParticipante usuarioParticipante = uspc.buscarPorId(id);
+       usuarioParticipante.setNome(nome);
+       usuarioParticipante.setEmail(email);
+       usuarioParticipante.setSenha(senha);
+       
+       uspc.atualizarCad(usuarioParticipante);
+       usuarioParticipante = uspc.buscarLogin(email,senha);
+       session.setAttribute("usuario",usuarioParticipante);
        response.sendRedirect("../gerenciamento.jsp");
        
     }
     if(cmd == 1){
+        UsuarioParticipante usp = new UsuarioParticipante(id,nome,email,senha);
         UsuarioParticipanteControle uspc = new UsuarioParticipanteControle();
         uspc.criar(usp);
         response.sendRedirect("../login.jsp?e=Cadastro efetuado, agora entre com o tipo Administrador");
