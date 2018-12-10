@@ -7,11 +7,12 @@
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    System.out.println("SCRIPT BUSCAR COMPETICOES");
     
-    String nomeCompeticao = request.getParameter("nomeCompeticao");
+    int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
     
-    CompeticaoControle competicaoControle = new CompeticaoControle();
-    
+    response.sendRedirect("../listaCompeticoes.jsp?idCompeticao="+idCompeticao);
+
     
 
 %>

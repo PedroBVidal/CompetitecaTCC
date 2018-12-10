@@ -20,7 +20,7 @@
                     UsuarioParticipante2 up = (UsuarioParticipante2) usuario; 
                     
 %>
-
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top">
             <div class="container ">
                 <a class="navbar-brand" href="index.jsp">Competiteca</a>
@@ -30,7 +30,10 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="listaCompeticoes.jsp"><i class="fas fa-trophy"></i>&nbsp;Competições</a>
+                            <a class="nav-link" href="listaCompeticoes.jsp"><i class="fas fa-trophy"></i>&nbsp;Eventos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="meusEventos.jsp"><i class="far fa-clipboard"></i>&nbsp;Meus eventos</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
