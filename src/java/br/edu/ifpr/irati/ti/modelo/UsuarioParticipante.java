@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import org.hibernate.annotations.Proxy;
 
@@ -32,6 +33,9 @@ public class UsuarioParticipante implements Serializable {
     
     @OneToMany(fetch= FetchType.EAGER)
     private List<Competicao> competicoes;
+    
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Mensagem> msg;
 
     public UsuarioParticipante() {
         idUsuario = 0;
@@ -39,6 +43,7 @@ public class UsuarioParticipante implements Serializable {
         senha = "";
         competicoes = new ArrayList<>();
         nome = "";
+        msg = new ArrayList<>();
     }
 
     public UsuarioParticipante(int idUsuario,String nome, String email, String senha) {
@@ -47,13 +52,15 @@ public class UsuarioParticipante implements Serializable {
         this.email = email;
         this.senha = senha;
         this.competicoes = new ArrayList<>();
+        this.msg = new ArrayList<>();
     }
 
-    public UsuarioParticipante(int idUsuario, String email, String senha, List<Competicao> competicoes) {
+    public UsuarioParticipante(int idUsuario, String email, String senha, List<Competicao> competicoes, List<Mensagem> msg) {
         this.idUsuario = idUsuario;
         this.email = email;
         this.senha = senha;
         this.competicoes = competicoes;
+        this.msg = msg;
     }
 
     /**
@@ -130,6 +137,26 @@ public class UsuarioParticipante implements Serializable {
     }
     public void removerCompeticao(Competicao cp){
         competicoes.remove(cp);
+    }
+
+    /**
+     * @return the msg
+     */
+    public List<Mensagem> getMsg() {
+        return msg;
+    }
+
+    /**
+     * @param msg the msg to set
+     */
+    public void setMsg(List<Mensagem> msg) {
+        this.msg = msg;
+    }
+    public void addMensagem(Mensagem msg){
+        this.msg.add(msg);
+    }
+    public void removeMensagem(Mensagem msg){
+        this.msg.remove(msg);
     }
     
     
