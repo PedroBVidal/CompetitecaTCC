@@ -18,13 +18,15 @@
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipanteControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Mensagem"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
     <head>
-        
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
@@ -91,288 +93,329 @@
 
             <!-- List group -->
             <div class="row">
-            <div class="list-group col-2" id="myList" role="tablist">
-                <a class="list-group-item list-group-item-action active" data-toggle="list" href="#modalidadeSolo" role="tab">Nova competição coletiva</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">Nova competição individual</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="#messages" role="tab">Messages</a>
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Settings</a>
-            </div>
+                <div class="list-group col-2" id="myList" role="tablist">
+                    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#modalidadeSolo" role="tab">Nova competição coletiva</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">Nova competição individual</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#messages" role="tab">Mensagens</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Settings</a>
+                </div>
 
-            <!-- Tab panes -->
-            <div class="tab-content col-10">
-                <div class="tab-pane active dark" id="modalidadeSolo" role="tabpanel">
-                    
-                    <table class="table table-striped">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Modalidade</th>
-                                <th scope="col">Sistema de Competição</th>
-                                <th scope="col">Ação</th>
-                            </tr>
-                        </thead>
+                <!-- Tab panes -->
+                <div class="tab-content col-10">
+                    <div class="tab-pane active dark" id="modalidadeSolo" role="tabpanel">
 
-                        <tbody>
-                        <%
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Modalidade</th>
+                                    <th scope="col">Sistema de Competição</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <%
                             
-                            for(CompeticaoModalidadeColetiva cptMc: competicao.getCmodalidadecole()){
+                                    for(CompeticaoModalidadeColetiva cptMc: competicao.getCmodalidadecole()){
                                 
-                            String nomeCompeticaoColetiva = cptMc.getNomeCompeticao();
-                            ModalidadeColetiva modalidadeColetiva = cptMc.getModalidadeColetiva();
-                            String nomeModalidadeColetiva = modalidadeColetiva.getNome();
-                            SistemaDeCompeticao sistemaDeCompeticao = cptMc.getSistemaDeCompeticao();
-                            String nomeSistemaDeCompeticao = sistemaDeCompeticao.getNome();
+                                    String nomeCompeticaoColetiva = cptMc.getNomeCompeticao();
+                                    ModalidadeColetiva modalidadeColetiva = cptMc.getModalidadeColetiva();
+                                    String nomeModalidadeColetiva = modalidadeColetiva.getNome();
+                                    SistemaDeCompeticao sistemaDeCompeticao = cptMc.getSistemaDeCompeticao();
+                                    String nomeSistemaDeCompeticao = sistemaDeCompeticao.getNome();
                             
                             
                             
-                        %>    
-                        <td><%=nomeCompeticaoColetiva%></td>
-                        <td><%=nomeModalidadeColetiva%></td>
-                        <td><%=nomeSistemaDeCompeticao%></td>
-                        <td><a href="#" class="btn btn-success">
-                                <!-- Adicionar icone -->
-                                <i class="fas fa-users-cog"></i>
-                            </a> &nbsp;
-                            <a href="#" class="btn btn-danger">
-                                <!-- Adicionar icone -->
-                                <i class="fas fa-trash-alt"></i>
-                            </a> &nbsp;
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#<%=cptMc.getIdCompeticaoModalidade()%>">
-                                <!-- Adicionar icone -->
-                                <i class="fas fa-eye"></i>
-                            </button></td>
+                                %>    
+                            <td><%=nomeCompeticaoColetiva%></td>
+                            <td><%=nomeModalidadeColetiva%></td>
+                            <td><%=nomeSistemaDeCompeticao%></td>
+                            <td><a href="#" class="btn btn-success">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-users-cog"></i>
+                                </a> &nbsp;
+                                <a href="#" class="btn btn-danger">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-trash-alt"></i>
+                                </a> &nbsp;
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=cptMc.getIdCompeticaoModalidade()%>">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-eye"></i>
+                                </button></td>
 
-                        </tbody>
-                    
-                    <div class="modal fade" id="<%=cptMc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Competição coletiva: <%=nomeCompeticaoColetiva%></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Modalidade vinculada: <%=nomeModalidadeColetiva%></p>
-                                    <ol>
-                                        <li>Sistema de competição:&nbsp; <%=nomeSistemaDeCompeticao%></li>
-                                        <%
-                                            if(sistemaDeCompeticao instanceof SistemaTodosContraTodos){
+                            </tbody>
+
+                            <div class="modal fade" id="<%=cptMc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Competição coletiva: <%=nomeCompeticaoColetiva%></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Modalidade vinculada: <%=nomeModalidadeColetiva%></p>
+                                            <ol>
+                                                <li>Sistema de competição:&nbsp; <%=nomeSistemaDeCompeticao%></li>
+                                                    <%
+                                                        if(sistemaDeCompeticao instanceof SistemaTodosContraTodos){
                                                 
-                                            SistemaTodosContraTodos sistemaTodosContraTodos = (SistemaTodosContraTodos) sistemaDeCompeticao;
-                                            SistemaDeContagem sistemaDeContagem = sistemaTodosContraTodos.getSistemaDeContagem();
-                                            SistemaDeDesempate sistemaDeDesempate = sistemaTodosContraTodos.getSistemaDeDesempate();
+                                                        SistemaTodosContraTodos sistemaTodosContraTodos = (SistemaTodosContraTodos) sistemaDeCompeticao;
+                                                        SistemaDeContagem sistemaDeContagem = sistemaTodosContraTodos.getSistemaDeContagem();
+                                                        SistemaDeDesempate sistemaDeDesempate = sistemaTodosContraTodos.getSistemaDeDesempate();
                                             
-                                            String nomeSistemaDeContagem = sistemaDeContagem.getNome();
-                                            String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
-                                            String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
-                                        %>
-                                        <li>Sistema de contagem:&nbsp; <%=nomeSistemaDeContagem%></li>
-                                        <li>Crtitério de desempate:&nbsp; <%=tipoSistemaDesempate%></li>
-                                        <li>Crtitério de desempate secundário:&nbsp; <%=tipoSistemaDesempateSecundario%></li>
-                                        
-                                        <%}%>
-                                        <%
-                                            if(sistemaDeCompeticao instanceof SistemaEliminatorio){
+                                                        String nomeSistemaDeContagem = sistemaDeContagem.getNome();
+                                                        String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
+                                                        String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
+                                                    %>
+                                                <li>Sistema de contagem:&nbsp; <%=nomeSistemaDeContagem%></li>
+                                                <li>Crtitério de desempate:&nbsp; <%=tipoSistemaDesempate%></li>
+                                                <li>Crtitério de desempate secundário:&nbsp; <%=tipoSistemaDesempateSecundario%></li>
+
+                                                <%}%>
+                                                <%
+                                                    if(sistemaDeCompeticao instanceof SistemaEliminatorio){
                                                 
-                                            SistemaEliminatorio sistemaEliminatorio = (SistemaEliminatorio) sistemaDeCompeticao;
-                                            String sPossuiRepescagem;
+                                                    SistemaEliminatorio sistemaEliminatorio = (SistemaEliminatorio) sistemaDeCompeticao;
+                                                    String sPossuiRepescagem;
                                             
-                                            if(sistemaEliminatorio.isRepescagem()){
-                                                sPossuiRepescagem = "sim";
-                                            }
-                                            else{
-                                                sPossuiRepescagem = "não";
-                                            }
+                                                    if(sistemaEliminatorio.isRepescagem()){
+                                                        sPossuiRepescagem = "sim";
+                                                    }
+                                                    else{
+                                                        sPossuiRepescagem = "não";
+                                                    }
                                             
-                                        %>
-                                        <li>Eliminatóias com repescagem:&nbsp; <%=sPossuiRepescagem%></li>
-                                        <%}%>
-                                                                                <%
-                                            if(sistemaDeCompeticao instanceof SistemaMisto){
+                                                %>
+                                                <li>Eliminatóias com repescagem:&nbsp; <%=sPossuiRepescagem%></li>
+                                                    <%}%>
+                                                    <%
+                if(sistemaDeCompeticao instanceof SistemaMisto){
                                                 
-                                            SistemaMisto sistemaMisto = (SistemaMisto) sistemaDeCompeticao;
-                                            String sPossuiRepescagem;
+                SistemaMisto sistemaMisto = (SistemaMisto) sistemaDeCompeticao;
+                String sPossuiRepescagem;
                                             
-                                            if(sistemaMisto.isRepescagem()){
-                                                sPossuiRepescagem = "sim";
-                                            }
-                                            else{
-                                                sPossuiRepescagem = "não";
-                                            }
+                if(sistemaMisto.isRepescagem()){
+                    sPossuiRepescagem = "sim";
+                }
+                else{
+                    sPossuiRepescagem = "não";
+                }
                                             
-                                            SistemaDeContagem sistemaDeContagem = sistemaMisto.getSistemadecontagem();
-                                            SistemaDeDesempate sistemaDeDesempate = sistemaMisto.getSistemaDeDesempate();
+                SistemaDeContagem sistemaDeContagem = sistemaMisto.getSistemadecontagem();
+                SistemaDeDesempate sistemaDeDesempate = sistemaMisto.getSistemaDeDesempate();
                                             
-                                            String nomeSistemaDeContagem = sistemaDeContagem.getNome();
-                                            String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
-                                            String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
+                String nomeSistemaDeContagem = sistemaDeContagem.getNome();
+                String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
+                String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
                                             
                                             
-                                        %>
-                                        <li>Sistema de contagem:&nbsp; <%=nomeSistemaDeContagem%></li>
-                                        <li>Crtitério de desempate:&nbsp; <%=tipoSistemaDesempate%></li>
-                                        <li>Crtitério de desempate secundário:&nbsp; <%=tipoSistemaDesempateSecundario%></li>
-                                        <li>Eliminatóias com repescagem:&nbsp; <%=sPossuiRepescagem%></li>
-                                        <%}%>
-                                    </ol>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-dager" data-dismiss="modal">Fechar</button>
+                                                    %>
+                                                <li>Sistema de contagem:&nbsp; <%=nomeSistemaDeContagem%></li>
+                                                <li>Crtitério de desempate:&nbsp; <%=tipoSistemaDesempate%></li>
+                                                <li>Crtitério de desempate secundário:&nbsp; <%=tipoSistemaDesempateSecundario%></li>
+                                                <li>Eliminatóias com repescagem:&nbsp; <%=sPossuiRepescagem%></li>
+                                                    <%}%>
+                                            </ol>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-dager" data-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <%}%>
+                        </table>
+                        <a href="formcadastrocompeticaomodalidadecoletiva.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" class="btn btn-success">
+                            <!-- Adicionar icone -->
+                            <i class="fas fa-plus"></i>&nbsp;Nova competição coletiva
+                        </a>
                     </div>
-                    <%}%>
-                    </table>
-                    <a href="formcadastrocompeticaomodalidadecoletiva.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" class="btn btn-success">
-                        <!-- Adicionar icone -->
-                        <i class="fas fa-plus"></i>&nbsp;Nova competição coletiva
-                    </a>
-                </div>
 
-                
-                <div class="tab-pane" id="profile" role="tabpanel">
-                    
-                     <table class="table table-striped">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Modalidade</th>
-                                <th scope="col">Sistema de Competição</th>
-                                <th scope="col">Ação</th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                        <%
-                            System.out.println("Competições solo: " + competicao.getCmodalidadesolo());
-                            System.out.println("Competições coletivas:" + competicao.getCmodalidadecole());
-                            for(CompeticaoModalidadeSolo cptMs: competicao.getCmodalidadesolo()){
-                            
-                            
-                            String nomeCompeticaoSolo = cptMs.getNomeCompeticao();
-                            ModalidadeSolo modalidadeSolo = cptMs.getModalidadeSolo();
-                            String nomeModalidadeSolo = modalidadeSolo.getNome();
-                            SistemaDeCompeticao sistemaDeCompeticao = cptMs.getSistemaDeCompeticao();
-                            String nomeSistemaDeCompeticao = sistemaDeCompeticao.getNome();
-                            
-                            
-                            
-                        %>    
-                        <td><%=nomeCompeticaoSolo%></td>
-                        <td><%=nomeModalidadeSolo%></td>
-                        <td><%=nomeSistemaDeCompeticao%></td>
-                        <td><a href="#" class="btn btn-success">
-                                <!-- Adicionar icone -->
-                                <i class="fas fa-edit"></i>
-                            </a> &nbsp;
-                            <a href="#" class="btn btn-danger">
-                                <!-- Adicionar icone -->
-                                <i class="fas fa-trash-alt"></i>
-                            </a> &nbsp;
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#<%=cptMs.getIdCompeticaoModalidade()%>">
-                                <!-- Adicionar icone -->
-                                <i class="fas fa-eye"></i>
-                            </button></td>
+                    <div class="tab-pane" id="profile" role="tabpanel">
 
-                        </tbody>
-                    
-                    <div class="modal fade" id="<%=cptMs.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Competição coletiva: <%=nomeCompeticaoSolo%></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Modalidade vinculada: <%=nomeModalidadeSolo%></p>
-                                    <ol>
-                                        <li>Sistema de competição:&nbsp; <%=nomeSistemaDeCompeticao%></li>
-                                        <%
-                                            if(sistemaDeCompeticao instanceof SistemaTodosContraTodos){
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Modalidade</th>
+                                    <th scope="col">Sistema de Competição</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <%
+                                    System.out.println("Competições solo: " + competicao.getCmodalidadesolo());
+                                    System.out.println("Competições coletivas:" + competicao.getCmodalidadecole());
+                                    for(CompeticaoModalidadeSolo cptMs: competicao.getCmodalidadesolo()){
+                            
+                            
+                                    String nomeCompeticaoSolo = cptMs.getNomeCompeticao();
+                                    ModalidadeSolo modalidadeSolo = cptMs.getModalidadeSolo();
+                                    String nomeModalidadeSolo = modalidadeSolo.getNome();
+                                    SistemaDeCompeticao sistemaDeCompeticao = cptMs.getSistemaDeCompeticao();
+                                    String nomeSistemaDeCompeticao = sistemaDeCompeticao.getNome();
+                            
+                            
+                            
+                                %>    
+                            <td><%=nomeCompeticaoSolo%></td>
+                            <td><%=nomeModalidadeSolo%></td>
+                            <td><%=nomeSistemaDeCompeticao%></td>
+                            <td><a href="#" class="btn btn-success">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-edit"></i>
+                                </a> &nbsp;
+                                <a href="#" class="btn btn-danger">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-trash-alt"></i>
+                                </a> &nbsp;
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=cptMs.getIdCompeticaoModalidade()%>">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-eye"></i>
+                                </button></td>
+
+                            </tbody>
+
+                            <div class="modal fade" id="<%=cptMs.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Competição coletiva: <%=nomeCompeticaoSolo%></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Modalidade vinculada: <%=nomeModalidadeSolo%></p>
+                                            <ol>
+                                                <li>Sistema de competição:&nbsp; <%=nomeSistemaDeCompeticao%></li>
+                                                    <%
+                                                        if(sistemaDeCompeticao instanceof SistemaTodosContraTodos){
                                                 
-                                            SistemaTodosContraTodos sistemaTodosContraTodos = (SistemaTodosContraTodos) sistemaDeCompeticao;
-                                            SistemaDeContagem sistemaDeContagem = sistemaTodosContraTodos.getSistemaDeContagem();
-                                            SistemaDeDesempate sistemaDeDesempate = sistemaTodosContraTodos.getSistemaDeDesempate();
+                                                        SistemaTodosContraTodos sistemaTodosContraTodos = (SistemaTodosContraTodos) sistemaDeCompeticao;
+                                                        SistemaDeContagem sistemaDeContagem = sistemaTodosContraTodos.getSistemaDeContagem();
+                                                        SistemaDeDesempate sistemaDeDesempate = sistemaTodosContraTodos.getSistemaDeDesempate();
                                             
-                                            String nomeSistemaDeContagem = sistemaDeContagem.getNome();
-                                            String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
-                                            String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
-                                        %>
-                                        <li>Sistema de contagem:&nbsp; <%=nomeSistemaDeContagem%></li>
-                                        <li>Crtitério de desempate:&nbsp; <%=tipoSistemaDesempate%></li>
-                                        <li>Crtitério de desempate secundário:&nbsp; <%=tipoSistemaDesempateSecundario%></li>
-                                        
-                                        <%}%>
-                                        <%
-                                            if(sistemaDeCompeticao instanceof SistemaEliminatorio){
+                                                        String nomeSistemaDeContagem = sistemaDeContagem.getNome();
+                                                        String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
+                                                        String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
+                                                    %>
+                                                <li>Sistema de contagem:&nbsp; <%=nomeSistemaDeContagem%></li>
+                                                <li>Crtitério de desempate:&nbsp; <%=tipoSistemaDesempate%></li>
+                                                <li>Crtitério de desempate secundário:&nbsp; <%=tipoSistemaDesempateSecundario%></li>
+
+                                                <%}%>
+                                                <%
+                                                    if(sistemaDeCompeticao instanceof SistemaEliminatorio){
                                                 
-                                            SistemaEliminatorio sistemaEliminatorio = (SistemaEliminatorio) sistemaDeCompeticao;
-                                            String sPossuiRepescagem;
+                                                    SistemaEliminatorio sistemaEliminatorio = (SistemaEliminatorio) sistemaDeCompeticao;
+                                                    String sPossuiRepescagem;
                                             
-                                            if(sistemaEliminatorio.isRepescagem()){
-                                                sPossuiRepescagem = "sim";
-                                            }
-                                            else{
-                                                sPossuiRepescagem = "não";
-                                            }
+                                                    if(sistemaEliminatorio.isRepescagem()){
+                                                        sPossuiRepescagem = "sim";
+                                                    }
+                                                    else{
+                                                        sPossuiRepescagem = "não";
+                                                    }
                                             
-                                        %>
-                                        <li>Eliminatóias com repescagem:&nbsp; <%=sPossuiRepescagem%></li>
-                                        <%}%>
-                                                                                <%
-                                            if(sistemaDeCompeticao instanceof SistemaMisto){
+                                                %>
+                                                <li>Eliminatóias com repescagem:&nbsp; <%=sPossuiRepescagem%></li>
+                                                    <%}%>
+                                                    <%
+                if(sistemaDeCompeticao instanceof SistemaMisto){
                                                 
-                                            SistemaMisto sistemaMisto = (SistemaMisto) sistemaDeCompeticao;
-                                            String sPossuiRepescagem;
+                SistemaMisto sistemaMisto = (SistemaMisto) sistemaDeCompeticao;
+                String sPossuiRepescagem;
                                             
-                                            if(sistemaMisto.isRepescagem()){
-                                                sPossuiRepescagem = "sim";
-                                            }
-                                            else{
-                                                sPossuiRepescagem = "não";
-                                            }
+                if(sistemaMisto.isRepescagem()){
+                    sPossuiRepescagem = "sim";
+                }
+                else{
+                    sPossuiRepescagem = "não";
+                }
                                             
-                                            SistemaDeContagem sistemaDeContagem = sistemaMisto.getSistemadecontagem();
-                                            SistemaDeDesempate sistemaDeDesempate = sistemaMisto.getSistemaDeDesempate();
+                SistemaDeContagem sistemaDeContagem = sistemaMisto.getSistemadecontagem();
+                SistemaDeDesempate sistemaDeDesempate = sistemaMisto.getSistemaDeDesempate();
                                             
-                                            String nomeSistemaDeContagem = sistemaDeContagem.getNome();
-                                            String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
-                                            String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
+                String nomeSistemaDeContagem = sistemaDeContagem.getNome();
+                String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
+                String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
                                             
                                             
-                                        %>
-                                        <li>Sistema de contagem:&nbsp; <%=nomeSistemaDeContagem%></li>
-                                        <li>Crtitério de desempate:&nbsp; <%=tipoSistemaDesempate%></li>
-                                        <li>Crtitério de desempate secundário:&nbsp; <%=tipoSistemaDesempateSecundario%></li>
-                                        <li>Eliminatóias com repescagem:&nbsp; <%=sPossuiRepescagem%></li>
-                                        <%}%>
-                                    </ol>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-dager" data-dismiss="modal">Fechar</button>
+                                                    %>
+                                                <li>Sistema de contagem:&nbsp; <%=nomeSistemaDeContagem%></li>
+                                                <li>Crtitério de desempate:&nbsp; <%=tipoSistemaDesempate%></li>
+                                                <li>Crtitério de desempate secundário:&nbsp; <%=tipoSistemaDesempateSecundario%></li>
+                                                <li>Eliminatóias com repescagem:&nbsp; <%=sPossuiRepescagem%></li>
+                                                    <%}%>
+                                            </ol>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-dager" data-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <%}%>
+                        </table>
+                        <a href="formcadastrocompeticaomodalidadesolo.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" class="btn btn-success">
+                            <!-- Adicionar icone -->
+                            <i class="fas fa-plus"></i>&nbsp;Nova competição individual
+                        </a>
                     </div>
-                    <%}%>
-                    </table>
-                    <a href="formcadastrocompeticaomodalidadesolo.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" class="btn btn-success">
-                        <!-- Adicionar icone -->
-                        <i class="fas fa-plus"></i>&nbsp;Nova competição individual
-                    </a>
+
+
+                    <div class="tab-pane" id="messages" role="tabpanel">
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Remetente</th>
+                                    <th scope="col">Assunto</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
+                                    UsuarioParticipante uper = upc.buscarPorId(up.getIdUsuario());
+                                    for (Mensagem mesg : uper.getMsg()) {
+
+                                if(mesg.getTipoRemetente() == 2){
+                                %>
+                                
+                                <tr>
+                                    
+                                    <td><%=mesg.getTipoUser().getNome()%></td>
+                                    <td><%=mesg.getAssunto()%></td>
+                                    <td><a href="abreMensagem.jsp?id=<%=mesg.getIdMensagem()%>" class="btn btn-success">
+                                            <!-- Adicionar icone -->
+                                            <%if(mesg.isLido() == false){%>
+                                            <i class="fas fa-envelope"></i>
+                                            <%}else{
+%>                                          <i class="fas fa-envelope-open"></i>
+                                            <%
+}%>
+                                        </a> &nbsp;
+                                        
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#<%=mesg.getIdMensagem()%>">
+                                            <!-- Adicionar icone -->
+                                            <i class="fas fa-eye"></i>
+                                        </button></td>
+                                </tr>
+                                <%}
+}%>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="settings" role="tabpanel">Porem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
                 </div>
-                    
-                
-                <div class="tab-pane" id="messages" role="tabpanel">torem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-                <div class="tab-pane" id="settings" role="tabpanel">Porem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+
             </div>
-
-        </div>
         </div>
 
 
