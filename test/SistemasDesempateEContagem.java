@@ -33,7 +33,7 @@ public class SistemasDesempateEContagem {
         SistemaDeContagem sistemaDeContagem3 = new SistemaDeContagem(0, 3, 1, 0, "Sistema 1-0");
         
         ModalidadeSolo modalidadeSolo1 = new ModalidadeSolo(0, "Tenis de Mesa");
-        //ModalidadeSolo modalidadeSolo2 = new ModalidadeSolo(0, "Xadrez");
+        ModalidadeSolo modalidadeSolo2 = new ModalidadeSolo(0, "Xadrez");
         ModalidadeSolo modalidadeSolo3 = new ModalidadeSolo(0, "Tenis de quadra");
         ModalidadeSolo modalidadeSolo4 = new ModalidadeSolo(0, "X1 LOL");
         
@@ -47,7 +47,7 @@ public class SistemasDesempateEContagem {
         
         modalidadeSoloDAO.salvar(modalidadeSolo3);
         modalidadeColetivaDAO.salvar(modalidadeColetiva);
-        //modalidadeSoloDAO.salvar(modalidadeSolo2);
+        modalidadeSoloDAO.salvar(modalidadeSolo2);
         modalidadeColetivaDAO.salvar(modalidadeColetiva1);
         modalidadeSoloDAO.salvar(modalidadeSolo1);
       

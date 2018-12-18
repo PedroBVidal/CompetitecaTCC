@@ -127,7 +127,7 @@
                             
                                 %>    
                             <td><%=nomeAtleta%></td>
-
+                            <td>
                             <a href="excluiAtleta.jsp?idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
                                 <!-- Adicionar icone -->
                                 <i class="fas fa-trash-alt"></i>
