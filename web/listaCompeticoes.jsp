@@ -120,6 +120,10 @@
                         System.out.println("ID competição é nulo");
                 %>
                 <%
+                    System.out.println("Atletas vinculados " + atletasVinculadosUp);
+                    System.out.println("Competições " + competicoes);
+                    
+                    List<Competicao> competicoesASeremRemovidas = new ArrayList<>();
                     
 
                     
@@ -146,38 +150,12 @@
                                     style="margin-left: 5px;"><%=dataInicio%></span></p>
                             <p class="card-text fontOverpass"><b>Data de Termino:</b><span 
                                     style="margin-left: 5px;"><%=dataTermino%></span></p>
-                                <%
-                                    int flag = 0;
-                                    int idAtleta = 0;
-
-                                    for (Atleta atleta : atletasVinculadosUp) {
-
-                                        if (atleta.getCompeticao().getIdCompeticao()
-                                                == competicao.getIdCompeticao()) {
-                                            idAtleta = atleta.getIdAtleta();
-                                            flag = 1;
-                                            atletasVinculadosUp.remove(atleta);
-                                            break;
-
-                                        }
-
-                                    }
-                                %>
 
                             <div class="form-group">
 
-                                <%
-                                    if (flag == 0) {
-                                %>
                                 <p class="fontOverpass"><a class="btn btn-success" 
                                                            href="forminscricaoatletaevento.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" role="button">Realizar inscrição em evento</a><p>
-                                    <%}
-                                        if (flag == 1) {
-                                    %>
-                                <p class="fontOverpass"><a class="btn btn-info" 
-                                                           href="forminscricaocompeticao.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>&idAtleta=<%=idAtleta%>" role="button">Inscrever-se em competições do 
-                                        evento</a><p>
-                                        <%}%>
+
                             </div>
                         </div>
                     </div>
