@@ -131,7 +131,7 @@
                             <td><%=nomeCompeticaoColetiva%></td>
                             <td><%=nomeModalidadeColetiva%></td>
                             <td><%=nomeSistemaDeCompeticao%></td>
-                            <td><a href="#" class="btn btn-success">
+                            <td><a href="gerenciarCompModColetiva.jsp?id=<%=cptMc.getIdCompeticaoModalidade()%>" class="btn btn-success">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-users-cog"></i>
                                 </a> &nbsp;
@@ -266,9 +266,9 @@
                             <td><%=nomeCompeticaoSolo%></td>
                             <td><%=nomeModalidadeSolo%></td>
                             <td><%=nomeSistemaDeCompeticao%></td>
-                            <td><a href="#" class="btn btn-success">
+                            <td><a href="gerenciarCompeticaoModSolo.jsp?id=<%=cptMs.getIdCompeticaoModalidade()%>" class="btn btn-success">
                                     <!-- Adicionar icone -->
-                                    <i class="fas fa-edit"></i>
+                                    <i class="fas fa-users-cog"></i>
                                 </a> &nbsp;
                                 <a href="#" class="btn btn-danger">
                                     <!-- Adicionar icone -->

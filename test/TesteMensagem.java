@@ -28,7 +28,7 @@ public class TesteMensagem {
         UsuarioParticipante upar = up.buscarPorId(1);
         UsuarioParticipante2 upar2 = up2.buscarPorId(1);
         MensagemControle msgc = new MensagemControle();
-        msgc.enviarMensagem(upar2,upar,"Seu acesso foi negado" ,"Olá meu senhor, o vosso acesso foi negado :(");
+        msgc.enviarMensagem(upar2,upar,"Major League Soccer","Seu acesso foi negado" ,"Olá meu senhor, o vosso acesso foi negado :(");
         for (Mensagem mesg : upar.getMsg()) {
             if (mesg.getTipoRemetente() == 2) {
                 System.out.println("Remetente: " + mesg.getTipoUser().getNome() + "\n Assunto:"+mesg.getAssunto()+"\n Mensagem: " + mesg.getTexto());

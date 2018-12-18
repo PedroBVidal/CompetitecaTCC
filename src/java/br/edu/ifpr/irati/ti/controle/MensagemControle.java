@@ -17,7 +17,7 @@ import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2;
  */
 public class MensagemControle {
     
-    public void enviarMensagem(Object remetente, Object destinatario,String assunto, String mensagem){
+    public void enviarMensagem(Object remetente, Object destinatario,String categoria,String assunto, String mensagem){
         Dao<Mensagem> msg = new GenericDAO<>(Mensagem.class);
         Dao<UsuarioParticipante> up = new GenericDAO<>(UsuarioParticipante.class);
         Dao<UsuarioParticipante2> up2 = new GenericDAO<>(UsuarioParticipante2.class);
@@ -25,7 +25,7 @@ public class MensagemControle {
         try{
             UsuarioParticipante upar = (UsuarioParticipante) remetente;
             UsuarioParticipante2 upar2= (UsuarioParticipante2)destinatario;
-            Mensagem msgg = new Mensagem(0,assunto ,mensagem, upar, upar2, 1, 1);
+            Mensagem msgg = new Mensagem(0,categoria,assunto ,mensagem, upar, upar2, 1, 1);
             upar.addMensagem(msgg);
             upar2.addMensagem(msgg);
             msg.salvar(msgg);
@@ -34,7 +34,7 @@ public class MensagemControle {
         }catch(Exception e){
             UsuarioParticipante upar = (UsuarioParticipante) destinatario;
             UsuarioParticipante2 upar2= (UsuarioParticipante2)remetente;
-            Mensagem msgg = new Mensagem(0,assunto ,mensagem, upar, upar2, 1, 2);
+            Mensagem msgg = new Mensagem(0,categoria,assunto ,mensagem, upar, upar2, 1, 2);
             upar.addMensagem(msgg);
             upar2.addMensagem(msgg);
             msg.salvar(msgg);

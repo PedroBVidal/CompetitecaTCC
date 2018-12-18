@@ -28,7 +28,8 @@ public class Mensagem implements Serializable{
     //Tipo de Remetente 1 para Usuario Administrador,  2 Para usuário comum
     @Column
     private int tipoRemetente;
-    
+    @Column
+    private String categoria;
     @Column(name="tipoMsg", nullable = false)
     private int tipo;
     
@@ -53,7 +54,7 @@ public class Mensagem implements Serializable{
         this.texto = texto;
     }
 
-    public Mensagem(int idMensagem,String assunto, String texto,UsuarioParticipante tipoAdm, UsuarioParticipante2 tipoUser,int tipoMsg,int tipoRemetente) {
+    public Mensagem(int idMensagem,String categoria,String assunto, String texto,UsuarioParticipante tipoAdm, UsuarioParticipante2 tipoUser,int tipoMsg,int tipoRemetente) {
         this.idMensagem = idMensagem; 
         this.texto = texto;
         this.tipoAdm = tipoAdm;
@@ -62,6 +63,7 @@ public class Mensagem implements Serializable{
         this.tipoRemetente = tipoRemetente;
         this.assunto = assunto;
         this.lido = false;
+        this.categoria = categoria;
     }
 
     /**
@@ -174,6 +176,20 @@ public class Mensagem implements Serializable{
      */
     public void setAssunto(String assunto) {
         this.assunto = assunto;
+    }
+
+    /**
+     * @return the categoria
+     */
+    public String getCategoria() {
+        return categoria;
+    }
+
+    /**
+     * @param categoria the categoria to set
+     */
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
     
     
