@@ -56,6 +56,8 @@
                 UsuarioParticipante2 usuarioParticipante = usuarioParticipante2Controle.buscarPorId(up.getIdUsuario());
                 List<Atleta> atletasVinculadosUp = usuarioParticipante.getAtletas();
                 
+                List<Competicao> competicoes = competicaoControle.buscarTodasCompeticoes();
+                
                 for(Atleta atleta: atletasVinculadosUp){
                     competicoesVincaludasAtleta.add(atleta.getCompeticao());
                 }
