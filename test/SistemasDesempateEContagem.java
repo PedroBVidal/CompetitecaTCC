@@ -52,6 +52,8 @@ public class SistemasDesempateEContagem {
         modalidadeSoloDAO.salvar(modalidadeSolo1);
       
         modalidadeSoloDAO.salvar(modalidadeSolo4);
+        
+        System.exit(0);
       
     }
     

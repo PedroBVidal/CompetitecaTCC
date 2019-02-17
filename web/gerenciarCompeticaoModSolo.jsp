@@ -128,7 +128,7 @@
                                 %>    
                             <td><%=nomeAtleta%></td>
                             <td>
-                            <a href="excluiAtleta.jsp?idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
+                            <a href="scripts/excluiAtletaCompModSolo.jsp?idInsc=<%=iMs.getIdCompeticaoSolo()%>&idCompSolo=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
                                 <!-- Adicionar icone -->
                                 <i class="fas fa-trash-alt"></i>
                             </a> &nbsp;

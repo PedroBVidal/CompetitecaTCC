@@ -22,5 +22,9 @@ public class InscricaoCompeticaoModalidadeSoloControle {
     public void salvar(InscricaoCompeticaoSolo ics){
         inscricaoCompeticaoModalidadeSoloDAO.salvar(ics);
     }
+   
+    public InscricaoCompeticaoSolo buscarId(int id){
+        return inscricaoCompeticaoModalidadeSoloDAO.buscarPorId(id);
+    }
     
 }
