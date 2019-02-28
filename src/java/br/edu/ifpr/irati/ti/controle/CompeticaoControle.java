@@ -41,6 +41,10 @@ public class CompeticaoControle {
         competicaoDAOGeneric.alterar(competicao);
     }
     
+    public void inativarCompeticao(Competicao competicao){
+        
+    }
+    
     
     
 }

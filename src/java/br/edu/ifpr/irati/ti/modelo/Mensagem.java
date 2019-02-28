@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import org.hibernate.annotations.Proxy;
 
 
@@ -23,13 +22,16 @@ public class Mensagem implements Serializable{
     
     @ManyToOne(fetch = FetchType.EAGER)
     private UsuarioParticipante tipoAdm;
+    
     @ManyToOne(fetch = FetchType.EAGER)
     private UsuarioParticipante2 tipoUser;
+    
     //Tipo de Remetente 1 para Usuario Administrador,  2 Para usuário comum
     @Column
     private int tipoRemetente;
     @Column
     private String categoria;
+    
     @Column(name="tipoMsg", nullable = false)
     private int tipo;
     
@@ -38,6 +40,7 @@ public class Mensagem implements Serializable{
     
     @Column(nullable = false)
     private String assunto;
+    
    @Column(name = "texto", nullable = false)
     private String texto;
 

@@ -86,7 +86,30 @@
                             </h4>
                             <p class="card-text"><b>Data de Início:</b><%=formate.format(cptc.getDataInicio())%></p>
                             <p class="card-text"><b>Data de Encerramento:</b><%=formate.format(cptc.getDataTermino())%></p>
-                            <a href="scripts/cadastrarcompeticao.jsp?op=1&idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>&nbsp;<a href="gerenciamentoDeCompeticao.jsp?idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-success">Gerenciar Competição</button></a>
+                            <!-- Button trigger modal -->
+                            <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exclusaoModal"><i class="fas fa-trash-alt"></i></button></a>&nbsp;
+                           
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exclusaoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir <%=cptc.getNome()%>?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+  
+                                        <div class="modal-footer">
+                                            <a href="scripts/cadastrarcompeticao.jsp?op=1&idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-secondary">Sim</button></a>
+                                            <button type="button" class="btn btn-primary">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="gerenciamentoDeCompeticao.jsp?idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-success">Gerenciar Competição</button></a>
                         </div>
                     </div>
                 </div>
