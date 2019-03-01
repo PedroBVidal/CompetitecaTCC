@@ -135,7 +135,7 @@
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-users-cog"></i>
                                 </a> &nbsp;
-                                <a href="#" class="btn btn-danger">
+                                <a href="scripts/inativarCompeticaoModalidadeSolo.jsp?idEvento=<%=competicao.getIdCompeticao()%>&idCompeticao=<%=cptMc.getIdCompeticaoModalidade()%>" class="btn btn-danger">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-trash-alt"></i>
                                 </a> &nbsp;

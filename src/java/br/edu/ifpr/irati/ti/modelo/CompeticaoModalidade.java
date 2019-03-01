@@ -26,17 +26,17 @@ public abstract class CompeticaoModalidade implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected int idCompeticaoModalidade;
+    private int idCompeticaoModalidade;
     
     @Column(name = "nomecompeticao", nullable = false, length = 100)
-    protected String nomeCompeticao;
+    private String nomeCompeticao;
     
    @OneToOne(cascade = CascadeType.ALL)
    @JoinColumn(name="sistemacomp_id", referencedColumnName="idSistemaDeCompeticao",nullable=false)  
-   protected SistemaDeCompeticao sistemaDeCompeticao;
+   private SistemaDeCompeticao sistemaDeCompeticao;
    
    @OneToMany
-   protected List<Confronto> confrontos;
+   private List<Confronto> confrontos;
 
    @Column(name="status_formulario_inscricao_publica")
    private boolean statusFormularioInscricaoPublica;
@@ -143,6 +143,20 @@ public abstract class CompeticaoModalidade implements Serializable{
      */
     public void setStatusFormularioInscricaoPublica(boolean statusFormularioInscricaoPublica) {
         this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
+    }
+
+    /**
+     * @return the inativo
+     */
+    public boolean isInativo() {
+        return inativo;
+    }
+
+    /**
+     * @param inativo the inativo to set
+     */
+    public void setInativo(boolean inativo) {
+        this.inativo = inativo;
     }
 
     

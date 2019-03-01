@@ -21,6 +21,10 @@ public class CompeticaoModalidadeColetivaControle {
         competicaoModalidadeColetivaDAO.salvar(competicaoModalidadeColetiva);
     }
     
+    public CompeticaoModalidadeColetiva buscarPorId(int id){
+        return competicaoModalidadeColetivaDAO.buscarPorId(id);
+    }
+    
     
     
     

@@ -1,4 +1,5 @@
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Local"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%-- 
@@ -38,6 +39,11 @@
     <body>
         <%
             UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
+            CompeticaoControle competicaoControle = new CompeticaoControle();
+            
+            UsuarioParticipanteControle upControle = new UsuarioParticipanteControle();
+            UsuarioParticipante usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
+            
             if (up == null) {
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             } else {
@@ -74,7 +80,11 @@
                 
                 System.out.println("Competições vinculadas ao usuário participante" + up.getCompeticoes());
                 
-                for(Competicao cptc : up.getCompeticoes()){
+                
+                
+                
+                for(Competicao cptc : usuarioParticipante.getCompeticoes()){
+                    if(cptc.isInativo() == false){
                 %>
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">
@@ -87,12 +97,12 @@
                             <p class="card-text"><b>Data de Início:</b><%=formate.format(cptc.getDataInicio())%></p>
                             <p class="card-text"><b>Data de Encerramento:</b><%=formate.format(cptc.getDataTermino())%></p>
                             <!-- Button trigger modal -->
-                            <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exclusaoModal"><i class="fas fa-trash-alt"></i></button></a>&nbsp;
+                            <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#<%=cptc.getIdCompeticao()%>"><i class="fas fa-trash-alt"></i></button></a>&nbsp;
                            
 
 
                             <!-- Modal -->
-                            <div class="modal fade" id="exclusaoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<%=cptc.getIdCompeticao()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -105,6 +115,7 @@
                                         <div class="modal-footer">
                                             <a href="scripts/cadastrarcompeticao.jsp?op=1&idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-secondary">Sim</button></a>
                                             <button type="button" class="btn btn-primary">Cancelar</button>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                <%}%>
+                <%}}%>
             </div>
             <a href="criarcompeticao.jsp" class="btn btn-success">
                 <!-- Adicionar icone -->

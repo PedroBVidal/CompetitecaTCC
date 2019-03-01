@@ -23,7 +23,7 @@
         competicao.setInativo(true);
         
         competicaoControle.autualizarCompeticao(competicao);
-        response.sendRedirect("../competicoes.jsp?msg=Competicao apagada com sucesso&color=warning");
+        response.sendRedirect("../competicoes.jsp?msg=Competicao apagada com sucesso&color=success");
 
         
     }else if(request.getParameter("op").equals("2")){
