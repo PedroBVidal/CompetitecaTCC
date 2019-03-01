@@ -106,7 +106,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content col-10">
                     <div class="tab-pane dark" id="inscricao" role="tabpanel">
-
+                        
                         <table class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
