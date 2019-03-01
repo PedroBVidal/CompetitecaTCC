@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.annotations.Type;
 
 @Entity(name = "competicao")
 @Proxy(lazy = false)
@@ -43,6 +44,10 @@ public class Competicao implements Serializable {
 
     @Temporal(TemporalType.DATE)
     private Date dataTermino;
+    
+    @Column(name = "inativo")
+    @Type(type = "true_false")
+    private boolean inativo; 
 
     public Competicao() {
         idCompeticao = 0;
@@ -202,6 +207,19 @@ public class Competicao implements Serializable {
     public void setAdministradores(List<UsuarioParticipante> administradores) {
         this.administradores = administradores;
     }
+     * @return the inativo
+     */
+    public boolean isInativo() {
+        return inativo;
+    }
+
+    /**
+     * @param inativo the inativo to set
+     */
+    public void setInativo(boolean inativo) {
+        this.inativo = inativo;
+    }
+
 
     
 

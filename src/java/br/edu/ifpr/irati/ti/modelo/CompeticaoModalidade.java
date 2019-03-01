@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.annotations.Type;
 
 @Entity(name = "competicaomodalidade")
 
@@ -39,6 +40,10 @@ public abstract class CompeticaoModalidade implements Serializable{
 
    @Column(name="status_formulario_inscricao_publica")
    private boolean statusFormularioInscricaoPublica;
+   
+   @Column(name = "inativo")
+   @Type(type = "true_false")
+   private boolean inativo; 
    
     public CompeticaoModalidade() {
         idCompeticaoModalidade = 0;

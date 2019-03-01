@@ -38,7 +38,7 @@
                                 <a class="dropdown-item" href="atleta.jsp">Atletas</a>
                                 <a class="dropdown-item" href="equipes.jsp">Equipes</a>
                                 <a class="dropdown-item" href="local.jsp">Locais</a>
-                                <a class="dropdown-item" href="portfolio-item.html"></a>
+                                <a class="dropdown-item" href="#"></a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
