@@ -33,7 +33,8 @@
         <meta name="author" content="">
 
         <title>Modern Business - Start Bootstrap Template</title>
-
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -97,11 +98,63 @@
                     <a class="list-group-item list-group-item-action active" data-toggle="list" href="#modalidadeSolo" role="tab">Nova competição coletiva</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">Nova competição individual</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#messages" role="tab">Mensagens</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Settings</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Gerenciar Administradores</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#administradores" role="tab">Adicionar Administradores</a>
                 </div>
 
                 <!-- Tab panes -->
                 <div class="tab-content col-10">
+                    <div class="tab-pane dark" id="administradores" role="tabpanel">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                        </a></span>
+                            <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
+                        </div>
+
+                        
+
+                    
+                    <table id="tabela" class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Usuário</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Ação</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <%
+                                UsuarioParticipanteControle upca = new UsuarioParticipanteControle();
+                                for(UsuarioParticipante upa: upca.buscarTodos()){
+                                
+                                String nomeUsuario = upa.getNome();
+                                String email = upa.getEmail();
+                                    
+                            
+                            
+                            
+                            %>    
+                        <td><%=nomeUsuario%></td>
+                        <td><%=email%></td>
+                        <td>
+                            <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=upa.getIdUsuario()%>&idComp=<%=competicao.getIdCompeticao()%>&op=1" class="btn btn-success">
+                                <!-- Adicionar icone -->
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </td>    
+
+                        </tbody>
+
+                        
+                        <%}%>
+                    </table>
+                    <script>
+                        //Código de busca da tabela
+                        $('input#txt_consulta').quicksearch('table#tabela tbody tr');
+
+                    </script>
+                </div>
                     <div class="tab-pane active dark" id="modalidadeSolo" role="tabpanel">
 
                         <table class="table table-striped">
@@ -412,7 +465,57 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="tab-pane" id="settings" role="tabpanel">Porem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                    <div class="tab-pane" id="settings" role="tabpanel">
+                <div class="form-group input-group">
+                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                        </a></span>
+                            <input name="consulta" id="txt_consulta2" placeholder="Consultar" type="text" class="form-control">
+                        </div>
+
+                        
+
+                    
+                    <table id="tabela2" class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Usuário</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Ação</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <%
+                                //UsuarioParticipanteControle upca = new UsuarioParticipanteControle();
+                                for(UsuarioParticipante upact: competicao.getAdministradores()){
+                                
+                                String nomeUsuario = upact.getNome();
+                                String email = upact.getEmail();
+                                    
+                            
+                            
+                            
+                            %>    
+                        <td><%=nomeUsuario%></td>
+                        <td><%=email%></td>
+                        <td>
+                            <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=upact.getIdUsuario()%>&idComp=<%=competicao.getIdCompeticao()%>&op=2" class="btn btn-danger">
+                                <!-- Adicionar icone -->
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>    
+
+                        </tbody>
+
+                        
+                        <%}%>
+                    </table>
+                    <script>
+                        //Código de busca da tabela
+                        $('input#txt_consulta2').quicksearch('table#tabela2 tbody tr');
+
+                    </script>
+                    </div>
                 </div>
 
             </div>

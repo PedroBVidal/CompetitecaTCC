@@ -49,6 +49,7 @@
     // COMPARA SE A DATA DE INICIO VEM ANTES DA DATA DE TERMINO
     if (dataInicioCompeticao.before(dataTerminoCompeticao)) {
                 Competicao competicao = new Competicao(0, nomeCompeticao,dataInicioCompeticao,dataTerminoCompeticao);
+                competicao.adicionarAdministrador(up);
                 competicaoControle.cadastrarCompeticao(competicao);
                 up.adicionarCompeticao(competicao);
                 upc.atualizarCad(up);

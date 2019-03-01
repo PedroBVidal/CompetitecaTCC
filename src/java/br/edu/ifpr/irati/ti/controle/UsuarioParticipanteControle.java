@@ -8,6 +8,7 @@ package br.edu.ifpr.irati.ti.controle;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
+import java.util.List;
 
 /**
  *
@@ -17,6 +18,9 @@ public class UsuarioParticipanteControle {
     Dao<UsuarioParticipante> uspd = new GenericDAO<>(UsuarioParticipante.class);
     public void criar(UsuarioParticipante up){
         uspd.salvar(up);
+    }
+    public List<UsuarioParticipante> buscarTodos(){
+        return uspd.buscarTodos(UsuarioParticipante.class);
     }
     public UsuarioParticipante buscarPorId(int id){
         return uspd.buscarPorId(id);
