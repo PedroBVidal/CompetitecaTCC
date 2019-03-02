@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import org.hibernate.annotations.Proxy;
@@ -31,7 +32,7 @@ public class UsuarioParticipante implements Serializable {
     @Column(name="senha",nullable = false)
     private String senha;
     
-    @OneToMany(fetch= FetchType.EAGER)
+    @ManyToMany(fetch= FetchType.EAGER)
     private List<Competicao> competicoes;
     
     @OneToMany(fetch = FetchType.EAGER)

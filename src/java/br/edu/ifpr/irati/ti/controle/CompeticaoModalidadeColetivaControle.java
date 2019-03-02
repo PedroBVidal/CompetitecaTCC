@@ -25,6 +25,10 @@ public class CompeticaoModalidadeColetivaControle {
         return competicaoModalidadeColetivaDAO.buscarPorId(id);
     }
     
+    public void alterar(CompeticaoModalidadeColetiva competicaoModalidadeColetiva){
+        competicaoModalidadeColetivaDAO.alterar(competicaoModalidadeColetiva);
+    }
+    
     
     
     

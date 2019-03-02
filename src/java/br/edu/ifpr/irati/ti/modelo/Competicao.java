@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -27,8 +28,8 @@ public class Competicao implements Serializable {
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
-    
-    @OneToMany(fetch = FetchType.EAGER)
+
+    @ManyToMany(mappedBy = "competicoes", fetch = FetchType.EAGER)
     private List<UsuarioParticipante> administradores;
     
     @OneToMany(fetch = FetchType.EAGER)
@@ -56,6 +57,7 @@ public class Competicao implements Serializable {
         administradores = new ArrayList<>();
         dataInicio = new Date();
         dataTermino = new Date();
+        inativo = false;
     }
 
     public Competicao(int idCompeticao, String nome, Date dataInicio, Date dataTermino) {
@@ -66,17 +68,21 @@ public class Competicao implements Serializable {
         administradores = new ArrayList<>();
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
+        this.inativo = false;
     }
 
-    public Competicao(int idCompeticao, String nome, List<ModalidadeSolo> modalidadesSolo, List<ModalidadeColetiva> modalidadesColetivas, List<CompeticaoModalidadeColetiva> cmodalidadecole, List<CompeticaoModalidadeSolo> cmodalidadesolo,List<UsuarioParticipante> administradores, Date dataInicio, Date dataTermino) {
+    public Competicao(int idCompeticao, String nome, List<UsuarioParticipante> administradores, List<CompeticaoModalidadeColetiva> cmodalidadecole, List<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino, boolean inativo) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
+        this.administradores = administradores;
         this.cmodalidadecole = cmodalidadecole;
         this.cmodalidadesolo = cmodalidadesolo;
-        this.administradores =  administradores;
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
+        this.inativo = inativo;
     }
+
+    
 
     
 
@@ -188,10 +194,10 @@ public class Competicao implements Serializable {
         this.cmodalidadesolo = cmodalidadesolo;
     }
     public void adicionarAdministrador(UsuarioParticipante up){
-        this.getAdministradores().add(up);
+        this.administradores.add(up);
     }
     public void removerAdministrador(UsuarioParticipante up){
-        this.getAdministradores().remove(up);
+        this.administradores.add(up);
     }
 
     /**
@@ -207,7 +213,7 @@ public class Competicao implements Serializable {
     public void setAdministradores(List<UsuarioParticipante> administradores) {
         this.administradores = administradores;
     }
-     * @return the inativo
+     /* @return the inativo
      */
     public boolean isInativo() {
         return inativo;

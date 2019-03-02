@@ -188,10 +188,36 @@
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-users-cog"></i>
                                 </a> &nbsp;
-                                <a href="scripts/inativarCompeticaoModalidadeSolo.jsp?idEvento=<%=competicao.getIdCompeticao()%>&idCompeticao=<%=cptMc.getIdCompeticaoModalidade()%>" class="btn btn-danger">
-                                    <!-- Adicionar icone -->
-                                    <i class="fas fa-trash-alt"></i>
-                                </a> &nbsp;
+                            <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Inativar<%=cptMc.getIdCompeticaoModalidade()%>">
+                                    <i class="fas fa-trash-alt"></i></button></a>&nbsp;
+                                    
+                           
+                           
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="Inativar<%=cptMc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir <%=cptMc.getNomeCompeticao()%>?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+  
+                                        <div class="modal-footer">
+                                            <a href="scripts/inativarCompeticaoModalidadeColetiva.jsp?idEvento=<%=competicao.getIdCompeticao()%>&idCompeticao=<%=cptMc.getIdCompeticaoModalidade()%>"><button class="btn btn-secondary">Sim</button></a>
+                                            <button type="button" class="btn btn-primary">Cancelar</button>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                    
+                                    
+                                    
+                                    &nbsp;
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#<%=cptMc.getIdCompeticaoModalidade()%>">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-eye"></i>
@@ -323,10 +349,33 @@
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-users-cog"></i>
                                 </a> &nbsp;
-                                <a href="#" class="btn btn-danger">
-                                    <!-- Adicionar icone -->
-                                    <i class="fas fa-trash-alt"></i>
-                                </a> &nbsp;
+                           
+                                <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Inativar<%=cptMs.getIdCompeticaoModalidade()%>">
+                                        <i class="fas fa-trash-alt"></i></button></a>&nbsp;
+                                    
+                           
+                           
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="Inativar<%=cptMs.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir <%=cptMs.getNomeCompeticao()%>?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+  
+                                        <div class="modal-footer">
+                                            <a href="scripts/inativarCompeticaoModalidadeSolo.jsp?idEvento=<%=competicao.getIdCompeticao()%>&idCompeticao=<%=cptMs.getIdCompeticaoModalidade()%>"><button class="btn btn-secondary">Sim</button></a>
+                                            <button type="button" class="btn btn-primary">Cancelar</button>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#<%=cptMs.getIdCompeticaoModalidade()%>">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-eye"></i>
