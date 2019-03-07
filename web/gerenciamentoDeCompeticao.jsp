@@ -485,35 +485,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%
-                                    UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
-                                    UsuarioParticipante uper = upc.buscarPorId(up.getIdUsuario());
-                                    for (Mensagem mesg : uper.getMsg()) {
 
-                                if(mesg.getTipoRemetente() == 2){
-                                %>
-                                
-                                <tr>
-                                    
-                                    <td><%=mesg.getTipoUser().getNome()%></td>
-                                    <td><%=mesg.getAssunto()%></td>
-                                    <td><a href="abreMensagem.jsp?id=<%=mesg.getIdMensagem()%>" class="btn btn-success">
-                                            <!-- Adicionar icone -->
-                                            <%if(mesg.isLido() == false){%>
-                                            <i class="fas fa-envelope"></i>
-                                            <%}else{
-%>                                          <i class="fas fa-envelope-open"></i>
-                                            <%
-}%>
-                                        </a> &nbsp;
-                                        
-                                        <button class="btn btn-primary" data-toggle="modal" data-target="#<%=mesg.getIdMensagem()%>">
-                                            <!-- Adicionar icone -->
-                                            <i class="fas fa-eye"></i>
-                                        </button></td>
-                                </tr>
-                                <%}
-}%>
                             </tbody>
                         </table>
                     </div>
