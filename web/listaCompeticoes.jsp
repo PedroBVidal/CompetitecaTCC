@@ -99,7 +99,7 @@
             <form class="form-inline col" style="margin-bottom: 10px;" action="" 
                   method="POST" id="frm">
                 <p class="my-4 fontOverpass col-3">Pesquisar competição:</p>
-                <input class="form-control col-7" type="search" aria-label="Buscar" 
+                <input id="txt_consulta" class="form-control col-7" type="search" aria-label="Buscar" 
                        name="nomeCompeticao" list="competicoes">
                 <datalist id="competicoes">
                     <%
@@ -144,7 +144,7 @@
                                          alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                        <p class="fontOverpass"><a href="#"><%=competicao.getNome()%></a></p>
+                                <p class="fontOverpass"><a href="#"><%=competicao.getNome()%></a></p>
                             </h4>
                             <p class="card-text fontOverpass"><b>Data de Início:</b><span 
                                     style="margin-left: 5px;"><%=dataInicio%></span></p>
@@ -229,30 +229,34 @@
         </div> 
 
         <!-- Bootstrap core JavaScript -->
+        <script>
+            //Código de busca da tabela
+            $('input#txt_consulta').quicksearch('table#tabela tbody tr');
 
+        </script>
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
-            function buscarEventos() {
-                alert("Modificou");
-            }
+    function buscarEventos() {
+        alert("Modificou");
+    }
 
 
 
-            $(document).ready(function () {
-                $('button').click(function () {
-                    alert("Entrei aqui");
-                    var value = $('input').val();
-                    console.log($('#competicoes [value="' + value + '"]').data('value'));
+    $(document).ready(function () {
+        $('button').click(function () {
+            alert("Entrei aqui");
+            var value = $('input').val();
+            console.log($('#competicoes [value="' + value + '"]').data('value'));
 
-                    var idCompeticao = $('#competicoes [value="' + value + '"]').data('value');
-                    alert(idCompeticao);
-                    $("#frm").attr("action", "scripts/buscarCompeticoes.jsp?idCompeticao=" +
-                            idCompeticao);
+            var idCompeticao = $('#competicoes [value="' + value + '"]').data('value');
+            alert(idCompeticao);
+            $("#frm").attr("action", "scripts/buscarCompeticoes.jsp?idCompeticao=" +
+                    idCompeticao);
 
 
-                });
-            });
+        });
+    });
 
         </script>
 
