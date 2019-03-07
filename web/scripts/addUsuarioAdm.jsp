@@ -17,7 +17,7 @@ if(request.getParameter("op").equals("1")){
     up.adicionarCompeticao(comp);
     upc.atualizarCad(up);
     
-    response.sendRedirect("../gerenciamentoDeCompeticao.jsp?id="+idCompeticao+"&msg=Administrador adicionado com Sucesso&color=success");
+    response.sendRedirect("../gerenciamentoDeCompeticao.jsp?idCompeticao="+idCompeticao+"&msg=Administrador adicionado com Sucesso&color=success");
     
 }else if(request.getParameter("op").equals("2")){
     
@@ -37,11 +37,14 @@ if(request.getParameter("op").equals("1")){
         if(usuarioParticipante.getIdUsuario() == up.getIdUsuario()){
             System.out.println("Deveria excluir o " + usuarioParticipante.getNome());
             comp.getAdministradores().remove(usuarioParticipante);
+            break;
         }
     }
     
-    //cc.autualizarCompeticao(comp);
-    //cc.autualizarCompeticao(comp);
-    //response.sendRedirect("../gerenciamentoDeCompeticao.jsp?id="+idCompeticao+"&msg=Administrador removido com Sucesso&color=warning");
+    System.out.println("Administradores da competição após exclusão: "+ comp.getAdministradores());
+    
+    cc.autualizarCompeticao(comp);
+
+    response.sendRedirect("../gerenciamentoDeCompeticao.jsp?idCompeticao="+idCompeticao+"&msg=Administrador removido com Sucesso&color=success");
 }
 %>
