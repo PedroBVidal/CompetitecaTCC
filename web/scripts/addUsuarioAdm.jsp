@@ -18,15 +18,30 @@ if(request.getParameter("op").equals("1")){
     upc.atualizarCad(up);
     
     response.sendRedirect("../gerenciamentoDeCompeticao.jsp?id="+idCompeticao+"&msg=Administrador adicionado com Sucesso&color=success");
+    
 }else if(request.getParameter("op").equals("2")){
+    
     CompeticaoControle cc = new CompeticaoControle();
     Competicao comp = cc.buscarCompeticaoPorId(idCompeticao);
     UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
     UsuarioParticipante up = upc.buscarPorId(idUsuario);
-    up.removerCompeticao(comp);
-    upc.atualizarCad(up);
-    comp.removerAdministrador(up);
-    cc.autualizarCompeticao(comp);
-    response.sendRedirect("../gerenciamentoDeCompeticao.jsp?id="+idCompeticao+"&msg=Administrador removido com Sucesso&color=warning");
+    
+    System.out.println("Estou na secção de exclusão!");
+    System.out.println("Nome usuario: "+ up.getNome());
+    System.out.println("Nome competicao: "+ comp.getNome());
+    
+    
+    System.out.println("Administradores da competição: "+ comp.getAdministradores());
+    
+    for(UsuarioParticipante usuarioParticipante: comp.getAdministradores()){
+        if(usuarioParticipante.getIdUsuario() == up.getIdUsuario()){
+            System.out.println("Deveria excluir o " + usuarioParticipante.getNome());
+            comp.getAdministradores().remove(usuarioParticipante);
+        }
+    }
+    
+    //cc.autualizarCompeticao(comp);
+    //cc.autualizarCompeticao(comp);
+    //response.sendRedirect("../gerenciamentoDeCompeticao.jsp?id="+idCompeticao+"&msg=Administrador removido com Sucesso&color=warning");
 }
 %>

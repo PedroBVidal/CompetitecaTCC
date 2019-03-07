@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -29,7 +31,9 @@ public class Competicao implements Serializable {
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @ManyToMany(mappedBy = "competicoes", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "relacaocompeticaousuarioadm", joinColumns = @JoinColumn(name = "id_competicao"),
+    inverseJoinColumns = @JoinColumn(name = "id_usuarioadm")) 
     private List<UsuarioParticipante> administradores;
     
     @OneToMany(fetch = FetchType.EAGER)
@@ -195,9 +199,11 @@ public class Competicao implements Serializable {
     }
     public void adicionarAdministrador(UsuarioParticipante up){
         this.administradores.add(up);
+        up.adicionarCompeticao(this);
     }
     public void removerAdministrador(UsuarioParticipante up){
-        this.administradores.add(up);
+        this.administradores.remove(up);
+        up.removerCompeticao(this);
     }
 
     /**
