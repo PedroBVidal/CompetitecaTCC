@@ -171,6 +171,8 @@
                                 <%
                             
                                     for(CompeticaoModalidadeColetiva cptMc: competicao.getCmodalidadecole()){
+                                        
+                                        if(!cptMc.isInativo()){
                                 
                                     String nomeCompeticaoColetiva = cptMc.getNomeCompeticao();
                                     ModalidadeColetiva modalidadeColetiva = cptMc.getModalidadeColetiva();
@@ -305,7 +307,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <%}%>
+                            <%}}%>
                         </table>
                         <a href="formcadastrocompeticaomodalidadecoletiva.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" class="btn btn-success">
                             <!-- Adicionar icone -->
@@ -331,7 +333,8 @@
                                     System.out.println("Competições solo: " + competicao.getCmodalidadesolo());
                                     System.out.println("Competições coletivas:" + competicao.getCmodalidadecole());
                                     for(CompeticaoModalidadeSolo cptMs: competicao.getCmodalidadesolo()){
-                            
+                                        
+                                        if(!cptMs.isInativo()){
                             
                                     String nomeCompeticaoSolo = cptMs.getNomeCompeticao();
                                     ModalidadeSolo modalidadeSolo = cptMs.getModalidadeSolo();
@@ -463,7 +466,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <%}%>
+                            <%}}%>
                         </table>
                         <a href="formcadastrocompeticaomodalidadesolo.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" class="btn btn-success">
                             <!-- Adicionar icone -->

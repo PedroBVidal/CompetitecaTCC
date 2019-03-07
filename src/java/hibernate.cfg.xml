@@ -33,10 +33,11 @@
     <mapping class="br.edu.ifpr.irati.ti.modelo.SistemaTodosContraTodos"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"/>
-    <mapping class="br.edu.ifpr.irati.ti.modelo.Mensagem"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoSolo"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoColetiva"/>
-    
+    <mapping class="br.edu.ifpr.irati.ti.modelo.Mensagem"/>
+    <mapping class="br.edu.ifpr.irati.ti.modelo.MensagemEntreAdministradores"/>
+    <mapping class="br.edu.ifpr.irati.ti.modelo.ComunicadoADM"/>
     
     
     

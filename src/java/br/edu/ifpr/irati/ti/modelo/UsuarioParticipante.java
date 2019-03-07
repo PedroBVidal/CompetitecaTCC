@@ -36,7 +36,10 @@ public class UsuarioParticipante implements Serializable {
     private List<Competicao> competicoes;
     
     @OneToMany(fetch = FetchType.EAGER)
-    private List<Mensagem> msg;
+    private List<Mensagem> mensagensEnviadas;
+    
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Mensagem> mensagensRecebidas;
 
     public UsuarioParticipante() {
         idUsuario = 0;
@@ -44,7 +47,8 @@ public class UsuarioParticipante implements Serializable {
         senha = "";
         competicoes = new ArrayList<>();
         nome = "";
-        msg = new ArrayList<>();
+        mensagensEnviadas = new ArrayList<>();
+        mensagensRecebidas = new ArrayList<>();
     }
 
     public UsuarioParticipante(int idUsuario,String nome, String email, String senha) {
@@ -53,16 +57,21 @@ public class UsuarioParticipante implements Serializable {
         this.email = email;
         this.senha = senha;
         this.competicoes = new ArrayList<>();
-        this.msg = new ArrayList<>();
+        this.mensagensEnviadas = new ArrayList<>();
+        this.mensagensRecebidas = new ArrayList<>();
     }
 
-    public UsuarioParticipante(int idUsuario, String email, String senha, List<Competicao> competicoes, List<Mensagem> msg) {
+    public UsuarioParticipante(int idUsuario, String email, String nome, String senha, List<Competicao> competicoes, List<Mensagem> mensagensEnviadas, List<Mensagem> mensagensRecebidas) {
         this.idUsuario = idUsuario;
         this.email = email;
+        this.nome = nome;
         this.senha = senha;
         this.competicoes = competicoes;
-        this.msg = msg;
+        this.mensagensEnviadas = mensagensEnviadas;
+        this.mensagensRecebidas = mensagensRecebidas;
     }
+
+    
 
     /**
      * @return the idUsuario
@@ -140,25 +149,51 @@ public class UsuarioParticipante implements Serializable {
         competicoes.remove(cp);
     }
 
-    /**
-     * @return the msg
-     */
-    public List<Mensagem> getMsg() {
-        return msg;
+
+    public void adicionarMensagemRecebida(Mensagem mensagemRecebida){
+        this.getMensagensRecebidas().add(mensagemRecebida);
+    }
+    
+    public void removerMensagemRecebida(Mensagem mensagemRecebida){
+        this.getMensagensRecebidas().remove(mensagemRecebida);
+    }
+    
+    public void adicionarMensagemEnviada(Mensagem mensagemEnviada){
+        this.getMensagensEnviadas().add(mensagemEnviada);
+    }
+    
+    public void removerMensagemEnviada(Mensagem mensagemEnviada){
+        this.getMensagensEnviadas().remove(mensagemEnviada);
     }
 
     /**
-     * @param msg the msg to set
+     * @return the mensagensEnviadas
      */
-    public void setMsg(List<Mensagem> msg) {
-        this.msg = msg;
+    public List<Mensagem> getMensagensEnviadas() {
+        return mensagensEnviadas;
     }
-    public void addMensagem(Mensagem msg){
-        this.msg.add(msg);
+
+    /**
+     * @param mensagensEnviadas the mensagensEnviadas to set
+     */
+    public void setMensagensEnviadas(List<Mensagem> mensagensEnviadas) {
+        this.mensagensEnviadas = mensagensEnviadas;
     }
-    public void removeMensagem(Mensagem msg){
-        this.msg.remove(msg);
+
+    /**
+     * @return the mensagensRecebidas
+     */
+    public List<Mensagem> getMensagensRecebidas() {
+        return mensagensRecebidas;
     }
+
+    /**
+     * @param mensagensRecebidas the mensagensRecebidas to set
+     */
+    public void setMensagensRecebidas(List<Mensagem> mensagensRecebidas) {
+        this.mensagensRecebidas = mensagensRecebidas;
+    }
+    
     
     
     

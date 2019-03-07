@@ -39,6 +39,8 @@ public class Atleta implements Serializable {
     @ManyToMany(mappedBy = "atletas", fetch=FetchType.EAGER)
     private List<Equipe> equipes;
     
+    @ManyToOne(fetch = FetchType.EAGER)
+    private UsuarioParticipante2 usuarioParticipante;
     
     @ManyToOne
     private Competicao competicao;
@@ -73,26 +75,29 @@ public class Atleta implements Serializable {
         competicao = new Competicao();
         inscricoesCompeticaoSolo = new ArrayList<>();
         competicoesModalidadeSolo = new ArrayList<>();
+        usuarioParticipante = new UsuarioParticipante2();
         //confrontosModalidadeSolo = new ArrayList<>();
     }
 
-    public Atleta(int idAtleta, String nome, String email, boolean aprovado) {
+    public Atleta(int idAtleta, String nome, String email, boolean aprovado, UsuarioParticipante2 usuarioParticipante) {
         this.idAtleta = idAtleta;
         this.nome = nome;
         this.email = email;
         this.aprovado = aprovado;
+        this.usuarioParticipante = usuarioParticipante;
         this.equipes = new ArrayList<>();
         //this.confrontosModalidadeSolo = new ArrayList<>();
         this.competicao = new Competicao();
-        inscricoesCompeticaoSolo = new ArrayList<>();
-        competicoesModalidadeSolo = new ArrayList<>();
+        this.inscricoesCompeticaoSolo = new ArrayList<>();
+        this.competicoesModalidadeSolo = new ArrayList<>();
     }
 
-    public Atleta(int idAtleta, String nome, String email, boolean aprovado, Competicao competicao) {
+    public Atleta(int idAtleta, String nome, String email, boolean aprovado, Competicao competicao,UsuarioParticipante2 usuarioParticipante) {
         this.idAtleta = idAtleta;
         this.nome = nome;
         this.email = email;
         this.aprovado = aprovado;
+        this.usuarioParticipante = usuarioParticipante;
         this.equipes = new ArrayList<>();
         //this.confrontosModalidadeSolo = new ArrayList<>();
         this.competicao = competicao;
@@ -100,17 +105,22 @@ public class Atleta implements Serializable {
         competicoesModalidadeSolo = new ArrayList<>();
     }
 
-    public Atleta(int idAtleta, String nome, String email, List<Equipe> equipes, Competicao competicao, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, List<Mensagem> mensagens, List<CompeticaoModalidadeSolo> competicoesModalidadeSolo, boolean aprovado) {
+    public Atleta(int idAtleta, String nome, String email, List<Equipe> equipes, UsuarioParticipante2 usuarioParticipante, Competicao competicao, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, List<Mensagem> mensagens, List<CompeticaoModalidadeSolo> competicoesModalidadeSolo, boolean aprovado) {
         this.idAtleta = idAtleta;
         this.nome = nome;
         this.email = email;
         this.equipes = equipes;
+        this.usuarioParticipante = usuarioParticipante;
         this.competicao = competicao;
         this.inscricoesCompeticaoSolo = inscricoesCompeticaoSolo;
         this.mensagens = mensagens;
         this.competicoesModalidadeSolo = competicoesModalidadeSolo;
         this.aprovado = aprovado;
     }
+
+    
+
+    
 
 
     public void adicionarCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo){
@@ -275,6 +285,22 @@ public class Atleta implements Serializable {
     public void setCompeticoesModalidadeSolo(List<CompeticaoModalidadeSolo> competicoesModalidadeSolo) {
         this.competicoesModalidadeSolo = competicoesModalidadeSolo;
     }
+
+    /**
+     * @return the usuarioParticipante
+     */
+    public UsuarioParticipante2 getUsuarioParticipante() {
+        return usuarioParticipante;
+    }
+
+    /**
+     * @param usuarioParticipante the usuarioParticipante to set
+     */
+    public void setUsuarioParticipante(UsuarioParticipante2 usuarioParticipante) {
+        this.usuarioParticipante = usuarioParticipante;
+    }
+
+    
     
     
     

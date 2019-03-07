@@ -37,7 +37,7 @@ public class UsuarioParticipante2 implements Serializable {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Mensagem> msg;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "usuarioParticipante")
     private List<Atleta> atletas;
 
     public UsuarioParticipante2() {
