@@ -33,8 +33,6 @@ public class Competicao implements Serializable {
     private String nome;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "relacaocompeticaousuarioadm", joinColumns = @JoinColumn(name = "id_competicao"),
-    inverseJoinColumns = @JoinColumn(name = "id_usuarioadm")) 
     private List<UsuarioParticipante> administradores;
     
     @OneToMany(fetch = FetchType.EAGER)
