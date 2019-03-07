@@ -17,7 +17,7 @@ if(request.getParameter("op").equals("1")){
     up.adicionarCompeticao(comp);
     upc.atualizarCad(up);
     
-    response.sendRedirect("../gerenciamentoDeCompeticao.jsp?id="+idCompeticao+"&msg=Administrador adicionado com Sucesso&color=success");
+    response.sendRedirect("../gerenciamentoDeCompeticao.jsp?idCompeticao="+idCompeticao+"&msg=Administrador adicionado com Sucesso&color=success");
 }else if(request.getParameter("op").equals("2")){
     CompeticaoControle cc = new CompeticaoControle();
     Competicao comp = cc.buscarCompeticaoPorId(idCompeticao);
@@ -27,6 +27,6 @@ if(request.getParameter("op").equals("1")){
     upc.atualizarCad(up);
     comp.removerAdministrador(up);
     cc.autualizarCompeticao(comp);
-    response.sendRedirect("../gerenciamentoDeCompeticao.jsp?id="+idCompeticao+"&msg=Administrador removido com Sucesso&color=warning");
+    response.sendRedirect("../gerenciamentoDeCompeticao.jsp?idCompeticao="+idCompeticao+"&msg=Administrador removido com Sucesso&color=warning");
 }
 %>

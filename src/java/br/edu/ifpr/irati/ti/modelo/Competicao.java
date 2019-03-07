@@ -11,10 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 
@@ -28,7 +29,8 @@ public class Competicao implements Serializable {
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
-
+    
+    @Cascade(CascadeType.DELETE)
     @ManyToMany(mappedBy = "competicoes", fetch = FetchType.EAGER)
     private List<UsuarioParticipante> administradores;
     
@@ -197,7 +199,7 @@ public class Competicao implements Serializable {
         this.administradores.add(up);
     }
     public void removerAdministrador(UsuarioParticipante up){
-        this.administradores.add(up);
+        this.administradores.remove(up);
     }
 
     /**
