@@ -15,14 +15,14 @@ import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 
 
-@Entity(name = "mensagem")
+@Entity(name = "mensagem_recebida")
 @Proxy(lazy = false)
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Mensagem implements Serializable {
+public abstract class MensagemRecebida implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected int idMensagem;
+    protected int idMensagemRecebida;
     
 
     @Column(name="lido")
@@ -33,37 +33,25 @@ public abstract class Mensagem implements Serializable {
     protected String assunto;
     
 
-    public Mensagem() {
-        idMensagem = 0;
+    public MensagemRecebida() {
+        idMensagemRecebida = 0;
         lido = false;
         assunto = "";
     }
 
-    public Mensagem(int idMensagem,String assunto) {
-        this.idMensagem = idMensagem;
+    public MensagemRecebida(int idMensagemRecebida,String assunto) {
+        this.idMensagemRecebida = idMensagemRecebida;
         this.lido = false;
         this.assunto = assunto;
     }
 
-    public Mensagem(int idMensagem, boolean lido, String assunto) {
-        this.idMensagem = idMensagem;
+    public MensagemRecebida(int idMensagemRecebida, boolean lido, String assunto) {
+        this.idMensagemRecebida = idMensagemRecebida;
         this.lido = lido;
         this.assunto = assunto;
     }
 
-    /**
-     * @return the idMensagem
-     */
-    public int getIdMensagem() {
-        return idMensagem;
-    }
-
-    /**
-     * @param idMensagem the idMensagem to set
-     */
-    public void setIdMensagem(int idMensagem) {
-        this.idMensagem = idMensagem;
-    }
+    
 
     /**
      * @return the lido
@@ -91,6 +79,20 @@ public abstract class Mensagem implements Serializable {
      */
     public void setAssunto(String assunto) {
         this.assunto = assunto;
+    }
+
+    /**
+     * @return the idMensagemRecebida
+     */
+    public int getIdMensagemRecebida() {
+        return idMensagemRecebida;
+    }
+
+    /**
+     * @param idMensagemRecebida the idMensagemRecebida to set
+     */
+    public void setIdMensagemRecebida(int idMensagemRecebida) {
+        this.idMensagemRecebida = idMensagemRecebida;
     }
 
  

@@ -2,7 +2,7 @@
 import br.edu.ifpr.irati.ti.controle.MensagemControle;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
-import br.edu.ifpr.irati.ti.modelo.Mensagem;
+import br.edu.ifpr.irati.ti.modelo.MensagemRecebida;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2;
 
@@ -21,7 +21,7 @@ public class TesteMensagem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Dao<Mensagem> msg = new GenericDAO<>(Mensagem.class);
+        Dao<MensagemRecebida> msg = new GenericDAO<>(MensagemRecebida.class);
         Dao<UsuarioParticipante> up = new GenericDAO<>(UsuarioParticipante.class);
         Dao<UsuarioParticipante2> up2 = new GenericDAO<>(UsuarioParticipante2.class);
 
@@ -29,7 +29,7 @@ public class TesteMensagem {
         UsuarioParticipante2 upar2 = up2.buscarPorId(1);
         MensagemControle msgc = new MensagemControle();
         msgc.enviarMensagem(upar2,upar,"Major League Soccer","Seu acesso foi negado" ,"Olá meu senhor, o vosso acesso foi negado :(");
-        for (Mensagem mesg : upar.getMsg()) {
+        for (MensagemRecebida mesg : upar.getMsg()) {
             if (mesg.getTipoRemetente() == 2) {
                 System.out.println("Remetente: " + mesg.getTipoUser().getNome() + "\n Assunto:"+mesg.getAssunto()+"\n Mensagem: " + mesg.getTexto());
             }

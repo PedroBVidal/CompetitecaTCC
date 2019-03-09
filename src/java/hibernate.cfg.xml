@@ -35,12 +35,14 @@
     <mapping class="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoSolo"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoColetiva"/>
-    <mapping class="br.edu.ifpr.irati.ti.modelo.Mensagem"/>
-    <mapping class="br.edu.ifpr.irati.ti.modelo.MensagemEntreAdministradores"/>
-    <mapping class="br.edu.ifpr.irati.ti.modelo.ComunicadoADM"/>
-    
-    
-    
-    
+    <mapping class="br.edu.ifpr.irati.ti.modelo.MensagemRecebida"/>
+    <mapping class="br.edu.ifpr.irati.ti.modelo.MensagemAARecebida"/>
+    <mapping class="br.edu.ifpr.irati.ti.modelo.ComunicadoAARecebido"/>
+    <mapping class="br.edu.ifpr.irati.ti.modelo.MensagemEnviada"/>
+    <mapping class="br.edu.ifpr.irati.ti.modelo.MensagemAAEnviada"/>
+    <mapping class="br.edu.ifpr.irati.ti.modelo.ComunicadoAAEnviado"/>
+    <mapping class="br.edu.ifpr.irati.ti.modelo.ConviteGerenciamentoAAEnviado"/>
+    <mapping class="br.edu.ifpr.irati.ti.modelo.ConviteGerenciamentoAARecebido"/>
+
   </session-factory>
 </hibernate-configuration>

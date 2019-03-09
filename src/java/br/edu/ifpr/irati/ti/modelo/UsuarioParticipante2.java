@@ -35,7 +35,7 @@ public class UsuarioParticipante2 implements Serializable {
     private String senha;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<Mensagem> msg;
+    private List<MensagemRecebida> msg;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "usuarioParticipante")
     private List<Atleta> atletas;
@@ -58,7 +58,7 @@ public class UsuarioParticipante2 implements Serializable {
         this.msg = new ArrayList<>();
     }
 
-    public UsuarioParticipante2(int idUsuario, String email, String nome, String senha, List<Atleta> atletas, List<Mensagem> msg) {
+    public UsuarioParticipante2(int idUsuario, String email, String nome, String senha, List<Atleta> atletas, List<MensagemRecebida> msg) {
         this.idUsuario = idUsuario;
         this.email = email;
         this.nome = nome;
@@ -144,22 +144,22 @@ public class UsuarioParticipante2 implements Serializable {
     /**
      * @return the msg
      */
-    public List<Mensagem> getMsg() {
+    public List<MensagemRecebida> getMsg() {
         return msg;
     }
 
     /**
      * @param msg the msg to set
      */
-    public void setMsg(List<Mensagem> msg) {
+    public void setMsg(List<MensagemRecebida> msg) {
         this.msg = msg;
     }
 
-    public void addMensagem(Mensagem msg) {
+    public void addMensagem(MensagemRecebida msg) {
         this.msg.add(msg);
     }
 
-    public void removeMensagem(Mensagem msg) {
+    public void removeMensagem(MensagemRecebida msg) {
         this.msg.remove(msg);
     }
 

@@ -15,35 +15,42 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.annotations.Proxy;
 
 
-@Entity(name = "mensagementreadministradores")
-@PrimaryKeyJoinColumn(name = "idMensagem")
+@Entity(name = "mensagem_aa_recebida")
+@PrimaryKeyJoinColumn(name = "idMensagemRecebida")
 @Proxy(lazy = false)
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class MensagemEntreAdministradores extends Mensagem implements Serializable {
+public abstract class MensagemAARecebida extends MensagemRecebida implements Serializable {
     
 
     
     @ManyToOne(fetch = FetchType.EAGER)
-    private UsuarioParticipante remetente;
+    protected UsuarioParticipante remetente;
     
-    @ManyToOne(fetch = FetchType.EAGER)
-    private UsuarioParticipante destinatario;
 
-    public MensagemEntreAdministradores() {
+    public MensagemAARecebida() {
         super();
         remetente = new UsuarioParticipante();
-        destinatario = new UsuarioParticipante();
+        
     }
 
-    public MensagemEntreAdministradores(UsuarioParticipante remetente, UsuarioParticipante destinatario, int idMensagem, boolean lido, String assunto) {
+    public MensagemAARecebida(UsuarioParticipante remetente, int idMensagem, boolean lido, String assunto) {
         super(idMensagem, lido, assunto);
         this.remetente = remetente;
-        this.destinatario = destinatario;
+    }
+
+    /**
+     * @return the remetente
+     */
+    public UsuarioParticipante getRemetente() {
+        return remetente;
+    }
+
+    /**
+     * @param remetente the remetente to set
+     */
+    public void setRemetente(UsuarioParticipante remetente) {
+        this.remetente = remetente;
     }
     
-    
-    
-    
-    
-    
+  
 }

@@ -2,7 +2,7 @@
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.modelo.Competicao;
-import br.edu.ifpr.irati.ti.modelo.ComunicadoADM;
+import br.edu.ifpr.irati.ti.modelo.ComunicadoAARecebido;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
 
 /*
@@ -19,7 +19,7 @@ public class TesteComunicadoADM {
     
     public static void main(String[] args) {
         
-        Dao<ComunicadoADM> comuDao = new GenericDAO<>(ComunicadoADM.class);
+        Dao<ComunicadoAARecebido> comuDao = new GenericDAO<>(ComunicadoAARecebido.class);
         Dao<UsuarioParticipante> usuarioParticipanteDAO = new GenericDAO<>(UsuarioParticipante.class);
         
         //UsuarioParticipante userRemetente = new UsuarioParticipante(0, "Pedro", "pedropopa98@gmail.com", "pedro123");
@@ -28,12 +28,21 @@ public class TesteComunicadoADM {
         UsuarioParticipante userRemetente = usuarioParticipanteDAO.buscarPorId(1);
         UsuarioParticipante userDestinatario = usuarioParticipanteDAO.buscarPorId(2);
         
-        
-        ComunicadoADM comunicadoADM = new ComunicadoADM("Este é um comunicado", userRemetente, userDestinatario, 0, false, "Comunicado");
+        for(int i = 0; i < 2; i++){
+           ComunicadoAARecebido comunicadoADM = new ComunicadoAARecebido("Este é um comunicado", userRemetente, 0, false, "Você foi adicionado a competição TESTE");
+           
+           if(i == 0){
+               comuDao.salvar(comunicadoADM);
+               userRemetente.adicionarMensagemEnviada(comunicadoADM);
+           }
+           if(i == 1){
+               comuDao.salvar(comunicadoADM);
+               
+           }
+        }
         
         
         userDestinatario.adicionarMensagemRecebida(comunicadoADM);
-        userDestinatario.adicionarMensagemEnviada(comunicadoADM);
         userRemetente.adicionarMensagemEnviada(comunicadoADM);
         
         comuDao.salvar(comunicadoADM);

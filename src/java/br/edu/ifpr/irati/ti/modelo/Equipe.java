@@ -36,7 +36,7 @@ public class Equipe implements Serializable {
     private List<Confronto> confrontosModalidadeColetiva;
     
     @OneToMany
-    private List<Mensagem> mensagens;
+    private List<MensagemRecebida> mensagens;
 
     @ManyToOne
     @JoinColumn(name = "competicao_idCompeticao")
@@ -99,7 +99,7 @@ public class Equipe implements Serializable {
         this.competicoesModalidadeColeivas = new ArrayList<>();
     }
 
-    public Equipe(int idEquipe, String nome, List<Atleta> atletas, List<Confronto> confrontosModalidadeColetiva, List<Mensagem> mensagens, Competicao competicao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas) {
+    public Equipe(int idEquipe, String nome, List<Atleta> atletas, List<Confronto> confrontosModalidadeColetiva, List<MensagemRecebida> mensagens, Competicao competicao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas) {
         this.idEquipe = idEquipe;
         this.nome = nome;
         this.atletas = atletas;
@@ -194,14 +194,14 @@ public class Equipe implements Serializable {
     /**
      * @return the mensagens
      */
-    public List<Mensagem> getMensagens() {
+    public List<MensagemRecebida> getMensagens() {
         return mensagens;
     }
 
     /**
      * @param mensagens the mensagens to set
      */
-    public void setMensagens(List<Mensagem> mensagens) {
+    public void setMensagens(List<MensagemRecebida> mensagens) {
         this.mensagens = mensagens;
     }
 

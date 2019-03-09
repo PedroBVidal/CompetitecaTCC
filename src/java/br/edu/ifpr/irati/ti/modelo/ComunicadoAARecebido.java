@@ -11,26 +11,28 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.annotations.Proxy;
 
-@Entity(name = "comunicadoADM")
-@PrimaryKeyJoinColumn(name = "idMensagem")
+@Entity(name = "comunicado_aa_recebido")
+@PrimaryKeyJoinColumn(name = "idMensagemRecebida")
 @Proxy(lazy = false)
-public class ComunicadoADM extends MensagemEntreAdministradores implements Serializable {
+public class ComunicadoAARecebido extends MensagemAARecebida implements Serializable {
     
     
     //Mudar name para texto
-    @Column(name = "assunto",nullable = false)
+    @Column(name = "texto",nullable = false)
     private String texto;
 
-    public ComunicadoADM() {
+    public ComunicadoAARecebido() {
         super();
         texto = "";
     }
-    
-    
-    public ComunicadoADM(String texto, UsuarioParticipante remetente, UsuarioParticipante destinatario, int idMensagem, boolean lido, String assunto) {
-        super(remetente, destinatario, idMensagem, lido, assunto);
+
+    public ComunicadoAARecebido(String texto, UsuarioParticipante remetente, int idMensagem, boolean lido, String assunto) {
+        super(remetente, idMensagem, lido, assunto);
         this.texto = texto;
     }
+    
+    
+    
 
     /**
      * @return the texto

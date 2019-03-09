@@ -22,7 +22,7 @@
     
     UsuarioParticipante2 usp = new UsuarioParticipante2(id,email,nome,senha);
     Competicao competicao = new Competicao(0, nome, new Date(), new Date());
-    Atleta atleta = new Atleta(0, nome, email, false);
+    //Atleta atleta = new Atleta(0, nome, email, false);
     
     if(cmd == 2){
        UsuarioParticipante2Controle uspc = new UsuarioParticipante2Controle();

@@ -51,7 +51,7 @@ public class Atleta implements Serializable {
     
     
     @OneToMany(fetch = FetchType.EAGER)
-    private List<Mensagem> mensagens;
+    private List<MensagemRecebida> mensagens;
     
     @ManyToMany(fetch = FetchType.EAGER)
     private List<CompeticaoModalidadeSolo> competicoesModalidadeSolo;
@@ -105,7 +105,7 @@ public class Atleta implements Serializable {
         competicoesModalidadeSolo = new ArrayList<>();
     }
 
-    public Atleta(int idAtleta, String nome, String email, List<Equipe> equipes, UsuarioParticipante2 usuarioParticipante, Competicao competicao, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, List<Mensagem> mensagens, List<CompeticaoModalidadeSolo> competicoesModalidadeSolo, boolean aprovado) {
+    public Atleta(int idAtleta, String nome, String email, List<Equipe> equipes, UsuarioParticipante2 usuarioParticipante, Competicao competicao, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, List<MensagemRecebida> mensagens, List<CompeticaoModalidadeSolo> competicoesModalidadeSolo, boolean aprovado) {
         this.idAtleta = idAtleta;
         this.nome = nome;
         this.email = email;
@@ -261,14 +261,14 @@ public class Atleta implements Serializable {
     /**
      * @return the mensagens
      */
-    public List<Mensagem> getMensagens() {
+    public List<MensagemRecebida> getMensagens() {
         return mensagens;
     }
 
     /**
      * @param mensagens the mensagens to set
      */
-    public void setMensagens(List<Mensagem> mensagens) {
+    public void setMensagens(List<MensagemRecebida> mensagens) {
         this.mensagens = mensagens;
     }
 
