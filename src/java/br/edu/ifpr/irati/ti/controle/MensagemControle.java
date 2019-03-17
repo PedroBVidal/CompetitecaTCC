@@ -16,7 +16,7 @@ import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2;
  * @author user
  */
 public class MensagemControle {
-    
+    /*
     public void enviarMensagem(Object remetente, Object destinatario,String categoria,String assunto, String mensagem){
         Dao<MensagemRecebida> msg = new GenericDAO<>(MensagemRecebida.class);
         Dao<UsuarioParticipante> up = new GenericDAO<>(UsuarioParticipante.class);
@@ -42,4 +42,5 @@ public class MensagemControle {
             up2.alterar(upar2);
         }
     }
+*/
 }

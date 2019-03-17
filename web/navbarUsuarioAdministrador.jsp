@@ -15,6 +15,7 @@
                     
                     UsuarioParticipante usuarioADM = (UsuarioParticipante) usuario; 
                     
+                    System.out.println("ID USUÁRIO ADM: " + usuarioADM.getIdUsuario());
 %>
 
         <!-- Navigation -->
@@ -27,8 +28,10 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary" href="services.html">&nbsp;Minhas mensagens</a>
+                        <li class="nav-item"> <!--?idUsuarioAdm=<usuarioADM.getIdUsuario()%>-->
+                            <a class="nav-link" href="minhasMensagensNaoLidas.jsp?idUsuarioAdm=<%=usuarioADM.getIdUsuario()%>">&nbsp;<span class="badge badge-info">9</span>
+                                <span class="sr-only">unread messages</span>Minhas mensagens
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="services.html"><i class="fas fa-trophy"></i>&nbsp;Competições</a>

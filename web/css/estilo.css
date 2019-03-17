@@ -27,4 +27,11 @@ and open the template in the editor.
     font-family: 'Overpass', sans-serif;
 }
 
+.marginBreadcrumb {
+    margin-bottom: 25px;
+}
+
+.btnsDecissaoMensagem {
+    margin-bottom: 10px;
+}
 
