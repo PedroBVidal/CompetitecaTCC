@@ -126,15 +126,21 @@
                         <tbody>
                             <%
                                 UsuarioParticipanteControle upca = new UsuarioParticipanteControle();
-                                for(UsuarioParticipante upa: upca.buscarTodos()){
                                 
+                                for(UsuarioParticipante upa: upca.buscarTodos()){
+                                int flag = 0;
                                 String nomeUsuario = upa.getNome();
                                 String email = upa.getEmail();
-                                    
-                            
-                            
+                                    for(UsuarioParticipante upacto: competicao.getAdministradores()){
+                                        if(email.equals(upacto.getEmail())){
+                                            flag++;
+                                            
+                                        }
+                                    }
+                                    if(flag == 0){
                             
                             %>    
+                        
                         <td><%=nomeUsuario%></td>
                         <td><%=email%></td>
                         <td>
@@ -147,7 +153,7 @@
                         </tbody>
 
                         
-                        <%}%>
+                        <%}}%>
                     </table>
                     <script>
                         //Código de busca da tabela
@@ -512,10 +518,14 @@
                         <td><%=nomeUsuario%></td>
                         <td><%=email%></td>
                         <td>
+                            <%
+                                if(!email.equals(up.getEmail())){
+                            %>
                             <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=upact.getIdUsuario()%>&idComp=<%=competicao.getIdCompeticao()%>&op=2" class="btn btn-danger">
                                 <!-- Adicionar icone -->
                                 <i class="fas fa-trash-alt"></i>
                             </a>
+                                <%}%>
                         </td>    
 
                         </tbody>
