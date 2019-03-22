@@ -22,6 +22,8 @@ public class Testuseradm {
        UsuarioParticipante up = new UsuarioParticipante(0, "Gustavo H.S.Oliveira", "oliveiragugahso@hotmail.com", "curitiba320");
        Dao<UsuarioParticipante> upc = new GenericDAO<>(UsuarioParticipante.class);
        upc.salvar(up);
+       
+       
     }
     
 }

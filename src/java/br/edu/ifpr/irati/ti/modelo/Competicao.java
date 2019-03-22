@@ -52,6 +52,14 @@ public class Competicao implements Serializable {
     @Column(name = "inativo")
     @Type(type = "true_false")
     private boolean inativo; 
+    
+    @Column(name = "codigo")
+    private String codPriv;
+    
+    @Column(name = "privado")
+    @Type(type = "true_false")
+    private boolean privado;
+    
 
     public Competicao() {
         idCompeticao = 0;
@@ -61,6 +69,7 @@ public class Competicao implements Serializable {
         dataInicio = new Date();
         dataTermino = new Date();
         inativo = false;
+        privado = false;
     }
 
     public Competicao(int idCompeticao, String nome, Date dataInicio, Date dataTermino) {
@@ -72,9 +81,10 @@ public class Competicao implements Serializable {
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
         this.inativo = false;
+        this.privado = false;
     }
 
-    public Competicao(int idCompeticao, String nome, List<UsuarioParticipante> administradores, List<CompeticaoModalidadeColetiva> cmodalidadecole, List<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino, boolean inativo) {
+    public Competicao(int idCompeticao, String nome, List<UsuarioParticipante> administradores, List<CompeticaoModalidadeColetiva> cmodalidadecole, List<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino, boolean inativo, boolean privado) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
         this.administradores = administradores;
@@ -83,6 +93,7 @@ public class Competicao implements Serializable {
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
         this.inativo = inativo;
+        this.privado = privado;
     }
 
     
@@ -90,7 +101,7 @@ public class Competicao implements Serializable {
     
 
     
-
+    
     public void adcionarLocal(Local local) {
 
     }
@@ -229,6 +240,34 @@ public class Competicao implements Serializable {
      */
     public void setInativo(boolean inativo) {
         this.inativo = inativo;
+    }
+
+    /**
+     * @return the codPriv
+     */
+    public String getCodPriv() {
+        return codPriv;
+    }
+
+    /**
+     * @param codPriv the codPriv to set
+     */
+    public void setCodPriv(String codPriv) {
+        this.codPriv = codPriv;
+    }
+
+    /**
+     * @return the privado
+     */
+    public boolean isPrivado() {
+        return privado;
+    }
+
+    /**
+     * @param privado the privado to set
+     */
+    public void setPrivado(boolean privado) {
+        this.privado = privado;
     }
 
 
