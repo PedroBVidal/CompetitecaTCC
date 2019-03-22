@@ -1,6 +1,9 @@
 package br.edu.ifpr.irati.ti.modelo;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,32 +37,29 @@ public class Competicao implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UsuarioParticipante> administradores;
-    
+
     @OneToMany(fetch = FetchType.EAGER)
     private List<CompeticaoModalidadeColetiva> cmodalidadecole;
-    
-    
+
     @OneToMany(fetch = FetchType.EAGER)
     private List<CompeticaoModalidadeSolo> cmodalidadesolo;
-    
-    
+
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
 
     @Temporal(TemporalType.DATE)
     private Date dataTermino;
-    
+
     @Column(name = "inativo")
     @Type(type = "true_false")
-    private boolean inativo; 
-    
+    private boolean inativo;
+
     @Column(name = "codigo")
     private String codPriv;
-    
+
     @Column(name = "privado")
     @Type(type = "true_false")
     private boolean privado;
-    
 
     public Competicao() {
         idCompeticao = 0;
@@ -96,29 +96,23 @@ public class Competicao implements Serializable {
         this.privado = privado;
     }
 
-    
-
-    
-
-    
-    
     public void adcionarLocal(Local local) {
 
     }
-    
-    public void adcionarCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo){
-        this.cmodalidadesolo.add(competicaoModalidadeSolo);        
+
+    public void adcionarCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo) {
+        this.cmodalidadesolo.add(competicaoModalidadeSolo);
     }
-    
-    public void adicionarCompeticaoModalidadeColetiva(CompeticaoModalidadeColetiva competicaoModalidadeColetiva){
+
+    public void adicionarCompeticaoModalidadeColetiva(CompeticaoModalidadeColetiva competicaoModalidadeColetiva) {
         this.cmodalidadecole.add(competicaoModalidadeColetiva);
     }
-    
-    public void removerCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo){
-        this.cmodalidadesolo.remove(competicaoModalidadeSolo);        
+
+    public void removerCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo) {
+        this.cmodalidadesolo.remove(competicaoModalidadeSolo);
     }
-    
-    public void removerCompeticaoModalidadeColetiva(CompeticaoModalidadeColetiva competicaoModalidadeColetiva){
+
+    public void removerCompeticaoModalidadeColetiva(CompeticaoModalidadeColetiva competicaoModalidadeColetiva) {
         this.cmodalidadecole.remove(competicaoModalidadeColetiva);
     }
 
@@ -149,8 +143,6 @@ public class Competicao implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    
 
     /**
      * @return the dataInicio
@@ -207,11 +199,13 @@ public class Competicao implements Serializable {
     public void setCmodalidadesolo(List<CompeticaoModalidadeSolo> cmodalidadesolo) {
         this.cmodalidadesolo = cmodalidadesolo;
     }
-    public void adicionarAdministrador(UsuarioParticipante up){
+
+    public void adicionarAdministrador(UsuarioParticipante up) {
         this.administradores.add(up);
         up.adicionarCompeticao(this);
     }
-    public void removerAdministrador(UsuarioParticipante up){
+
+    public void removerAdministrador(UsuarioParticipante up) {
         this.administradores.remove(up);
         up.removerCompeticao(this);
     }
@@ -229,7 +223,8 @@ public class Competicao implements Serializable {
     public void setAdministradores(List<UsuarioParticipante> administradores) {
         this.administradores = administradores;
     }
-     /* @return the inativo
+
+    /* @return the inativo
      */
     public boolean isInativo() {
         return inativo;
@@ -266,11 +261,19 @@ public class Competicao implements Serializable {
     /**
      * @param privado the privado to set
      */
-    public void setPrivado(boolean privado) {
-        this.privado = privado;
+    public void setPrivado(boolean privado) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+
+        if (privado == true) {
+            String senha = Integer.toString(this.idCompeticao);
+
+            MessageDigest algorithm = MessageDigest.getInstance("MD5");
+            byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
+            this.codPriv = ""+messageDigest;
+            this.privado = privado;
+        }else{
+            this.privado = privado;
+        }
+
     }
-
-
-    
 
 }

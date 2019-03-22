@@ -88,7 +88,7 @@
             
             
 
-            <h1 class="col fontCabinCondensed" style="margin: 20px 0px 20px -10px;">Inscrição</h1>
+            <h1 class="col fontCabinCondensed" style="margin: 20px 0px 20px -10px;">Inscrição de <b style="//color:red;"><%=competicao.getNome()%></b></h1>
 
             <div class="row">
 

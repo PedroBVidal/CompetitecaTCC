@@ -44,6 +44,9 @@ public class CompeticaoControle {
     public void inativarCompeticao(Competicao competicao){
         
     }
+    public Competicao buscarPorCodigo(String codigo){
+        return competicaoDAOGeneric.buscarCodigoPrivado(codigo);
+    }
     
     
     
