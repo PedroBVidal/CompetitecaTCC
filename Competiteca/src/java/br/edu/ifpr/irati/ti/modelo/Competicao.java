@@ -1,9 +1,7 @@
 package br.edu.ifpr.irati.ti.modelo;
 
+import br.ifpr.irati.ti.util.GerarCodigoAcessoPrivado;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,14 +11,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 
@@ -261,14 +255,11 @@ public class Competicao implements Serializable {
     /**
      * @param privado the privado to set
      */
-    public void setPrivado(boolean privado) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public void setPrivado(boolean privado) {
 
         if (privado == true) {
-            String senha = Integer.toString(this.idCompeticao);
-
-            MessageDigest algorithm = MessageDigest.getInstance("MD5");
-            byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
-            this.codPriv = ""+messageDigest;
+            GerarCodigoAcessoPrivado gcap = new GerarCodigoAcessoPrivado();
+            this.codPriv = gcap.criptografar(Integer.toString(this.idCompeticao));
             this.privado = privado;
         }else{
             this.privado = privado;

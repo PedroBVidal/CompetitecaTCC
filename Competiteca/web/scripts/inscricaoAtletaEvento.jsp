@@ -55,7 +55,7 @@
             }
     
     if(flag == 0){
-    Atleta atleta = new Atleta(0, nome, email, false, competicao);
+    Atleta atleta = new Atleta(0, nome, email, false, competicao, usuarioParticipante2);
     
     System.out.println("ATLETA CRIADO PELO BANCO:"+  atleta);
     

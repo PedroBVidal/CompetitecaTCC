@@ -21,7 +21,7 @@
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeSoloControle"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipanteControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.Mensagem"%>
+
 <%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -175,46 +175,7 @@
 
 
                     <div class="tab-pane active" id="messages" role="tabpanel">
-                        <table class="table table-striped">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">Remetente</th>
-                                    <th scope="col">Assunto</th>
-                                    <th scope="col">Ação</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <%
-                                    UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
-                                    UsuarioParticipante uper = upc.buscarPorId(up.getIdUsuario());
-                                    for (Mensagem mesg : uper.getMsg()) {
-
-                                if(mesg.getTipoRemetente() == 2){
-                                %>
-
-                                <tr>
-
-                                    <td><%=mesg.getTipoUser().getNome()%></td>
-                                    <td><%=mesg.getAssunto()%></td>
-                                    <td><a href="abreMensagem.jsp?id=<%=mesg.getIdMensagem()%>" class="btn btn-success">
-                                            <!-- Adicionar icone -->
-                                            <%if(mesg.isLido() == false){%>
-                                            <i class="fas fa-envelope"></i>
-                                            <%}else{
-                                            %>                                          <i class="fas fa-envelope-open"></i>
-                                            <%
-}%>
-                                        </a> &nbsp;
-
-                                        <button class="btn btn-primary" data-toggle="modal" data-target="#<%=mesg.getIdMensagem()%>">
-                                            <!-- Adicionar icone -->
-                                            <i class="fas fa-eye"></i>
-                                        </button></td>
-                                </tr>
-                                <%}
-}%>
-                            </tbody>
-                        </table>
+                        
                     </div>
                     <div class="tab-pane" id="settings" role="tabpanel">Porem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
                 </div>
