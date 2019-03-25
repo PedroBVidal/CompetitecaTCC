@@ -96,9 +96,11 @@
             <br>
             <br>
             <%}else{%>
-            <b>Chave Pública da Competição:</b><%=competicao.getCodPriv()%>
+            <b>Chave Pública da Competição:</b><%=competicao.getCodPriv()%> 
             <br>
-
+            <a href="posterPriv.jsp?chave=<%=competicao.getCodPriv()%>" class="btn btn-primary"><i class="fas fa-print"></i>&nbsp; Gerar cartaz da competição</a>
+            <br>
+            <br>
             <%}%>
 
             <!-- List group -->

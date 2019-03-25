@@ -1,4 +1,3 @@
-
 package br.edu.ifpr.irati.ti.dao;
 
 import br.edu.ifpr.irati.ti.modelo.Atleta;
@@ -7,10 +6,9 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-
 public class AtletaDAO {
- 
-        public void salvar(Atleta atleta){
+
+    public void salvar(Atleta atleta) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(atleta);
@@ -18,17 +16,17 @@ public class AtletaDAO {
         session.clear();
         session.close();
     }
-    
-    public void alterar(Atleta atleta){
+
+    public void alterar(Atleta atleta) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.update(atleta);
-        session.getTransaction().commit();   
+        session.getTransaction().commit();
         session.clear();
         session.close();
     }
-    
-    public void excluir(Atleta atleta){
+
+    public void excluir(Atleta atleta) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.delete(atleta);
@@ -36,8 +34,8 @@ public class AtletaDAO {
         session.clear();
         session.close();
     }
-    
-    public List<Atleta> buscarTodos(){
+
+    public List<Atleta> buscarTodos() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         String hql = "from atleta";
         Query query = session.createQuery(hql);
@@ -46,16 +44,27 @@ public class AtletaDAO {
         session.close();
         return results;
     }
-    
-    public Atleta buscar(String str){
+
+    public Atleta buscar(String str) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from atleta a where a.nome = '"+str+"' ";
+        String hql = "from atleta a where a.nome = '" + str + "' ";
         Query query = session.createQuery(hql);
         query.setMaxResults(1);
-        Atleta atleta = (Atleta) query.uniqueResult();        
+        Atleta atleta = (Atleta) query.uniqueResult();
         session.clear();
         session.close();
         return atleta;
-    }   
-    
+    }
+
+    public Atleta buscarPorId(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from atleta a where a.idAtleta = '" + id + "'";
+        Query query = session.createQuery(hql);
+        query.setMaxResults(1);
+        Atleta competicao = (Atleta) query.uniqueResult();
+        session.clear();
+        session.close();
+        return competicao;
+    }
+
 }

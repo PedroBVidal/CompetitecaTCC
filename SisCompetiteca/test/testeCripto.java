@@ -16,7 +16,7 @@ public class testeCripto {
     public static void main(String[] args) {
         GerarCodigoAcessoPrivado gcap = new GerarCodigoAcessoPrivado();
     
-        System.out.println(gcap.criptografar("1"));
+        System.out.println(gcap.criptografar("2"));
         System.out.println("C4CA4238A0B923820DCC509A6F75849B");
         System.exit(0);
     
