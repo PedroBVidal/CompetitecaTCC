@@ -1,6 +1,9 @@
 package br.edu.ifpr.irati.ti.modelo;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -266,7 +269,15 @@ public class Competicao implements Serializable {
     /**
      * @param privado the privado to set
      */
-    public void setPrivado(boolean privado) {
+    public void setPrivado(boolean privado) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        if(privado == true){
+            String senha = Integer.toString(this.idCompeticao);
+            MessageDigest algorithm = MessageDigest.getInstance("MD5");
+            byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
+            this.codPriv = ""+messageDigest;
+            
+        }
+        
         this.privado = privado;
     }
 

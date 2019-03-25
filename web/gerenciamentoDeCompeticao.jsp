@@ -90,8 +90,15 @@
 
             </h1><br>
 
+            <%if(!competica.isPrivado()){
+             %>
+             <a href="scripts/privado.jsp?idComp=<%competicao.getIdCompeticao()%>" class="btn btn-primary"><i class="fas fa-lock"></i> &nbsp; Tornar competição privada</a>
+            <%  
+            }else{%>
+            <b>Chave Pública da Competição:</b>competicao.getCodPriv();
 
-
+            <%}%>
+            <a href="#" class="btn btn-secondary"></a>
             <!-- List group -->
             <div class="row">
                 <div class="list-group col-2" id="myList" role="tablist">

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : editaUsuarioParticipante
-    Created on : 12/10/2018, 19:28:42
-    Author     : Usuário
+    Document   : privado.jsp
+    Created on : 22/03/2019, 09:39:29
+    Author     : gustavo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+       
         <h1>Hello World!</h1>
     </body>
 </html>
