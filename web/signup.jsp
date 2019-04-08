@@ -133,7 +133,7 @@
                 <input type="hidden" name="op" value="1">
 
 
-                 <input type="hidden" name="c" value="1">
+                <input type="hidden" name="c" value="1">
                 <input type="hidden" name="id" value="0">
 
                 <label for="" class="col-md-12">
@@ -144,6 +144,18 @@
                     Email:
                     <input type="text" required class="form-control" name="email" placeholder="Insira o seu email" >
                 </label>
+                <label for="" class="col-md-12">
+                    Data de nascimento:
+                    <input type="text" required class="form-control" name="email" placeholder="Insira o seu email" >
+                </label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="checkbox" aria-label="Checkbox for following text input">
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with checkbox">
+                </div>
                 <label for="" class="col-md-12">
                     Senha:
                     <input type="password" required class="form-control" id="password" name="senha" placeholder="Insira a sua senha">

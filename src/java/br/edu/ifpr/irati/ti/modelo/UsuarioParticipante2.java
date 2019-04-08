@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
 
 @Entity(name = "usuarioparticipante2")
@@ -40,8 +41,8 @@ public class UsuarioParticipante2 implements Serializable {
     @OneToMany(fetch = FetchType.EAGER)
     private List<MensagemRecebida> mensagensRecebidas;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "usuarioParticipante")
-    private List<Atleta> atletas;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Atleta atleta;
     
     @OneToMany(fetch = FetchType.EAGER)
     private List<Equipe> equipe;
@@ -55,20 +56,20 @@ public class UsuarioParticipante2 implements Serializable {
         this.email = email;
         this.nome = nome;
         this.senha = senha;
-        this.atletas = new ArrayList<>();
+        this.atleta = new Atleta();
         this.mensagensEnviadas = new ArrayList<>();
         this.mensagensRecebidas = new ArrayList<>();
         this.equipe = new ArrayList<>();
     }
 
-    public UsuarioParticipante2(int idUsuario, String email, String nome, String senha, List<MensagemEnviada> mensagensEnviadas, List<MensagemRecebida> mensagensRecebidas, List<Atleta> atletas) {
+    public UsuarioParticipante2(int idUsuario, String email, String nome, String senha, List<MensagemEnviada> mensagensEnviadas, List<MensagemRecebida> mensagensRecebidas, Atleta atleta) {
         this.idUsuario = idUsuario;
         this.email = email;
         this.nome = nome;
         this.senha = senha;
         this.mensagensEnviadas = mensagensEnviadas;
         this.mensagensRecebidas = mensagensRecebidas;
-        this.atletas = atletas;
+        this.atleta = atleta;
         this.equipe = new ArrayList<>();
     }
 
@@ -88,9 +89,7 @@ public class UsuarioParticipante2 implements Serializable {
         this.getMensagensEnviadas().remove(mensagemEnviada);
     }
 
-    public void adicionarAtleta(Atleta atleta) {
-        this.atletas.add(atleta);
-    }
+
 
     /**
      * @return the idUsuario
@@ -148,19 +147,6 @@ public class UsuarioParticipante2 implements Serializable {
         this.senha = senha;
     }
 
-    /**
-     * @return the atletas
-     */
-    public List<Atleta> getAtletas() {
-        return atletas;
-    }
-
-    /**
-     * @param atletas the atletas to set
-     */
-    public void setAtletas(List<Atleta> atletas) {
-        this.atletas = atletas;
-    }
 
     /**
      * @return the mensagensEnviadas
@@ -207,8 +193,23 @@ public class UsuarioParticipante2 implements Serializable {
     public void adicionarEquipe(Equipe equipe){
         this.equipe.add(equipe);
     }
+    
     public void removerEquipe(Equipe equipe){
         this.equipe.remove(equipe);
+    }
+
+    /**
+     * @return the atleta
+     */
+    public Atleta getAtleta() {
+        return atleta;
+    }
+
+    /**
+     * @param atleta the atleta to set
+     */
+    public void setAtleta(Atleta atleta) {
+        this.atleta = atleta;
     }
 
     

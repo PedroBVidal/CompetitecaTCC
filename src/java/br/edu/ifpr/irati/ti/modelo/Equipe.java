@@ -44,11 +44,13 @@ public class Equipe implements Serializable {
     //@JoinColumn(name = "competicao_idCompeticao")
     private Competicao competicao;
     */
+    
     @OneToMany (mappedBy = "equipe")
     private List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas;
 
     @ManyToMany
     private List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas;
+    
     @OneToOne
     private ModalidadeColetiva modalidade;
         
