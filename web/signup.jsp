@@ -127,6 +127,10 @@
         %>
         <div class="container">
             <h1 class="my-4">Cadastro para Participantes</h1>
+            <div class="card">
+                <h5 class="card-header">Cadastro</h5>
+                <div class="card-body">
+
 
 
             <form action="scripts/scriptuserParticipante.jsp" method="POST" class="col">
@@ -148,14 +152,11 @@
                     Data de nascimento:
                     <input type="text" required class="form-control" name="email" placeholder="Insira o seu email" >
                 </label>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </div>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Text input with checkbox">
-                </div>
+                <label for="" class="col-md-12">
+                    CPF:
+                    <input type="text" required class="form-control" name="email" placeholder="Insira o seu email" >
+                </label>
+              
                 <label for="" class="col-md-12">
                     Senha:
                     <input type="password" required class="form-control" id="password" name="senha" placeholder="Insira a sua senha">
@@ -165,12 +166,19 @@
 
                     </div>
                 </label>
+                
+                <label for="" class="col-md-12">
+                    <input type="checkbox" value="1" onclick="adicionarInputTurma();">
+                    Estudo/trabalho no IFPR - Campus Irati
+                </label>
 
 
                 <button type="submit" class="btn btn-success">Enviar</button>
 
 
-            </form> 
+            </form>
+            </div>
+            </div>
         </div>
         <%}
         if(request.getParameter("p").equals("3")){
@@ -211,7 +219,14 @@
         <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+        <script>
+            
+            function adicionarInputTurma(){
+                alert("Estou aqui");
+            }
+            
+        </script>
+        
     </body>
 
 </html>
