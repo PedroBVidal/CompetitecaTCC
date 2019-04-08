@@ -145,6 +145,14 @@
                     <input type="text" required class="form-control" name="email" placeholder="Insira o seu email" >
                 </label>
                 <label for="" class="col-md-12">
+                    Data de nascimento:
+                    <input type="text" required class="form-control" name="email" placeholder="Insira o seu email" >
+                </label>
+                <label for="" class="col-md-12">
+                    CPF:
+                    <input type="text" required class="form-control" name="email" placeholder="Insira o seu email" >
+                </label>
+                <label for="" class="col-md-12">
                     Senha:
                     <input type="password" required class="form-control" id="password" name="senha" placeholder="Insira a sua senha">
                     Confirme a Senha:
