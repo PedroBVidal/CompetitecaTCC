@@ -47,7 +47,7 @@
 
     <body>
         <%
-            UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
+            UsuarioParticipante2 up2 = (UsuarioParticipante2) session.getAttribute("usuario");
             if(up == null){
                 
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
@@ -126,14 +126,14 @@
                                 
                         <%
                             for(Atleta atleta: equipe.getAtletas()){
-                                String nome = atleta.getNome();
+                                String nome = atleta.getUsuarioParticipante().getNome();
                                 String email = atleta.getEmail();
                             }
                         %>
                         <td><%=nome%></td>
                         <td><%=email%></td>
                         <td>
-                            <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=upa.getIdAtleta()%>&idComp=<%=competicao.getIdCompeticao()%>&op=1" class="btn btn-success">
+                            <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=atleta.getIdAtleta()%>&idComp=<%=atleta.getIdAtleta()%>&op=1" class="btn btn-success">
                                 <!-- Adicionar icone -->
                                 <i class="fas fa-trash-alt"></i>
                             </a>
@@ -150,14 +150,14 @@
 
                     </script>
                 </div>
-                    <div class="tab-pane active dark" id="modalidadeSolo" role="tabpanel">
+                    <div class="tab-pane active dark" id="competicoes" role="tabpanel">
 
                         <table class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">Nome</th>
-                                    <th scope="col">Modalidade</th>
-                                    <th scope="col">Sistema de Competição</th>
+                                    <th scope="col">Data de Início</th>
+                                    <th scope="col">Data de Término</th>
                                     <th scope="col">Ação</th>
                                 </tr>
                             </thead>
