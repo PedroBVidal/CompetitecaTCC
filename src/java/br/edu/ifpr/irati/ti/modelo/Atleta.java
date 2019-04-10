@@ -32,8 +32,8 @@ public class Atleta implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
-    @Column(name = "turma", nullable = true)
-    private String turma;
+    @OneToOne
+    private Segmento segmento;
 
     @Column(name = "cpf", nullable = true)
     private String cpf;
@@ -62,10 +62,9 @@ public class Atleta implements Serializable {
     }
 
 
-    public Atleta(int idAtleta, Date dataNascimento, String turma, String cpf, boolean aprovado) {
+    public Atleta(int idAtleta, Date dataNascimento,String cpf) {
         this.idAtleta = idAtleta;
         this.dataNascimento = dataNascimento;
-        this.turma = turma;
         this.cpf = cpf;
         this.equipes = new ArrayList<>();
         this.usuarioParticipante = new UsuarioParticipante2();
@@ -74,10 +73,9 @@ public class Atleta implements Serializable {
         this.competicoesModalidadeSolo = new ArrayList<>();
     }
 
-    public Atleta(int idAtleta, Date dataNascimento, String turma, String cpf, List<Equipe> equipes, UsuarioParticipante2 usuarioParticipante, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, List<MensagemRecebida> mensagens, List<CompeticaoModalidadeSolo> competicoesModalidadeSolo) {
+    public Atleta(int idAtleta, Date dataNascimento,String cpf, List<Equipe> equipes, UsuarioParticipante2 usuarioParticipante, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, List<MensagemRecebida> mensagens, List<CompeticaoModalidadeSolo> competicoesModalidadeSolo) {
         this.idAtleta = idAtleta;
         this.dataNascimento = dataNascimento;
-        this.turma = turma;
         this.cpf = cpf;
         this.equipes = equipes;
         this.usuarioParticipante = usuarioParticipante;
@@ -222,19 +220,7 @@ public class Atleta implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    /**
-     * @return the turma
-     */
-    public String getTurma() {
-        return turma;
-    }
 
-    /**
-     * @param turma the turma to set
-     */
-    public void setTurma(String turma) {
-        this.turma = turma;
-    }
 
     /**
      * @return the cpf
@@ -248,6 +234,20 @@ public class Atleta implements Serializable {
      */
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    /**
+     * @return the segmento
+     */
+    public Segmento getSegmento() {
+        return segmento;
+    }
+
+    /**
+     * @param segmento the segmento to set
+     */
+    public void setSegmento(Segmento segmento) {
+        this.segmento = segmento;
     }
 
 }
