@@ -28,7 +28,6 @@ public class AtletaControle {
         return atletaDAO.buscarPorId(id);
     }
     public void criarAtleta(Atleta atleta){
-        System.out.println(atleta.getNome());
         atdl.salvar(atleta);
     }
     public void alterarAtleta(Atleta atleta){

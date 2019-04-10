@@ -111,7 +111,7 @@
     else{
         System.out.println("É um sistema todos contra todos");
         
-        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaTodosContraTodos());
+        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaTodosContraTodos(), competicao);
                
         
         SistemaTodosContraTodos sistemaTodosContraTodos = new SistemaTodosContraTodos(sistemaDeContagem, sistemaDeDesempate, 0, sistemaCompeticao, new CompeticaoModalidadeColetiva());

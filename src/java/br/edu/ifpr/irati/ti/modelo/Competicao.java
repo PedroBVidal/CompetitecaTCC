@@ -28,6 +28,8 @@ public class Competicao implements Serializable {
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
+    
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UsuarioParticipante> administradores;

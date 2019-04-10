@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -16,7 +17,8 @@ import org.hibernate.annotations.Proxy;
 @Proxy(lazy = false)
 public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implements Serializable{
     
-        
+    @ManyToOne
+    private Competicao competicao;
     @OneToOne
     private ModalidadeColetiva modalidadeColetiva;
     
@@ -33,18 +35,20 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     }
     
 
-    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao) {
+    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao,Competicao competicao) {
         super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao);
         this.modalidadeColetiva = modalidadeColetiva;
         this.equipesCompeticao = new ArrayList<>();
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
+        this.competicao = competicao;
     }
 
-    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva, List<EquipeCompeticao> equipesCompeticao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica) {
+    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva, List<EquipeCompeticao> equipesCompeticao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, Competicao competicao ,boolean statusFormularioInscricaoPublica) {
         super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, confrontos, statusFormularioInscricaoPublica);
         this.modalidadeColetiva = modalidadeColetiva;
         this.equipesCompeticao = equipesCompeticao;
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
+        this.competicao = competicao;
     }
 
 
@@ -91,6 +95,14 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
     }
 
+    public Competicao getCompeticao() {
+        return competicao;
+    }
+
+    public void setCompeticao(Competicao competicao) {
+        this.competicao = competicao;
+    }
+    
     
     
     
