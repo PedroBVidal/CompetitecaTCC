@@ -7,6 +7,7 @@ package br.edu.ifpr.irati.ti.controle;
 
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
+import br.edu.ifpr.irati.ti.dao.UsuarioAdministradorDAO;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
 import java.util.List;
 
@@ -16,6 +17,8 @@ import java.util.List;
  */
 public class UsuarioParticipanteControle {
     Dao<UsuarioParticipante> uspd = new GenericDAO<>(UsuarioParticipante.class);
+    UsuarioAdministradorDAO usuarioAdministradorDAO = new UsuarioAdministradorDAO();
+    
     public void criar(UsuarioParticipante up){
         uspd.salvar(up);
     }
@@ -23,7 +26,7 @@ public class UsuarioParticipanteControle {
         return uspd.buscarTodos(UsuarioParticipante.class);
     }
     public UsuarioParticipante buscarPorId(int id){
-        return uspd.buscarPorId(id);
+        return usuarioAdministradorDAO.buscarPorId(id);
     }
     public UsuarioParticipante buscarLogin(String email, String senha) throws Exception{
         UsuarioParticipante uspdc = uspd.buscarLogin(email, senha);

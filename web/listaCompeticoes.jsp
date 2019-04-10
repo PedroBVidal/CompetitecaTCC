@@ -47,10 +47,8 @@
             if (up == null) {
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             } else {
-                
-                
+
                 //sresponse.setIntHeader("Refresh", 100);
-                
                 String sIdCompeticao = request.getParameter("idCompeticao");
 
                 List<Competicao> competicoes = new ArrayList<>();
@@ -95,6 +93,31 @@
 
 
 
+            <button data-toggle="modal" data-target="#ingressar" class="btn btn-primary"><i class="fas fa-unlock"></i> &nbsp; Ingressar numa competição privada</button><br>
+            <div class="modal" id="ingressar" data-toggle="modal"tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Informe a Chave Pública para ingressar na Competição</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="scripts/ingressoPvd.jsp">
+                                <center>
+                                <input type="text" class="form-control col-7" name="codigo" placeholder="Insira o código aqui">
+                            </center>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Entrar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
             <form class="form-inline col" style="margin-bottom: 10px;" action="" 
                   method="POST" id="frm">
@@ -104,13 +127,16 @@
                 <datalist id="competicoes">
                     <%
                         for (Competicao c : competicoes) {
+                            if (!c.isInativo() && !c.isPrivado()) {
                     %>
                     <option data-value="<%=c.getIdCompeticao()%>" value="<%=c.getNome()%>"></option><%
-                                }
+                            }
+                        }
                     %>
                 </datalist>
                 <button class="btn btn-outline-success col-2" type="submit">Buscar 
                 </button>
+
 
             </form>
 
@@ -122,17 +148,16 @@
                 <%
                     System.out.println("Atletas vinculados " + atletasVinculadosUp);
                     System.out.println("Competições " + competicoes);
-                    
-                    List<Competicao> competicoesASeremRemovidas = new ArrayList<>();
-                    
 
-                    
+                    List<Competicao> competicoesASeremRemovidas = new ArrayList<>();
+
                     //List<Atleta> atletas = up.getAtletas();
                     for (Competicao competicao : competicoes) {
 
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         String dataInicio = simpleDateFormat.format(competicao.getDataInicio());
                         String dataTermino = simpleDateFormat.format(competicao.getDataTermino());
+                        if (!competicao.isInativo() && !competicao.isPrivado()) {
                 %>
 
 
@@ -161,7 +186,8 @@
                     </div>
                 </div>
 
-                <%}%>
+                <%}
+                    }%>
                 <%} else {
 
                     int idCompeticao = Integer.parseInt(sIdCompeticao);
@@ -237,26 +263,26 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
-    function buscarEventos() {
-        alert("Modificou");
-    }
+            function buscarEventos() {
+                //alert("Modificou");
+            }
 
 
 
-    $(document).ready(function () {
-        $('button').click(function () {
-            alert("Entrei aqui");
-            var value = $('input').val();
-            console.log($('#competicoes [value="' + value + '"]').data('value'));
+            $(document).ready(function () {
+                $('button').click(function () {
+                    //alert("Entrei aqui");
+                    var value = $('input').val();
+                    console.log($('#competicoes [value="' + value + '"]').data('value'));
 
-            var idCompeticao = $('#competicoes [value="' + value + '"]').data('value');
-            alert(idCompeticao);
-            $("#frm").attr("action", "scripts/buscarCompeticoes.jsp?idCompeticao=" +
-                    idCompeticao);
+                    var idCompeticao = $('#competicoes [value="' + value + '"]').data('value');
+                    //alert(idCompeticao);
+                    $("#frm").attr("action", "scripts/buscarCompeticoes.jsp?idCompeticao=" +
+                            idCompeticao);
 
 
-        });
-    });
+                });
+            });
 
         </script>
 

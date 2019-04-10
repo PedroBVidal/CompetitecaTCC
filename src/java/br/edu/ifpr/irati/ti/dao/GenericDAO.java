@@ -85,7 +85,7 @@ public class GenericDAO<T> implements Dao<T> {
     }
     public T buscarCodigoPrivado(String codigo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from "+classePersistente.getCanonicalName()+" where codigo = '"+codigo+"";
+        String hql = "from "+classePersistente.getCanonicalName()+" where codigo = '"+codigo+"'";
         Query query = session.createQuery(hql);
         T result = (T) query.uniqueResult();
         session.clear();

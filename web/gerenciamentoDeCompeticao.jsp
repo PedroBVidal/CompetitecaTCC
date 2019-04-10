@@ -74,6 +74,7 @@
           if(request.getParameter("msg") != null){
               String mensagem = request.getParameter("msg");
               String cor = request.getParameter("color");
+              
             %>
             <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
                 <strong><%=mensagem%></strong> .
@@ -90,15 +91,22 @@
 
             </h1><br>
 
-            <%if(!competica.isPrivado()){
+            <%if(!competicao.isPrivado()){
              %>
-             <a href="scripts/privado.jsp?idComp=<%competicao.getIdCompeticao()%>" class="btn btn-primary"><i class="fas fa-lock"></i> &nbsp; Tornar competição privada</a>
-            <%  
-            }else{%>
-            <b>Chave Pública da Competição:</b>competicao.getCodPriv();
-
+             <a href="scripts/privado.jsp?idComp=<%=competicao.getIdCompeticao()%>" class="btn btn-primary"><i class="fas fa-lock"></i> &nbsp; Tornar competição privada</a>
+            <br>
+            <br>
+            <%}else{%>
+            <b>Chave Pública da Competição:</b><%=competicao.getCodPriv()%> 
+            <br>
+            <form action="posterPriv.jsp" method="POST" target="_blank">
+                <input type="hidden" name="codigo" value="<%=competicao.getCodPriv()%>">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i>&nbsp; Gerar cartaz da competição</button>
+            </form>
+            <br>
+            <br>
             <%}%>
-            <a href="#" class="btn btn-secondary"></a>
+
             <!-- List group -->
             <div class="row">
                 <div class="list-group col-2" id="myList" role="tablist">

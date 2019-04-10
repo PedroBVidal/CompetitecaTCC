@@ -36,11 +36,7 @@ public class UsuarioParticipante2Controle {
         return usuarioParticipanteDAO.buscarPorId(id);
     }
     
-    public List<Atleta> buscarAtletasVincualdadosAoUsuarioParticipante(UsuarioParticipante2 usuarioParticipante2){
-        
-        UsuarioParticipante2 up = usuarioParticipanteDAO.buscarPorId(usuarioParticipante2.getIdUsuario());
-        return up.getAtletas();       
-    }
+    
     
     
 

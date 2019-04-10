@@ -7,9 +7,9 @@
     Created on : 01/10/2018, 09:16:10
     Author     : Aluno 
 --%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
-<%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipanteControle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Equipe"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipante2Controle"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -38,7 +38,7 @@
 
     <body>
         <%
-            UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
+            UsuarioParticipante2 up = (UsuarioParticipante2) session.getAttribute("usuario");
             CompeticaoControle competicaoControle = new CompeticaoControle();
             
            
@@ -50,7 +50,7 @@
         %>
 
         <header>
-            <jsp:include page="navbarUsuarioAdministrador.jsp" flush="true" />
+            <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
         </header>
 
         <div class="container">
@@ -70,22 +70,17 @@
             <%
             }
             %>
-            <h1 class="my-4">Minhas Competições</h1>
+            <h1 class="my-4">Minhas Equipes</h1>
             <div class="row">
                 <%
-                SimpleDateFormat formate = new SimpleDateFormat("dd/MM/yyyy");
-                //UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
-                //UsuarioParticipante upp = upc.buscarPorId(up.getIdUsuario());
-                
-                System.out.println("Competições vinculadas ao usuário participante" + up.getCompeticoes());
-                 UsuarioParticipanteControle upControle = new UsuarioParticipanteControle();
-            UsuarioParticipante usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
+             
+                 UsuarioParticipante2Controle upControle = new UsuarioParticipante2Controle();
+            UsuarioParticipante2 usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
                 
                 
                 
-                for(Competicao cptc : usuarioParticipante.getCompeticoes()){
-                    System.out.println("Nome:"+cptc.getNome()+"\n Id:"+cptc.getIdCompeticao()+"\n Inativo:"+cptc.isInativo());
-                    if(cptc.isInativo() == false){
+                for(Equipe equipe : usuarioParticipante.getEquipe()){
+                   
                        
                 %>
 
@@ -94,43 +89,43 @@
                         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#"><%=cptc.getNome()%></a>
+                                <a href="#"><%=equipe.getNome()%></a>
                             </h4>
-                            <p class="card-text"><b>Data de Início:</b><%=formate.format(cptc.getDataInicio())%></p>
-                            <p class="card-text"><b>Data de Encerramento:</b><%=formate.format(cptc.getDataTermino())%></p>
+                            <p class="card-text"><b>Modalidade:</b><%=equipe.getModalidade().getNome()%></p>
+                            
                             <!-- Button trigger modal -->
-                            <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#<%=cptc.getIdCompeticao()%>"><i class="fas fa-trash-alt"></i></button></a>&nbsp;
+                            <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#<%=equipe.getIdEquipe()%>"><i class="fas fa-trash-alt"></i></button></a>&nbsp;
 
 
 
                             <!-- Modal -->
-                            <div class="modal fade" id="<%=cptc.getIdCompeticao()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<%=equipe.getIdEquipe()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir <%=cptc.getNome()%>?</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir <%=equipe.getNome()%>?</h5>
                                             <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
 
                                         <div class="modal-footer">
-                                            <a href="scripts/cadastrarcompeticao.jsp?op=1&idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-secondary">Sim</button></a>
+                                            <a href="scripts/cadastrarcompeticao.jsp?op=1&idCompeticao=<%=equipe.getIdEquipe()%>"><button class="btn btn-secondary">Sim</button></a>
                                             <button type="button" class="btn btn-primary">Cancelar</button>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="gerenciamentoDeCompeticao.jsp?idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-success">Gerenciar Competição</button></a>
+                            <a href="gerenciamentoDeCompeticao.jsp?idCompeticao=<%=equipe.getIdEquipe()%>"><button class="btn btn-success">Gerenciar Equipe</button></a>
                         </div>
                     </div>
                 </div>
-                <%}}%>
+                <%}%>
             </div>
-            <a href="criarcompeticao.jsp" class="btn btn-success">
+            <a href="criarEquipe.jsp" class="btn btn-success">
                 <!-- Adicionar icone -->
-                <i class="fas fa-plus"></i>&nbsp;Nova Competição
+                <i class="fas fa-plus"></i>&nbsp;Nova Equipe
             </a>
 
         </div>

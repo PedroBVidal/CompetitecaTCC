@@ -3,7 +3,6 @@ package br.edu.ifpr.irati.ti.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,8 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
-import org.hibernate.annotations.Type;
 
 @Entity(name = "equipe")
 @Proxy(lazy = false)
@@ -25,6 +24,9 @@ public class Equipe implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idEquipe;
 
+    @ManyToOne
+    private UsuarioParticipante2 administrador;
+    
     @Column(name = "nome", nullable = false)
     private String nome;
 
@@ -38,15 +40,19 @@ public class Equipe implements Serializable {
     @OneToMany
     private List<MensagemRecebida> mensagens;
 
-    @ManyToOne
-    @JoinColumn(name = "competicao_idCompeticao")
+    /*@ManyToOne
+    //@JoinColumn(name = "competicao_idCompeticao")
     private Competicao competicao;
+    */
     
     @OneToMany (mappedBy = "equipe")
     private List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas;
 
     @ManyToMany
     private List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas;
+    
+    @OneToOne
+    private ModalidadeColetiva modalidade;
         
         
     public Equipe() {
@@ -54,60 +60,71 @@ public class Equipe implements Serializable {
         this.nome = "";
         this.atletas = new ArrayList<>();
         this.confrontosModalidadeColetiva = new ArrayList<>();
-        this.competicao = new Competicao();
+//        this.competicao = new Competicao();
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
         this.competicoesModalidadeColeivas = new ArrayList<>();
+        this.administrador = new UsuarioParticipante2();
+        this.modalidade = new ModalidadeColetiva();
     }
 
-    public Equipe(int idEquipe, String nome) {
+    public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador) {
         this.idEquipe = idEquipe;
         this.nome = nome;
         this.atletas = new ArrayList<>();
         this.confrontosModalidadeColetiva = new ArrayList<>();
-        this.competicao = new Competicao();
+  //      this.competicao = new Competicao();
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
         this.competicoesModalidadeColeivas = new ArrayList<>();
+        this.administrador = new UsuarioParticipante2();
+        this.modalidade = new ModalidadeColetiva();
     }
 
-    public Equipe(int idEquipe, String nome, Competicao competicao, boolean aprovada) {
+    public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador, Competicao competicao, boolean aprovada) {
         this.idEquipe = idEquipe;
         this.nome = nome;
         this.atletas = new ArrayList<>();
         this.confrontosModalidadeColetiva = new ArrayList<>();
-        this.competicao = competicao;
+    //    this.competicao = competicao;
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
         this.competicoesModalidadeColeivas = new ArrayList<>();
+        this.administrador = administrador;
+        this.modalidade = new ModalidadeColetiva();
     }
 
-    public Equipe(int idEquipe, String nome, boolean aprovada) {
+    public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador ,ModalidadeColetiva modalidade,boolean aprovada) {
         this.idEquipe = idEquipe;
         this.nome = nome;
         this.atletas = new ArrayList<>();
         this.confrontosModalidadeColetiva = new ArrayList<>();
-        this.competicao = new Competicao();
+      //  this.competicao = new Competicao();
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
         this.competicoesModalidadeColeivas = new ArrayList<>();
+        this.administrador = administrador;
+        this.modalidade = modalidade;
     }
 
-    public Equipe(int idEquipe, String nome, List<Atleta> atletas, ModalidadeColetiva modalidade, boolean aprovada) {
+    public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador ,List<Atleta> atletas,ModalidadeColetiva modalidade, boolean aprovada) {
         this.idEquipe = idEquipe;
         this.nome = nome;
         this.atletas = atletas;
         this.confrontosModalidadeColetiva = new ArrayList<>();
-        this.competicao = new Competicao();
+        //this.competicao = new Competicao();
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
         this.competicoesModalidadeColeivas = new ArrayList<>();
+        this.modalidade = modalidade;
     }
 
-    public Equipe(int idEquipe, String nome, List<Atleta> atletas, List<Confronto> confrontosModalidadeColetiva, List<MensagemRecebida> mensagens, Competicao competicao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas) {
+    public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador, List<Atleta> atletas,ModalidadeColetiva modalidade, List<Confronto> confrontosModalidadeColetiva, List<MensagemRecebida> mensagens, Competicao competicao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas) {
         this.idEquipe = idEquipe;
         this.nome = nome;
         this.atletas = atletas;
         this.confrontosModalidadeColetiva = confrontosModalidadeColetiva;
         this.mensagens = mensagens;
-        this.competicao = competicao;
+        //this.competicao = competicao;
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
         this.competicoesModalidadeColeivas = competicoesModalidadeColeivas;
+        this.administrador = administrador;
+        this.modalidade = modalidade;
     }
 
     
@@ -208,16 +225,16 @@ public class Equipe implements Serializable {
     /**
      * @return the competicao
      */
-    public Competicao getCompeticao() {
+   /* public Competicao getCompeticao() {
         return competicao;
     }
 
     /**
      * @param competicao the competicao to set
      */
-    public void setCompeticao(Competicao competicao) {
+   /* public void setCompeticao(Competicao competicao) {
         this.competicao = competicao;
-    }
+    }*/
 
     /**
      * @return the inscricoesCompeticoesColetivas
@@ -245,6 +262,34 @@ public class Equipe implements Serializable {
      */
     public void setCompeticoesModalidadeColeivas(List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas) {
         this.competicoesModalidadeColeivas = competicoesModalidadeColeivas;
+    }
+
+    /**
+     * @return the administrador
+     */
+    public UsuarioParticipante2 getAdministrador() {
+        return administrador;
+    }
+
+    /**
+     * @param administrador the administrador to set
+     */
+    public void setAdministrador(UsuarioParticipante2 administrador) {
+        this.administrador = administrador;
+    }
+
+    /**
+     * @return the modalidade
+     */
+    public ModalidadeColetiva getModalidade() {
+        return modalidade;
+    }
+
+    /**
+     * @param modalidade the modalidade to set
+     */
+    public void setModalidade(ModalidadeColetiva modalidade) {
+        this.modalidade = modalidade;
     }
 
     

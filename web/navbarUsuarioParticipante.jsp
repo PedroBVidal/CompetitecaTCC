@@ -30,6 +30,9 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
+                            <a class="nav-link" href="listaEquipes.jsp"><i class="fas fa-users"></i>&nbsp;Minhas Equipes</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="listaCompeticoes.jsp"><i class="fas fa-trophy"></i>&nbsp;Eventos</a>
                         </li>
                         <li class="nav-item">

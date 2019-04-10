@@ -5,7 +5,7 @@
     Author     : Usuário
 --%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.ModalidadeColetiva"%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.ModalidadeColetivaControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.AtletaControle"%>
@@ -35,7 +35,7 @@
 
     <body>
         <%
-            UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
+            UsuarioParticipante2 up = (UsuarioParticipante2) session.getAttribute("usuario");
             if(up == null){
                 
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
@@ -44,46 +44,9 @@
         %>
 
         <!-- Navigation -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top">
-            <div class="container ">
-                <a class="navbar-brand" href="index.jsp">Competiteca</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="services.html"><i class="fas fa-trophy"></i>&nbsp;Competições</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-clipboard-list"></i>&nbsp;Gerenciar
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="competicoes.jsp">Competições</a>
-                                <a class="dropdown-item" href="atleta.jsp">Atletas</a>
-                                <a class="dropdown-item" href="equipes.jsp">Equipes</a>
-                                <a class="dropdown-item" href="local.jsp">Locais</a>
-                                <a class="dropdown-item" href="portfolio-item.html"></a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Olá,&nbsp;<%=up.getNome()%>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                                <a class="dropdown-item" href="scripts/ctrlacesso.jsp?c=1">Sair</a>
-                                <a class="dropdown-item" href="editarPerfil.jsp?c=<%=up.getIdUsuario()%>">Editar Perfil</a>
-                            </div>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
+        
         <header>
-
+            <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
         </header>
 
         <!-- Page Content -->
@@ -92,8 +55,8 @@
 
 
             <form action="scripts/editarEquipe.jsp" method="POST" class="col">
-                <input type="hidden" name="op" value="3">
-                <input type="hidden" name="id" value="0">
+                <input type="hidden" name="op" value="1">
+                <input type="hidden" name="idUsuario" value="<%=up.getIdUsuario()%>">
 
                 <label for="" class="col-md-12">
                     Nome:
@@ -112,23 +75,7 @@
                         <%}%>
                     </select>
                 </label>
-                <label for="" class="col-md-12">
-                    Atletas disponíveis:
-                    <div class="form-check">
-                        <%
-                        AtletaControle atc = new AtletaControle();
-                        int i = 0;
-                        for(Atleta atl : atc.buscarTodosAtleta()){
-                        %>
-   
-                        <input class="form-check-input" type="checkbox" value="<%=atl.getIdAtleta()%>" name="<%=i%>">
-                        <label class="form-check-label" for="defaultCheck1">
-                            <%=atl.getNome()%>
-                        </label><br>
-                        <% i++;}%>
-                    </div>
-                </label>
-                    <input type="hidden" name="size" value="<%=atc.buscarTodosAtleta().size()%>">
+                    <input type="hidden" name="size" value="0">
 
                 <button type="submit" class="btn btn-success">Salvar</button>
 

@@ -16,35 +16,44 @@ import java.util.List;
  * @author Aluno
  */
 public class CompeticaoControle {
+
     Dao<Competicao> competicaoDAOGeneric = new GenericDAO<>(Competicao.class);
     CompeticaoDAO competicaoDAO = new CompeticaoDAO();
-    
-    
-    public List<Competicao> buscarTodasCompeticoes(){
+
+    public List<Competicao> buscarTodasCompeticoes() {
         List<Competicao> cptc = competicaoDAOGeneric.buscarTodos(Competicao.class);
         return cptc;
     }
-    public Competicao buscarCompeticaoPorId(int id){
+
+    public Competicao buscarCompeticaoPorId(int id) {
         Competicao cptc = competicaoDAO.buscarPorId(id);
         return cptc;
     }
-    
-    public void cadastrarCompeticao(Competicao competicao){
+
+    public void cadastrarCompeticao(Competicao competicao) {
         competicaoDAOGeneric.salvar(competicao);
     }
-    
-    public List<Competicao> buscarCompeticaoPorParteNome(String str){
+
+    public List<Competicao> buscarCompeticaoPorParteNome(String str) {
         return competicaoDAO.buscarPorParteNome(str);
     }
-    
-    public void autualizarCompeticao(Competicao competicao){
+
+    public void autualizarCompeticao(Competicao competicao) {
         competicaoDAOGeneric.alterar(competicao);
     }
-    
-    public void inativarCompeticao(Competicao competicao){
-        
+
+    public void inativarCompeticao(Competicao competicao) {
+
     }
-    
-    
-    
+
+    public Competicao buscarPorCodigo(String codigo) throws Exception {
+        Competicao comp = competicaoDAOGeneric.buscarCodigoPrivado(codigo);
+        if (comp == null) {
+            throw new Exception("Competicao Inexistente, tente novamente!");
+        } else {
+            return comp;
+        }
+
+    }
+
 }

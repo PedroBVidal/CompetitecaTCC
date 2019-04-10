@@ -28,4 +28,6 @@ public interface Dao<T> {
     
     public T buscarLogin(String email, String senha);
     
+    public T buscarCodigoPrivado(String codigo);
+    
 }

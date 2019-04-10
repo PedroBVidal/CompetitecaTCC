@@ -1,8 +1,8 @@
-
 package br.edu.ifpr.irati.ti.modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,137 +16,102 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 
-
-@Entity(name="atleta")
+@Entity(name = "atleta")
 @Proxy(lazy = false)
 public class Atleta implements Serializable {
 
-    
- 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idAtleta;
-    
-    @Column (name = "nome", nullable = false, length = 100)
-    private String nome;
-    
-    @Column (name = "email", nullable = false, length = 100)
-    private String email;
-    
-    @ManyToMany(mappedBy = "atletas", fetch=FetchType.EAGER)
+
+    @Temporal(TemporalType.DATE)
+    private Date dataNascimento;
+
+    @OneToOne
+    private Segmento segmento;
+
+    @Column(name = "cpf", nullable = true)
+    private String cpf;
+
+    @ManyToMany(mappedBy = "atletas", fetch = FetchType.EAGER)
     private List<Equipe> equipes;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "atleta")
     private UsuarioParticipante2 usuarioParticipante;
-    
-    @ManyToOne
-    private Competicao competicao;
-    
-    
-    @OneToMany (mappedBy = "atleta", fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "atleta", fetch = FetchType.EAGER)
     private List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo;
-    
-    
+
     @OneToMany(fetch = FetchType.EAGER)
     private List<MensagemRecebida> mensagens;
-    
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<CompeticaoModalidadeSolo> competicoesModalidadeSolo;
-    
+
     //VER!
     //@ManyToMany(fetch=FetchType.EAGER)
     //private List<Confronto> confrontosModalidadeSolo;
-    
-        
-    @Column(name="aprovado")
-    @Type(type="true_false")
-    private boolean aprovado;
-    
+
 
     public Atleta() {
-        idAtleta = 0;
-        nome = "";
-        email = "";
-        aprovado = false;
-        equipes = new ArrayList<>();
-        competicao = new Competicao();
-        inscricoesCompeticaoSolo = new ArrayList<>();
-        competicoesModalidadeSolo = new ArrayList<>();
-        usuarioParticipante = new UsuarioParticipante2();
-        //confrontosModalidadeSolo = new ArrayList<>();
     }
 
-    public Atleta(int idAtleta, String nome, String email, boolean aprovado, UsuarioParticipante2 usuarioParticipante) {
+
+    public Atleta(int idAtleta, Date dataNascimento,String cpf) {
         this.idAtleta = idAtleta;
-        this.nome = nome;
-        this.email = email;
-        this.aprovado = aprovado;
-        this.usuarioParticipante = usuarioParticipante;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
         this.equipes = new ArrayList<>();
-        //this.confrontosModalidadeSolo = new ArrayList<>();
-        this.competicao = new Competicao();
+        this.usuarioParticipante = new UsuarioParticipante2();
         this.inscricoesCompeticaoSolo = new ArrayList<>();
+        this.mensagens = new ArrayList<>();
         this.competicoesModalidadeSolo = new ArrayList<>();
     }
 
-    public Atleta(int idAtleta, String nome, String email, boolean aprovado, Competicao competicao,UsuarioParticipante2 usuarioParticipante) {
+    public Atleta(int idAtleta, Date dataNascimento,String cpf, List<Equipe> equipes, UsuarioParticipante2 usuarioParticipante, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, List<MensagemRecebida> mensagens, List<CompeticaoModalidadeSolo> competicoesModalidadeSolo) {
         this.idAtleta = idAtleta;
-        this.nome = nome;
-        this.email = email;
-        this.aprovado = aprovado;
-        this.usuarioParticipante = usuarioParticipante;
-        this.equipes = new ArrayList<>();
-        //this.confrontosModalidadeSolo = new ArrayList<>();
-        this.competicao = competicao;
-        inscricoesCompeticaoSolo = new ArrayList<>();
-        competicoesModalidadeSolo = new ArrayList<>();
-    }
-
-    public Atleta(int idAtleta, String nome, String email, List<Equipe> equipes, UsuarioParticipante2 usuarioParticipante, Competicao competicao, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, List<MensagemRecebida> mensagens, List<CompeticaoModalidadeSolo> competicoesModalidadeSolo, boolean aprovado) {
-        this.idAtleta = idAtleta;
-        this.nome = nome;
-        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
         this.equipes = equipes;
         this.usuarioParticipante = usuarioParticipante;
-        this.competicao = competicao;
         this.inscricoesCompeticaoSolo = inscricoesCompeticaoSolo;
         this.mensagens = mensagens;
         this.competicoesModalidadeSolo = competicoesModalidadeSolo;
-        this.aprovado = aprovado;
     }
-
+    
     
 
     
 
-
-    public void adicionarCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo){
+    public void adicionarCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo) {
         this.competicoesModalidadeSolo.add(competicaoModalidadeSolo);
     }
-    
-    public void removerCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo){
+
+    public void removerCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo) {
         this.competicoesModalidadeSolo.remove(competicaoModalidadeSolo);
     }
-    
-    public void adicionarInscricaoCompeticaoSolo(InscricaoCompeticaoSolo inscricaoCompeticaoSolo){
+
+    public void adicionarInscricaoCompeticaoSolo(InscricaoCompeticaoSolo inscricaoCompeticaoSolo) {
         this.inscricoesCompeticaoSolo.add(inscricaoCompeticaoSolo);
     }
-    
-    public void removerInscricaoCompeticaoSolo(InscricaoCompeticaoSolo inscricaoCompeticaoSolo){
+
+    public void removerInscricaoCompeticaoSolo(InscricaoCompeticaoSolo inscricaoCompeticaoSolo) {
         this.inscricoesCompeticaoSolo.remove(inscricaoCompeticaoSolo);
     }
-    
-    public void adicionarEquipe(Equipe equipe){
+
+    public void adicionarEquipe(Equipe equipe) {
         this.getEquipes().add(equipe);
     }
-    
-    public void removerEquipe(Equipe equipe){
-        this.getEquipes().add(equipe);
+
+    public void removerEquipe(Equipe equipe) {
+        this.getEquipes().remove(equipe);
     }
-    
+
 
     /*public void adicionarConfrontoSolo(Confronto confronto){
         this.getConfrontosModalidadeSolo().add(confronto);
@@ -155,9 +120,6 @@ public class Atleta implements Serializable {
     public void removerConfrontoSolo(Confronto confronto){
         this.getConfrontosModalidadeSolo().remove(confronto);
     }*/
-    
-
-
     /**
      * @return the idAtleta
      */
@@ -172,33 +134,6 @@ public class Atleta implements Serializable {
         this.idAtleta = idAtleta;
     }
 
-    /**
-     * @return the nome
-     */
-    public String getNome() {
-        return nome;
-    }
-
-    /**
-     * @param nome the nome to set
-     */
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     /**
      * @return the equipes
@@ -214,35 +149,6 @@ public class Atleta implements Serializable {
         this.equipes = equipes;
     }
 
-
-
-    /**
-     * @return the aprovado
-     */
-    public boolean isAprovado() {
-        return aprovado;
-    }
-
-    /**
-     * @param aprovado the aprovado to set
-     */
-    public void setAprovado(boolean aprovado) {
-        this.aprovado = aprovado;
-    }
-
-    /**
-     * @return the competicao
-     */
-    public Competicao getCompeticao() {
-        return competicao;
-    }
-
-    /**
-     * @param competicao the competicao to set
-     */
-    public void setCompeticao(Competicao competicao) {
-        this.competicao = competicao;
-    }
 
     /**
      * @return the inscricoesCompeticaoSolo
@@ -300,12 +206,48 @@ public class Atleta implements Serializable {
         this.usuarioParticipante = usuarioParticipante;
     }
 
-    
-    
-    
-    
+    /**
+     * @return the dataNascimento
+     */
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    /**
+     * @param dataNascimento the dataNascimento to set
+     */
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
 
-    
-  
+
+    /**
+     * @return the cpf
+     */
+    public String getCpf() {
+        return cpf;
+    }
+
+    /**
+     * @param cpf the cpf to set
+     */
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    /**
+     * @return the segmento
+     */
+    public Segmento getSegmento() {
+        return segmento;
+    }
+
+    /**
+     * @param segmento the segmento to set
+     */
+    public void setSegmento(Segmento segmento) {
+        this.segmento = segmento;
+    }
+
 }

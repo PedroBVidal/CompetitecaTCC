@@ -1,4 +1,6 @@
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.Segmento"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.SegmentoControle"%>
 <%-- 
     Document   : index.jsp
     Created on : 01/10/2018, 09:16:10
@@ -127,13 +129,17 @@
         %>
         <div class="container">
             <h1 class="my-4">Cadastro para Participantes</h1>
+            <div class="card">
+                <h5 class="card-header">Cadastro</h5>
+                <div class="card-body">
+
 
 
             <form action="scripts/scriptuserParticipante.jsp" method="POST" class="col">
                 <input type="hidden" name="op" value="1">
 
 
-                 <input type="hidden" name="c" value="1">
+                <input type="hidden" name="c" value="1">
                 <input type="hidden" name="id" value="0">
 
                 <label for="" class="col-md-12">
@@ -145,6 +151,15 @@
                     <input type="text" required class="form-control" name="email" placeholder="Insira o seu email" >
                 </label>
                 <label for="" class="col-md-12">
+                    Data de nascimento:
+                    <input type="text" required class="form-control" name="email" placeholder="Insira sua data de nascimento" >
+                </label>
+                <label for="" class="col-md-12">
+                    CPF:
+                    <input type="text" required class="form-control" name="email" placeholder="Insira seu CPF" >
+                </label>
+              
+                <label for="" class="col-md-12">
                     Senha:
                     <input type="password" required class="form-control" id="password" name="senha" placeholder="Insira a sua senha">
                     Confirme a Senha:
@@ -153,12 +168,32 @@
 
                     </div>
                 </label>
-
-
+                
+                <label for="" class="col-md-12">
+                    <input type="checkbox" value="1" onclick="adicionarInputTurma();">
+                    Estudo/trabalho no IFPR - Campus Irati
+                </label>
+                
+                <div class="col-md-12" id="segmento">
+                    <label for="inputState">Segmento:</label>
+                    <select id="modalidadeColetiva" class="form-control" name="segmento">
+                        <%
+                            SegmentoControle segmentoControle = new SegmentoControle();
+                            
+                            for(Segmento s: segmentoControle.buscarSegmentos()){
+                        %>
+                        <option value="<%=s.getIdSegmento()%>"><%=s.getNome()%></option>
+                        <%}%>
+                        
+                    </select>
+                </div>
+                <div class="col-md-12" id="segmento">
                 <button type="submit" class="btn btn-success">Enviar</button>
+                </div>
 
-
-            </form> 
+            </form>
+            </div>
+            </div>
         </div>
         <%}
         if(request.getParameter("p").equals("3")){
@@ -199,7 +234,35 @@
         <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+        <script>
+            
+            function adicionarInputTurma(){
+                alert("Estou aqui");
+                var div = document.getElementById("labelTurma");
+                div.innerHTML = '<label for="inputState">Segmento:</label><select id="modalidadeColetiva" class="form-control" name="segmento"><option selected>Docente</option>
+                                                    <option selected>Funcionário</option>
+                                                    <option selected>1º ANO - Agroecologia (Manhã)</option>
+                                                    <option selected>1º ANO - Agroecologia (Tarde)</option>
+                                                    <option selected>2º ANO - Agroecologia (Manhã)</option>
+                                                    <option selected>2º ANO - Agroecologia (Tarde)</option>
+                                                    <option selected>3º ANO - Agroecologia (Manhã)</option>
+                                                    <option selected>3º ANO - Agroecologia (Tarde)</option>
+                                                    <option selected>4º ANO - Agroecologia (Manhã)</option>
+                                                    <option selected>4º ANO - Agroecologia (Tarde)</option>
+                                                    <option selected>1º ANO - INFORMÁTICA (Manhã)</option>
+                                                    <option selected>1º ANO - INFORMÁTICA (Tarde)</option>
+                                                    <option selected>2º ANO - INFORMÁTICA (Manhã)</option>
+                                                    <option selected>2º ANO - INFORMÁTICA (Tarde)</option>
+                                                    <option selected>3º ANO - INFORMÁTICA (Manhã)</option>
+                                                    <option selected>3º ANO - INFORMÁTICA (Tarde)</option>
+                                                    <option selected>4º ANO - INFORMÁTICA (Manhã)</option>
+                                                    <option selected>4º ANO - INFORMÁTICA (Tarde)</option>
+                                                    <option></option>
+                                            </select>';
+            }
+            
+        </script>
+        
     </body>
 
 </html>

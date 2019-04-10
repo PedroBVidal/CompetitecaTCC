@@ -28,7 +28,7 @@ public class InscricaoCompeticaoColetiva implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idCompeticaoColetiva;
-    
+  
     
     @ManyToOne
     @JoinColumn(name = "equipe_idEquipe")
@@ -91,6 +91,8 @@ public class InscricaoCompeticaoColetiva implements Serializable{
     public void setInscricaoAceita(boolean inscricaoAceita) {
         this.inscricaoAceita = inscricaoAceita;
     }
+
+
     
     
     

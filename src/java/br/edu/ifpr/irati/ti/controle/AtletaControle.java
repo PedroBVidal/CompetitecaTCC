@@ -5,6 +5,7 @@
  */
 package br.edu.ifpr.irati.ti.controle;
 
+import br.edu.ifpr.irati.ti.dao.AtletaDAO;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.modelo.Atleta;
@@ -18,14 +19,15 @@ import java.util.List;
 public class AtletaControle {
     
     Dao<Atleta> atdl = new GenericDAO<>(Atleta.class);
+    AtletaDAO atletaDAO = new AtletaDAO();
+    
     public List<Atleta> buscarTodosAtleta(){
         return atdl.buscarTodos(Atleta.class);
     }
     public Atleta buscarPorId(int id){
-        return atdl.buscarPorId(id);
+        return atletaDAO.buscarPorId(id);
     }
     public void criarAtleta(Atleta atleta){
-        System.out.println(atleta.getNome());
         atdl.salvar(atleta);
     }
     public void alterarAtleta(Atleta atleta){
