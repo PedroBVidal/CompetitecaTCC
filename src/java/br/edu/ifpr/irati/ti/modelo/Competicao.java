@@ -4,7 +4,9 @@ import br.ifpr.irati.ti.util.GerarCodigoAcessoPrivado;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 
@@ -32,13 +36,16 @@ public class Competicao implements Serializable {
 
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<UsuarioParticipante> administradores;
+    @Fetch(value = FetchMode.SUBSELECT)
+    private Set<UsuarioParticipante> administradores;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<CompeticaoModalidadeColetiva> cmodalidadecole;
+    @Fetch(value = FetchMode.SUBSELECT)
+    private Set<CompeticaoModalidadeColetiva> cmodalidadecole;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<CompeticaoModalidadeSolo> cmodalidadesolo;
+    @Fetch(value = FetchMode.SUBSELECT)
+    private Set<CompeticaoModalidadeSolo> cmodalidadesolo;
 
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
@@ -59,9 +66,9 @@ public class Competicao implements Serializable {
 
     public Competicao() {
         idCompeticao = 0;
-        cmodalidadecole = new ArrayList<>();
-        cmodalidadesolo = new ArrayList<>();
-        administradores = new ArrayList<>();
+        cmodalidadecole = new HashSet<>();
+        cmodalidadesolo = new HashSet<>();
+        administradores = new HashSet<>();
         dataInicio = new Date();
         dataTermino = new Date();
         inativo = false;
@@ -71,16 +78,16 @@ public class Competicao implements Serializable {
     public Competicao(int idCompeticao, String nome, Date dataInicio, Date dataTermino) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
-        cmodalidadecole = new ArrayList<>();
-        cmodalidadesolo = new ArrayList<>();
-        administradores = new ArrayList<>();
+        cmodalidadecole = new HashSet<>();
+        cmodalidadesolo = new HashSet<>();
+        administradores = new HashSet<>();
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
         this.inativo = false;
         this.privado = false;
     }
 
-    public Competicao(int idCompeticao, String nome, List<UsuarioParticipante> administradores, List<CompeticaoModalidadeColetiva> cmodalidadecole, List<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino, boolean inativo, boolean privado) {
+    public Competicao(int idCompeticao, String nome, Set<UsuarioParticipante> administradores, Set<CompeticaoModalidadeColetiva> cmodalidadecole, Set<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino, boolean inativo, String codPriv, boolean privado) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
         this.administradores = administradores;
@@ -89,27 +96,30 @@ public class Competicao implements Serializable {
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
         this.inativo = inativo;
+        this.codPriv = codPriv;
         this.privado = privado;
     }
+
+    
 
     public void adcionarLocal(Local local) {
 
     }
 
     public void adcionarCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo) {
-        this.cmodalidadesolo.add(competicaoModalidadeSolo);
+        this.getCmodalidadesolo().add(competicaoModalidadeSolo);
     }
 
     public void adicionarCompeticaoModalidadeColetiva(CompeticaoModalidadeColetiva competicaoModalidadeColetiva) {
-        this.cmodalidadecole.add(competicaoModalidadeColetiva);
+        this.getCmodalidadecole().add(competicaoModalidadeColetiva);
     }
 
     public void removerCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo) {
-        this.cmodalidadesolo.remove(competicaoModalidadeSolo);
+        this.getCmodalidadesolo().remove(competicaoModalidadeSolo);
     }
 
     public void removerCompeticaoModalidadeColetiva(CompeticaoModalidadeColetiva competicaoModalidadeColetiva) {
-        this.cmodalidadecole.remove(competicaoModalidadeColetiva);
+        this.getCmodalidadecole().remove(competicaoModalidadeColetiva);
     }
 
     /**
@@ -168,57 +178,18 @@ public class Competicao implements Serializable {
         this.dataTermino = dataTermino;
     }
 
-    /**
-     * @return the cmodalidadecole
-     */
-    public List<CompeticaoModalidadeColetiva> getCmodalidadecole() {
-        return cmodalidadecole;
-    }
-
-    /**
-     * @param cmodalidadecole the cmodalidadecole to set
-     */
-    public void setCmodalidadecole(List<CompeticaoModalidadeColetiva> cmodalidadecole) {
-        this.cmodalidadecole = cmodalidadecole;
-    }
-
-    /**
-     * @return the cmodalidadesolo
-     */
-    public List<CompeticaoModalidadeSolo> getCmodalidadesolo() {
-        return cmodalidadesolo;
-    }
-
-    /**
-     * @param cmodalidadesolo the cmodalidadesolo to set
-     */
-    public void setCmodalidadesolo(List<CompeticaoModalidadeSolo> cmodalidadesolo) {
-        this.cmodalidadesolo = cmodalidadesolo;
-    }
 
     public void adicionarAdministrador(UsuarioParticipante up) {
-        this.administradores.add(up);
+        this.getAdministradores().add(up);
         up.adicionarCompeticao(this);
     }
 
     public void removerAdministrador(UsuarioParticipante up) {
-        this.administradores.remove(up);
+        this.getAdministradores().remove(up);
         up.removerCompeticao(this);
     }
 
-    /**
-     * @return the administradores
-     */
-    public List<UsuarioParticipante> getAdministradores() {
-        return administradores;
-    }
 
-    /**
-     * @param administradores the administradores to set
-     */
-    public void setAdministradores(List<UsuarioParticipante> administradores) {
-        this.administradores = administradores;
-    }
 
     /* @return the inativo
      */
@@ -268,5 +239,49 @@ public class Competicao implements Serializable {
         }
 
     }
+
+    /**
+     * @return the administradores
+     */
+    public Set<UsuarioParticipante> getAdministradores() {
+        return administradores;
+    }
+
+    /**
+     * @param administradores the administradores to set
+     */
+    public void setAdministradores(Set<UsuarioParticipante> administradores) {
+        this.administradores = administradores;
+    }
+
+    /**
+     * @return the cmodalidadecole
+     */
+    public Set<CompeticaoModalidadeColetiva> getCmodalidadecole() {
+        return cmodalidadecole;
+    }
+
+    /**
+     * @param cmodalidadecole the cmodalidadecole to set
+     */
+    public void setCmodalidadecole(Set<CompeticaoModalidadeColetiva> cmodalidadecole) {
+        this.cmodalidadecole = cmodalidadecole;
+    }
+
+    /**
+     * @return the cmodalidadesolo
+     */
+    public Set<CompeticaoModalidadeSolo> getCmodalidadesolo() {
+        return cmodalidadesolo;
+    }
+
+    /**
+     * @param cmodalidadesolo the cmodalidadesolo to set
+     */
+    public void setCmodalidadesolo(Set<CompeticaoModalidadeSolo> cmodalidadesolo) {
+        this.cmodalidadesolo = cmodalidadesolo;
+    }
+    
+    
 
 }

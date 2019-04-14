@@ -14,6 +14,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 
 /**
@@ -27,6 +29,7 @@ import org.hibernate.annotations.Proxy;
 public abstract class MensagemAPEnviada extends MensagemEnviada implements Serializable{
     
     @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<UsuarioParticipante2> usuariosParticipantes;
 
     public MensagemAPEnviada() {

@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 
 
@@ -20,6 +22,7 @@ public class ConfrontoModalidadeColetiva extends Confronto implements Serializab
     
     
     @ManyToMany(mappedBy = "confrontosModalidadeColetiva", fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     protected List<Equipe> equipes;
     
     @ManyToOne

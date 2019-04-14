@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 
@@ -39,18 +41,22 @@ public class Atleta implements Serializable {
     private String cpf;
 
     @ManyToMany(mappedBy = "atletas", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Equipe> equipes;
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "atleta")
     private UsuarioParticipante2 usuarioParticipante;
 
     @OneToMany(mappedBy = "atleta", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<MensagemRecebida> mensagens;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<CompeticaoModalidadeSolo> competicoesModalidadeSolo;
 
     //VER!
@@ -236,18 +242,5 @@ public class Atleta implements Serializable {
         this.cpf = cpf;
     }
 
-    /**
-     * @return the segmento
-     */
-    public Segmento getSegmento() {
-        return segmento;
-    }
-
-    /**
-     * @param segmento the segmento to set
-     */
-    public void setSegmento(Segmento segmento) {
-        this.segmento = segmento;
-    }
-
+   
 }

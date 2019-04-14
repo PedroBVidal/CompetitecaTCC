@@ -14,6 +14,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 
 @Entity(name = "mensagem_pp_enviada")
@@ -23,6 +25,7 @@ import org.hibernate.annotations.Proxy;
 public class MensagemPPEnviada extends MensagemEnviada implements Serializable {
     
     @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<UsuarioParticipante2> usuariosParticipantes;
 
     public MensagemPPEnviada() {

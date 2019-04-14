@@ -16,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 
 @Entity(name = "usuarioparticipante2")
@@ -36,15 +38,18 @@ public class UsuarioParticipante2 implements Serializable {
     private String senha;
     
     @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<MensagemEnviada> mensagensEnviadas;
     
     @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<MensagemRecebida> mensagensRecebidas;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Atleta atleta;
     
     @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Equipe> equipe;
 
     public UsuarioParticipante2() {

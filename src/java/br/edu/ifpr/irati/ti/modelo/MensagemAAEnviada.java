@@ -15,6 +15,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 
 /**
@@ -29,6 +31,7 @@ public abstract class MensagemAAEnviada extends MensagemEnviada implements Seria
     
     
     @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     protected List<UsuarioParticipante> usuariosAdmnistradores;
 
     public MensagemAAEnviada() {

@@ -22,7 +22,7 @@ public class Segmento implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idSegmento;
     
-    @Column(name = "nome", nullable = false)
+    @Column (name = "nome", nullable = false, length = 100)
     private String nome;
 
     public Segmento() {

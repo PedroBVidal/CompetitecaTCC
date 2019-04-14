@@ -39,19 +39,19 @@
 
     <body>
         <script>
-            
+
 
             function validatePassword() {
-                var password = document.getElementById("password")
+            var password = document.getElementById("password")
                     , confirm_password = document.getElementById("confirm_password");
-                if (password.value != confirm_password.value) {
-                    confirm_password.setCustomValidity("As senhas não coincidem!");
-                } else {
-                    confirm_password.setCustomValidity('');
-                }
+            if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("As senhas não coincidem!");
+            } else {
+            confirm_password.setCustomValidity('');
+            }
             }
 
-           // password.onchange = validatePassword;
+            // password.onchange = validatePassword;
             // confirm_password.onkeyup = validatePassword;
         </script>
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top">
@@ -135,64 +135,57 @@
 
 
 
-            <form action="scripts/scriptuserParticipante.jsp" method="POST" class="col">
-                <input type="hidden" name="op" value="1">
+                    <form action="scripts/scriptuserParticipante.jsp" method="POST" class="col">
+                        <input type="hidden" name="op" value="1">
 
 
-                <input type="hidden" name="c" value="1">
-                <input type="hidden" name="id" value="0">
+                        <input type="hidden" name="c" value="1">
+                        <input type="hidden" name="id" value="0">
 
-                <label for="" class="col-md-12">
-                    Nome:
-                    <input type="text" required class="form-control" name="nome" placeholder="Informe o seu nome" >
-                </label>
-                <label for="" class="col-md-12">
-                    Email:
-                    <input type="text" required class="form-control" name="email" placeholder="Insira o seu email" >
-                </label>
-                <label for="" class="col-md-12">
-                    Data de nascimento:
-                    <input type="text" required class="form-control" name="email" placeholder="Insira sua data de nascimento" >
-                </label>
-                <label for="" class="col-md-12">
-                    CPF:
-                    <input type="text" required class="form-control" name="email" placeholder="Insira seu CPF" >
-                </label>
-              
-                <label for="" class="col-md-12">
-                    Senha:
-                    <input type="password" required class="form-control" id="password" name="senha" placeholder="Insira a sua senha">
-                    Confirme a Senha:
-                    <input onkeyup="validatePassword()" type="password" required class="form-control" id="confirm_password" placeholder="Confirme a sua senha">
-                    <div class="invalid-feedback">
+                        <label for="" class="col-md-12">
+                            Nome:
+                            <input type="text" required class="form-control" name="nome" placeholder="Informe o seu nome" >
+                        </label>
+                        <label for="" class="col-md-12">
+                            Email:
+                            <input type="email" required class="form-control" name="email" placeholder="Insira o seu email" >
+                        </label>
+                        <label for="" class="col-md-12">
+                            Data de nascimento:
+                            <input type="text" required class="dataMask form-control" name="email" placeholder="Insira sua data de nascimento" >
+                        </label>
+                        <label for="" class="col-md-12">
+                            CPF:
+                            <input type="text" required class="cpfMask form-control" name="email" placeholder="Insira seu CPF" >
+                        </label>
 
-                    </div>
-                </label>
-                
-                <label for="" class="col-md-12">
-                    <input type="checkbox" value="1" onclick="adicionarInputTurma();">
-                    Estudo/trabalho no IFPR - Campus Irati
-                </label>
-                
-                <div class="col-md-12" id="segmento">
-                    <label for="inputState">Segmento:</label>
-                    <select id="modalidadeColetiva" class="form-control" name="segmento">
-                        <%
-                            SegmentoControle segmentoControle = new SegmentoControle();
-                            
-                            for(Segmento s: segmentoControle.buscarSegmentos()){
-                        %>
-                        <option value="<%=s.getIdSegmento()%>"><%=s.getNome()%></option>
-                        <%}%>
-                        
-                    </select>
+                        <label for="" class="col-md-12">
+                            Senha:
+                            <input type="password" required class="form-control" id="password" name="senha" placeholder="Insira a sua senha">
+                            Confirme a Senha:
+                            <input onkeyup="validatePassword()" type="password" required class="form-control" id="confirm_password" placeholder="Confirme a sua senha">
+                            <div class="invalid-feedback">
+
+                            </div>
+                        </label>
+
+                        <label for="" class="col-md-12">
+                            <input type="checkbox" value="1" id="radioSegmento" onclick="adicionarSelectTurma();">
+                            Estudo/trabalho no IFPR - Campus Irati
+                        </label>
+
+                        <div class="col-md-12" id="segmento">
+
+                        </div>
+
+                        <div class="col-md-12" id="btnEnviar" style="margin-top:10px;">
+                            <button type="submit" class="btn btn-success">Enviar</button>
+                        </div>    
+
+
+
+                    </form>
                 </div>
-                <div class="col-md-12" id="segmento">
-                <button type="submit" class="btn btn-success">Enviar</button>
-                </div>
-
-            </form>
-            </div>
             </div>
         </div>
         <%}
@@ -212,7 +205,7 @@
                 </label>
                 <label for="" class="col-md-12">
                     Email:
-                    <input type="text" required class="form-control" name="email" placeholder="Insira o seu email" >
+                    <input type="email" required class="form-control" name="email" placeholder="Insira o seu email" >
                 </label>
                 <label for="" class="col-md-12">
                     Senha:
@@ -224,7 +217,7 @@
                     </div>
                 </label>
 
-
+                <br>
                 <button type="submit" class="btn btn-success">Enviar</button>
 
 
@@ -234,35 +227,26 @@
         <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
+
         <script>
             
-            function adicionarInputTurma(){
-                alert("Estou aqui");
-                var div = document.getElementById("labelTurma");
-                div.innerHTML = '<label for="inputState">Segmento:</label><select id="modalidadeColetiva" class="form-control" name="segmento"><option selected>Docente</option>
-                                                    <option selected>Funcionário</option>
-                                                    <option selected>1º ANO - Agroecologia (Manhã)</option>
-                                                    <option selected>1º ANO - Agroecologia (Tarde)</option>
-                                                    <option selected>2º ANO - Agroecologia (Manhã)</option>
-                                                    <option selected>2º ANO - Agroecologia (Tarde)</option>
-                                                    <option selected>3º ANO - Agroecologia (Manhã)</option>
-                                                    <option selected>3º ANO - Agroecologia (Tarde)</option>
-                                                    <option selected>4º ANO - Agroecologia (Manhã)</option>
-                                                    <option selected>4º ANO - Agroecologia (Tarde)</option>
-                                                    <option selected>1º ANO - INFORMÁTICA (Manhã)</option>
-                                                    <option selected>1º ANO - INFORMÁTICA (Tarde)</option>
-                                                    <option selected>2º ANO - INFORMÁTICA (Manhã)</option>
-                                                    <option selected>2º ANO - INFORMÁTICA (Tarde)</option>
-                                                    <option selected>3º ANO - INFORMÁTICA (Manhã)</option>
-                                                    <option selected>3º ANO - INFORMÁTICA (Tarde)</option>
-                                                    <option selected>4º ANO - INFORMÁTICA (Manhã)</option>
-                                                    <option selected>4º ANO - INFORMÁTICA (Tarde)</option>
-                                                    <option></option>
-                                            </select>';
-            }
+            $('.dataMask').mask('00/00/0000', {reverse: true});
+            $('.cpfMask').mask('000.000.000-00', {reverse: true});
             
-        </script>
-        
+                        function adicionarSelectTurma(){
+                        if(radioSegmento.checked === true){
+                        var div = document.getElementById("segmento");
+                        div.innerHTML = '<label for="inputState">Segmento:</label><select id="modalidadeColetiva" class="form-control" name="segmento"><%SegmentoControle segmentoControle = new SegmentoControle();for(Segmento s: segmentoControle.buscarSegmentos()){%><option value="<%=s.getIdSegmento()%>"><%=s.getNome()%></option><%}%></select>';
+                        }
+                        if(radioSegmento.checked === false){
+                        var div = document.getElementById("segmento"); 
+                        div.innerHTML = '';
+                        }
+            }
+                
+                </script>
+
     </body>
 
 </html>

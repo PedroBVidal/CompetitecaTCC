@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 
 @Entity(name="usuarioparticipante")
@@ -31,13 +33,16 @@ public class UsuarioParticipante implements Serializable {
     @Column(name="senha",nullable = false)
     private String senha;
     
-    @ManyToMany(mappedBy = "administradores", fetch= FetchType.EAGER)
+    @ManyToMany(mappedBy = "administradores", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Competicao> competicoes;
     
     @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<MensagemEnviada> mensagensEnviadas;
     
     @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<MensagemRecebida> mensagensRecebidas;
 
     public UsuarioParticipante() {
