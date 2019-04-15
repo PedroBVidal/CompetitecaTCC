@@ -29,12 +29,15 @@
 
         int cmd = Integer.parseInt(request.getParameter("c"));
         int id = Integer.parseInt(request.getParameter("id"));
+        
+        UsuarioParticipante2Controle uspc = new UsuarioParticipante2Controle();
+        AtletaControle atletaControle = new AtletaControle();
+        SegmentoControle segmentoControle = new SegmentoControle();
+        
 
-        UsuarioParticipante2 usp = new UsuarioParticipante2(id, email, nome, senha);
-        Competicao competicao = new Competicao(0, nome, new Date(), new Date());
 
         if (cmd == 2) {
-            UsuarioParticipante2Controle uspc = new UsuarioParticipante2Controle();
+            UsuarioParticipante2 usp = uspc.buscarPorId(id);
             uspc.atualizarCad(usp);
             usp = uspc.buscarLogin(email, senha);
             session.setAttribute("usuario", usp);
@@ -43,9 +46,6 @@
         }
         if (cmd == 1) {
             
-            UsuarioParticipante2Controle uspc = new UsuarioParticipante2Controle();
-            AtletaControle atletaControle = new AtletaControle();
-            SegmentoControle segmentoControle = new SegmentoControle();
             
             UsuarioParticipante2 usuarioParticipante = new UsuarioParticipante2(0, email, nome, senha);
             Atleta atleta = new Atleta(0, dataNascimento, cpf);
