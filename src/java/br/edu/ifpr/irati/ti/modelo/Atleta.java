@@ -242,5 +242,19 @@ public class Atleta implements Serializable {
         this.cpf = cpf;
     }
 
+    /**
+     * @return the segmento
+     */
+    public Segmento getSegmento() {
+        return segmento;
+    }
+
+    /**
+     * @param segmento the segmento to set
+     */
+    public void setSegmento(Segmento segmento) {
+        this.segmento = segmento;
+    }
+
    
 }

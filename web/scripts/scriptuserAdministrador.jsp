@@ -32,7 +32,6 @@
     }
     if(cmd == 1){
         UsuarioParticipante usp = new UsuarioParticipante(id,nome,email,senha);
-        Atleta
         UsuarioParticipanteControle uspc = new UsuarioParticipanteControle();
         uspc.criar(usp);
         response.sendRedirect("../login.jsp?e=Cadastro efetuado, agora entre com o tipo Administrador");

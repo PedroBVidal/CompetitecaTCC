@@ -152,11 +152,11 @@
                         </label>
                         <label for="" class="col-md-12">
                             Data de nascimento:
-                            <input type="text" required class="dataMask form-control" name="email" placeholder="Insira sua data de nascimento" >
+                            <input type="text" required class="dataMask form-control" name="dataNascimento" placeholder="Insira sua data de nascimento" >
                         </label>
                         <label for="" class="col-md-12">
                             CPF:
-                            <input type="text" required class="cpfMask form-control" name="email" placeholder="Insira seu CPF" >
+                            <input type="text" required class="cpfMask form-control" name="cpf" placeholder="Insira seu CPF" >
                         </label>
 
                         <label for="" class="col-md-12">
@@ -190,6 +190,7 @@
         </div>
         <%}
         if(request.getParameter("p").equals("3")){
+        
         %>
         <div class="container">
             <h1 class="my-4">Cadastro para Administradores</h1>

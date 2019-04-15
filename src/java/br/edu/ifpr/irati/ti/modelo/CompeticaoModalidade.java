@@ -1,4 +1,3 @@
-
 package br.edu.ifpr.irati.ti.modelo;
 
 import java.io.Serializable;
@@ -22,35 +21,38 @@ import org.hibernate.annotations.Type;
 
 @Inheritance(strategy = InheritanceType.JOINED)
 @Proxy(lazy = false)
-public abstract class CompeticaoModalidade implements Serializable{
-    
+public abstract class CompeticaoModalidade implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idCompeticaoModalidade;
     
+    @Column(name = "informacaoExtra", nullable = true)
+    private String informacaoExtra;
+    
     @Column(name = "nomecompeticao", nullable = false, length = 100)
     private String nomeCompeticao;
-    
-   @OneToOne(cascade = CascadeType.ALL)
-   @JoinColumn(name="sistemacomp_id", referencedColumnName="idSistemaDeCompeticao",nullable=false)  
-   private SistemaDeCompeticao sistemaDeCompeticao;
-   
-   @OneToMany
-   private List<Confronto> confrontos;
 
-   @Column(name="status_formulario_inscricao_publica")
-   private boolean statusFormularioInscricaoPublica;
-   
-   @Column(name = "inativo")
-   @Type(type = "true_false")
-   private boolean inativo; 
-   
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sistemacomp_id", referencedColumnName = "idSistemaDeCompeticao", nullable = false)
+    private SistemaDeCompeticao sistemaDeCompeticao;
+
+    @OneToMany
+    private List<Confronto> confrontos;
+
+    @Column(name = "status_formulario_inscricao_publica")
+    private boolean statusFormularioInscricaoPublica;
+
+    @Column(name = "inativo")
+    @Type(type = "true_false")
+    private boolean inativo;
+
     public CompeticaoModalidade() {
         idCompeticaoModalidade = 0;
         nomeCompeticao = "";
         confrontos = new ArrayList<>();
         statusFormularioInscricaoPublica = false;
-        
+        informacaoExtra = "";
     }
 
     public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao) {
@@ -58,7 +60,16 @@ public abstract class CompeticaoModalidade implements Serializable{
         this.nomeCompeticao = nomeCompeticao;
         this.sistemaDeCompeticao = sistemaDeCompeticao;
         this.confrontos = new ArrayList<>();
-        statusFormularioInscricaoPublica = false;
+        this.statusFormularioInscricaoPublica = false;
+    }
+    
+    public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, String informacaoExtra) {
+        this.idCompeticaoModalidade = idCompeticaoModalidade;
+        this.nomeCompeticao = nomeCompeticao;
+        this.sistemaDeCompeticao = sistemaDeCompeticao;
+        this.informacaoExtra = informacaoExtra;
+        this.confrontos = new ArrayList<>();
+        this.statusFormularioInscricaoPublica = false;
     }
 
     public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica) {
@@ -68,12 +79,6 @@ public abstract class CompeticaoModalidade implements Serializable{
         this.confrontos = confrontos;
         this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
     }
-
-    
-    
-    
-    
-    
 
     /**
      * @return the idCompeticaoModalidade
@@ -139,7 +144,8 @@ public abstract class CompeticaoModalidade implements Serializable{
     }
 
     /**
-     * @param statusFormularioInscricaoPublica the statusFormularioInscricaoPublica to set
+     * @param statusFormularioInscricaoPublica the
+     * statusFormularioInscricaoPublica to set
      */
     public void setStatusFormularioInscricaoPublica(boolean statusFormularioInscricaoPublica) {
         this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
@@ -159,9 +165,18 @@ public abstract class CompeticaoModalidade implements Serializable{
         this.inativo = inativo;
     }
 
-    
-    
-   
-   
-    
+    /**
+     * @return the informacaoExtra
+     */
+    public String getInformacaoExtra() {
+        return informacaoExtra;
+    }
+
+    /**
+     * @param informacaoExtra the informacaoExtra to set
+     */
+    public void setInformacaoExtra(String informacaoExtra) {
+        this.informacaoExtra = informacaoExtra;
+    }
+
 }

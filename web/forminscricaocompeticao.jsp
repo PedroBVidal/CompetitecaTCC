@@ -4,6 +4,9 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoSolo"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.AtletaControle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo"%>
@@ -15,7 +18,7 @@
 
     <head>
 
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
@@ -43,37 +46,37 @@
                 // Pega o id passado como parâmtro no botão "Realizar Inscrição" da jsp listaCompeticoes.jsp
                 int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
                 int idAtleta = Integer.parseInt(request.getParameter("idAtleta"));
-                
-                
+
                 CompeticaoControle competicaoControle = new CompeticaoControle();
-                
+                AtletaControle atletaControle = new AtletaControle();
+
                 Competicao competicao = competicaoControle.buscarCompeticaoPorId(idCompeticao);
-                System.out.println("ID COMPETICAO:"+ idCompeticao);
+                Atleta atleta = atletaControle.buscarPorId(idAtleta);
         %>
 
         <header>
-            <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
+            <jsp:include page="navbarUsuarioParticipante.jsp" flush="true"/>
         </header>
         <div class="container">
             <%
                 request.setCharacterEncoding("UTF-8");
-                if (request.getParameter("e") != null) {
-                    String erro = request.getParameter("e");
-
+            if(request.getParameter("msg") != null){
+                String mensagem = request.getParameter("msg");
+                String cor = request.getParameter("color");
             %>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong><%=erro%></strong> .
+            <div class="alert alert-<%=cor%>" role="alert">
+                <strong><%=mensagem%></strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <%
-                }
+            }
             %>
 
-            <h1 class="col" style="margin: 20px 0px 20px -10px;">Inscrição</h1>
-            <h2 class="col" style="margin: 20px 0px 20px -10px;">Selecione as competições que deseja partipar dentro de <%=competicao.getNome()%></h2>
+
+            <h2 class="col mt-4 mb-3" style="margin: 20px 0px 20px -10px;">Inscreva-se nas competições que deseja partipar dentro de <span class="font-italic"><%=competicao.getNome()%></span></h2>
 
             <div class="row">
 
@@ -82,84 +85,168 @@
 
                         <div class="card">
                             <div class="card-header">
-                                Passo 2
+                                Inscrição
                             </div>
-                            
+
                             <%
-                                if(competicao.getCmodalidadesolo().size() != 0){
-                                        
-                                // Para cada competição vinculada ao evento, adiciona um checkbox, para o atleta se inscrever, caso queira.
-                                
+                                if (competicao.getCmodalidadesolo().size() != 0) {
+
+                                    // Para cada competição vinculada ao evento, adiciona um checkbox, para o atleta se inscrever, caso queira.
+
                             %>
-                            
+
                             <div class="card-body">
                                 <div class="form-group">
                                     <h4 style="margin: -5px 0px 0px -5px;">Competições individuais: </h4>
                                 </div>
-                                
-                                    
-                                <%
 
-                                    
-                                    for(CompeticaoModalidadeSolo cms: competicao.getCmodalidadesolo()){
+
+                                <%      
+                                    for (CompeticaoModalidadeSolo cms : competicao.getCmodalidadesolo()) {
+                                        int flag = 0;
+                                        
+                                        for(InscricaoCompeticaoSolo ics : atleta.getInscricoesCompeticaoSolo()){
+                                           if(ics.getCompeticaoModalidadeSolo().getIdCompeticaoModalidade() == cms.getIdCompeticaoModalidade()){
+                                               flag = 1;
+                                               break;
+                                           } 
+                                        }
                                 %>
-                                
-                                
-                                    <div class="form-group">
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cms.getNomeCompeticao()%>">
-                                            <div class="input-group-append">
-                                                <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                    <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
-                                                </a><button type="button" class="btn btn-success" data-toggle="modal" data-target="#<%=cms.getIdCompeticaoModalidade()%>">Inscrever-se</button>
+
+                                <%
+                                    if (flag == 0) {
+                                %>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cms.getNomeCompeticao()%>">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cms.getIdCompeticaoModalidade()%>">
+                                                <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
+                                            </button><button type="button" class="btn btn-success" data-toggle="modal" data-target="#1<%=cms.getIdCompeticaoModalidade()%>" style="width: 160px;">Inscrever-se</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal Inscrição -->
+                                <div class="modal fade" id="1<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Deseja realmente realizar inscrição em <%=cms.getNomeCompeticao()%>?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <a class="btn btn-primary" href="scripts/inscreverAtletaEmCompeticaoSolo.jsp?idCms=<%=cms.getIdCompeticaoModalidade()%>&idAtleta=<%=idAtleta%>&idCompeticao=<%=idCompeticao%>">Sim</a>
+                                                <a class="btn btn-warning" data-dismiss="modal">Não</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Modal -->
-                                            <div class="modal fade" id="<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                </div>
+                                                
+                                <!-- Modal Saiba mais -->
+                                <div class="modal fade" id="2<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><%=cms.getNomeCompeticao()%></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                                <div class="modal-body">
+                                                    
+                                                    <p><%
+                                                        if(cms.getInformacaoExtra() != null){%>
+                                                    <%=cms.getInformacaoExtra()%>
+                                                    <%}else{
+                                                    %>
+                                                    Não há informações extras sobre essa competição
+                                                    <%}%></p>
+                                                    
+                                                </div>
+                                            
+
+                                            <div class="modal-footer">
+                                                <a class="btn btn-primary" data-dismiss="modal">Ok!</a>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                           
+                                <%}
+                                    if (flag == 1) {
+
+                                %>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cms.getNomeCompeticao()%>">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cms.getIdCompeticaoModalidade()%>">
+                                                <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
+                                            </button><button type="input" class="btn btn-secondary" disabled="true" style="width: 160px;">Inscrição realizada</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                 
+                                            <!-- Modal Saiba mais -->
+                                            <div class="modal fade" id="2<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente realizar inscrição em <%=cms.getNomeCompeticao()%>?</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel"><%=cms.getNomeCompeticao()%></h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                 
+                                                        <div class="modal-body">
+
+                                                            <p><%
+                                                        if (cms.getInformacaoExtra() != null) {%>
+                                                                <%=cms.getInformacaoExtra()%>
+                                                                <%} else {
+                                                                %>
+                                                                Não há informações extras sobre essa competição
+                                                                <%}%></p>
+
+                                                        </div>
+
+
                                                         <div class="modal-footer">
-                                                            <a class="btn btn-primary" href="scripts/inscreverAtletaEmCompeticaoSolo.jsp?idCms=<%=cms.getIdCompeticaoModalidade()%>&idAtleta=<%=idAtleta%>">Sim</a>
-                                                            <a class="btn btn-warning" data-dismiss="modal">Não</a>
+                                                            <a class="btn btn-primary" data-dismiss="modal">Ok!</a>
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>                                
-                                <%}}%>
+                                            </div> 
+ 
+                                <%}
+                                        }
+                                    }%>
+
                                 <%
-                                if (competicao.getCmodalidadecole().size() != 0) {
-                                
-                                                                
+                                    if (competicao.getCmodalidadecole().size() != 0) {
+
+
                                 %>  
-                                
+
                                 <div class="form-group">
                                     <h4 style="margin: 15px 0px 0px -5px;">Competições coletivas: </h4>
                                 </div>
 
-                                <%
-                                    
-                                        
-                                    for (CompeticaoModalidadeColetiva cmc: competicao.getCmodalidadecole()){
-                                        
-                                    
-                                
+                                <%                                    for (CompeticaoModalidadeColetiva cmc : competicao.getCmodalidadecole()) {
+
+
                                 %>
-                                
+
                                 <div class="form-group">
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cmc.getNomeCompeticao()%>">
                                         <div class="input-group-append">
                                             <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                                 <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
-                                            </a><button type="button" class="btn btn-success" data-toggle="modal" data-target="#<%=cmc.getIdCompeticaoModalidade()%>">Inscrever-se</button>
+                                            </a><button type="button" class="btn btn-success" data-toggle="modal" data-target="#<%=cmc.getIdCompeticaoModalidade()%>" style="width: 160px;">Inscrever-se</button>
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +268,8 @@
                                         </div>
                                     </div>
                                 </div>      
-                                <%}}%>
+                                <%}
+                                    }%>
 
                             </div>
                         </div>

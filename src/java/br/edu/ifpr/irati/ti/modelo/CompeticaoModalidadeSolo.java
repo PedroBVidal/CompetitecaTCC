@@ -9,15 +9,21 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 
 @Entity(name = "competicaomodalidadesolo")
 @PrimaryKeyJoinColumn(name = "idCompeticaoModalidade")
 @Proxy(lazy = false)
 public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Serializable{
+    
+    @ManyToOne
+    private Competicao competicao;
     
     @OneToOne
     private ModalidadeSolo modalidadeSolo;
@@ -26,9 +32,9 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
     @OneToMany(fetch = FetchType.EAGER)
     private List<AtletaCompeticao> atletasCompeticao;
     
-
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "competicaoModalidadeSolo", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo;
 
     public CompeticaoModalidadeSolo() {
@@ -36,30 +42,36 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
         modalidadeSolo = new ModalidadeSolo();
         atletasCompeticao = new ArrayList<>();
         inscricoesCompeticaoSolo = new ArrayList<>();
+        competicao = new Competicao();
     }
     
 
-    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao) {
+    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, Competicao competicao) {
         super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao);
         this.modalidadeSolo = modalidadeSolo;
         this.atletasCompeticao = new ArrayList<>();
         this.inscricoesCompeticaoSolo = new ArrayList<>();
+        this.competicao = competicao;
+    }
+    
+    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, Competicao competicao, String informacaoExtra) {
+        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, nomeCompeticao);
+        this.modalidadeSolo = modalidadeSolo;
+        this.atletasCompeticao = new ArrayList<>();
+        this.inscricoesCompeticaoSolo = new ArrayList<>();
+        this.competicao = competicao;
     }
 
-    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo, List<AtletaCompeticao> atletasCompeticao, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica) {
+    public CompeticaoModalidadeSolo(Competicao competicao, ModalidadeSolo modalidadeSolo, List<AtletaCompeticao> atletasCompeticao, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica) {
         super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, confrontos, statusFormularioInscricaoPublica);
+        this.competicao = competicao;
         this.modalidadeSolo = modalidadeSolo;
         this.atletasCompeticao = atletasCompeticao;
         this.inscricoesCompeticaoSolo = inscricoesCompeticaoSolo;
     }
 
     
-    
-    
-
-    
-
-    
+  
 /*   
     public void distribuirAtletasCompeticao(){
         
@@ -135,6 +147,20 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
      */
     public void setInscricoesCompeticaoSolo(List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo) {
         this.inscricoesCompeticaoSolo = inscricoesCompeticaoSolo;
+    }
+
+    /**
+     * @return the competicao
+     */
+    public Competicao getCompeticao() {
+        return competicao;
+    }
+
+    /**
+     * @param competicao the competicao to set
+     */
+    public void setCompeticao(Competicao competicao) {
+        this.competicao = competicao;
     }
     
     

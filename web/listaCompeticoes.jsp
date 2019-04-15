@@ -58,7 +58,7 @@
 
                 UsuarioParticipante2 usuarioParticipante
                         = usuarioParticipante2Controle.buscarPorId(up.getIdUsuario());
-                List<Atleta> atletasVinculadosUp = usuarioParticipante.getAtletas();
+                Atleta atletaVinculadoUp = usuarioParticipante.getAtleta();
         %>
 
         <header>
@@ -143,11 +143,10 @@
             <div class="card-group">
                 <%
                     if (sIdCompeticao == null) {
-                        System.out.println("ID competição é nulo");
+                       
                 %>
                 <%
-                    System.out.println("Atletas vinculados " + atletasVinculadosUp);
-                    System.out.println("Competições " + competicoes);
+
 
                     List<Competicao> competicoesASeremRemovidas = new ArrayList<>();
 
@@ -179,7 +178,7 @@
                             <div class="form-group">
 
                                 <p class="fontOverpass"><a class="btn btn-success" 
-                                                           href="forminscricaoatletaevento.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" role="button">Realizar inscrição em evento</a><p>
+                                                           href="forminscricaocompeticao.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>&idAtleta=<%=atletaVinculadoUp.getIdAtleta()%>" role="button">Inscrever-se em competições do evento</a><p>
 
                             </div>
                         </div>
@@ -209,38 +208,10 @@
                                     style="margin-left: 5px;"><%=dataInicio%></span></p>
                             <p class="card-text fontOverpass"><b>Data de Termino:</b><span 
                                     style="margin-left: 5px;"><%=dataTermino%></span></p>
-                                <%
-                                    int flag = 0;
-                                    int idAtleta = 0;
-
-                                    for (Atleta atleta : atletasVinculadosUp) {
-
-                                        if (atleta.getCompeticao().getIdCompeticao()
-                                                == competicaoBuscada.getIdCompeticao()) {
-                                            idAtleta = atleta.getIdAtleta();
-                                            flag = 1;
-                                            break;
-
-                                        }
-
-                                    }
-                                %>
 
                             <div class="form-group">
-
-                                <%
-                                    if (flag == 0) {
-                                %>
-                                <p class="fontOverpass"><a class="btn btn-success" 
-                                                           href="forminscricaoatletaevento.jsp?idCompeticao=<
-                                                           %=competicaoBuscada.getIdCompeticao()%>" role="button">Realizar inscrição em 
-                                        evento</a><p>
-                                        <%}
-                                            if (flag == 1) {
-                                        %>
                                 <p class="fontOverpass"><a class="btn btn-info" 
-                                                           href="forminscricaocompeticao.jsp?idCompeticao=<
-                                                           %=competicaoBuscada.getIdCompeticao()%>&idAtleta=<%=idAtleta%>" 
+                                                           href="forminscricaocompeticao.jsp?idCompeticao=<%=competicaoBuscada.getIdCompeticao()%>&idAtleta=<%=atletaVinculadoUp.getIdAtleta()%>" 
                                                            role="button">Inscrever-se em competições do evento</a><p>
                                     <%}%>
                             </div>
@@ -248,7 +219,7 @@
                     </div>
                 </div>        
 
-                <%}%>
+                
             </div>  
 
 
@@ -263,9 +234,6 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
-            function buscarEventos() {
-                //alert("Modificou");
-            }
 
 
 

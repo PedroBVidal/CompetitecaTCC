@@ -29,6 +29,9 @@ public class InscricaoCompeticaoColetiva implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idCompeticaoColetiva;
   
+    @ManyToOne
+    @JoinColumn(name = "competicaoModalidadeColetiva_idCompeticaoModalidade")
+    private CompeticaoModalidadeColetiva competicaoModalidadeColetiva;
     
     @ManyToOne
     @JoinColumn(name = "equipe_idEquipe")
@@ -42,13 +45,17 @@ public class InscricaoCompeticaoColetiva implements Serializable{
         idCompeticaoColetiva = 0;
         equipe = new Equipe();
         inscricaoAceita = false;
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva();
     }
 
-    public InscricaoCompeticaoColetiva(int idCompeticaoColetiva, Equipe equipe, boolean inscricaoAceita) {
+    public InscricaoCompeticaoColetiva(int idCompeticaoColetiva, CompeticaoModalidadeColetiva competicaoModalidadeColetiva, Equipe equipe, boolean inscricaoAceita) {
         this.idCompeticaoColetiva = idCompeticaoColetiva;
+        this.competicaoModalidadeColetiva = competicaoModalidadeColetiva;
         this.equipe = equipe;
         this.inscricaoAceita = inscricaoAceita;
     }
+
+    
 
     /**
      * @return the idCompeticaoColetiva
@@ -90,6 +97,20 @@ public class InscricaoCompeticaoColetiva implements Serializable{
      */
     public void setInscricaoAceita(boolean inscricaoAceita) {
         this.inscricaoAceita = inscricaoAceita;
+    }
+
+    /**
+     * @return the competicaoModalidadeColetiva
+     */
+    public CompeticaoModalidadeColetiva getCompeticaoModalidadeColetiva() {
+        return competicaoModalidadeColetiva;
+    }
+
+    /**
+     * @param competicaoModalidadeColetiva the competicaoModalidadeColetiva to set
+     */
+    public void setCompeticaoModalidadeColetiva(CompeticaoModalidadeColetiva competicaoModalidadeColetiva) {
+        this.competicaoModalidadeColetiva = competicaoModalidadeColetiva;
     }
 
 

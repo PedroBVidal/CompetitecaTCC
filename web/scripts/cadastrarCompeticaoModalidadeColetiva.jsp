@@ -62,7 +62,7 @@
         System.out.println("É um sistema eliminatório");
         boolean repescagem;
         
-        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio());
+        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao);
         
         if(sRepesgagem == null){
             repescagem = false;
@@ -87,7 +87,7 @@
         System.out.println("É um sistema misto");
         boolean repescagem;
         
-        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaMisto());
+        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaMisto(), competicao);
         
         
         if(sRepesgagem == null){

@@ -11,12 +11,13 @@
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeSoloControle"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <!DOCTYPE html>
 <%
 
     int idCms = Integer.parseInt(request.getParameter("idCms"));
     int idAtleta = Integer.parseInt(request.getParameter("idAtleta"));
-    
+    int idEvento = Integer.parseInt(request.getParameter("idCompeticao"));
     System.out.println("ID CMS"+ idCms);
     System.out.println("ID ATLETA:"+ idAtleta);
     
@@ -27,7 +28,7 @@
     CompeticaoModalidadeSolo competicaoModalidadeSolo = competicaoModalidadeSoloControle.buscarPorId(idCms);
     Atleta atleta = atletaControle.buscarPorId(idAtleta);
     
-    InscricaoCompeticaoSolo inscricaoCompeticaoSolo = new InscricaoCompeticaoSolo(0, atleta,false);
+    InscricaoCompeticaoSolo inscricaoCompeticaoSolo = new InscricaoCompeticaoSolo(0,competicaoModalidadeSolo, atleta,false);
     
     
     atleta.adicionarCompeticaoModalidadeSolo(competicaoModalidadeSolo);
@@ -39,6 +40,10 @@
     inscricaoCompeticaoSoloControle.salvar(inscricaoCompeticaoSolo);
     atletaControle.alterarAtleta(atleta);
     competicaoModalidadeSoloControle.alterar(competicaoModalidadeSolo);
-
+    String msg = "Engresso realizado com sucesso";
+    String color = "success";
+    
+    response.setCharacterEncoding("UTF-8");
+    response.sendRedirect("../forminscricaocompeticao.jsp?idAtleta="+idAtleta+"&idCompeticao="+idEvento+"&msg="+msg+"&color="+color);
     
 %>

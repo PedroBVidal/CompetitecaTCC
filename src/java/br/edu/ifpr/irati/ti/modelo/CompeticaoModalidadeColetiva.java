@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 
 @Entity(name = "competicaomodalidadecoletiva")
@@ -19,13 +21,15 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     
     @ManyToOne
     private Competicao competicao;
+    
     @OneToOne
     private ModalidadeColetiva modalidadeColetiva;
     
     @OneToMany(fetch = FetchType.EAGER)
     private List<EquipeCompeticao> equipesCompeticao;
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "competicaoModalidadeColetiva", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas;
 
     public CompeticaoModalidadeColetiva() {
@@ -42,14 +46,24 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
         this.competicao = competicao;
     }
+    
+    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao,Competicao competicao, String informacaoExtra) {
+        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, nomeCompeticao);
+        this.modalidadeColetiva = modalidadeColetiva;
+        this.equipesCompeticao = new ArrayList<>();
+        this.inscricoesCompeticoesColetivas = new ArrayList<>();
+        this.competicao = competicao;
+    }
 
-    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva, List<EquipeCompeticao> equipesCompeticao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, Competicao competicao ,boolean statusFormularioInscricaoPublica) {
+    public CompeticaoModalidadeColetiva(Competicao competicao, ModalidadeColetiva modalidadeColetiva, List<EquipeCompeticao> equipesCompeticao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica) {
         super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, confrontos, statusFormularioInscricaoPublica);
+        this.competicao = competicao;
         this.modalidadeColetiva = modalidadeColetiva;
         this.equipesCompeticao = equipesCompeticao;
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
-        this.competicao = competicao;
     }
+        
+    
 
 
 

@@ -58,7 +58,6 @@
     SistemaDeContagemControle sistemaDeContagemControle = new SistemaDeContagemControle();
     
     Competicao competicao = competicaoControle.buscarCompeticaoPorId(idEvento);
-    System.out.println("OlooooooooooooooooooooooooooooooooooooooooooooOoOoOoOo (SOLO): "+ competicao.getCmodalidadesolo());
     ModalidadeSolo modalidadeSolo = modalidadeSoloControle.buscaPorId(idModalidadeSolo);
     SistemaDeContagem sistemaDeContagem = sistemaDeContagemControle.buscarPorId(idSistemaDeContagem);
     SistemaDeDesempate sistemaDeDesempate = new SistemaDeDesempate(0, sistemaDesempate, sistemaDesempateSecundario);
@@ -67,7 +66,7 @@
         System.out.println("É um sistema eliminatório");
         boolean repescagem;
         
-        CompeticaoModalidadeSolo competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaEliminatorio());
+        CompeticaoModalidadeSolo competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaEliminatorio(), competicao);
         
         // Compra se o request consegui puxar uma parâmetro("sim"). Caso isso ocorre o sistema a ser cadastrado possui repescagem.
         if(sRepesgagem == null){
@@ -91,7 +90,7 @@
         System.out.println("É um sistema misto");
         boolean repescagem;
         
-        CompeticaoModalidadeSolo competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaMisto());
+        CompeticaoModalidadeSolo competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaMisto(), competicao);
 
         
         if(sRepesgagem == null){
@@ -114,7 +113,7 @@
     else{
         System.out.println("É um sistema todos contra todos");
         
-        CompeticaoModalidadeSolo competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaTodosContraTodos());
+        CompeticaoModalidadeSolo competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaTodosContraTodos(), competicao);
                
         
         SistemaTodosContraTodos sistemaTodosContraTodos = new SistemaTodosContraTodos(sistemaDeContagem, sistemaDeDesempate, 0, sistemaCompeticao, new CompeticaoModalidadeSolo());

@@ -33,17 +33,18 @@ public class Competicao implements Serializable {
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
     
-
+    @Column(name = "informacaoExtra", nullable = true, length = 400)
+    private String informacaoExtra;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private Set<UsuarioParticipante> administradores;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "competicao")
     @Fetch(value = FetchMode.SUBSELECT)
     private Set<CompeticaoModalidadeColetiva> cmodalidadecole;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "competicao")
     @Fetch(value = FetchMode.SUBSELECT)
     private Set<CompeticaoModalidadeSolo> cmodalidadesolo;
 
@@ -73,6 +74,7 @@ public class Competicao implements Serializable {
         dataTermino = new Date();
         inativo = false;
         privado = false;
+        informacaoExtra = "";
     }
 
     public Competicao(int idCompeticao, String nome, Date dataInicio, Date dataTermino) {
@@ -86,10 +88,24 @@ public class Competicao implements Serializable {
         this.inativo = false;
         this.privado = false;
     }
-
-    public Competicao(int idCompeticao, String nome, Set<UsuarioParticipante> administradores, Set<CompeticaoModalidadeColetiva> cmodalidadecole, Set<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino, boolean inativo, String codPriv, boolean privado) {
+    
+        public Competicao(int idCompeticao, String nome, Date dataInicio, Date dataTermino, String informacaoExtra) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
+        this.cmodalidadecole = new HashSet<>();
+        this.cmodalidadesolo = new HashSet<>();
+        this.administradores = new HashSet<>();
+        this.dataInicio = dataInicio;
+        this.dataTermino = dataTermino;
+        this.inativo = false;
+        this.privado = false;
+        this.informacaoExtra = informacaoExtra;
+    }
+
+    public Competicao(int idCompeticao, String nome, String informacaoExtra, Set<UsuarioParticipante> administradores, Set<CompeticaoModalidadeColetiva> cmodalidadecole, Set<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino, boolean inativo, String codPriv, boolean privado) {
+        this.idCompeticao = idCompeticao;
+        this.nome = nome;
+        this.informacaoExtra = informacaoExtra;
         this.administradores = administradores;
         this.cmodalidadecole = cmodalidadecole;
         this.cmodalidadesolo = cmodalidadesolo;
@@ -99,6 +115,8 @@ public class Competicao implements Serializable {
         this.codPriv = codPriv;
         this.privado = privado;
     }
+
+        
 
     
 
@@ -280,6 +298,20 @@ public class Competicao implements Serializable {
      */
     public void setCmodalidadesolo(Set<CompeticaoModalidadeSolo> cmodalidadesolo) {
         this.cmodalidadesolo = cmodalidadesolo;
+    }
+
+    /**
+     * @return the informacaoExtra
+     */
+    public String getInformacaoExtra() {
+        return informacaoExtra;
+    }
+
+    /**
+     * @param informacaoExtra the informacaoExtra to set
+     */
+    public void setInformacaoExtra(String informacaoExtra) {
+        this.informacaoExtra = informacaoExtra;
     }
     
     

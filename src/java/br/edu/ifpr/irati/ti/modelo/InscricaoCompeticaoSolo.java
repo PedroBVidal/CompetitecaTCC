@@ -25,6 +25,10 @@ public class InscricaoCompeticaoSolo implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idCompeticaoSolo;
     
+    @ManyToOne
+    @JoinColumn(name = "competicaoModalidadeSolo_idCompeticaoModalidade")
+    private CompeticaoModalidadeSolo competicaoModalidadeSolo;
+        
     
     @ManyToOne
     @JoinColumn(name = "atleta_idAtleta")
@@ -38,13 +42,17 @@ public class InscricaoCompeticaoSolo implements Serializable{
         idCompeticaoSolo = 0;
         atleta = new Atleta();
         inscricaoAceita = false;
+        competicaoModalidadeSolo = new CompeticaoModalidadeSolo();
     }
 
-    public InscricaoCompeticaoSolo(int idCompeticaoSolo, Atleta atleta, boolean inscricaoAceita) {
+    public InscricaoCompeticaoSolo(int idCompeticaoSolo, CompeticaoModalidadeSolo competicaoModalidadeSolo, Atleta atleta, boolean inscricaoAceita) {
         this.idCompeticaoSolo = idCompeticaoSolo;
+        this.competicaoModalidadeSolo = competicaoModalidadeSolo;
         this.atleta = atleta;
         this.inscricaoAceita = inscricaoAceita;
     }
+
+    
 
     /**
      * @return the idCompeticaoSolo
@@ -79,6 +87,20 @@ public class InscricaoCompeticaoSolo implements Serializable{
      */
     public void setInscricaoAceita(boolean inscricaoAceita) {
         this.inscricaoAceita = inscricaoAceita;
+    }
+
+    /**
+     * @return the competicaoModalidadeSolo
+     */
+    public CompeticaoModalidadeSolo getCompeticaoModalidadeSolo() {
+        return competicaoModalidadeSolo;
+    }
+
+    /**
+     * @param competicaoModalidadeSolo the competicaoModalidadeSolo to set
+     */
+    public void setCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo) {
+        this.competicaoModalidadeSolo = competicaoModalidadeSolo;
     }
     
     
