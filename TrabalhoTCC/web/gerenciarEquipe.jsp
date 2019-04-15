@@ -4,6 +4,7 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Equipe"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.SistemaEliminatorio"%>
@@ -51,7 +52,7 @@
     <body>
         <%
             UsuarioParticipante2 up2 = (UsuarioParticipante2) session.getAttribute("usuario");
-            if(up == null){
+            if(up2 == null){
                 
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             }else{
@@ -130,7 +131,7 @@
                                 <%
                                     for(Atleta atleta: equipe.getAtletas()){
                                         String nome = atleta.getUsuarioParticipante().getNome();
-                                        String email = atleta.getEmail();
+                                        String email = atleta.getUsuarioParticipante().getEmail();
                                     
                                 %>
                             <td><%=nome%></td>
@@ -175,7 +176,7 @@
                                     
                                     for(Competicao cpt: cc.buscarTodasCompeticoes()){
                                         
-                                    if(!cpt.isInativo() && !cpt.isPrivate()){
+                                    if(!cpt.isInativo() && !cpt.isPrivado()){
                                 
                                     String nomeCompeticao = cpt.getNome();
                                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -223,15 +224,15 @@
                                         <tbody>
                                             <%
                                     
-                                                for(Competicao cpt: equipe.){
+                                                for(CompeticaoModalidadeColetiva cptc: equipe.getCompeticoesModalidadeColeivas()){
                                         
-                                                if(!cpt.isInativo() && !cpt.isPrivate()){
-                                
-                                                String nomeCompeticao = cpt.getNome();
+                                                
+                                                    Competicao comp = cptc.getCompeticao();
+                                                String nomeCompeticao = comp.getNome();
                                                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                                 String dataInicio = sdf.format(cpt.getDataInicio());
                                                 String dataTermino = sdf.format(cpt.getDataTermino());
-        
+                                               
  
                             
                             
