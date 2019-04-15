@@ -34,7 +34,7 @@
         UsuarioParticipante usp = new UsuarioParticipante(id,nome,email,senha);
         UsuarioParticipanteControle uspc = new UsuarioParticipanteControle();
         uspc.criar(usp);
-        response.sendRedirect("../login.jsp?e=Cadastro efetuado, agora entre com o tipo Administrador");
+        response.sendRedirect("../login.jsp?color=success&msg=Cadastro efetuado, agora entre com o tipo Administrador");
     }
 
 %>
