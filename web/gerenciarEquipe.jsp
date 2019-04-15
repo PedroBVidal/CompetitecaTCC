@@ -16,6 +16,7 @@
 <%@page import="java.util.List"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.EquipeControle"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
@@ -51,7 +52,7 @@
     <body>
         <%
             UsuarioParticipante2 up2 = (UsuarioParticipante2) session.getAttribute("usuario");
-            if(up == null){
+            if(up2 == null){
                 
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             }else{
@@ -130,7 +131,7 @@
                                 <%
                                     for(Atleta atleta: equipe.getAtletas()){
                                         String nome = atleta.getUsuarioParticipante().getNome();
-                                        String email = atleta.getEmail();
+                                        String email = atleta.getUsuarioParticipante2();
                                     
                                 %>
                             <td><%=nome%></td>
@@ -194,7 +195,9 @@
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-clipboard-list"></i>
                                 </a> &nbsp;
-
+                            </td>
+                            <%}}%>
+                            </tbody>
                                 <script>
                                     //Código de busca da tabela
                                     $('input#txt_consulta').quicksearch('table#tabela tbody tr');

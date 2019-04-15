@@ -117,7 +117,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="gerenciamentoDeCompeticao.jsp?idCompeticao=<%=equipe.getIdEquipe()%>"><button class="btn btn-success">Gerenciar Equipe</button></a>
+                            <a href="gerenciarEquipe.jsp?idEquipe=<%=equipe.getIdEquipe()%>"><button class="btn btn-success">Gerenciar Equipe</button></a>
                         </div>
                     </div>
                 </div>
