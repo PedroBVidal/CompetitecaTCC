@@ -22,7 +22,7 @@
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipanteControle"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<a href="gerenciarEquipe.jsp"></a>
+
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -52,32 +52,30 @@
     <body>
         <%
             UsuarioParticipante2 up2 = (UsuarioParticipante2) session.getAttribute("usuario");
-            if(up2 == null){
-                
+            if (up2 == null) {
+
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
-            }else{
-                
+            } else {
+
                 EquipeControle equipeControle = new EquipeControle();
-                
-                
+
                 int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
                 Equipe equipe = equipeControle.buscarPorId(idEquipe);
-               
+
         %>
 
-        <header>
-            <jsp:include page="navbarUsuarioAdministrador.jsp" flush="true" />
-        </header>
 
+        <header>
+            <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
+        </header>
 
         <!-- Page Content -->
         <div class="container">
-            <%
-              request.setCharacterEncoding("UTF-8");
-          if(request.getParameter("msg") != null){
-              String mensagem = request.getParameter("msg");
-              String cor = request.getParameter("color");
-              
+            <%                request.setCharacterEncoding("UTF-8");
+                if (request.getParameter("msg") != null) {
+                    String mensagem = request.getParameter("msg");
+                    String cor = request.getParameter("color");
+
             %>
             <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
                 <strong><%=mensagem%></strong> .
@@ -87,9 +85,10 @@
             </div>
 
             <%
-            }
+                }
             %>
             <!-- Page Heading/Breadcrumbs -->
+
             <h1 class="mt-4 mb-3">Gerenciando equipe <span style="color: red;"><%=equipe.getNome()%></span>
 
             </h1><br>
@@ -107,17 +106,17 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content col-10">
-                    <div class="tab-pane dark" id="membros" role="tabpanel">
+                    <div class="tab-pane dark active" id="membros" role="tabpanel">
                         <div class="form-group input-group">
                             <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
                                 </a></span>
-                            <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
+                            <input name="consulta" id="txt_consulta1" placeholder="Consultar" type="text" class="form-control">
                         </div>
 
 
 
 
-                        <table id="tabela" class="table table-striped">
+                        <table id="tabela1" class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">Atleta</th>
@@ -129,10 +128,10 @@
                             <tbody>
 
                                 <%
-                                    for(Atleta atleta: equipe.getAtletas()){
+                                    for (Atleta atleta : equipe.getAtletas()) {
                                         String nome = atleta.getUsuarioParticipante().getNome();
-                                        String email = atleta.getUsuarioParticipante2();
-                                    
+                                        String email = atleta.getUsuarioParticipante().getEmail();
+
                                 %>
                             <td><%=nome%></td>
                             <td><%=email%></td>
@@ -150,17 +149,17 @@
                         </table>
                         <script>
                             //Código de busca da tabela
-                            $('input#txt_consulta').quicksearch('table#tabela tbody tr');
+                            $('input#txt_consulta1').quicksearch('table#tabela1 tbody tr');
 
                         </script>
                     </div>
-                    <div class="tab-pane active dark" id="competicoes" role="tabpanel">
+                    <div class="tab-pane dark" id="competicoes" role="tabpanel">
                         <div class="form-group input-group">
                             <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
                                 </a></span>
-                            <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
+                            <input name="consulta" id="txt_consulta2" placeholder="Consultar" type="text" class="form-control">
                         </div>
-                        <table class="table table-striped">
+                        <table id="tabela2" class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">Nome</th>
@@ -173,20 +172,17 @@
                             <tbody>
                                 <%
                                     CompeticaoControle cc = new CompeticaoControle();
-                                    
-                                    for(Competicao cpt: cc.buscarTodasCompeticoes()){
-                                        
-                                    if(!cpt.isInativo() && !cpt.isPrivate()){
-                                
-                                    String nomeCompeticao = cpt.getNome();
-                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                    String dataInicio = sdf.format(cpt.getDataInicio());
-                                    String dataTermino = sdf.format(cpt.getDataTermino());
-        
- 
-                            
-                            
-                            
+
+                                    for (Competicao cpt : cc.buscarTodasCompeticoes()) {
+
+                                        if (!cpt.isInativo() && !cpt.isPrivado()) {
+
+                                            String nomeCompeticao = cpt.getNome();
+                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                            String dataInicio = sdf.format(cpt.getDataInicio());
+                                            String dataTermino = sdf.format(cpt.getDataTermino());
+
+
                                 %>    
                             <td><%=nomeCompeticao%></td>
                             <td><%=dataInicio%></td>
@@ -196,143 +192,126 @@
                                     <i class="fas fa-clipboard-list"></i>
                                 </a> &nbsp;
                             </td>
-                            <%}}%>
+                            <%}
+                                }%>
                             </tbody>
-                                <script>
-                                    //Código de busca da tabela
-                                    $('input#txt_consulta').quicksearch('table#tabela tbody tr');
+                        </table>
+                        <script>
+                            //Código de busca da tabela
+                            $('input#txt_consulta2').quicksearch('table#tabela2 tbody tr');
 
-                                </script>
+                        </script>
 
-                                </div>
+                    </div>
 
 
-                                <div class="tab-pane" id="mcompeticoes" role="tabpanel">
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
-                                            </a></span>
-                                        <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
-                                    </div>
-                                    <table class="table table-striped">
-                                        <thead class="table-dark">
-                                            <tr>
-                                                <th scope="col">Nome</th>
-                                                <th scope="col">Data de Início</th>
-                                                <th scope="col">Data de Término</th>
-                                                <th scope="col">Ação</th>
-                                            </tr>
-                                        </thead>
+                    <div class="tab-pane" id="mcompeticoes" role="tabpanel">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                </a></span>
+                            <input name="consulta" id="txt_consulta3" placeholder="Consultar" type="text" class="form-control">
+                        </div>
+                        <table id="tabela3" class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Data de Início</th>
+                                    <th scope="col">Data de Término</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
 
-                                        <tbody>
-                                            <%
-                                    
-                                                for(Competicao cpt: equipe.){
-                                        
-                                                if(!cpt.isInativo() && !cpt.isPrivate()){
-                                
-                                                String nomeCompeticao = cpt.getNome();
-                                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                                String dataInicio = sdf.format(cpt.getDataInicio());
-                                                String dataTermino = sdf.format(cpt.getDataTermino());
-        
- 
+                            <tbody>
+                                <%
+
+                                    for (CompeticaoModalidadeColetiva cpt : equipe.getCompeticoesModalidadeColeivas()) {
+                                        Competicao cptct = cpt.getCompeticao();
+                                        if (!cptct.isInativo() && !cptct.isPrivado()) {
+
+                                            String nomeCompeticao = cptct.getNome();
+                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                            String dataInicio = sdf.format(cptct.getDataInicio());
+                                            String dataTermino = sdf.format(cptct.getDataTermino());
+
+
+                                %>    
+                            <td><%=nomeCompeticao%></td>
+                            <td><%=dataInicio%></td>
+                            <td><%=dataTermino%></td>
+                            <td><a href="gerenciarCompModColetiva.jsp?id=<%=cptct.getIdCompeticao()%>" class="btn btn-success">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-clipboard-list"></i>
+                                </a> &nbsp;
+                            </td>
+                            <%}
+                                        }%>
+                            </tbody>
+
+                        </table>
+                        <script>
+                            //Código de busca da tabela
+                            $('input#txt_consulta3').quicksearch('table#tabela3 tbody tr');
+
+                        </script>
+
+                    </div>
+
+
+
+
+
+
+                    <div class="tab-pane" id="solicitacoes" role="tabpanel">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                </a></span>
+                            <input name="consulta" id="txt_consulta4" placeholder="Consultar" type="text" class="form-control">
+                        </div>
+
+
+
+
+                        <table id="tabela4" class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Usuário</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            <td>Nome</td>
+                            <td>Nome</td>
+                            <td>Nome</td>
+
+                            </tbody>
+
+
+
+                        </table>
+                        <script>
+                            //Código de busca da tabela
+                            $('input#txt_consulta4').quicksearch('table#tabela4 tbody tr');
+
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
                             
-                            
-                            
-                                            %>    
-                                        <td><%=nomeCompeticao%></td>
-                                        <td><%=dataInicio%></td>
-                                        <td><%=dataTermino%></td>
-                                        <td><a href="gerenciarCompModColetiva.jsp?id=<%=cpt.getIdCompeticao()%>" class="btn btn-success">
-                                                <!-- Adicionar icone -->
-                                                <i class="fas fa-clipboard-list"></i>
-                                            </a> &nbsp;
-
-                                            <script>
-                                                //Código de busca da tabela
-                                                $('input#txt_consulta').quicksearch('table#tabela tbody tr');
-
-                                            </script>
-
-                                            </div>
-
-
-                                            </div>
-
-
-                                            <div class="tab-pane" id="messages" role="tabpanel">
-
-                                            </div>
-                                            <div class="tab-pane" id="settings" role="tabpanel">
-                                                <div class="form-group input-group">
-                                                    <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
-                                                        </a></span>
-                                                    <input name="consulta" id="txt_consulta2" placeholder="Consultar" type="text" class="form-control">
-                                                </div>
 
 
 
 
-                                                <table id="tabela2" class="table table-striped">
-                                                    <thead class="table-dark">
-                                                        <tr>
-                                                            <th scope="col">Usuário</th>
-                                                            <th scope="col">Email</th>
-                                                            <th scope="col">Ação</th>
-                                                        </tr>
-                                                    </thead>
+        <!-- Bootstrap core JavaScript -->
 
-                                                    <tbody>
-                                                        <%
-                                                            //UsuarioParticipanteControle upca = new UsuarioParticipanteControle();
-                                                            for(UsuarioParticipante upact: competicao.getAdministradores()){
-                                
-                                                            String nomeUsuario = upact.getNome();
-                                                            String email = upact.getEmail();
-                                    
-                            
-                            
-                            
-                                                        %>    
-                                                    <td><%=nomeUsuario%></td>
-                                                    <td><%=email%></td>
-                                                    <td>
-                                                        <%
-                                                            if(!email.equals(up.getEmail())){
-                                                        %>
-                                                        <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=upact.getIdUsuario()%>&idComp=<%=competicao.getIdCompeticao()%>&op=2" class="btn btn-danger">
-                                                            <!-- Adicionar icone -->
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </a>
-                                                        <%}%>
-                                                    </td>    
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <%
+            }
+        %>
+    </body>
 
-                                                    </tbody>
-
-
-                                                    <%}%>
-                                                </table>
-                                                <script>
-                                                    //Código de busca da tabela
-                                                    $('input#txt_consulta2').quicksearch('table#tabela2 tbody tr');
-
-                                                </script>
-                                            </div>
-                                            </div>
-
-                                            </div>
-                                            </div>
-
-
-
-
-                                            <!-- Bootstrap core JavaScript -->
-
-                                            <script src="vendor/jquery/jquery.min.js"></script>
-                                            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                                            <%
-                                            }
-                                            %>
-                                            </body>
-
-                                            </html>
+</html>

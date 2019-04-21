@@ -104,14 +104,14 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir <%=equipe.getNome()%>?</h5>
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
 
                                         <div class="modal-footer">
-                                            <a href="scripts/cadastrarcompeticao.jsp?op=1&idCompeticao=<%=equipe.getIdEquipe()%>"><button class="btn btn-secondary">Sim</button></a>
-                                            <button type="button" class="btn btn-primary">Cancelar</button>
+                                            <a href="scripts/editarEquipe.jsp?op=2&idEquipe=<%=equipe.getIdEquipe()%>&idUsuario=<%=usuarioParticipante.getIdUsuario()%>"><button class="btn btn-secondary">Sim</button></a>
+                                            <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
 
                                         </div>
                                     </div>

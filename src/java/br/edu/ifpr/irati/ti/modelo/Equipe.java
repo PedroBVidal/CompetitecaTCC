@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,10 +27,9 @@ public class Equipe implements Serializable {
 
     @ManyToOne
     private UsuarioParticipante2 administrador;
-    
+
     @Column(name = "nome", nullable = false)
     private String nome;
-
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
@@ -40,25 +38,25 @@ public class Equipe implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Confronto> confrontosModalidadeColetiva;
-    
+
     @OneToMany
     private List<MensagemRecebida> mensagens;
 
     /*@ManyToOne
     //@JoinColumn(name = "competicao_idCompeticao")
     private Competicao competicao;
-    */
-    
-    @OneToMany (mappedBy = "equipe")
+     */
+    @OneToMany(mappedBy = "equipe",fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas;
-    
+
     @OneToOne
     private ModalidadeColetiva modalidade;
-        
-        
+
     public Equipe() {
         this.idEquipe = 0;
         this.nome = "";
@@ -76,7 +74,7 @@ public class Equipe implements Serializable {
         this.nome = nome;
         this.atletas = new ArrayList<>();
         this.confrontosModalidadeColetiva = new ArrayList<>();
-  //      this.competicao = new Competicao();
+        //      this.competicao = new Competicao();
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
         this.competicoesModalidadeColeivas = new ArrayList<>();
         this.administrador = new UsuarioParticipante2();
@@ -88,26 +86,26 @@ public class Equipe implements Serializable {
         this.nome = nome;
         this.atletas = new ArrayList<>();
         this.confrontosModalidadeColetiva = new ArrayList<>();
-    //    this.competicao = competicao;
+        //    this.competicao = competicao;
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
         this.competicoesModalidadeColeivas = new ArrayList<>();
         this.administrador = administrador;
         this.modalidade = new ModalidadeColetiva();
     }
 
-    public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador ,ModalidadeColetiva modalidade,boolean aprovada) {
+    public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador, ModalidadeColetiva modalidade, boolean aprovada) {
         this.idEquipe = idEquipe;
         this.nome = nome;
         this.atletas = new ArrayList<>();
         this.confrontosModalidadeColetiva = new ArrayList<>();
-      //  this.competicao = new Competicao();
+        //  this.competicao = new Competicao();
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
         this.competicoesModalidadeColeivas = new ArrayList<>();
         this.administrador = administrador;
         this.modalidade = modalidade;
     }
 
-    public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador ,List<Atleta> atletas,ModalidadeColetiva modalidade, boolean aprovada) {
+    public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador, List<Atleta> atletas, ModalidadeColetiva modalidade, boolean aprovada) {
         this.idEquipe = idEquipe;
         this.nome = nome;
         this.atletas = atletas;
@@ -118,7 +116,7 @@ public class Equipe implements Serializable {
         this.modalidade = modalidade;
     }
 
-    public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador, List<Atleta> atletas,ModalidadeColetiva modalidade, List<Confronto> confrontosModalidadeColetiva, List<MensagemRecebida> mensagens, Competicao competicao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas) {
+    public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador, List<Atleta> atletas, ModalidadeColetiva modalidade, List<Confronto> confrontosModalidadeColetiva, List<MensagemRecebida> mensagens, Competicao competicao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas) {
         this.idEquipe = idEquipe;
         this.nome = nome;
         this.atletas = atletas;
@@ -131,12 +129,6 @@ public class Equipe implements Serializable {
         this.modalidade = modalidade;
     }
 
-    
-    
-
-    
-
-    
     public void adicionarAtleta(Atleta atleta) {
         this.getAtletas().add(atleta);
     }
@@ -180,8 +172,6 @@ public class Equipe implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-
 
     /**
      * @return the atletas
@@ -229,17 +219,16 @@ public class Equipe implements Serializable {
     /**
      * @return the competicao
      */
-   /* public Competicao getCompeticao() {
+    /* public Competicao getCompeticao() {
         return competicao;
     }
 
     /**
      * @param competicao the competicao to set
      */
-   /* public void setCompeticao(Competicao competicao) {
+ /* public void setCompeticao(Competicao competicao) {
         this.competicao = competicao;
     }*/
-
     /**
      * @return the inscricoesCompeticoesColetivas
      */
@@ -248,7 +237,8 @@ public class Equipe implements Serializable {
     }
 
     /**
-     * @param inscricoesCompeticoesColetivas the inscricoesCompeticoesColetivas to set
+     * @param inscricoesCompeticoesColetivas the inscricoesCompeticoesColetivas
+     * to set
      */
     public void setInscricoesCompeticoesColetivas(List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas) {
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
@@ -262,7 +252,8 @@ public class Equipe implements Serializable {
     }
 
     /**
-     * @param competicoesModalidadeColeivas the competicoesModalidadeColeivas to set
+     * @param competicoesModalidadeColeivas the competicoesModalidadeColeivas to
+     * set
      */
     public void setCompeticoesModalidadeColeivas(List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas) {
         this.competicoesModalidadeColeivas = competicoesModalidadeColeivas;
@@ -296,8 +287,4 @@ public class Equipe implements Serializable {
         this.modalidade = modalidade;
     }
 
-    
-
-    
-    
 }
