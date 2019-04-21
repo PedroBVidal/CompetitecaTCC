@@ -44,7 +44,7 @@
             function validatePassword() {
             var password = document.getElementById("password")
                     , confirm_password = document.getElementById("confirm_password");
-            if (password.value != confirm_password.value) {
+            if (password.value !== confirm_password.value) {    
             confirm_password.setCustomValidity("As senhas não coincidem!");
             } else {
             confirm_password.setCustomValidity('');

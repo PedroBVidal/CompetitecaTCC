@@ -44,7 +44,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
                                 <a class="dropdown-item" href="scripts/ctrlacesso.jsp?c=1">Sair</a>
-                                <a class="dropdown-item" href="scripts/scriptuserParticipante.jsp?idUsuario=<%=up.getIdUsuario()%>&c=2">Editar Perfil</a>
+                                <a class="dropdown-item" href="editaUsuarioParticipante.jsp?idUsuario=<%=up.getIdUsuario()%>&c=2">Editar Perfil</a>
                             </div>
                         </li>
                        
