@@ -47,14 +47,14 @@ public class CadastroSistemCompEModalidade {
         SistemaTodosContraTodos sistemaTodosContraTodos = new SistemaTodosContraTodos(sistemaDeContagem, sistemaDeDesempate, 0, "Sistema todos contra todos", new CompeticaoModalidadeColetiva());
 
         //CompeticaoModalidadeSolo competicaoModalidadeSolo = new CompeticaoModalidadeSolo(mS, true, 0, "IRAJIF TESTE", new SistemaTodosContraTodos());
-        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(mC, 0, "Tenis (Dupla)", new SistemaTodosContraTodos());
+        //CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(mC, 0, "Tenis (Dupla)", new SistemaTodosContraTodos());
         
         Competicao competicao = eventoDAO.buscarPorId(1);
-        competicao.adicionarCompeticaoModalidadeColetiva(competicaoModalidadeColetiva);
+        //competicao.adicionarCompeticaoModalidadeColetiva(competicaoModalidadeColetiva);
         //competicao.adicionarCompeticaoModalidadeColetiva(competicaoModalidadeColetiva);
         
-        competicaoModalidadeColetiva.setSistemaDeCompeticao(sistemaTodosContraTodos);
-        sistemaTodosContraTodos.setCompeticaoModalidade(competicaoModalidadeColetiva);
+        //competicaoModalidadeColetiva.setSistemaDeCompeticao(sistemaTodosContraTodos);
+       // sistemaTodosContraTodos.setCompeticaoModalidade(competicaoModalidadeColetiva);
         //competicaoModalidadeColetiva.setSistemaDeCompeticao(sistemaTodosContraTodos);
         //sistemaTodosContraTodos.setCompeticaoModalidade(competicaoModalidadeSolo);
         
@@ -64,7 +64,7 @@ public class CadastroSistemCompEModalidade {
         //sistemaDeContagemDAO.salvar(sistemaDeContagem);
         //sistemaDeDesempateDAO.salvar(sistemaDeDesempate);
         //competicaoModalidadeSoloDAO.salvar(competicaoModalidadeSolo);
-        competicaoModalidadeColetivaDAO.salvar(competicaoModalidadeColetiva);
+       // competicaoModalidadeColetivaDAO.salvar(competicaoModalidadeColetiva);
         eventoDAO.alterar(competicao);
 
         
