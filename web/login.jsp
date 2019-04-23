@@ -94,21 +94,8 @@
 
         <!-- Page Content -->
         <div class="container">
-            <%
-                request.setCharacterEncoding("UTF-8");
-            if(request.getParameter("e") != null){
-                String erro = request.getParameter("e");
-            %>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong><%=erro%></strong> .
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <%
-            }
-            %>
+            
+            
             <%
                 request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("msg") != null) {

@@ -75,7 +75,7 @@
         }
         if (cmd == 1) {
             
-            
+          try{  
             UsuarioParticipante2 usuarioParticipante = new UsuarioParticipante2(0, email, nome, senha);
             Atleta atleta = new Atleta(0, dataNascimento, cpf);
             
@@ -92,6 +92,9 @@
             uspc.criar(usuarioParticipante);
 
             response.sendRedirect("../login.jsp?color=success&msg=Cadastro efetuado, agora entre com o tipo Participante");
+        }catch(Exception e){
+            response.sendRedirect("../signup.jsp?p=2&color=danger&msg="+e.getMessage());
+        }
         }
 
 %>

@@ -127,7 +127,24 @@
         <%}
         if(request.getParameter("p").equals("2")){
         %>
+           
         <div class="container">
+               <%
+                request.setCharacterEncoding("UTF-8");
+                if (request.getParameter("msg") != null) {
+                    String mensagem = request.getParameter("msg");
+                    String cor = request.getParameter("color");
+            %>
+            <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
+                <strong><%=mensagem%></strong> .
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <%
+                }
+            %>
             <h1 class="my-4">Cadastro para Participantes</h1>
             <div class="card">
                 <h5 class="card-header">Cadastro</h5>
@@ -192,9 +209,26 @@
         if(request.getParameter("p").equals("3")){
         
         %>
+        
         <div class="container">
-            <h1 class="my-4">Cadastro para Administradores</h1>
+               <%
+                request.setCharacterEncoding("UTF-8");
+                if (request.getParameter("msg") != null) {
+                    String mensagem = request.getParameter("msg");
+                    String cor = request.getParameter("color");
+            %>
+            <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
+                <strong><%=mensagem%></strong> .
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
+            <%
+                }
+            %>
+            <h1 class="my-4">Cadastro para Administradores</h1>
+            
 
             <form action="scripts/scriptuserAdministrador.jsp" method="POST" class="col" validate>
                 <input type="hidden" name="c" value="1">

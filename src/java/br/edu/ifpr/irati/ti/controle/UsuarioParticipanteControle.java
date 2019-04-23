@@ -19,8 +19,12 @@ public class UsuarioParticipanteControle {
     Dao<UsuarioParticipante> uspd = new GenericDAO<>(UsuarioParticipante.class);
     UsuarioAdministradorDAO usuarioAdministradorDAO = new UsuarioAdministradorDAO();
     
-    public void criar(UsuarioParticipante up){
+    public void criar(UsuarioParticipante up) throws Exception{
+        try{
         uspd.salvar(up);
+        }catch(Exception e){
+            throw new Exception("O Email "+up.getEmail()+" ja existe em nossa base de dado. Tente novamente");
+        }
     }
     public List<UsuarioParticipante> buscarTodos(){
         return uspd.buscarTodos(UsuarioParticipante.class);

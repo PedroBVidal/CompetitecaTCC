@@ -3,6 +3,7 @@ import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.modelo.ModalidadeColetiva;
 import br.edu.ifpr.irati.ti.modelo.ModalidadeSolo;
+import br.edu.ifpr.irati.ti.modelo.Segmento;
 import br.edu.ifpr.irati.ti.modelo.SistemaDeContagem;
 import br.edu.ifpr.irati.ti.modelo.SistemaDeDesempate;
 
@@ -16,7 +17,7 @@ import br.edu.ifpr.irati.ti.modelo.SistemaDeDesempate;
  *
  * @author Usuário
  */
-public class SistemasDesempateEContagem {
+public class GeraTudo {
     
     
     public static void main(String[] args) {
@@ -26,6 +27,10 @@ public class SistemasDesempateEContagem {
         Dao<SistemaDeDesempate> sistemaDeDesempateDAO = new GenericDAO<>(SistemaDeDesempate.class);
         Dao<ModalidadeColetiva> modalidadeColetivaDAO = new GenericDAO<>(ModalidadeColetiva.class);
         Dao<ModalidadeSolo> modalidadeSoloDAO = new GenericDAO<>(ModalidadeSolo.class);
+        Dao<Segmento> SegmentoDAO = new GenericDAO<>(Segmento.class);
+        
+        Segmento segum = new Segmento(0, "4o. Info");
+        Segmento segdois = new Segmento(0, "4o. Agro");
         
         
         SistemaDeContagem sistemaDeContagem1 = new SistemaDeContagem(0, 1, 0, 0, "Sistema 1-0");
@@ -53,6 +58,8 @@ public class SistemasDesempateEContagem {
       
         modalidadeSoloDAO.salvar(modalidadeSolo4);
         
+        SegmentoDAO.salvar(segum);
+        SegmentoDAO.salvar(segdois);
         System.exit(0);
       
     }
