@@ -9,12 +9,15 @@
 <%
     request.setCharacterEncoding("UTF-8");
     String nome = request.getParameter("nome");
-    
-    String endereco = request.getParameter("endereco");
+    String cep = request.getParameter("cep");
+    String estado = request.getParameter("estado");
+    String bairro = request.getParameter("bairro");
+    String endereco = request.getParameter("rua");
+    int numero = Integer.parseInt(request.getParameter("numero"));
     String cidade = request.getParameter("cidade");
     int id = Integer.parseInt(request.getParameter("id"));
     int op = Integer.parseInt(request.getParameter("op"));
-    Local local = new Local(id,nome,endereco,cidade);
+    Local local = new Local(id,nome,cep,endereco,numero,bairro,cidade,estado);
     if(op == 1){
         LocalControle lc = new LocalControle();
         try{

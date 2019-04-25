@@ -30,21 +30,35 @@ public class Local implements Serializable {
     
     @Column(name="endereco",nullable = false)
     private String endereco;
-    
+    @Column(name="numero",nullable=false)
+    private int numero;
+    @Column(name="cep", nullable=false)
+    private String cep;
+    @Column(name="estado", nullable=false)
+    private String estado;
     @Column(name="cidade",nullable = false)
     private String cidade;
+    @Column(name="bairro", nullable=false)
+    private String bairro;
 
-    public Local(int idLocal, String nome, String endereco, String cidade) {
+    public Local(int idLocal, String nome, String cep,String endereco, int numero, String bairro ,String cidade, String estado) {
         this.idLocal = idLocal;
         this.nome = nome;
         this.endereco = endereco;
+        this.numero = numero;
+        this.estado = estado;
         this.cidade = cidade;
+        this.cep = cep;
+        this.bairro = bairro;
     }
     public Local() {
         this.idLocal = 0;
         this.nome = "";
         this.endereco = "";
         this.cidade = "";
+        this.estado = "";
+        this.numero = 0;
+        this.cep = "";
     }
 
     public int getIdLocal() {
@@ -77,6 +91,38 @@ public class Local implements Serializable {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
     
     
