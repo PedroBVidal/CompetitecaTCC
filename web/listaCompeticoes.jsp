@@ -106,6 +106,7 @@
                         <div class="modal-body">
                             <form method="POST" action="scripts/ingressoPvd.jsp">
                                 <center>
+                                    <input type="hidden" value="<%=up.getIdUsuario()%>" name="idUsuario">    
                                 <input type="text" class="form-control col-7" name="codigo" placeholder="Insira o código aqui">
                             </center>
                         </div>

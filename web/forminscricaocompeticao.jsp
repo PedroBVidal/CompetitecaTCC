@@ -104,9 +104,10 @@
                                 <%      
                                     for (CompeticaoModalidadeSolo cms : competicao.getCmodalidadesolo()) {
                                         int flag = 0;
-                                        
+                                        char processo = ' ';
                                         for(InscricaoCompeticaoSolo ics : atleta.getInscricoesCompeticaoSolo()){
                                            if(ics.getCompeticaoModalidadeSolo().getIdCompeticaoModalidade() == cms.getIdCompeticaoModalidade()){
+                                               processo = ics.getInscricaoAceita();
                                                flag = 1;
                                                break;
                                            } 
@@ -177,6 +178,7 @@
                                 </div>                           
                                 <%}
                                     if (flag == 1) {
+                                        if(processo == 'E'){
 
                                 %>
                                 <div class="form-group">
@@ -185,7 +187,7 @@
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cms.getIdCompeticaoModalidade()%>">
                                                 <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
-                                            </button><button type="input" class="btn btn-secondary" disabled="true" style="width: 160px;">Inscrição realizada</button>
+                                            </button><button type="input" class="btn btn-warning" disabled="true" style="width: 160px;">Em Aprovação</button>
                                         </div>
                                     </div>
                                 </div>
@@ -222,6 +224,101 @@
                                             </div> 
  
                                 <%}
+                                if(processo == 'N'){
+
+                                %>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cms.getNomeCompeticao()%>">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cms.getIdCompeticaoModalidade()%>">
+                                                <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
+                                            </button><button type="input" class="btn btn-danger" disabled="true" style="width: 160px;"><i class="fas fa-times"></i>Negada</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                 
+                                            <!-- Modal Saiba mais -->
+                                            <div class="modal fade" id="2<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel"><%=cms.getNomeCompeticao()%></h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                            <p><%
+                                                        if (cms.getInformacaoExtra() != null) {%>
+                                                                <%=cms.getInformacaoExtra()%>
+                                                                <%} else {
+                                                                %>
+                                                                Não há informações extras sobre essa competição
+                                                                <%}%></p>
+
+                                                        </div>
+
+
+                                                        <div class="modal-footer">
+                                                            <a class="btn btn-primary" data-dismiss="modal">Ok!</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
+ 
+                                <%}
+                                if(processo == 'A'){
+
+                                %>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cms.getNomeCompeticao()%>">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cms.getIdCompeticaoModalidade()%>">
+                                                <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
+                                            </button><button type="input" class="btn btn-danger" disabled="true" style="width: 160px;"><i class="fas fa-check"></i> &nbsp;Aprovada</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                 
+                                            <!-- Modal Saiba mais -->
+                                            <div class="modal fade" id="2<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel"><%=cms.getNomeCompeticao()%></h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                            <p><%
+                                                        if (cms.getInformacaoExtra() != null) {%>
+                                                                <%=cms.getInformacaoExtra()%>
+                                                                <%} else {
+                                                                %>
+                                                                Não há informações extras sobre essa competição
+                                                                <%}%></p>
+
+                                                        </div>
+
+
+                                                        <div class="modal-footer">
+                                                            <a class="btn btn-primary" data-dismiss="modal">Ok!</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
+ 
+                                <%}%>
+                                
+                                            
+                                            <%}
                                         }
                                     }%>
 

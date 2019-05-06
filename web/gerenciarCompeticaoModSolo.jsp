@@ -97,8 +97,9 @@
                 <div class="list-group col-2" id="myList" role="tablist">
                     <a class="list-group-item list-group-item-action active" data-toggle="list" href="#messages" role="tab">Mensagens</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#inscricao" role="tab">Inscrições</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Competidores</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">Classificações</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Settings</a>
+
 
 
                 </div>
@@ -106,7 +107,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content col-10">
                     <div class="tab-pane dark" id="inscricao" role="tabpanel">
-                        
+
                         <table class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
@@ -120,7 +121,7 @@
                             
                                     for(InscricaoCompeticaoSolo iMs: competicao.getInscricoesCompeticaoSolo()){
                                 
-                                    String nomeAtleta = iMs.getAtleta().getNome();
+                                    String nomeAtleta = iMs.getAtleta().getUsuarioParticipante().getNome();
                                     
                             
                             
@@ -128,14 +129,18 @@
                                 %>    
                             <td><%=nomeAtleta%></td>
                             <td>
-                            <a href="scripts/excluiAtletaCompModSolo.jsp?idInsc=<%=iMs.getIdCompeticaoSolo()%>&idCompSolo=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
-                                <!-- Adicionar icone -->
-                                <i class="fas fa-trash-alt"></i>
-                            </a> &nbsp;
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMs.getAtleta().getIdAtleta()%>">
-                                <!-- Adicionar icone -->
-                                <i class="fas fa-eye"></i>
-                            </button></td>
+                                <a href="scripts/excluiAtletaCompModSolo.jsp?idInsc=<%=iMs.getIdCompeticaoSolo()%>&idCompSolo=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-success">
+                                    <!-- Adicionar icone -->
+                                  <i class="fas fa-check"></i>
+                                </a> &nbsp;
+                                <a href="scripts/excluiAtletaCompModSolo.jsp?idInsc=<%=iMs.getIdCompeticaoSolo()%>&idCompSolo=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
+                                    <!-- Adicionar icone -->
+                                   <i class="fas fa-times"></i>
+                                </a> &nbsp;
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMs.getAtleta().getIdAtleta()%>">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-eye"></i>
+                                </button></td>
 
                             </tbody>
 
@@ -151,9 +156,9 @@
                                         <div class="modal-body">
 
                                             Nome do Atleta:&nbsp; <%=nomeAtleta%> <br>
-                                            Email para Contato:&nbsp;<%=iMs.getAtleta().getEmail()%>
+                                            Email para Contato:&nbsp;<%=iMs.getAtleta().getUsuarioParticipante().getEmail()%>
 
-                                            
+
 
                                         </div>
                                         <div class="modal-footer">
@@ -164,7 +169,7 @@
                             </div>
                             <%}%>
                         </table>
-                        
+
                     </div>
 
 
@@ -175,7 +180,7 @@
 
 
                     <div class="tab-pane active" id="messages" role="tabpanel">
-                        
+
                     </div>
                     <div class="tab-pane" id="settings" role="tabpanel">Porem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
                 </div>

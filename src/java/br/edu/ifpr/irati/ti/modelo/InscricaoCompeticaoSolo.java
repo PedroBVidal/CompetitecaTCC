@@ -35,17 +35,17 @@ public class InscricaoCompeticaoSolo implements Serializable{
     private Atleta atleta;
     
     @Column(name = "aprovada")
-    @Type(type = "true_false")
-    private boolean inscricaoAceita; 
+    
+    private char inscricaoAceita; 
 
     public InscricaoCompeticaoSolo() {
         idCompeticaoSolo = 0;
         atleta = new Atleta();
-        inscricaoAceita = false;
+        inscricaoAceita = ' ';
         competicaoModalidadeSolo = new CompeticaoModalidadeSolo();
     }
 
-    public InscricaoCompeticaoSolo(int idCompeticaoSolo, CompeticaoModalidadeSolo competicaoModalidadeSolo, Atleta atleta, boolean inscricaoAceita) {
+    public InscricaoCompeticaoSolo(int idCompeticaoSolo, CompeticaoModalidadeSolo competicaoModalidadeSolo, Atleta atleta, char inscricaoAceita) {
         this.idCompeticaoSolo = idCompeticaoSolo;
         this.competicaoModalidadeSolo = competicaoModalidadeSolo;
         this.atleta = atleta;
@@ -78,14 +78,14 @@ public class InscricaoCompeticaoSolo implements Serializable{
     /**
      * @return the inscricaoAceita
      */
-    public boolean isInscricaoAceita() {
+    public char getInscricaoAceita() {
         return inscricaoAceita;
     }
 
     /**
      * @param inscricaoAceita the inscricaoAceita to set
      */
-    public void setInscricaoAceita(boolean inscricaoAceita) {
+    public void setInscricaoAceita(char inscricaoAceita) {
         this.inscricaoAceita = inscricaoAceita;
     }
 
