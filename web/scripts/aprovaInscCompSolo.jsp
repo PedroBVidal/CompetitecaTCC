@@ -19,7 +19,7 @@
 
 
 <%
-
+   
     int idInsc = Integer.parseInt(request.getParameter("idInsc"));
     int opt = Integer.parseInt(request.getParameter("opt"));
     String idComp = request.getParameter("idComp");
