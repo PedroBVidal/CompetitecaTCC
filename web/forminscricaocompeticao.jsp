@@ -233,7 +233,7 @@
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cms.getIdCompeticaoModalidade()%>">
                                                 <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
-                                            </button><button type="input" class="btn btn-danger" disabled="true" style="width: 160px;"><i class="fas fa-times"></i>Negada</button>
+                                            </button><button type="input" class="btn btn-danger" disabled="true" style="width: 160px;"><i class="fas fa-times" style="margin-right: 10px;"></i>Negada</button>
                                         </div>
                                     </div>
                                 </div>
@@ -279,7 +279,7 @@
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cms.getIdCompeticaoModalidade()%>">
                                                 <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
-                                            </button><button type="input" class="btn btn-danger" disabled="true" style="width: 160px;"><i class="fas fa-check"></i> &nbsp;Aprovada</button>
+                                            </button><button type="input" class="btn btn-success" disabled="true" style="width: 160px;"><i class="fas fa-check"></i> &nbsp;Aprovada</button>
                                         </div>
                                     </div>
                                 </div>

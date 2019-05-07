@@ -26,5 +26,8 @@ public class InscricaoCompeticaoModalidadeSoloControle {
     public InscricaoCompeticaoSolo buscarId(int id){
         return inscricaoCompeticaoModalidadeSoloDAO.buscarPorId(id);
     }
+    public void alterar(InscricaoCompeticaoSolo ics){
+        inscricaoCompeticaoModalidadeSoloDAO.alterar(ics);
+    }
     
 }

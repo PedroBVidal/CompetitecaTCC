@@ -63,7 +63,7 @@
     }
 
     function meu_callback(conteudo) {
-        if (!("Message" in conteudo) && conteudo.deliverable == true) {
+        if (!("Message" in conteudo) && conteudo.reachable_smtp_server == true) {
             //Atualiza os campos com os valores.
             document.getElementById('email').value=(conteudo.address);
            

@@ -120,7 +120,7 @@
                                 <%
                             
                                     for(InscricaoCompeticaoSolo iMs: competicao.getInscricoesCompeticaoSolo()){
-                                
+                                        if(iMs.getInscricaoAceita() == 'E'){
                                     String nomeAtleta = iMs.getAtleta().getUsuarioParticipante().getNome();
                                     
                             
@@ -129,11 +129,11 @@
                                 %>    
                             <td><%=nomeAtleta%></td>
                             <td>
-                                <a href="scripts/excluiAtletaCompModSolo.jsp?idInsc=<%=iMs.getIdCompeticaoSolo()%>&idCompSolo=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-success">
+                                <a href="scripts/aprovaInscCompSolo.jsp?opt=1&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-success">
                                     <!-- Adicionar icone -->
                                   <i class="fas fa-check"></i>
                                 </a> &nbsp;
-                                <a href="scripts/excluiAtletaCompModSolo.jsp?idInsc=<%=iMs.getIdCompeticaoSolo()%>&idCompSolo=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
+                                <a href="scripts/aprovaInscCompSolo.jsp?opt=2&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
                                     <!-- Adicionar icone -->
                                    <i class="fas fa-times"></i>
                                 </a> &nbsp;
@@ -167,7 +167,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <%}%>
+                            <%}}%>
                         </table>
 
                     </div>
@@ -182,7 +182,66 @@
                     <div class="tab-pane active" id="messages" role="tabpanel">
 
                     </div>
-                    <div class="tab-pane" id="settings" role="tabpanel">Porem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                        <div class="tab-pane" id="settings" role="tabpanel">
+                            <table class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Atleta</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <%
+                            
+                                    for(InscricaoCompeticaoSolo iMs: competicao.getInscricoesCompeticaoSolo()){
+                                        if(iMs.getInscricaoAceita() == 'A'){
+                                    String nomeAtleta = iMs.getAtleta().getUsuarioParticipante().getNome();
+                                    
+                            
+                            
+                            
+                                %>    
+                            <td><%=nomeAtleta%></td>
+                            <td>
+                               
+                                <a href="scripts/aprovaInscCompSolo.jsp?opt=3&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
+                                    <!-- Adicionar icone -->
+                                   <i class="fas fa-trash-alt"></i>
+                                </a> &nbsp;
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMs.getAtleta().getIdAtleta()%>">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-eye"></i>
+                                </button></td>
+
+                            </tbody>
+
+                            <div class="modal fade" id="<%=iMs.getAtleta().getIdAtleta()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel"><%=nomeAtleta%></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            Nome do Atleta:&nbsp; <%=nomeAtleta%> <br>
+                                            Email para Contato:&nbsp;<%=iMs.getAtleta().getUsuarioParticipante().getEmail()%>
+
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-dager" data-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}}%>
+                        </table>
+                        </div>
                 </div>
 
             </div>

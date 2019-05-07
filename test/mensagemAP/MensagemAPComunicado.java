@@ -54,7 +54,7 @@ public class MensagemAPComunicado {
             i++;
         }
         
-        ComunicadoAPEnviado comunicadoEnviado = new ComunicadoAPEnviado("Confronto próximo, DATA: 22/03", 0, "Confronto próximo TESTE");
+        ComunicadoAPEnviado comunicadoEnviado = new ComunicadoAPEnviado("Comunicado", 0, "Assunto");
         comunicadoEnviado.adicionarUsuarioParticipante(userDestinatario1);
         comunicadoEnviado.adicionarUsuarioParticipante(userDestinatario2);
         comunicadoEnviado.adicionarUsuarioParticipante(userDestinatario3);
