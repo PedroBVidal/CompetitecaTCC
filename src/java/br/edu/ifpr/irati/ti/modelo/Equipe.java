@@ -46,6 +46,7 @@ public class Equipe implements Serializable {
     //@JoinColumn(name = "competicao_idCompeticao")
     private Competicao competicao;
      */
+    
     @OneToMany(mappedBy = "equipe",fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas;

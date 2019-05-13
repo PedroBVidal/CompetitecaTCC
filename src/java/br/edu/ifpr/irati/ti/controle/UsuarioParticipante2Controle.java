@@ -40,6 +40,10 @@ public class UsuarioParticipante2Controle {
         return usuarioParticipanteDAO.buscarPorId(id);
     }
     
+    public List<UsuarioParticipante2> buscarTodos(){
+        return usuarioParticipanteDAO.buscarTodos(UsuarioParticipante2.class);
+    }
+    
     
     
     
