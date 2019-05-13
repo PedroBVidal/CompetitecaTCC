@@ -40,8 +40,7 @@
     <body>
         <script>
 
-
-            function validatePassword() {
+      function validatePassword() {
             var password = document.getElementById("password")
                     , confirm_password = document.getElementById("confirm_password");
             if (password.value !== confirm_password.value) {    
@@ -63,7 +62,7 @@
     }
 
     function meu_callback(conteudo) {
-        if (!("Message" in conteudo) && conteudo.reachable_smtp_server == true) {
+        if (!("Message" in conteudo) && conteudo.deliverable == true) {
             //Atualiza os campos com os valores.
             document.getElementById('email').value=(conteudo.address);
            
@@ -97,7 +96,7 @@
 
                 //Sincroniza com o callback.
                // 'https://api.trumail.io/v2/lookups/jsonp?email='+email+'&callback=meu_callback'
-                script.src =  'https://api.trumail.io/v2/lookups/jsonp?email='+email+'&callback=meu_callback';
+                script.src ='https://api.trumail.io/v2/lookups/jsonp?email='+email+'&callback=meu_callback';
 
                 //Insere script no documento e carrega o conteúdo.
                 document.body.appendChild(script);
@@ -111,7 +110,6 @@
       //end if.
         
     };
-
 
 
             // password.onchange = validatePassword;

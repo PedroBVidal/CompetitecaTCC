@@ -35,7 +35,8 @@
         <meta name="author" content="">
 
         <title>Modern Business - Start Bootstrap Template</title>
-
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -107,8 +108,12 @@
                 <!-- Tab panes -->
                 <div class="tab-content col-10">
                     <div class="tab-pane dark" id="inscricao" role="tabpanel">
-
-                        <table class="table table-striped">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                </a></span>
+                            <input name="consulta" id="txt_consulta1" placeholder="Consultar" type="text" class="form-control">
+                        </div>
+                        <table id="tabela1" class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">Atleta</th>
@@ -131,11 +136,11 @@
                             <td>
                                 <a href="scripts/aprovaInscCompSolo.jsp?opt=1&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-success">
                                     <!-- Adicionar icone -->
-                                  <i class="fas fa-check"></i>
+                                    <i class="fas fa-check"></i>
                                 </a> &nbsp;
                                 <a href="scripts/aprovaInscCompSolo.jsp?opt=2&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
                                     <!-- Adicionar icone -->
-                                   <i class="fas fa-times"></i>
+                                    <i class="fas fa-times"></i>
                                 </a> &nbsp;
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMs.getAtleta().getIdAtleta()%>">
                                     <!-- Adicionar icone -->
@@ -169,6 +174,11 @@
                             </div>
                             <%}}%>
                         </table>
+                        <script>
+                            //Código de busca da tabela
+                            $('input#txt_consulta1').quicksearch('table#tabela1 tbody tr');
+
+                        </script>
 
                     </div>
 
@@ -182,8 +192,13 @@
                     <div class="tab-pane active" id="messages" role="tabpanel">
 
                     </div>
-                        <div class="tab-pane" id="settings" role="tabpanel">
-                            <table class="table table-striped">
+                    <div class="tab-pane" id="settings" role="tabpanel">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                </a></span>
+                            <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
+                        </div>
+                        <table id="table" class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">Atleta</th>
@@ -204,10 +219,10 @@
                                 %>    
                             <td><%=nomeAtleta%></td>
                             <td>
-                               
+
                                 <a href="scripts/aprovaInscCompSolo.jsp?opt=3&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
                                     <!-- Adicionar icone -->
-                                   <i class="fas fa-trash-alt"></i>
+                                    <i class="fas fa-trash-alt"></i>
                                 </a> &nbsp;
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMs.getAtleta().getIdAtleta()%>">
                                     <!-- Adicionar icone -->
@@ -241,7 +256,12 @@
                             </div>
                             <%}}%>
                         </table>
-                        </div>
+                        <script>
+                            //Código de busca da tabela
+                            $('input#txt_consulta').quicksearch('table#tabela tbody tr');
+
+                        </script>
+                    </div>
                 </div>
 
             </div>

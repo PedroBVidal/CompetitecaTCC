@@ -30,6 +30,8 @@
     String nomeCompeticao = request.getParameter("nomeCompeticao");
     String sDataInicioCompeticao = request.getParameter("dataInicioCompeticao");
     String sDataTerminoCompeticao = request.getParameter("dataTerminoCompeticao");
+    String sDataInicioInsc = request.getParameter("dataInicioInsc");
+    String sDataTerminoInsc = request.getParameter("dataTerminoInsc");
     
     /*System.out.println(nomeCompeticao);
     System.out.println(sDataInicioCompeticao);
@@ -41,14 +43,15 @@
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
     Date dataInicioCompeticao, dataTerminoCompeticao;
-    
+    Date dataInicioInscricao, dataTerminoInscircao;
     dataInicioCompeticao = sdf.parse(sDataInicioCompeticao);
     dataTerminoCompeticao = sdf.parse(sDataTerminoCompeticao);
-    
+    dataInicioInscricao = sdf.parse(sDataInicioInsc);
+    dataTerminoInscricao = sdf.parse(sDataTerminoInsc);
     String msgErro = "As datas de início e termino da competição infromadas não conferem";
     // COMPARA SE A DATA DE INICIO VEM ANTES DA DATA DE TERMINO
     if (dataInicioCompeticao.before(dataTerminoCompeticao)) {
-                Competicao competicao = new Competicao(0, nomeCompeticao,dataInicioCompeticao,dataTerminoCompeticao);
+                Competicao competicao = new Competicao(0, nomeCompeticao,dataInicioInscricao,dataTerminoInscricao,dataInicioCompeticao,dataTerminoCompeticao);
                 competicao.adicionarAdministrador(up);
                 competicaoControle.cadastrarCompeticao(competicao);
                 up.adicionarCompeticao(competicao);

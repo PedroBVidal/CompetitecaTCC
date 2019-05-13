@@ -58,7 +58,7 @@
 
             <!-- Content Row -->
             <div class="row">
-                
+
                 <!-- Content Column -->
                 <div class="col-lg-9 mb-4">
                     <%
@@ -84,15 +84,28 @@
 
                         <div class="form-group">
                             <label>Nome da competição:</label>
-                            <input type="text" class="form-control" name="nomeCompeticao">
+                            <input required type="text" class="form-control" name="nomeCompeticao">
+                        </div>
+                        <div class="form-group">
+                            <label>Data de início das inscrições:</label>
+                            <input required type="text" class="naozeibeu form-control" name="dataInicioInsc">
+                        </div>
+                        <div class="form-group">
+                            <label> Data de término das Inscrições:</label>
+                            <input required type="text" class="naozeibeu form-control" name="dataTerminoInsc">
                         </div>
                         <div class="form-group">
                             <label>Data de início da competição:</label>
-                            <input type="text" class="naozeibeu form-control" name="dataInicioCompeticao">
+                            <input required type="text" class="naozeibeu form-control" name="dataInicioCompeticao">
                         </div>
                         <div class="form-group">
                             <label> Data de término da competição:</label>
-                            <input type="text" class="naozeibeu form-control" name="dataTerminoCompeticao">
+                            <input required type="text" class="naozeibeu form-control" name="dataTerminoCompeticao">
+                        </div>
+                        <div class="form-group">
+                            <label>Informação adicional sobre a competição(opcional):</label>
+                            <textarea style="resize:none;" name="infoadicional" class="form-control">
+                            </textarea>
                         </div>
                         <button type="submit" class="btn btn-success">
                             <!-- Adicionar icone -->
@@ -112,7 +125,7 @@
 
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
         <script>
             $('.naozeibeu').mask('00/00/0000', {reverse: true});
         </script>
