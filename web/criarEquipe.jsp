@@ -105,7 +105,7 @@ div.ex4 {
                 </label>
                 <label for="" class="col-md-12">
                     Modalidade:
-                    <select id="modalidadeColetiva" name="modalidade" class="form-control">
+                    <select id="modalidadeColetiva" name="modalidade" class="form-control" required="true">
                         <option value="">Selecione</option>
 
                         <%
@@ -122,7 +122,7 @@ div.ex4 {
 
 
                 <label for="" class="col-md-12">
-                <button class="btn btn-primary" href="criarEquipeP2.jsp" role="button">Próximo</button>
+                    <button class="btn btn-primary" type="submit" role="button">Próximo</button>
                 </label>
                         </div>
                     </div>

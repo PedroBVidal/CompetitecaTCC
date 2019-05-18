@@ -71,7 +71,8 @@
 
         <!-- Page Content -->
         <div class="container">
-            <%                request.setCharacterEncoding("UTF-8");
+            <%  
+                request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("msg") != null) {
                     String mensagem = request.getParameter("msg");
                     String cor = request.getParameter("color");
@@ -97,7 +98,8 @@
             <!-- List group -->
             <div class="row">
                 <div class="list-group col-2" id="myList" role="tablist">
-                    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#membros" role="tab">Gerenciar Membros</a>
+                    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#membros" role="tab">Minha equipe</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#adicionarMembros" role="tab">Adicionar membros</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#competicoes" role="tab">Buscar Competições</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#mcompeticoes" role="tab">Minhas Competições</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#solicitacoes" role="tab">Solicitações</a>
@@ -153,6 +155,8 @@
 
                         </script>
                     </div>
+                               
+                            
                     <div class="tab-pane dark" id="competicoes" role="tabpanel">
                         <div class="form-group input-group">
                             <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
@@ -183,7 +187,8 @@
                                             String dataTermino = sdf.format(cpt.getDataTermino());
 
 
-                                %>    
+                                %>
+                            <tr>    
                             <td><%=nomeCompeticao%></td>
                             <td><%=dataInicio%></td>
                             <td><%=dataTermino%></td>
@@ -192,6 +197,7 @@
                                     <i class="fas fa-clipboard-list"></i>
                                 </a> &nbsp;
                             </td>
+                            </tr>
                             <%}
                                 }%>
                             </tbody>
@@ -234,7 +240,9 @@
                                             String dataTermino = sdf.format(cptct.getDataTermino());
 
 
-                                %>    
+                                %>
+                            <tr>
+                                
                             <td><%=nomeCompeticao%></td>
                             <td><%=dataInicio%></td>
                             <td><%=dataTermino%></td>
@@ -243,10 +251,12 @@
                                     <i class="fas fa-clipboard-list"></i>
                                 </a> &nbsp;
                             </td>
+                            
+                            </tr>
                             <%}
-                                        }%>
+                            }%>
                             </tbody>
-
+                            
                         </table>
                         <script>
                             //Código de busca da tabela
@@ -296,6 +306,44 @@
 
                         </script>
                     </div>
+                            
+            <div class="tab-pane" id="adicionarMembros" role="tabpanel">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                </a></span>
+                            <input name="consulta" id="txt_consulta4" placeholder="Consultar" type="text" class="form-control">
+                        </div>
+
+
+
+
+                        <table id="tabela4" class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Usuário</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            <td>Nome</td>
+                            <td>Nome</td>
+                            <td>Nome</td>
+
+                            </tbody>
+
+
+
+                        </table>
+                        <script>
+                            //Código de busca da tabela
+                            $('input#txt_consulta4').quicksearch('table#tabela4 tbody tr');
+
+                        </script>
+                    </div>     
+                                                        
+
                 </div>
 
             </div>
