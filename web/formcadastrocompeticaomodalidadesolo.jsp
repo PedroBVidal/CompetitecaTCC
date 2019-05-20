@@ -173,6 +173,11 @@
                                         <div class="form-group" id="divSisMistoElim">
 
                                         </div>
+                                        <div class="form-group">
+                                            <label>Informação adicional sobre a competição(opcional):</label>
+                                            <textarea style="resize:none;" name="infoAdicional" class="form-control">
+                                            </textarea>
+                                        </div>
 
                                         <button type="submit" class="btn btn-success">Cadastrar competição</button>
                                     </form>
@@ -208,25 +213,25 @@
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
         <script>
-                                    $('.naozeibeu').mask('00/00/0000', {reverse: true});
+                                                $('.naozeibeu').mask('00/00/0000', {reverse: true});
 
-                                    function proximoPasso() {
-
-
-                                        var e = document.getElementById("sisCompeticao");
-                                        var itemSelecionado = e.options[e.selectedIndex].text;
+                                                function proximoPasso() {
 
 
-                                        if (itemSelecionado === "Sistema eliminatório" || "Sistema misto") {
-                                            var div = document.getElementById("divSisMistoElim");
-                                            div.innerHTML = '<div class="form-group form-check"><input type="checkbox" class="form-check-input" id="exampleCheck1" name="respescagem" value="sim"><label class="form-check-label" for="exampleCheck1">Emilinatórias com repescagem?</label></div>';
-                                        }
-                                        
-                                        if (itemSelecionado === "Sistema todos contra todos"){
-                                           var div = document.getElementById("divSisMistoElim");
-                                           div.innerHTML = '';
-                                        }
-                                    }
+                                                    var e = document.getElementById("sisCompeticao");
+                                                    var itemSelecionado = e.options[e.selectedIndex].text;
+
+
+                                                    if (itemSelecionado === "Sistema eliminatório" || "Sistema misto") {
+                                                        var div = document.getElementById("divSisMistoElim");
+                                                        div.innerHTML = '<div class="form-group form-check"><input type="checkbox" class="form-check-input" id="exampleCheck1" name="respescagem" value="sim"><label class="form-check-label" for="exampleCheck1">Emilinatórias com repescagem?</label></div>';
+                                                    }
+
+                                                    if (itemSelecionado === "Sistema todos contra todos") {
+                                                        var div = document.getElementById("divSisMistoElim");
+                                                        div.innerHTML = '';
+                                                    }
+                                                }
 
 
         </script>

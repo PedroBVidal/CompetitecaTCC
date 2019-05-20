@@ -3,7 +3,7 @@
     Created on : 25/10/2018, 15:53:02
     Author     : Usuário
 --%>
-
+<%@page import="java.util.Date"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -127,8 +127,9 @@
                        name="nomeCompeticao" list="competicoes">
                 <datalist id="competicoes">
                     <%
+                        Date hoje = new Date();
                         for (Competicao c : competicoes) {
-                            if (!c.isInativo() && !c.isPrivado()) {
+                            if (!c.isInativo() && !c.isPrivado() && !hoje.before(c.getDataInicioInsc()) && !hoje.after(c.getDataTerminoInsc())) {
                     %>
                     <option data-value="<%=c.getIdCompeticao()%>" value="<%=c.getNome()%>"></option><%
                             }
@@ -157,7 +158,7 @@
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         String dataInicio = simpleDateFormat.format(competicao.getDataInicio());
                         String dataTermino = simpleDateFormat.format(competicao.getDataTermino());
-                        if (!competicao.isInativo() && !competicao.isPrivado()) {
+                        if (!competicao.isInativo() && !competicao.isPrivado() && !hoje.before(competicao.getDataInicioInsc()) && !hoje.after(competicao.getDataTerminoInsc())) {
                 %>
 
 

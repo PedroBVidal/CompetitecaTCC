@@ -30,16 +30,16 @@ public class GeraTudo {
         Dao<ModalidadeColetiva> modalidadeColetivaDAO = new GenericDAO<>(ModalidadeColetiva.class);
         Dao<ModalidadeSolo> modalidadeSoloDAO = new GenericDAO<>(ModalidadeSolo.class);
         Dao<Segmento> SegmentoDAO = new GenericDAO<>(Segmento.class);
-        Dao<UsuarioParticipante> upDAO = new GenericDAO<>(UsuarioParticipante.class);
+        /*Dao<UsuarioParticipante> upDAO = new GenericDAO<>(UsuarioParticipante.class);
         Dao<UsuarioParticipante2> up2DAO = new GenericDAO<>(UsuarioParticipante2.class);
-        
+        */
         UsuarioParticipante up = new UsuarioParticipante(0, "Gustavo Henrique de Souza Oliveira(Admin)", "oliveiragustavo1340@gmail.com", "Curitiba320");
        // UsuarioParticipante2 up2 = new UsuarioParticipante2(0, "Gustavo Henrique de Souza Oliveira(User)", "oliveiragustavo1340@gmail.com", "Curitiba320");
         
         Segmento segum = new Segmento(0, "4o. Info");
         Segmento segdois = new Segmento(0, "4o. Agro");
         
-        upDAO.salvar(up);
+        //upDAO.salvar(up);
        // up2DAO.salvar(up2);
         SistemaDeContagem sistemaDeContagem1 = new SistemaDeContagem(0, 1, 0, 0, "Sistema 1-0");
         SistemaDeContagem sistemaDeContagem2 = new SistemaDeContagem(0, 2, 1, 0, "Sistema 2-1");
@@ -50,8 +50,8 @@ public class GeraTudo {
         ModalidadeSolo modalidadeSolo3 = new ModalidadeSolo(0, "Tenis de quadra");
         ModalidadeSolo modalidadeSolo4 = new ModalidadeSolo(0, "X1 LOL");
         
-        ModalidadeColetiva modalidadeColetiva = new ModalidadeColetiva(0, "Basquete 3x3");
-        ModalidadeColetiva modalidadeColetiva1 = new ModalidadeColetiva(0, "Handbol");
+        ModalidadeColetiva modalidadeColetiva = new ModalidadeColetiva(0, "Basquete 3x3",3);
+        ModalidadeColetiva modalidadeColetiva1 = new ModalidadeColetiva(0, "Handbol",6);
         
         sistemaDeContagemDAO.salvar(sistemaDeContagem3);
         sistemaDeContagemDAO.salvar(sistemaDeContagem2);

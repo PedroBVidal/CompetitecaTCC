@@ -28,7 +28,7 @@
     if(opt == 1){
         icms.setInscricaoAceita('A');
         icmsc.alterar(icms);
-        ComunicadoAPEnviado comunicado = new ComunicadoAPEnviado("Parabéns, sua inscrição na competição "++" foi aceita",0,"Inscrição Aceita");
+       // ComunicadoAPEnviado comunicado = new ComunicadoAPEnviado("Parabéns, sua inscrição na competição "++" foi aceita",0,"Inscrição Aceita");
         response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Inscrição aprovada com sucesso&color=success");
     }else if(opt == 2){
         icms.setInscricaoAceita('N');

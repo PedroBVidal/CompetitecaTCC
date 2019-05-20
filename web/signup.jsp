@@ -40,7 +40,7 @@
     <body>
         <script>
 
-      function validatePassword() {
+                  function validatePassword() {
             var password = document.getElementById("password")
                     , confirm_password = document.getElementById("confirm_password");
             if (password.value !== confirm_password.value) {    
@@ -68,10 +68,11 @@
            
         } //end if.
         else {
+            
             //CEP não Encontrado.
             limpa_formulário_cep();
             //document.getElementById('email').placeholder="Email inexistente.Tente novamente com um email válido";
-            alert("Email inexistente.Tente novamente com um email válido");
+            alert("Email inexistente.Tente novamente com um email válido"+conteudo.message);
         }
     }
         
@@ -96,7 +97,7 @@
 
                 //Sincroniza com o callback.
                // 'https://api.trumail.io/v2/lookups/jsonp?email='+email+'&callback=meu_callback'
-                script.src ='https://api.trumail.io/v2/lookups/jsonp?email='+email+'&callback=meu_callback';
+                script.src =  'https://api.trumail.io/v2/lookups/jsonp?email='+email+'&callback=meu_callback';
 
                 //Insere script no documento e carrega o conteúdo.
                 document.body.appendChild(script);
@@ -110,7 +111,6 @@
       //end if.
         
     };
-
 
             // password.onchange = validatePassword;
             // confirm_password.onkeyup = validatePassword;
@@ -219,14 +219,14 @@
 
                         <input type="hidden" name="c" value="1">
                         <input type="hidden" name="id" value="0">
-
+                        <!--onblur="pesquisaemail(this.value);"  id="email"-->
                         <label for="" class="col-md-12">
                             Nome:
                             <input type="text" required class="form-control" name="nome" placeholder="Informe o seu nome" >
                         </label>
                         <label for="" class="col-md-12">
                             Email:
-                            <input type="email" required class="form-control" name="email" id="email" onblur="pesquisaemail(this.value);" placeholder="Insira o seu email" >
+                            <input type="email" required class="form-control" name="email"  placeholder="Insira o seu email" >
                         </label>
                         <label for="" class="col-md-12">
                             Data de nascimento:
@@ -289,7 +289,7 @@
                 }
             %>
             <h1 class="my-4">Cadastro para Administradores</h1>
-            
+            <!--onblur="pesquisaemail(this.value);"  id="email"-->
 
             <form action="scripts/scriptuserAdministrador.jsp" method="POST" class="col" validate>
                 <input type="hidden" name="c" value="1">
@@ -301,7 +301,7 @@
                 </label>
                 <label for="" class="col-md-12">
                     Email:
-                    <input type="email" required class="form-control" name="email" id="email" onblur="pesquisaemail(this.value);" placeholder="Insira o seu email" >
+                    <input type="email" required class="form-control" name="email"  placeholder="Insira o seu email" >
                 </label>
                 <label for="" class="col-md-12">
                     Senha:

@@ -44,6 +44,7 @@ public class ModalidadeColetiva implements Serializable {
         this.nome = nome;
         this.lotacaoMaximaEquipe = lotacaoMaximaEquipe;
     }
+    
  
     /**
      * @return the idModColetiva
