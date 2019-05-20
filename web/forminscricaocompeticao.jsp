@@ -113,7 +113,37 @@
                                            } 
                                         }
                                 %>
+                                <!-- Modal Saiba mais -->
+                                <div class="modal fade" id="2<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><%=cms.getNomeCompeticao()%></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
 
+                                                <p><%
+                                                                if (cms.getInformacaoExtra() != null) {%>
+                                                    <%=cms.getInformacaoExtra()%>
+                                                    <%} else {
+                                                    %>
+                                                    Não há informações extras sobre essa competição
+                                                    <%}%></p>
+
+                                            </div>
+
+
+                                            <div class="modal-footer">
+                                                
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
                                 <%
                                     if (flag == 0) {
                                 %>
@@ -146,36 +176,7 @@
                                     </div>
                                 </div>
                                                 
-                                <!-- Modal Saiba mais -->
-                                <div class="modal fade" id="2<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel"><%=cms.getNomeCompeticao()%></h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                                <div class="modal-body">
-                                                    
-                                                    <p><%
-                                                        if(cms.getInformacaoExtra() != null){%>
-                                                    <%=cms.getInformacaoExtra()%>
-                                                    <%}else{
-                                                    %>
-                                                    Não há informações extras sobre essa competição
-                                                    <%}%></p>
-                                                    
-                                                </div>
-                                            
-
-                                            <div class="modal-footer">
-                                                <a class="btn btn-primary" data-dismiss="modal">Ok!</a>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                           
+                                                      
                                 <%}
                                     if (flag == 1) {
                                         if(processo == 'E'){
@@ -192,36 +193,6 @@
                                     </div>
                                 </div>
                                  
-                                            <!-- Modal Saiba mais -->
-                                            <div class="modal fade" id="2<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel"><%=cms.getNomeCompeticao()%></h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-
-                                                            <p><%
-                                                        if (cms.getInformacaoExtra() != null) {%>
-                                                                <%=cms.getInformacaoExtra()%>
-                                                                <%} else {
-                                                                %>
-                                                                Não há informações extras sobre essa competição
-                                                                <%}%></p>
-
-                                                        </div>
-
-
-                                                        <div class="modal-footer">
-                                                            <a class="btn btn-primary" data-dismiss="modal">Ok!</a>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> 
  
                                 <%}
                                 if(processo == 'N'){
@@ -238,37 +209,7 @@
                                     </div>
                                 </div>
                                  
-                                            <!-- Modal Saiba mais -->
-                                            <div class="modal fade" id="2<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel"><%=cms.getNomeCompeticao()%></h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
 
-                                                            <p><%
-                                                        if (cms.getInformacaoExtra() != null) {%>
-                                                                <%=cms.getInformacaoExtra()%>
-                                                                <%} else {
-                                                                %>
-                                                                Não há informações extras sobre essa competição
-                                                                <%}%></p>
-
-                                                        </div>
-
-
-                                                        <div class="modal-footer">
-                                                            <a class="btn btn-primary" data-dismiss="modal">Ok!</a>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> 
- 
                                 <%}
                                 if(processo == 'A'){
 
@@ -283,37 +224,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                 
-                                            <!-- Modal Saiba mais -->
-                                            <div class="modal fade" id="2<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel"><%=cms.getNomeCompeticao()%></h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-
-                                                            <p><%
-                                                        if (cms.getInformacaoExtra() != null) {%>
-                                                                <%=cms.getInformacaoExtra()%>
-                                                                <%} else {
-                                                                %>
-                                                                Não há informações extras sobre essa competição
-                                                                <%}%></p>
-
-                                                        </div>
-
-
-                                                        <div class="modal-footer">
-                                                            <a class="btn btn-primary" data-dismiss="modal">Ok!</a>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> 
+                                                
  
                                 <%}%>
                                 
@@ -340,14 +251,42 @@
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cmc.getNomeCompeticao()%>">
                                         <div class="input-group-append">
-                                            <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
-                                            </a><button type="button" class="btn btn-success" data-toggle="modal" data-target="#<%=cmc.getIdCompeticaoModalidade()%>" style="width: 160px;">Inscrever-se</button>
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#saibaMaisCompeticaoColetiva<%=cmc.getIdCompeticaoModalidade()%>"><i class="fas fa-info-circle"></i>&nbsp;Saiba mais</button>
+                                               
+                                            </a><button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" style="width: 160px;">Inscrever-se</button>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Modal -->
-                                <div class="modal fade" id="<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                               <!-- Modal saiba mais-->          
+                                        
+                               <div class="modal fade" id="saibaMaisCompeticaoColetiva<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                   <div class="modal-dialog" role="document">
+                                       <div class="modal-content">
+                                           <div class="modal-header">
+                                               <h5 class="modal-title" id="exampleModalLabel"><%=cmc.getNomeCompeticao()%></h5>
+                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                   <span aria-hidden="true">&times;</span>
+                                               </button>
+                                           </div>
+                                           <div class="modal-body">
+                                               
+                                                            <p><%
+                                                        if (cmc.getInformacaoExtra() != null) {%>
+                                                                <%=cmc.getInformacaoExtra()%>
+                                                                <%} else {
+                                                                %>
+                                                                Não há informações extras sobre essa competição
+                                                                <%}%></p>
+                                           </div>
+                                           <div class="modal-footer">
+                                               <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
+                                               
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>       
+                                <!-- Modal tomada de decissão competição-->
+                                <div class="modal fade" id="modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -358,25 +297,17 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <h5>Popover in a modal</h5>
-                                                <p>This <a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a> triggers a popover on click.</p>
+                                                <div class="row">
+                                                    <h5 style="margin-left: 20px;">1- Criar uma nova equipe:</h5>
+                                                <p style="margin-left: 10px;"><a href="criarEquipe.jsp" role="button" class="btn btn-primary popover-test" title="Criar equipe" data-content="Popover body content is set in this attribute.">Clique aqui</a></p>
+                                                </div>
                                                 <hr>
-                                                <h5>Tooltips in a modal</h5>
-                                                <p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> have tooltips on hover.</p>
+                                                <div class="row">
+                                                <h5 style="margin-left: 20px;">2- Solicitar entrada em uma equipe: </h5>
+                                                <p style="margin-left: 10px;"><a href="formSolicitarEntradaEmEquipe.jsp?idCmc=<%=cmc.getIdCompeticaoModalidade()%>" role="button" class="btn btn-primary popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute.">Clique aqui</a></p>
+                                                </div>
                                             </div>
-                                            <!--
-                                            <div class="modal-footer">
-                                                <h6 class="modal-title" id="exampleModalLabel">Desejo criar uma nova equipe</h6>
-                                      
-                                                <a class="btn btn-warning" data-dismiss="modal">Não</a>
-                                                <a class="btn btn-primary" href="scripts/inscreverAtletaEmCompeticaoSolo.jsp?idCms=<%=cmc.getIdCompeticaoModalidade()%>">Sim</a>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <h6 class="modal-title" id="exampleModalLabel">Desejo solicitar entrada em uma equipe</h6>
-                                                <a class="btn btn-warning" data-dismiss="modal">Não</a>
-                                                <a class="btn btn-primary" href="scripts/inscreverAtletaEmCompeticaoSolo.jsp?idCms=<%=cmc.getIdCompeticaoModalidade()%>">Sim</a>
-                                            </div>
-                                            -->
+     
                                         </div>
                                     </div>
                                 </div>      
