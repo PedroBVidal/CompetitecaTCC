@@ -4,6 +4,8 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.MensagemRecebida"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipante2Controle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -17,7 +19,9 @@
                     } else if(usuario instanceof UsuarioParticipante2){
                         
                     
-                    UsuarioParticipante2 up = (UsuarioParticipante2) usuario; 
+                    UsuarioParticipante2 upSession = (UsuarioParticipante2) usuario;
+                    UsuarioParticipante2Controle upControle = new UsuarioParticipante2Controle();
+                    UsuarioParticipante2 up = upControle.buscarPorId(upSession.getIdUsuario());
                     
 %>
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -29,6 +33,31 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"> 
+                            <a class="nav-link" href="correio.jsp?idUsuario=<%=up.getIdUsuario()%>">&nbsp;
+                                <%
+                                        int contadorMensagens = 0;
+                                        for(MensagemRecebida mesgRecebida : up.getMensagensRecebidas()){
+                                            if (mesgRecebida.isLido()) {
+                                                    
+                                            }
+                                            else{
+                                                contadorMensagens++;
+                                            }
+                                        }
+               
+                                %>
+                                <%
+                                    if(contadorMensagens != 0){
+                                %>
+                                <span class="badge badge-info">
+
+                                    <%=contadorMensagens%>
+                                </span>
+                                <%}%>
+                                <span class="sr-only">unread messages</span>Minhas mensagens
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="listaEquipes.jsp"><i class="fas fa-users"></i>&nbsp;Minhas Equipes</a>
                         </li>
@@ -53,7 +82,7 @@
             </div>
         </nav>
                             
-         <%} else {
+         <%} else   {
                     response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro.");
                     }
          %>

@@ -4,6 +4,8 @@
     Author     : Usuário
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Equipe"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.AtletaControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
@@ -81,7 +83,7 @@
             <div class="row">
 
                 <div class="col-12">
-                    <form action="scripts/inscricaoAtletaEvento.jsp?idCompeticao=<%=idCompeticao%>&idUsuarioParticipante=<%=up.getIdUsuario()%>" method="POST">
+                    
 
                         <div class="card">
                             <div class="card-header">
@@ -169,6 +171,7 @@
                                             </div>
 
                                             <div class="modal-footer">
+                                                
                                                 <a class="btn btn-primary" href="scripts/inscreverAtletaEmCompeticaoSolo.jsp?idCms=<%=cms.getIdCompeticaoModalidade()%>&idAtleta=<%=idAtleta%>&idCompeticao=<%=idCompeticao%>">Sim</a>
                                                 <a class="btn btn-warning" data-dismiss="modal">Não</a>
                                             </div>
@@ -224,7 +227,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                                
+                                            
  
                                 <%}%>
                                 
@@ -252,8 +255,16 @@
                                         <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cmc.getNomeCompeticao()%>">
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#saibaMaisCompeticaoColetiva<%=cmc.getIdCompeticaoModalidade()%>"><i class="fas fa-info-circle"></i>&nbsp;Saiba mais</button>
-                                               
-                                            </a><button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" style="width: 160px;">Inscrever-se</button>
+                                            
+                                            <!--Compara se o usuário participante é administrador ou vinculado a equipe, caso seja gera um btn resposnsivo-->
+                                            <%
+                                                
+                                                List<Equipe> equipesRelacionadas = atleta.getEquipes();
+                                                equipesRelacionadas = atleta.getUsuarioParticipante().getEquipe();
+                                                
+                                                for(CompeticaoModalidadeColetiva competicaoModalidadeColetiva : )
+                                            %>
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" style="width: 160px;">Inscrever-se</button>
                                         </div>
                                     </div>
                                 </div>
@@ -284,7 +295,7 @@
                                            </div>
                                        </div>
                                    </div>
-                               </div>       
+                               </div>      
                                 <!-- Modal tomada de decissão competição-->
                                 <div class="modal fade" id="modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -304,7 +315,11 @@
                                                 <hr>
                                                 <div class="row">
                                                 <h5 style="margin-left: 20px;">2- Solicitar entrada em uma equipe: </h5>
-                                                <p style="margin-left: 10px;"><a href="formSolicitarEntradaEmEquipe.jsp?idCmc=<%=cmc.getIdCompeticaoModalidade()%>" role="button" class="btn btn-primary popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute.">Clique aqui</a></p>
+                                                <form action="formSolicitarEntradaEmEquipe.jsp" method="POST">
+                                                    <input type="hidden" name="idCmc" value="<%=cmc.getIdCompeticaoModalidade()%>">
+                                                    <p style="margin-left: 10px;"><button type="submit" role="button" class="btn btn-primary popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute.">Clique aqui</button></p>
+                                                </form>
+                                                
                                                 </div>
                                             </div>
      
@@ -316,7 +331,7 @@
 
                             </div>
                         </div>
-                    </form>
+                    
                 </div>
 
 
