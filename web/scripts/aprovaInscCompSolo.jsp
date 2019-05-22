@@ -39,6 +39,7 @@
         //comunicado.adicionarUsuarioParticipante(up);
         crc.salvar(comunicado);
         up2.adicionarMensagemRecebida(comunicado);
+        up2c.atualizarCad(up2);
        // ComunicadoAPEnviado comunicado2 = new ComunicadoAPEnviado("Parabéns, sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi aceita",0,"Inscrição Aceita");
         response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Inscrição aprovada com sucesso&color=success");
     }else if(opt == 2){
@@ -46,6 +47,7 @@
         //comunicado.adicionarUsuarioParticipante(up);
         crc.salvar(comunicado);
         up2.adicionarMensagemRecebida(comunicado);
+        up2c.atualizarCad(up2);
         icms.setInscricaoAceita('N');
         icmsc.alterar(icms);
           response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Incrição negada com sucesso&color=success");
@@ -54,6 +56,7 @@
         //comunicado.adicionarUsuarioParticipante(up);
         crc.salvar(comunicado);
         up2.adicionarMensagemRecebida(comunicado);
+        up2c.atualizarCad(up2);
         icms.setInscricaoAceita('N');
         icmsc.alterar(icms);
         response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Competidor Expluso com sucesso&color=success");
