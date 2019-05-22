@@ -50,8 +50,8 @@ public class GeraTudo {
         ModalidadeSolo modalidadeSolo3 = new ModalidadeSolo(0, "Tenis de quadra");
         ModalidadeSolo modalidadeSolo4 = new ModalidadeSolo(0, "X1 LOL");
         
-        ModalidadeColetiva modalidadeColetiva = new ModalidadeColetiva(0, "Basquete 3x3",3);
-        ModalidadeColetiva modalidadeColetiva1 = new ModalidadeColetiva(0, "Handbol",6);
+        ModalidadeColetiva modalidadeColetiva = new ModalidadeColetiva(0, "Basquete 3x3",20);
+        ModalidadeColetiva modalidadeColetiva1 = new ModalidadeColetiva(0, "Handbol",20);
         
         sistemaDeContagemDAO.salvar(sistemaDeContagem3);
         sistemaDeContagemDAO.salvar(sistemaDeContagem2);

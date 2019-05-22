@@ -175,7 +175,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Informação adicional sobre a competição(opcional):</label>
-                                            <textarea style="resize:none;" name="infoAdicional" class="form-control">
+                                            <textarea value="null" style="resize:none;" name="infoAdicional" class="form-control">
                                             </textarea>
                                         </div>
 

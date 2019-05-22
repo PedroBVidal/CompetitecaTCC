@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpr.irati.ti.controle;
+package br.edu.ifpr.irati.ti.controle.mensagens;
 
 import br.edu.ifpr.irati.ti.dao.AtletaDAO;
 import br.edu.ifpr.irati.ti.dao.Dao;
@@ -17,8 +17,7 @@ import java.util.List;
  */
 public class ComunicadoAPEnviadoControle {
         Dao<ComunicadoAPEnviado> atdl = new GenericDAO<>(ComunicadoAPEnviado.class);
-    AtletaDAO atletaDAO = new AtletaDAO();
-    
+   
     public List<ComunicadoAPEnviado> buscarTodos(){
         return atdl.buscarTodos(ComunicadoAPEnviado.class);
     }

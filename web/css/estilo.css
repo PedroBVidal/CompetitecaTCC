@@ -9,6 +9,7 @@ and open the template in the editor.
 */
 
 @import url('https://fonts.googleapis.com/css?family=Cabin+Condensed|Overpass');
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
 
 .negrito {
     font-weight: bold;
@@ -27,6 +28,10 @@ and open the template in the editor.
     font-family: 'Overpass', sans-serif;
 }
 
+.fontNunito {
+    font-family: 'Nunito', sans-serif;
+}
+
 .marginBreadcrumb {
     margin-bottom: 25px;
 }
@@ -35,3 +40,6 @@ and open the template in the editor.
     margin-bottom: 10px;
 }
 
+.overflowTableTabPane {
+    overflow: auto; width: 920px; height: 350px;
+}

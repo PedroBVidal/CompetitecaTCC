@@ -8,6 +8,7 @@ package br.edu.ifpr.irati.ti.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +24,7 @@ import org.hibernate.annotations.Proxy;
 @Entity(name = "usuarioparticipante2")
 @Proxy(lazy = false)
 public class UsuarioParticipante2 implements Serializable {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idUsuario;
@@ -48,7 +49,7 @@ public class UsuarioParticipante2 implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     private Atleta atleta;
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Equipe> equipe;
 
@@ -65,6 +66,7 @@ public class UsuarioParticipante2 implements Serializable {
         this.mensagensEnviadas = new ArrayList<>();
         this.mensagensRecebidas = new ArrayList<>();
         this.equipe = new ArrayList<>();
+       
     }
 
     public UsuarioParticipante2(int idUsuario, String email, String nome, String senha, List<MensagemEnviada> mensagensEnviadas, List<MensagemRecebida> mensagensRecebidas, Atleta atleta) {

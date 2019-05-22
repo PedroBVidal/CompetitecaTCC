@@ -38,8 +38,8 @@
     String sRepesgagem = request.getParameter("respescagem");
     String sistemaCompeticao = request.getParameter("sistemaCompeticao");
     int idSistemaDeContagem = Integer.parseInt(request.getParameter("sistemaContagem"));
-    String infoAdicional = "";
-    if(request.getParameter("infoAdicional") != null || !request.getParameter("infoAdicional").equals("")){
+    String infoAdicional = request.getParameter("infoAdicional");
+    if(request.getParameter("infoAdicional") != null && !request.getParameter("infoAdicional").equals("")){
         infoAdicional = request.getParameter("infoAdicional");     
     }
     
