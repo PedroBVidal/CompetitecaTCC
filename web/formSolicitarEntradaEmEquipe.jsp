@@ -128,7 +128,15 @@
 
                                     </div>
                                     <div class="modal-footer">
-                                       <a href="scripts/solicitarEntradaEquipe.jsp?idAdmEquipe=<%=equipe.getAdministrador().getIdUsuario()%>" class="btn btn-primary btn active" role="button" aria-pressed="true"><i class="fas fa-sign-in-alt"></i>&nbsp;Solicitar entrada</a>
+                                        <form action="scripts/solicitarEntradaEquipe.jsp" method="POST">
+                                            
+                                            <input type="hidden" name="idCompeticao" value="<%=cmc.getCompeticao().getIdCompeticao()%>">
+                                            <input type="hidden" name="idEquipe" value="<%=equipe.getIdEquipe()%>">
+                                            <input type="hidden" name="idAdmEquipe" value="<%=equipe.getAdministrador().getIdUsuario()%>">
+                                            <input type="hidden" name="idUsuarioRemetente" value="<%=up.getIdUsuario()%>">
+                                            <button type="submit" class="btn btn-primary btn active" role="button" aria-pressed="true"><i class="fas fa-sign-in-alt"></i>&nbsp;Solicitar entrada</button>
+                                        </form>
+                                        
                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
                                     </div>
                                 </div>

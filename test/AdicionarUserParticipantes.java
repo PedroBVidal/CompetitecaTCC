@@ -22,7 +22,7 @@ public class AdicionarUserParticipantes {
         UsuarioParticipante2Controle usuarioParticipante2Controle = new UsuarioParticipante2Controle();
         AtletaControle atletaControle = new AtletaControle();
         
-        /*
+        
         UsuarioParticipante2 u1 = new UsuarioParticipante2(0, "lucasCas@gmail.com", "Lucas Cas", "lucasCas");       
         Atleta a1 = new Atleta(0, new Date(), "090.976.459-05");
         u1.setAtleta(a1);
@@ -30,16 +30,8 @@ public class AdicionarUserParticipantes {
         
         atletaControle.criarAtleta(a1);
         usuarioParticipante2Controle.criar(u1);
-        */
         
         
-        UsuarioParticipante2 u2 = new UsuarioParticipante2(0, "marina@gmail.com", "Marina", "Marina");       
-        Atleta a2 = new Atleta(0, new Date(), "090.976.459-05");
-        u2.setAtleta(a2);
-        a2.setUsuarioParticipante(u2);
-        
-        atletaControle.criarAtleta(a2);
-        usuarioParticipante2Controle.criar(u2);
         
         
         UsuarioParticipante2 u3 = new UsuarioParticipante2(0, "marina@gmail.com", "Marina", "Marina");       
@@ -66,7 +58,7 @@ public class AdicionarUserParticipantes {
         atletaControle.criarAtleta(a5);
         usuarioParticipante2Controle.criar(u5);
         
-        
+        System.exit(0);
     }
     
     

@@ -179,9 +179,13 @@
 
                             <div class="form-group">
 
-                                <p class="fontOverpass"><a class="btn btn-success" 
-                                                           href="forminscricaocompeticao.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>&idAtleta=<%=atletaVinculadoUp.getIdAtleta()%>" role="button">Inscrever-se em competições do evento</a><p>
-
+                                <p class="fontOverpass">
+                                <form action="forminscricaocompeticao.jsp" method="POST">
+                                    <input type="hidden" name="idCompeticao" value="<%=competicao.getIdCompeticao()%>">
+                                    <input type="hidden" name="idAtleta" value="<%=atletaVinculadoUp.getIdAtleta()%>">
+                                    <button class="btn btn-success" type="submit" role="button">Inscrever-se em competições do evento</button><p>
+                                </form>
+                                
                             </div>
                         </div>
                     </div>

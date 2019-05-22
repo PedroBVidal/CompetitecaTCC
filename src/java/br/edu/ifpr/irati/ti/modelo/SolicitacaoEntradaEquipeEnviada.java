@@ -30,18 +30,22 @@ public class SolicitacaoEntradaEquipeEnviada extends MensagemPPEnviada implement
     private Equipe equipe;
     
     @ManyToOne
-    private Atleta atleta;
+    private UsuarioParticipante2 usuarioDestinatario;
 
     public SolicitacaoEntradaEquipeEnviada() {
     }
 
-    public SolicitacaoEntradaEquipeEnviada(boolean solicitacaoAceita, String texto, Equipe equipe, Atleta atleta, List<UsuarioParticipante2> usuariosParticipantes, int idMensagemEnviada, String assunto) {
+    public SolicitacaoEntradaEquipeEnviada(boolean solicitacaoAceita, String texto, Equipe equipe, UsuarioParticipante2 usuarioDestinatario, List<UsuarioParticipante2> usuariosParticipantes, int idMensagemEnviada, String assunto) {
         super(usuariosParticipantes, idMensagemEnviada, assunto);
         this.solicitacaoAceita = solicitacaoAceita;
         this.texto = texto;
         this.equipe = equipe;
-        this.atleta = atleta;
+        this.usuarioDestinatario = usuarioDestinatario;
     }
+
+    
+
+    
 
     /**
      * @return the solicitacaoAceita
@@ -86,18 +90,22 @@ public class SolicitacaoEntradaEquipeEnviada extends MensagemPPEnviada implement
     }
 
     /**
-     * @return the atleta
+     * @return the usuarioDestinatario
      */
-    public Atleta getAtleta() {
-        return atleta;
+    public UsuarioParticipante2 getUsuarioDestinatario() {
+        return usuarioDestinatario;
     }
 
     /**
-     * @param atleta the atleta to set
+     * @param usuarioDestinatario the usuarioDestinatario to set
      */
-    public void setAtleta(Atleta atleta) {
-        this.atleta = atleta;
+    public void setUsuarioDestinatario(UsuarioParticipante2 usuarioDestinatario) {
+        this.usuarioDestinatario = usuarioDestinatario;
     }
+
+    
+
+    
     
     
     

@@ -6,6 +6,7 @@
 package br.edu.ifpr.irati.ti.dao;
 
 import br.edu.ifpr.irati.ti.modelo.Atleta;
+import br.edu.ifpr.irati.ti.modelo.SolicitacaoEntradaEquipeEnviada;
 import gerais.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,15 +18,15 @@ import org.hibernate.Session;
 public class MensagemSolicitacaoEntradaEnviadaDAO {
     
     
-        public Atleta buscarPorId(int id) {
+        public SolicitacaoEntradaEquipeEnviada buscarPorId(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from atleta a where a.idAtleta = '" + id + "'";
+        String hql = "from solicitacaoentradaequipe_pp_enviado s where s.idMensagemEnviada = '" + id + "'";
         Query query = session.createQuery(hql);
         query.setMaxResults(1);
-        Atleta competicao = (Atleta) query.uniqueResult();
+        SolicitacaoEntradaEquipeEnviada solicEntEnv = (SolicitacaoEntradaEquipeEnviada) query.uniqueResult();
         session.clear();
         session.close();
-        return competicao;
+        return solicEntEnv;
     }
     
     
