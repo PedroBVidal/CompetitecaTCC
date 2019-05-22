@@ -1,12 +1,9 @@
 
 package br.edu.ifpr.irati.ti.modelo;
 
-import br.edu.ifpr.irati.ti.dao.Dao;
-import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -55,7 +52,7 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
     }
     
     public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, Competicao competicao, String informacaoExtra) {
-        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, nomeCompeticao);
+        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, informacaoExtra);
         this.modalidadeSolo = modalidadeSolo;
         this.atletasCompeticao = new ArrayList<>();
         this.inscricoesCompeticaoSolo = new ArrayList<>();

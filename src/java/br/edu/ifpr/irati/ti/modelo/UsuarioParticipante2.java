@@ -24,7 +24,7 @@ import org.hibernate.annotations.Proxy;
 @Entity(name = "usuarioparticipante2")
 @Proxy(lazy = false)
 public class UsuarioParticipante2 implements Serializable {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idUsuario;
@@ -66,6 +66,7 @@ public class UsuarioParticipante2 implements Serializable {
         this.mensagensEnviadas = new ArrayList<>();
         this.mensagensRecebidas = new ArrayList<>();
         this.equipe = new ArrayList<>();
+       
     }
 
     public UsuarioParticipante2(int idUsuario, String email, String nome, String senha, List<MensagemEnviada> mensagensEnviadas, List<MensagemRecebida> mensagensRecebidas, Atleta atleta) {
