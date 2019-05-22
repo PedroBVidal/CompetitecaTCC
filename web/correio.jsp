@@ -4,11 +4,10 @@
     Author     : Usuário
 --%>
 
-<%@page import="br.edu.ifpr.irati.ti.modelo.ConviteGerenciamentoAARecebido"%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.ComunicadoAARecebido"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.ComunicadoAPRecebido"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.MensagemRecebida"%>
-<%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipanteControle"%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipante2Controle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -36,7 +35,7 @@
     <body>
 
         <header>
-            <jsp:include page="navbarUsuarioAdministrador.jsp" flush="true" />
+            <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
         </header>
 
         <%
@@ -68,7 +67,7 @@
             <div class="tab-content" id="nav-tabContent">
              
                 
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+                <!--<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>-->
             
           
                 <!-- Marketing Icons Section -->
@@ -79,7 +78,7 @@
                 
                             if(mR instanceof ComunicadoAPRecebido){
                 
-                            ComunicadoAARecebido cR = (ComunicadoAPRecebido) mR;
+                            ComunicadoAPRecebido cR = (ComunicadoAPRecebido) mR;
                         %>
                         <div class="col-lg-4 mb-4">
                             <div class="card h-100">
@@ -92,37 +91,14 @@
                                 </div>
                             </div>
                         </div>
-                        <%}%>
+                        <%}}%>
 
-                        <% 
-                            /*if(mR instanceof ConviteGerenciamentoAARecebido){
-                 
-                            ConviteGerenciamentoAARecebido cG = (ConviteGerenciamentoAARecebido) mR;
-                            */
-                        %>
-                       <!-- <div class="col-lg-4 mb-4">
-                            <div class="card h-100">
-                                <h4 class="card-header"><%//cG.getAssunto()%></h4>
-                                <div class="card-body">
-                                    <p class="card-text"><%//cG.getTexto()%></p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="btnsDecissaoMensagem">
-                                        <a href="scripts/mensagens/aceitarConviteGerenciamento.jsp" class="btn btn-info">Aceitar convite</a>
-                                        <a href="scripts/mensagens/recusarConviteGerenciamento.jsp" class="btn btn-warning text-white">Recusar convite</a>
-                                    </div>
-                                    <a href="scripts/mensagens/marcarMensagemComoVisualizada.jsp" class="btn btn-outline-primary">Marcar como visualizada</a>
-
-                                </div>
-                            </div>
-                        </div>
-                        <%//}%>
-                        <%//}%>
-                    </div>-->
+                       
                     <!-- /.row -->
 
 
                 </div>
+                        </div>
                     <div class="tab-pane fade" id="entrada" role="tabpanel" aria-labelledby="nav-profile-tab"><h1>Entrada</h1></div>
                     <div class="tab-pane fade" id="enviadas" role="tabpanel" aria-labelledby="nav-profile-tab"><h1>Enviadas</h1></div>
             </div>

@@ -262,7 +262,7 @@
                                                 List<Equipe> equipesRelacionadas = atleta.getEquipes();
                                                 equipesRelacionadas = atleta.getUsuarioParticipante().getEquipe();
                                                 
-                                                for(CompeticaoModalidadeColetiva competicaoModalidadeColetiva : )
+                                                //for(CompeticaoModalidadeColetiva competicaoModalidadeColetiva : )
                                             %>
                                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" style="width: 160px;">Inscrever-se</button>
                                         </div>
