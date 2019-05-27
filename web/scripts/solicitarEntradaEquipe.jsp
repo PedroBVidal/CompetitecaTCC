@@ -36,7 +36,6 @@
     UsuarioParticipante2 userRemetente = upControle.buscarPorId(idUsuarioRemetente);
     Equipe equipe = equipeControle.buscarPorId(idEquipe);
     
-    
     List<UsuarioParticipante2> destinatarios = new ArrayList<>();
     destinatarios.add(userAdmEquipe);
             
