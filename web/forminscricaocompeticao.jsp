@@ -129,11 +129,11 @@
                                             <div class="modal-body">
 
                                                 <p><%
-                                                                if (cms.getInformacaoExtra() != null) {%>
-                                                    <%=cms.getInformacaoExtra()%>
+                                                    if (cms.getInformacaoExtra() == null || cms.getInformacaoExtra().equals("")) {%>
+                                                    Não há informações extras sobre essa competição
                                                     <%} else {
                                                     %>
-                                                    Não há informações extras sobre essa competição
+                                                    <%=cms.getInformacaoExtra()%>
                                                     <%}%></p>
 
                                             </div>
@@ -299,11 +299,11 @@
                                            <div class="modal-body">
                                                
                                                             <p><%
-                                                        if (cmc.getInformacaoExtra() != null || !cmc.getInformacaoExtra().equals("")) {%>
-                                                                <%=cmc.getInformacaoExtra()%>
+                                                        if (cmc.getInformacaoExtra() == null || cmc.getInformacaoExtra().equals("")){%>
+                                                                Não há informações extras sobre essa competição
                                                                 <%} else {
                                                                 %>
-                                                                Não há informações extras sobre essa competição
+                                                                <%=cmc.getInformacaoExtra()%>
                                                                 <%}%></p>
                                            </div>
                                            <div class="modal-footer">
