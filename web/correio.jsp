@@ -65,51 +65,114 @@
                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#enviadas" role="tab" aria-controls="nav-contact" aria-selected="false">Enviadas</a>
             </div>
             <div class="tab-content" id="nav-tabContent">
-             
-                
+
+
                 <!--<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>-->
-            
-          
-                <!-- Marketing Icons Section -->
-                  <div class="tab-pane fade show active" id="naolidas" role="tabpanel" aria-labelledby="nav-home-tab">
+
+
+                <!-- Caixa das Não Lidas, somente-->
+                <div class="tab-pane fade show active" id="naolidas" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="row">
-                        <%
+
+                        <div class="accordion col-12" id="accordionExample">
+                            <%
                             for(MensagemRecebida mR: usuarioAdm.getMensagensRecebidas()){
                 
                             if(mR instanceof ComunicadoAPRecebido){
                 
                             ComunicadoAPRecebido cR = (ComunicadoAPRecebido) mR;
-                        %>
-                        <div class="col-lg-4 mb-4">
-                            <div class="card h-100">
-                                <h4 class="card-header"><%=cR.getAssunto()%></h4>
-                                <div class="card-body">
-                                    <p class="card-text"><%=cR.getTexto()%></p>
+                            if(cR.isLido() == false){
+                            %>
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#<%=cR.getIdMensagemRecebida()%>" aria-expanded="true" aria-controls="collapseOne">
+                                            <%=cR.getAssunto()%>
+                                        </button>
+                                    </h2>
                                 </div>
-                                <div class="card-footer">
-                                    <a href="#" class="btn btn-outline-primary">Marcar como visualizada</a>
+
+                                <div id="<%=cR.getIdMensagemRecebida()%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <%=cR.getTexto()%><br><br>
+                                        <a href="scripts/mensagemMarkRead.jsp?idMensagem=<%=cR.getIdMensagemRecebida()%>" class="btn btn-outline-primary">Marcar como visualizada</a>
+                                    </div>
                                 </div>
                             </div>
+                            <%}}}%>
                         </div>
-                        <%}}%>
 
-                       
-                    <!-- /.row -->
 
+
+                        <!-- /.row -->
+
+
+                    </div>
+                </div>
+         <!--Caixa de Entrada(Lidas e Não Lidas)-->
+                        <div class="tab-pane fade" id="entrada" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="row">
+
+                            <div class="accordion col-12" id="accordionExample2">
+                                <%
+                                for(MensagemRecebida mR: usuarioAdm.getMensagensRecebidas()){
+                
+                                if(mR instanceof ComunicadoAPRecebido){
+                
+                                ComunicadoAPRecebido cR = (ComunicadoAPRecebido) mR;
+                                if(cR.isLido() == false){
+                                %>
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#e<%=cR.getIdMensagemRecebida()%>" aria-expanded="true" aria-controls="collapseOne">
+                                                <span style="color:#dc3545;"><%=cR.getAssunto()%></span>
+                                            </button>
+                                        </h2>
+                                    </div>
+
+                                    <div id="e<%=cR.getIdMensagemRecebida()%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <%=cR.getTexto()%><br><br>
+                                            <a href="scripts/mensagemMarkRead.jsp?idMensagem=<%=cR.getIdMensagemRecebida()%>" class="btn btn-outline-primary">Marcar como visualizada</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%}else{%>
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#e<%=cR.getIdMensagemRecebida()%>" aria-expanded="true" aria-controls="collapseOne">
+                                                <span style="color:#28a745;"><%=cR.getAssunto()%></span>
+                                            </button>
+                                        </h2>
+                                    </div>
+
+                                    <div id="e<%=cR.getIdMensagemRecebida()%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <%=cR.getTexto()%><br><br>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                                <% }}}%>
+                            </div>
+
+
+                        </div>
 
                 </div>
-                        </div>
-                    <div class="tab-pane fade" id="entrada" role="tabpanel" aria-labelledby="nav-profile-tab"><h1>Entrada</h1></div>
-                    <div class="tab-pane fade" id="enviadas" role="tabpanel" aria-labelledby="nav-profile-tab"><h1>Enviadas</h1></div>
+                <div class="tab-pane fade" id="enviadas" role="tabpanel" aria-labelledby="nav-profile-tab"><h1>Enviadas</h1></div>
             </div>
-        </div>
-        <!-- /.container -->
+            <!-- /.container -->
 
 
 
-        <!-- Bootstrap core JavaScript -->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Bootstrap core JavaScript -->
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     </body>
 
