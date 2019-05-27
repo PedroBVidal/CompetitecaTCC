@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
@@ -19,9 +20,8 @@ import org.hibernate.annotations.Type;
 @Proxy(lazy = false)
 public class SolicitacaoEntradaEquipeEnviada extends MensagemPPEnviada implements Serializable{
     
-    @Column(name = "inativo")
-    @Type(type = "true_false")
-    private boolean solicitacaoAceita; 
+    @Column(name = "estadoSolicitacao")    
+    private char estadoSolicitacao; 
     
     @Column(name = "texto",nullable = false)
     private String texto;
@@ -31,36 +31,22 @@ public class SolicitacaoEntradaEquipeEnviada extends MensagemPPEnviada implement
     
     @ManyToOne
     private UsuarioParticipante2 usuarioDestinatario;
+    
+
 
     public SolicitacaoEntradaEquipeEnviada() {
     }
 
-    public SolicitacaoEntradaEquipeEnviada(boolean solicitacaoAceita, String texto, Equipe equipe, UsuarioParticipante2 usuarioDestinatario, List<UsuarioParticipante2> usuariosParticipantes, int idMensagemEnviada, String assunto) {
+    public SolicitacaoEntradaEquipeEnviada(char estadoSolicitacao, String texto, Equipe equipe, UsuarioParticipante2 usuarioDestinatario, List<UsuarioParticipante2> usuariosParticipantes, int idMensagemEnviada, String assunto) {
         super(usuariosParticipantes, idMensagemEnviada, assunto);
-        this.solicitacaoAceita = solicitacaoAceita;
+        this.estadoSolicitacao = estadoSolicitacao;
         this.texto = texto;
         this.equipe = equipe;
         this.usuarioDestinatario = usuarioDestinatario;
     }
 
     
-
     
-
-    /**
-     * @return the solicitacaoAceita
-     */
-    public boolean isSolicitacaoAceita() {
-        return solicitacaoAceita;
-    }
-
-    /**
-     * @param solicitacaoAceita the solicitacaoAceita to set
-     */
-    public void setSolicitacaoAceita(boolean solicitacaoAceita) {
-        this.solicitacaoAceita = solicitacaoAceita;
-    }
-
     /**
      * @return the texto
      */
@@ -101,6 +87,20 @@ public class SolicitacaoEntradaEquipeEnviada extends MensagemPPEnviada implement
      */
     public void setUsuarioDestinatario(UsuarioParticipante2 usuarioDestinatario) {
         this.usuarioDestinatario = usuarioDestinatario;
+    }
+
+    /**
+     * @return the estadoSolicitacao
+     */
+    public char getEstadoSolicitacao() {
+        return estadoSolicitacao;
+    }
+
+    /**
+     * @param estadoSolicitacao the estadoSolicitacao to set
+     */
+    public void setEstadoSolicitacao(char estadoSolicitacao) {
+        this.estadoSolicitacao = estadoSolicitacao;
     }
 
     
