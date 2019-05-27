@@ -4,6 +4,7 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoColetiva"%>
 <%@page import="java.util.List"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Equipe"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoSolo"%>
@@ -256,14 +257,30 @@
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#saibaMaisCompeticaoColetiva<%=cmc.getIdCompeticaoModalidade()%>"><i class="fas fa-info-circle"></i>&nbsp;Saiba mais</button>
                                             
-                                            <!--Compara se o usuário participante é administrador ou vinculado a equipe, caso seja gera um btn resposnsivo-->
+                                            <!--Compara se o usuário participante é administrador ou vinculado a uma equipe que seja
+                                            , caso seja gera um btn resposnsivo-->
                                             <%
                                                 
                                                 List<Equipe> equipesRelacionadas = atleta.getEquipes();
                                                 equipesRelacionadas = atleta.getUsuarioParticipante().getEquipe();
+                                                boolean flag = false;
+                                                for(Equipe equipe : equipesRelacionadas){
+                                                    
+                                                    for(InscricaoCompeticaoColetiva inscriColetiva : equipe.getInscricoesCompeticoesColetivas()){
+                                                        if(inscriColetiva.getCompeticaoModalidadeColetiva().getIdCompeticaoModalidade()
+                                                                == cmc.getIdCompeticaoModalidade()){
+                                                            flag = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if(flag == true){
+                                                        break;
+                                                    }
+                                                }
                                                 
                                                 //for(CompeticaoModalidadeColetiva competicaoModalidadeColetiva : )
                                             %>
+
                                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" style="width: 160px;">Inscrever-se</button>
                                         </div>
                                     </div>
