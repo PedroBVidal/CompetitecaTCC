@@ -58,6 +58,15 @@ public class AdicionarUserParticipantes {
         atletaControle.criarAtleta(a5);
         usuarioParticipante2Controle.criar(u5);
         
+        
+        UsuarioParticipante2 u6 = new UsuarioParticipante2(0, "pedropopa98@gmail.com", "Pedro V", "pedro");       
+        Atleta a6 = new Atleta(0, new Date(), "090.976.459-05");
+        u6.setAtleta(a6);
+        a6.setUsuarioParticipante(u6);
+        
+        atletaControle.criarAtleta(a6);
+        usuarioParticipante2Controle.criar(u6);
+        
         System.exit(0);
     }
     
