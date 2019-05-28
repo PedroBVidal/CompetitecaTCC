@@ -1,4 +1,6 @@
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.MensagemEnviada"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.SolicitacaoEntradaEquipeEnviada"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.EquipeControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeColetivaControle"%>
@@ -52,8 +54,10 @@
                 
                 CompeticaoModalidadeColetivaControle cmcControle = new CompeticaoModalidadeColetivaControle();
                 EquipeControle equipeControle = new EquipeControle();
+                UsuarioParticipante2Controle usuarioPControle = new UsuarioParticipante2Controle();
                 int idCompeticaoModalidadeColetiva = Integer.parseInt(request.getParameter("idCmc"));
                 CompeticaoModalidadeColetiva cmc = cmcControle.buscarPorId(idCompeticaoModalidadeColetiva);
+                UsuarioParticipante2 usuarioParticipante = usuarioPControle.buscarPorId(up.getIdUsuario());
         %>
 
         <header>
@@ -94,22 +98,79 @@
                         <tbody>
                             
                             <%
-                                for(Equipe equipe : equipeControle.buscarTodasEquipe()){
-                                boolean flag = false;
-                                for(CompeticaoModalidadeColetiva c: equipe.getCompeticoesModalidadeColeivas()){
-                                    if(c.getIdCompeticaoModalidade() == cmc.getIdCompeticaoModalidade()){
-                                        flag = true;
-                                    }
-                                }
+                                for (Equipe equipe : equipeControle.buscarTodasEquipe()) {
+
+                                        int flag = 0;
+                                        if(equipe.getModalidade().getIdModColetiva() == cmc.getModalidadeColetiva().getIdModColetiva()){
+                                        
+                                        
+                                        for (CompeticaoModalidadeColetiva c : equipe.getCompeticoesModalidadeColeivas()) {
+
+                                            if (c.getIdCompeticaoModalidade() == cmc.getIdCompeticaoModalidade()) {
+                                                if (equipe.getAdministrador().getIdUsuario() == up.getIdUsuario()) {
+                                                    flag = 4;
+                                                }
+                                                
+                                                if(flag != 4){
+                                                for (MensagemEnviada msg : usuarioParticipante.getMensagensEnviadas()) {
+                                                    if (msg instanceof SolicitacaoEntradaEquipeEnviada) {
+                                                        SolicitacaoEntradaEquipeEnviada see = (SolicitacaoEntradaEquipeEnviada) msg;
+                                                        if (see.getEquipe().getIdEquipe() == equipe.getIdEquipe()) {
+
+                                                            if (see.getEstadoSolicitacao() == 'A') {
+                                                                flag = 1;
+                                                            }
+                                                            if (see.getEstadoSolicitacao() == 'N') {
+                                                                flag = 2;
+                                                            }
+                                                            if (see.getEstadoSolicitacao() == 'E') {
+                                                                flag = 3;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            }
+                                        }
+                                        }
+                                        else{
+                                            flag = 5;
+                                        }
                             %>
                             
                             <%
-                                if(flag == true){
+                                if(flag != 4 && flag != 5){
                             %>
                             <tr>
                                 <td><%=equipe.getNome()%></td>
                                 <td><%=equipe.getAdministrador().getNome()%></td>
-                                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSolictarEntrada<%=equipe.getIdEquipe()%>"><i class="fas fa-sign-in-alt"></i>&nbsp;Solicitar entrada</button></td>
+                                <td>
+                                    <%
+                                        if (flag == 0) {
+                                                
+                                        
+                                    %>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSolictarEntrada<%=equipe.getIdEquipe()%>"><i class="fas fa-sign-in-alt"></i>&nbsp;Solicitar entrada</button>
+                                    <%}%>
+                                        <%
+                                        
+                                            if(flag == 1){
+                                        %>
+                                        <button type="input" class="btn btn-success" disabled="true" style="width: 300px;">Solicitação aceita</button>
+                                        <%}%>
+                                        <%
+                                        
+                                            if(flag == 2){
+                                        %>
+                                        <button type="input" class="btn btn-danger" disabled="true" style="width: 300px;">Solicitação negada</button>
+                                        <%}%>
+                                        <%
+                                        
+                                            if(flag == 3){
+                                        %>
+                                        <button type="input" class="btn btn-warning" disabled="true" style="width: 220px;">Solicitação em aprovação</button>
+                                        <%}%>
+                                </td>
                             </tr>
                             
                         <!--Modal solicitar entrada equipe-->
@@ -128,6 +189,10 @@
 
                                     </div>
                                     <div class="modal-footer">
+                                        <%
+                                        
+                                            if(flag == 0){
+                                        %>
                                         <form action="scripts/solicitarEntradaEquipe.jsp" method="POST">
                                             
                                             <input type="hidden" name="idCompeticao" value="<%=cmc.getCompeticao().getIdCompeticao()%>">
@@ -142,7 +207,7 @@
                                 </div>
                             </div>
                         </div>
-                           <%}}%>
+                           <%}}}%>
                         </tbody>
                     </table>
                 </div>

@@ -39,8 +39,9 @@
     List<UsuarioParticipante2> destinatarios = new ArrayList<>();
     destinatarios.add(userAdmEquipe);
             
-    SolicitacaoEntradaEquipeEnviada msgSolicitacaoEntradaEnviada = new SolicitacaoEntradaEquipeEnviada(false, "Olá, desejo participar de sua equipe", equipe, userRemetente, destinatarios, 0, "Solicitacao entrada");
-    SolicitacaoEntradaEquipeRecebida msgSolicitacaoEntradaRecebida = new SolicitacaoEntradaEquipeRecebida(false, "Olá, desejo participar de sua equipe", equipe, userAdmEquipe, userRemetente, 0, false, "Solicitacao entrada");
+    SolicitacaoEntradaEquipeEnviada msgSolicitacaoEntradaEnviada = new SolicitacaoEntradaEquipeEnviada('E', "Olá, desejo participar de sua equipe", equipe, userRemetente, destinatarios, 0, "Solicitacao de entrada - Equipe: "+equipe.getNome());
+    SolicitacaoEntradaEquipeRecebida msgSolicitacaoEntradaRecebida = new SolicitacaoEntradaEquipeRecebida('E', "Olá, desejo participar de sua equipe ", equipe, userAdmEquipe,msgSolicitacaoEntradaEnviada,userRemetente, 0, false, "Solicitacao de entrada - Equipe: "+equipe.getNome());
+    
     
     userAdmEquipe.adicionarMensagemRecebida(msgSolicitacaoEntradaRecebida);
     userRemetente.adicionarMensagemEnviada(msgSolicitacaoEntradaEnviada);

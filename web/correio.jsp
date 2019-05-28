@@ -4,6 +4,9 @@
     Author     : Usuário
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Equipe"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.SolicitacaoEntradaEquipeRecebida"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.ComunicadoAPRecebido"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.MensagemRecebida"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipante2Controle"%>
@@ -39,16 +42,14 @@
         </header>
 
         <%
-              int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-            
-              //System.out.println("ENTREI EM minhas mensagens não lidas!");
-            
-            
-              UsuarioParticipante2Controle upControle = new UsuarioParticipante2Controle();
-            
-              UsuarioParticipante2 usuarioAdm = upControle.buscarPorId(idUsuario);
-            
-            
+            int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+
+            //System.out.println("ENTREI EM minhas mensagens não lidas!");
+            UsuarioParticipante2Controle upControle = new UsuarioParticipante2Controle();
+
+            UsuarioParticipante2 usuarioAdm = upControle.buscarPorId(idUsuario);
+
+
         %>
 
         <!-- Page Content -->
@@ -76,12 +77,12 @@
 
                         <div class="accordion col-12" id="accordionExample">
                             <%
-                            for(MensagemRecebida mR: usuarioAdm.getMensagensRecebidas()){
-                
-                            if(mR instanceof ComunicadoAPRecebido){
-                
-                            ComunicadoAPRecebido cR = (ComunicadoAPRecebido) mR;
-                            if(cR.isLido() == false){
+                                for (MensagemRecebida mR : usuarioAdm.getMensagensRecebidas()) {
+
+                                    if (mR instanceof ComunicadoAPRecebido) {
+
+                                        ComunicadoAPRecebido cR = (ComunicadoAPRecebido) mR;
+                                        if (cR.isLido() == false) {
                             %>
                             <div class="card">
                                 <div class="card-header" id="headingOne">
@@ -99,7 +100,79 @@
                                     </div>
                                 </div>
                             </div>
-                            <%}}}%>
+                            <%}
+                                }%>
+
+                            <%
+                                if (mR instanceof SolicitacaoEntradaEquipeRecebida) {
+                                    SolicitacaoEntradaEquipeRecebida solicEntReceb = (SolicitacaoEntradaEquipeRecebida) mR;
+                                    if (solicEntReceb.isLido() == false) {
+
+                            %>
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#<%=solicEntReceb.getIdMensagemRecebida()%>" aria-expanded="true" aria-controls="collapseOne">
+                                            <%=solicEntReceb.getAssunto()%>
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="<%=solicEntReceb.getIdMensagemRecebida()%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p>
+                                            Usuario remetente: <a href="#" data-target="#1" class="stretched-link" onclick="acionarModalSaibaMaisAtleta(<%=solicEntReceb.getRemetente().getAtleta().getIdAtleta()%>);"><%=solicEntReceb.getRemetente().getNome()%></a>
+                                        
+                                        </p>
+                                        
+                                        <%=solicEntReceb.getTexto()%><span class="font-weight-bold"><%=solicEntReceb.getEquipe().getNome()%>.</span><br><br>
+                                        
+                                        <form name="formularioMsgSolicitacao" action="scripts/decisaoMsgSolicitacaoEntradaEquipe.jsp">
+                                            <input type="hidden" id="idMensagemRecebida" name="idMensagemRecebida" value="<%=solicEntReceb.getIdMensagemRecebida()%>">
+                                            <input type="hidden" id="opcao" name="op">
+                                        </form>
+                                        
+                                        <button type="button" class="btn btn btn-success" onclick="enviarFormulario(1);">Aceitar</button>
+                                        <button type="button" class="btn btn-danger btn" onclick="enviarFormulario(2);">Rejeitar</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                                <!-- Modal INFO USER PARTICIPANTE -->
+                                <div class="modal fade" id="modalSaibaMaisAtleta<%=solicEntReceb.getRemetente().getAtleta().getIdAtleta()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Nome: <%=solicEntReceb.getUsuarioDestinatario().getNome()%></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <%
+                                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                                    String dataNascimento = sdf.format(solicEntReceb.getUsuarioDestinatario().getAtleta().getDataNascimento());
+                                                %>
+                                                <p><span class="font-weight-bold">Email: </span><%=solicEntReceb.getUsuarioDestinatario().getEmail()%></p>
+                                                <p><span class="font-weight-bold">Data de nascimento: </span><%=dataNascimento%></p>
+                                                <%
+                                                    
+                                                    if(solicEntReceb.getUsuarioDestinatario().getAtleta().getSegmento() != null){
+                                                %>
+                                                <p><span class="font-weight-bold">Segmento IFPR-IRATI: </span><%=solicEntReceb.getUsuarioDestinatario().getAtleta().getSegmento().getNome()%></p>
+                                                <%}%>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}
+                                }%>
+                            <%}%>
                         </div>
 
 
@@ -109,59 +182,61 @@
 
                     </div>
                 </div>
-         <!--Caixa de Entrada(Lidas e Não Lidas)-->
-                        <div class="tab-pane fade" id="entrada" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        <div class="row">
+                <!--Caixa de Entrada(Lidas e Não Lidas)-->
+                <div class="tab-pane fade" id="entrada" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="row">
 
-                            <div class="accordion col-12" id="accordionExample2">
-                                <%
-                                for(MensagemRecebida mR: usuarioAdm.getMensagensRecebidas()){
-                
-                                if(mR instanceof ComunicadoAPRecebido){
-                
-                                ComunicadoAPRecebido cR = (ComunicadoAPRecebido) mR;
-                                if(cR.isLido() == false){
-                                %>
-                                <div class="card">
-                                    <div class="card-header" id="headingOne">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#e<%=cR.getIdMensagemRecebida()%>" aria-expanded="true" aria-controls="collapseOne">
-                                                <span style="color:#dc3545;"><%=cR.getAssunto()%></span>
-                                            </button>
-                                        </h2>
-                                    </div>
+                        <div class="accordion col-12" id="accordionExample2">
+                            <%
+                                for (MensagemRecebida mR : usuarioAdm.getMensagensRecebidas()) {
 
-                                    <div id="e<%=cR.getIdMensagemRecebida()%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <%=cR.getTexto()%><br><br>
-                                            <a href="scripts/mensagemMarkRead.jsp?idMensagem=<%=cR.getIdMensagemRecebida()%>" class="btn btn-outline-primary">Marcar como visualizada</a>
-                                        </div>
+                                    if (mR instanceof ComunicadoAPRecebido) {
+
+                                        ComunicadoAPRecebido cR = (ComunicadoAPRecebido) mR;
+                                        if (cR.isLido() == false) {
+                            %>
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#e<%=cR.getIdMensagemRecebida()%>" aria-expanded="true" aria-controls="collapseOne">
+                                            <span style="color:#dc3545;"><%=cR.getAssunto()%></span>
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="e<%=cR.getIdMensagemRecebida()%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <%=cR.getTexto()%><br><br>
+                                        <a href="scripts/mensagemMarkRead.jsp?idMensagem=<%=cR.getIdMensagemRecebida()%>" class="btn btn-outline-primary">Marcar como visualizada</a>
                                     </div>
                                 </div>
-                                <%}else{%>
-                                <div class="card">
-                                    <div class="card-header" id="headingOne">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#e<%=cR.getIdMensagemRecebida()%>" aria-expanded="true" aria-controls="collapseOne">
-                                                <span style="color:#28a745;"><%=cR.getAssunto()%></span>
-                                            </button>
-                                        </h2>
-                                    </div>
+                            </div>
+                            <%} else {%>
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#e<%=cR.getIdMensagemRecebida()%>" aria-expanded="true" aria-controls="collapseOne">
+                                            <span style="color:#28a745;"><%=cR.getAssunto()%></span>
+                                        </button>
+                                    </h2>
+                                </div>
 
-                                    <div id="e<%=cR.getIdMensagemRecebida()%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <%=cR.getTexto()%><br><br>
-                                            
-                                        </div>
+                                <div id="e<%=cR.getIdMensagemRecebida()%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <%=cR.getTexto()%><br><br>
+
                                     </div>
                                 </div>
-                                
-                                
-                                <% }}}%>
                             </div>
 
 
+                            <% }
+                                        }
+                                    }%>
                         </div>
+
+
+                    </div>
 
                 </div>
                 <div class="tab-pane fade" id="enviadas" role="tabpanel" aria-labelledby="nav-profile-tab"><h1>Enviadas</h1></div>
@@ -173,7 +248,31 @@
             <!-- Bootstrap core JavaScript -->
             <script src="vendor/jquery/jquery.min.js"></script>
             <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script>
+              
+            function enviarFormulario(op){
+                
+               inptOp = document.getElementById("opcao");
+               
+               if(op === 1){
+                   inptOp.value = "1";
+               }
+               
+               if(op === 2){
+                   inptOp.value = "2";
+               }
 
+               document.forms["formularioMsgSolicitacao"].submit();
+               
+            }
+            
+            function acionarModalSaibaMaisAtleta(idAtleta){
+                alert("Olá!");
+                $('#modalSaibaMaisAtleta'+idAtleta).modal('show');
+            
+            }
+                
+            </script>
     </body>
 
 </html>
