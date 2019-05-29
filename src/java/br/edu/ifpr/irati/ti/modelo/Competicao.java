@@ -53,6 +53,12 @@ public class Competicao implements Serializable {
 
     @Temporal(TemporalType.DATE)
     private Date dataTermino;
+    
+    @Temporal(TemporalType.DATE)
+    private Date dataInicioInsc;
+
+    @Temporal(TemporalType.DATE)
+    private Date dataTerminoInsc;
 
     @Column(name = "inativo")
     @Type(type = "true_false")
@@ -72,12 +78,14 @@ public class Competicao implements Serializable {
         administradores = new HashSet<>();
         dataInicio = new Date();
         dataTermino = new Date();
+        dataInicioInsc = new Date();
+        dataTerminoInsc = new Date();
         inativo = false;
         privado = false;
         informacaoExtra = "";
     }
 
-    public Competicao(int idCompeticao, String nome, Date dataInicio, Date dataTermino) {
+    public Competicao(int idCompeticao, String nome, Date dataInicioInsc, Date dataTerminoInsc, Date dataInicio, Date dataTermino) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
         cmodalidadecole = new HashSet<>();
@@ -85,11 +93,13 @@ public class Competicao implements Serializable {
         administradores = new HashSet<>();
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
+        this.dataInicioInsc = dataInicioInsc;
+        this.dataTerminoInsc = dataTerminoInsc;
         this.inativo = false;
         this.privado = false;
     }
     
-        public Competicao(int idCompeticao, String nome, Date dataInicio, Date dataTermino, String informacaoExtra) {
+        public Competicao(int idCompeticao, String nome, Date dataInicioInsc, Date dataTerminoInsc, Date dataInicio, Date dataTermino, String informacaoExtra) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
         this.cmodalidadecole = new HashSet<>();
@@ -97,12 +107,14 @@ public class Competicao implements Serializable {
         this.administradores = new HashSet<>();
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
+        this.dataInicioInsc = dataInicioInsc;
+        this.dataTerminoInsc = dataTerminoInsc;
         this.inativo = false;
         this.privado = false;
         this.informacaoExtra = informacaoExtra;
     }
 
-    public Competicao(int idCompeticao, String nome, String informacaoExtra, Set<UsuarioParticipante> administradores, Set<CompeticaoModalidadeColetiva> cmodalidadecole, Set<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino, boolean inativo, String codPriv, boolean privado) {
+    public Competicao(int idCompeticao, String nome, String informacaoExtra, Set<UsuarioParticipante> administradores, Set<CompeticaoModalidadeColetiva> cmodalidadecole, Set<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicioInsc, Date dataTerminoInsc, Date dataInicio, Date dataTermino, boolean inativo, String codPriv, boolean privado) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
         this.informacaoExtra = informacaoExtra;
@@ -116,10 +128,26 @@ public class Competicao implements Serializable {
         this.privado = privado;
     }
 
+    public Date getDataInicioInsc() {
+        return dataInicioInsc;
+    }
+
+    public void setDataInicioInsc(Date dataInicioInsc) {
+        this.dataInicioInsc = dataInicioInsc;
+    }
+
+    public Date getDataTerminoInsc() {
+        return dataTerminoInsc;
+    }
+
+    public void setDataTerminoInsc(Date dataTerminoInsc) {
+        this.dataTerminoInsc = dataTerminoInsc;
+    }
+
         
 
     
-
+    
     public void adcionarLocal(Local local) {
 
     }

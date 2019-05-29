@@ -35,7 +35,8 @@
         <meta name="author" content="">
 
         <title>Modern Business - Start Bootstrap Template</title>
-
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -97,8 +98,9 @@
                 <div class="list-group col-2" id="myList" role="tablist">
                     <a class="list-group-item list-group-item-action active" data-toggle="list" href="#messages" role="tab">Mensagens</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#inscricao" role="tab">Inscrições</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Competidores</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">Classificações</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Settings</a>
+
 
 
                 </div>
@@ -106,8 +108,12 @@
                 <!-- Tab panes -->
                 <div class="tab-content col-10">
                     <div class="tab-pane dark" id="inscricao" role="tabpanel">
-                        
-                        <table class="table table-striped">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                </a></span>
+                            <input name="consulta" id="txt_consulta1" placeholder="Consultar" type="text" class="form-control">
+                        </div>
+                        <table id="tabela1" class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">Atleta</th>
@@ -119,8 +125,8 @@
                                 <%
                             
                                     for(InscricaoCompeticaoSolo iMs: competicao.getInscricoesCompeticaoSolo()){
-                                
-                                    String nomeAtleta = iMs.getAtleta().getNome();
+                                        if(iMs.getInscricaoAceita() == 'E'){
+                                    String nomeAtleta = iMs.getAtleta().getUsuarioParticipante().getNome();
                                     
                             
                             
@@ -128,14 +134,18 @@
                                 %>    
                             <td><%=nomeAtleta%></td>
                             <td>
-                            <a href="scripts/excluiAtletaCompModSolo.jsp?idInsc=<%=iMs.getIdCompeticaoSolo()%>&idCompSolo=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
-                                <!-- Adicionar icone -->
-                                <i class="fas fa-trash-alt"></i>
-                            </a> &nbsp;
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMs.getAtleta().getIdAtleta()%>">
-                                <!-- Adicionar icone -->
-                                <i class="fas fa-eye"></i>
-                            </button></td>
+                                <a href="scripts/aprovaInscCompSolo.jsp?opt=1&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-success">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-check"></i>
+                                </a> &nbsp;
+                                <a href="scripts/aprovaInscCompSolo.jsp?opt=2&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-times"></i>
+                                </a> &nbsp;
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMs.getAtleta().getIdAtleta()%>">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-eye"></i>
+                                </button></td>
 
                             </tbody>
 
@@ -151,9 +161,9 @@
                                         <div class="modal-body">
 
                                             Nome do Atleta:&nbsp; <%=nomeAtleta%> <br>
-                                            Email para Contato:&nbsp;<%=iMs.getAtleta().getEmail()%>
+                                            Email para Contato:&nbsp;<%=iMs.getAtleta().getUsuarioParticipante().getEmail()%>
 
-                                            
+
 
                                         </div>
                                         <div class="modal-footer">
@@ -162,9 +172,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <%}%>
+                            <%}}%>
                         </table>
-                        
+                        <script>
+                            //Código de busca da tabela
+                            $('input#txt_consulta1').quicksearch('table#tabela1 tbody tr');
+
+                        </script>
+
                     </div>
 
 
@@ -175,9 +190,78 @@
 
 
                     <div class="tab-pane active" id="messages" role="tabpanel">
-                        
+
                     </div>
-                    <div class="tab-pane" id="settings" role="tabpanel">Porem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                    <div class="tab-pane" id="settings" role="tabpanel">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                </a></span>
+                            <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
+                        </div>
+                        <table id="table" class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Atleta</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <%
+                            
+                                    for(InscricaoCompeticaoSolo iMs: competicao.getInscricoesCompeticaoSolo()){
+                                        if(iMs.getInscricaoAceita() == 'A'){
+                                    String nomeAtleta = iMs.getAtleta().getUsuarioParticipante().getNome();
+                                    
+                            
+                            
+                            
+                                %>    
+                            <td><%=nomeAtleta%></td>
+                            <td>
+
+                                <a href="scripts/aprovaInscCompSolo.jsp?opt=3&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-trash-alt"></i>
+                                </a> &nbsp;
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMs.getAtleta().getIdAtleta()%>">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-eye"></i>
+                                </button></td>
+
+                            </tbody>
+
+                            <div class="modal fade" id="<%=iMs.getAtleta().getIdAtleta()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel"><%=nomeAtleta%></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            Nome do Atleta:&nbsp; <%=nomeAtleta%> <br>
+                                            Email para Contato:&nbsp;<%=iMs.getAtleta().getUsuarioParticipante().getEmail()%>
+
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-dager" data-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}}%>
+                        </table>
+                        <script>
+                            //Código de busca da tabela
+                            $('input#txt_consulta').quicksearch('table#tabela tbody tr');
+
+                        </script>
+                    </div>
                 </div>
 
             </div>

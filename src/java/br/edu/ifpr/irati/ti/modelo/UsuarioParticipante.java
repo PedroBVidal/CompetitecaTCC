@@ -24,7 +24,7 @@ public class UsuarioParticipante implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int idUsuario;
     
-    @Column(name="email", nullable = false)
+    @Column(name="email", nullable = false, unique=true)
     private String email;
     
     @Column(name="nome", nullable = false)
@@ -44,6 +44,10 @@ public class UsuarioParticipante implements Serializable {
     @OneToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<MensagemRecebida> mensagensRecebidas;
+    
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Local> locais;
 
     public UsuarioParticipante() {
         idUsuario = 0;
@@ -53,6 +57,7 @@ public class UsuarioParticipante implements Serializable {
         nome = "";
         mensagensEnviadas = new ArrayList<>();
         mensagensRecebidas = new ArrayList<>();
+        locais = new ArrayList<>();
     }
 
     public UsuarioParticipante(int idUsuario,String nome, String email, String senha) {
@@ -63,6 +68,7 @@ public class UsuarioParticipante implements Serializable {
         this.competicoes = new ArrayList<>();
         this.mensagensEnviadas = new ArrayList<>();
         this.mensagensRecebidas = new ArrayList<>();
+        this.locais = new ArrayList<>();
     }
 
     public UsuarioParticipante(int idUsuario, String email, String nome, String senha, List<Competicao> competicoes, List<MensagemEnviada> mensagensEnviadas, List<MensagemRecebida> mensagensRecebidas) {
@@ -73,6 +79,7 @@ public class UsuarioParticipante implements Serializable {
         this.competicoes = competicoes;
         this.mensagensEnviadas = mensagensEnviadas;
         this.mensagensRecebidas = mensagensRecebidas;
+        this.locais = new ArrayList<>();
     }
 
     
@@ -201,7 +208,26 @@ public class UsuarioParticipante implements Serializable {
     public void setMensagensEnviadas(List<MensagemEnviada> mensagensEnviadas) {
         this.mensagensEnviadas = mensagensEnviadas;
     }
-    
+    /**
+     * 
+     * @return 
+     */
+    public List<Local> getLocais() {
+        return locais;
+    }
+    /**
+     * 
+     * @param locais 
+     */
+    public void setLocais(List<Local> locais) {
+        this.locais = locais;
+    }
+    public void adicionarLocal(Local local){
+        this.locais.add(local);
+    }
+    public void removerLocal(Local local){
+        this.locais.remove(local);
+    }
     
     
     

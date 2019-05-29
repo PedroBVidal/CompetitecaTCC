@@ -40,16 +40,77 @@
     <body>
         <script>
 
-
-            function validatePassword() {
+                  function validatePassword() {
             var password = document.getElementById("password")
                     , confirm_password = document.getElementById("confirm_password");
-            if (password.value != confirm_password.value) {
+            if (password.value !== confirm_password.value) {    
             confirm_password.setCustomValidity("As senhas não coincidem!");
             } else {
             confirm_password.setCustomValidity('');
             }
             }
+            /* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+    
+    function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep.
+            document.getElementById('email').value=("");
+          
+    }
+
+    function meu_callback(conteudo) {
+        if (!("Message" in conteudo) && conteudo.deliverable == true) {
+            //Atualiza os campos com os valores.
+            document.getElementById('email').value=(conteudo.address);
+           
+        } //end if.
+        else {
+            
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            //document.getElementById('email').placeholder="Email inexistente.Tente novamente com um email válido";
+            alert("Email inexistente.Tente novamente com um email válido"+conteudo.message);
+        }
+    }
+        
+    function pesquisaemail(valor) {
+
+        
+        var email = valor;
+
+        //Verifica se campo cep possui valor informado.
+        if (email != "") {
+
+          
+
+            
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('email').value="A validar...";
+                
+
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+
+                //Sincroniza com o callback.
+               // 'https://api.trumail.io/v2/lookups/jsonp?email='+email+'&callback=meu_callback'
+                script.src =  'https://api.trumail.io/v2/lookups/jsonp?email='+email+'&callback=meu_callback';
+
+                //Insere script no documento e carrega o conteúdo.
+                document.body.appendChild(script);
+
+            } //end if.
+            else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Email inexistente. Tente outro!");
+            }
+      //end if.
+        
+    };
 
             // password.onchange = validatePassword;
             // confirm_password.onkeyup = validatePassword;
@@ -127,7 +188,24 @@
         <%}
         if(request.getParameter("p").equals("2")){
         %>
+           
         <div class="container">
+               <%
+                request.setCharacterEncoding("UTF-8");
+                if (request.getParameter("msg") != null) {
+                    String mensagem = request.getParameter("msg");
+                    String cor = request.getParameter("color");
+            %>
+            <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
+                <strong><%=mensagem%></strong> .
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <%
+                }
+            %>
             <h1 class="my-4">Cadastro para Participantes</h1>
             <div class="card">
                 <h5 class="card-header">Cadastro</h5>
@@ -141,14 +219,14 @@
 
                         <input type="hidden" name="c" value="1">
                         <input type="hidden" name="id" value="0">
-
+                        <!--onblur="pesquisaemail(this.value);"  id="email"-->
                         <label for="" class="col-md-12">
                             Nome:
                             <input type="text" required class="form-control" name="nome" placeholder="Informe o seu nome" >
                         </label>
                         <label for="" class="col-md-12">
                             Email:
-                            <input type="email" required class="form-control" name="email" placeholder="Insira o seu email" >
+                            <input type="email" required class="form-control" name="email"  placeholder="Insira o seu email" >
                         </label>
                         <label for="" class="col-md-12">
                             Data de nascimento:
@@ -192,9 +270,26 @@
         if(request.getParameter("p").equals("3")){
         
         %>
+        
         <div class="container">
-            <h1 class="my-4">Cadastro para Administradores</h1>
+               <%
+                request.setCharacterEncoding("UTF-8");
+                if (request.getParameter("msg") != null) {
+                    String mensagem = request.getParameter("msg");
+                    String cor = request.getParameter("color");
+            %>
+            <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
+                <strong><%=mensagem%></strong> .
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
+            <%
+                }
+            %>
+            <h1 class="my-4">Cadastro para Administradores</h1>
+            <!--onblur="pesquisaemail(this.value);"  id="email"-->
 
             <form action="scripts/scriptuserAdministrador.jsp" method="POST" class="col" validate>
                 <input type="hidden" name="c" value="1">
@@ -206,7 +301,7 @@
                 </label>
                 <label for="" class="col-md-12">
                     Email:
-                    <input type="email" required class="form-control" name="email" placeholder="Insira o seu email" >
+                    <input type="email" required class="form-control" name="email"  placeholder="Insira o seu email" >
                 </label>
                 <label for="" class="col-md-12">
                     Senha:

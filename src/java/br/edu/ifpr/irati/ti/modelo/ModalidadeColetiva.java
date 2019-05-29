@@ -27,39 +27,25 @@ public class ModalidadeColetiva implements Serializable {
     @Column(name="nome", nullable = false)
     private String nome;
     
+    @Column(name="lotacaoMaximaEquipe", nullable=false)
+    private int lotacaoMaximaEquipe;
 
-    
-    
-    
-    // FICAR DE OLHO
-    //@OneToOne
-    //private CompeticaoModalidadeColetiva competicaoModalidadeColetiva;
 
     public ModalidadeColetiva() {
         idModColetiva = 0;
+        lotacaoMaximaEquipe = 0;
         nome = "";
         //equipes = new ArrayList<>();
        // competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva();
     }
 
-    public ModalidadeColetiva(int idModColetiva, String nome) {
+    public ModalidadeColetiva(int idModColetiva, String nome, int lotacaoMaximaEquipe) {
         this.idModColetiva = idModColetiva;
         this.nome = nome;
-        //this.equipes = new ArrayList<>();
-        //competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva();
+        this.lotacaoMaximaEquipe = lotacaoMaximaEquipe;
     }
-
     
-    /*
-    public void adicionarEquipe(Equipe equipe){
-        this.getEquipes().add(equipe);
-    }
-    public void removerEquipe(Equipe equipe){
-        this.getEquipes().remove(equipe);
-    }
-    */
-    
-    
+ 
     /**
      * @return the idModColetiva
      */
@@ -87,23 +73,23 @@ public class ModalidadeColetiva implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    /**
+     * @return the lotacaoMaximaEquipe
+     */
+    public int getLotacaoMaximaEquipe() {
+        return lotacaoMaximaEquipe;
+    }
+
+    /**
+     * @param lotacaoMaximaEquipe the lotacaoMaximaEquipe to set
+     */
+    public void setLotacaoMaximaEquipe(int lotacaoMaximaEquipe) {
+        this.lotacaoMaximaEquipe = lotacaoMaximaEquipe;
+    }
     
     
 
-
-    /**
-     * @return the competicaoModalidadeColetiva
-     */
-    /*public CompeticaoModalidadeColetiva getCompeticaoModalidadeColetiva() {
-        return competicaoModalidadeColetiva;
-    }*/
-
-    /**
-     * @param competicaoModalidadeColetiva the competicaoModalidadeColetiva to set
-     */
-    /*public void setCompeticaoModalidadeColetiva(CompeticaoModalidadeColetiva competicaoModalidadeColetiva) {
-        this.competicaoModalidadeColetiva = competicaoModalidadeColetiva;
-    }*/
 
     
     

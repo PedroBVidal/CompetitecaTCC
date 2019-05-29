@@ -28,7 +28,78 @@
 
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
+        <script>
 
+            function limpa_formulário_cep() {
+                //Limpa valores do formulário de cep.
+                document.getElementById('rua').value = ("");
+                document.getElementById('bairro').value = ("");
+                document.getElementById('cidade').value = ("");
+                document.getElementById('uf').value = ("");
+                document.getElementById('ibge').value = ("");
+            }
+
+            function meu_callback(conteudo) {
+                if (!("erro" in conteudo)) {
+                    //Atualiza os campos com os valores.
+                    document.getElementById('rua').value = (conteudo.logradouro);
+                    document.getElementById('bairro').value = (conteudo.bairro);
+                    document.getElementById('cidade').value = (conteudo.localidade);
+                    document.getElementById('uf').value = (conteudo.uf);
+                    document.getElementById('ibge').value = (conteudo.ibge);
+                } //end if.
+                else {
+                    //CEP não Encontrado.
+
+                    alert("CEP não encontrado.");
+                    limpa_formulário_cep();
+                }
+            }
+
+            function pesquisacep(valor) {
+                // $('.cepfilter').mask('00000-000', {reverse: true});
+                //Nova variável "cep" somente com dígitos.
+                var cep = valor.replace(/\D/g, '');
+
+                //Verifica se campo cep possui valor informado.
+                if (cep != "") {
+
+                    //Expressão regular para validar o CEP.
+                    var validacep = /^[0-9]{8}$/;
+
+                    //Valida o formato do CEP.
+                    if (validacep.test(cep)) {
+
+                        //Preenche os campos com "..." enquanto consulta webservice.
+                        document.getElementById('rua').value = "...";
+                        document.getElementById('bairro').value = "...";
+                        document.getElementById('cidade').value = "...";
+                        document.getElementById('uf').value = "...";
+
+
+                        //Cria um elemento javascript.
+                        var script = document.createElement('script');
+
+                        //Sincroniza com o callback.
+                        script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                        //Insere script no documento e carrega o conteúdo.
+                        document.body.appendChild(script);
+
+                    } //end if.
+                    else {
+                        //cep é inválido.
+                        limpa_formulário_cep();
+                        alert("Formato de CEP inválido.");
+                    }
+                } //end if.
+                else {
+                    //cep sem valor, limpa formulário.
+                    limpa_formulário_cep();
+                }
+            }
+            ;
+        </script>
     </head>
 
     <body>
@@ -41,47 +112,9 @@
                 
         %>
 
-        <!-- Navigation -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top">
-            <div class="container ">
-                <a class="navbar-brand" href="index.jsp">Competiteca</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="services.html"><i class="fas fa-trophy"></i>&nbsp;Competições</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-clipboard-list"></i>&nbsp;Gerenciar
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="competicoes.jsp">Competições</a>
-                                <a class="dropdown-item" href="portfolio-2-col.html">Atletas</a>
-                                <a class="dropdown-item" href="portfolio-3-col.html">Equipes</a>
-                                <a class="dropdown-item" href="local.jsp">Locais</a>
-                                <a class="dropdown-item" href="portfolio-item.html"></a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Olá,&nbsp;<%=up.getNome()%>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                                <a class="dropdown-item" href="scripts/ctrlacesso.jsp?c=1">Sair</a>
-                                <a class="dropdown-item" href="editarPerfil.jsp?c=<%=up.getIdUsuario()%>">Editar Perfil</a>
-                            </div>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
         <header>
-
+            <jsp:include page="navbarUsuarioAdministrador.jsp" flush="true" />
         </header>
 
         <!-- Page Content -->
@@ -97,13 +130,29 @@
                     Nome:
                     <input type="text" required class="form-control" name="nome" placeholder="Informe o nome do local" >
                 </label>
+                <div class="form-group col-md-12">
+                    <label>CEP:</label>
+                    <input type="text" onblur="pesquisacep(this.value);" class="naozeibeu form-control" name="cep" id="cep" placeholder="Insira o CEP">
+                </div>
                 <label for="" class="col-md-12">
-                    Endereco:
-                    <input type="text" required class="form-control" name="endereco" placeholder="Insira o endereço" >
+                    Rua:
+                    <input type="text" required class="form-control" name="rua" id="rua" placeholder="Insira a rua" >
                 </label>
                 <label for="" class="col-md-12">
-                    Cidade/Estado:
-                    <input type="text" required class="form-control" name="cidade" placeholder="Insira a cidade/estado">
+                    Número:
+                    <input type="text" required class="form-control" name="numero" id="numero" placeholder="Insira o número" >
+                </label>
+                <label for="" class="col-md-12">
+                    Bairro:
+                    <input type="text" required class="form-control" name="bairro" id="bairro" placeholder="Insira o Bairro" >
+                </label>
+                <label for="" class="col-md-12">
+                    Cidade:
+                    <input readonly type="text" required class="form-control" name="cidade" id="cidade" placeholder="Insira a cidade">
+                </label>
+                <label for="" class="col-md-12">
+                    Estado:
+                    <input readonly type="text" required class="form-control" name="estado" id="uf" placeholder="Insira a rua" >
                 </label>
 
 
@@ -115,8 +164,14 @@
 
 
         <!-- Bootstrap core JavaScript -->
+
+
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
+        <script>
+                        $('.naozeibeu').mask('00000-000', {reverse: true});
+        </script>
         <%
         }
         %>

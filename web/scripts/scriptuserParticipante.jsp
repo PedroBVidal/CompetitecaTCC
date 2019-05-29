@@ -22,13 +22,20 @@
         String senha = request.getParameter("senha");
         String cpf = request.getParameter("cpf");
         String sDataNascimento = request.getParameter("dataNascimento");
-        int idSegmento = Integer.parseInt(request.getParameter("segmento"));
+        int idSegmento = 0;
+        
+        if(request.getParameter("segmento") != null){
+            idSegmento = Integer.parseInt(request.getParameter("segmento"));
+        }
+        else{
+            System.out.println("ID SEGMENTO: " + idSegmento);
+        }
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dataNascimento = sdf.parse(sDataNascimento);
 
         int cmd = Integer.parseInt(request.getParameter("c"));
-        int id = Integer.parseInt(request.getParameter("id"));
+
         
         UsuarioParticipante2Controle uspc = new UsuarioParticipante2Controle();
         AtletaControle atletaControle = new AtletaControle();
@@ -37,8 +44,30 @@
 
 
         if (cmd == 2) {
-            UsuarioParticipante2 usp = uspc.buscarPorId(id);
+            int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+            
+            UsuarioParticipante2 usp = uspc.buscarPorId(idUsuario);
+            
+            
+            usp.setEmail(email);
+            usp.setNome(nome);
+            usp.setSenha(senha);
+            
+            Atleta atleta = usp.getAtleta();
+            atleta.setCpf(cpf);
+            atleta.setDataNascimento(dataNascimento);
+            
+        if(request.getParameter("segmento") != null){
+            Segmento segmento = segmentoControle.buscarSegmentoPorId(idSegmento);
+            atleta.setSegmento(segmento);
+        }
+        else{
+            atleta.setSegmento(null);
+        }
+        
             uspc.atualizarCad(usp);
+            atletaControle.alterarAtleta(atleta);
+            
             usp = uspc.buscarLogin(email, senha);
             session.setAttribute("usuario", usp);
             response.sendRedirect("../interfaceDoParticipante.jsp");
@@ -46,19 +75,26 @@
         }
         if (cmd == 1) {
             
-            
+          try{  
             UsuarioParticipante2 usuarioParticipante = new UsuarioParticipante2(0, email, nome, senha);
             Atleta atleta = new Atleta(0, dataNascimento, cpf);
-            Segmento segmento = segmentoControle.buscarSegmentoPorId(id);
             
-            atleta.setSegmento(segmento);
+                if (request.getParameter("segmento") != null) {
+                    Segmento segmento = segmentoControle.buscarSegmentoPorId(idSegmento);
+                    atleta.setSegmento(segmento);
+                }
+            
+            
             usuarioParticipante.setAtleta(atleta);
             atleta.setUsuarioParticipante(usuarioParticipante);
             
             atletaControle.criarAtleta(atleta);
             uspc.criar(usuarioParticipante);
 
-            response.sendRedirect("../login.jsp?e=Cadastro efetuado, agora entre com o tipo Participante");
+            response.sendRedirect("../login.jsp?color=success&msg=Cadastro efetuado, agora entre com o tipo Participante");
+        }catch(Exception e){
+            response.sendRedirect("../signup.jsp?p=2&color=danger&msg="+e.getMessage());
+        }
         }
 
 %>

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
@@ -18,9 +19,8 @@ import org.hibernate.annotations.Type;
 @Proxy(lazy = false)
 public class SolicitacaoEntradaEquipeRecebida extends MensagemPPRecebida implements Serializable {
     
-    @Column(name = "inativo")
-    @Type(type = "true_false")
-    private boolean solicitacaoAceita; 
+    @Column(name = "estadoSolicitacao")    
+    private char estadoSolicitacao; 
     
     @Column(name = "texto",nullable = false)
     private String texto;
@@ -29,32 +29,26 @@ public class SolicitacaoEntradaEquipeRecebida extends MensagemPPRecebida impleme
     private Equipe equipe;
     
     @ManyToOne
-    private Atleta atleta;
+    private UsuarioParticipante2 usuarioDestinatario;
+    
+    @OneToOne
+    private SolicitacaoEntradaEquipeEnviada solicitacaoEntradaEquipeEnviada;
+    
 
     public SolicitacaoEntradaEquipeRecebida() {
     }
 
-    public SolicitacaoEntradaEquipeRecebida(boolean solicitacaoAceita, String texto, Equipe equipe, Atleta atleta, UsuarioParticipante2 remetente, int idMensagemRecebida, boolean lido, String assunto) {
+    public SolicitacaoEntradaEquipeRecebida(char estadoSolicitacao, String texto, Equipe equipe, UsuarioParticipante2 usuarioDestinatario, SolicitacaoEntradaEquipeEnviada solicitacaoEntradaEquipeEnviada, UsuarioParticipante2 remetente, int idMensagemRecebida, boolean lido, String assunto) {
         super(remetente, idMensagemRecebida, lido, assunto);
-        this.solicitacaoAceita = solicitacaoAceita;
+        this.estadoSolicitacao = estadoSolicitacao;
         this.texto = texto;
         this.equipe = equipe;
-        this.atleta = atleta;
+        this.usuarioDestinatario = usuarioDestinatario;
+        this.solicitacaoEntradaEquipeEnviada = solicitacaoEntradaEquipeEnviada;
     }
 
-    /**
-     * @return the solicitacaoAceita
-     */
-    public boolean isSolicitacaoAceita() {
-        return solicitacaoAceita;
-    }
-
-    /**
-     * @param solicitacaoAceita the solicitacaoAceita to set
-     */
-    public void setSolicitacaoAceita(boolean solicitacaoAceita) {
-        this.solicitacaoAceita = solicitacaoAceita;
-    }
+    
+    
 
     /**
      * @return the texto
@@ -85,18 +79,50 @@ public class SolicitacaoEntradaEquipeRecebida extends MensagemPPRecebida impleme
     }
 
     /**
-     * @return the atleta
+     * @return the usuarioDestinatario
      */
-    public Atleta getAtleta() {
-        return atleta;
+    public UsuarioParticipante2 getUsuarioDestinatario() {
+        return usuarioDestinatario;
     }
 
     /**
-     * @param atleta the atleta to set
+     * @param usuarioDestinatario the usuarioDestinatario to set
      */
-    public void setAtleta(Atleta atleta) {
-        this.atleta = atleta;
+    public void setUsuarioDestinatario(UsuarioParticipante2 usuarioDestinatario) {
+        this.usuarioDestinatario = usuarioDestinatario;
     }
+
+    /**
+     * @return the solicitacaoEntradaEquipeEnviada
+     */
+    public SolicitacaoEntradaEquipeEnviada getSolicitacaoEntradaEquipeEnviada() {
+        return solicitacaoEntradaEquipeEnviada;
+    }
+
+    /**
+     * @param solicitacaoEntradaEquipeEnviada the solicitacaoEntradaEquipeEnviada to set
+     */
+    public void setSolicitacaoEntradaEquipeEnviada(SolicitacaoEntradaEquipeEnviada solicitacaoEntradaEquipeEnviada) {
+        this.solicitacaoEntradaEquipeEnviada = solicitacaoEntradaEquipeEnviada;
+    }
+
+    /**
+     * @return the estadoSolicitacao
+     */
+    public char getEstadoSolicitacao() {
+        return estadoSolicitacao;
+    }
+
+    /**
+     * @param estadoSolicitacao the estadoSolicitacao to set
+     */
+    public void setEstadoSolicitacao(char estadoSolicitacao) {
+        this.estadoSolicitacao = estadoSolicitacao;
+    }
+
+    
+
+    
     
     
     

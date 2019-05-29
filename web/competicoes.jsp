@@ -2,6 +2,7 @@
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Local"%>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%-- 
     Document   : index.jsp
     Created on : 01/10/2018, 09:16:10

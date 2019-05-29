@@ -4,6 +4,9 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoColetiva"%>
+<%@page import="java.util.List"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Equipe"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.AtletaControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
@@ -81,13 +84,13 @@
             <div class="row">
 
                 <div class="col-12">
-                    <form action="scripts/inscricaoAtletaEvento.jsp?idCompeticao=<%=idCompeticao%>&idUsuarioParticipante=<%=up.getIdUsuario()%>" method="POST">
+                    
 
                         <div class="card">
                             <div class="card-header">
                                 Inscrição
                             </div>
-
+                            <div class="card-body">
                             <%
                                 if (competicao.getCmodalidadesolo().size() != 0) {
 
@@ -95,7 +98,7 @@
 
                             %>
 
-                            <div class="card-body">
+                           
                                 <div class="form-group">
                                     <h4 style="margin: -5px 0px 0px -5px;">Competições individuais: </h4>
                                 </div>
@@ -104,15 +107,46 @@
                                 <%      
                                     for (CompeticaoModalidadeSolo cms : competicao.getCmodalidadesolo()) {
                                         int flag = 0;
-                                        
+                                        char processo = ' ';
                                         for(InscricaoCompeticaoSolo ics : atleta.getInscricoesCompeticaoSolo()){
                                            if(ics.getCompeticaoModalidadeSolo().getIdCompeticaoModalidade() == cms.getIdCompeticaoModalidade()){
+                                               processo = ics.getInscricaoAceita();
                                                flag = 1;
                                                break;
                                            } 
                                         }
                                 %>
+                                <!-- Modal Saiba mais -->
+                                <div class="modal fade" id="2<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><%=cms.getNomeCompeticao()%></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
 
+                                                <p><%
+                                                    if (cms.getInformacaoExtra() == null || cms.getInformacaoExtra().equals("")) {%>
+                                                    Não há informações extras sobre essa competição
+                                                    <%} else {
+                                                    %>
+                                                    <%=cms.getInformacaoExtra()%>
+                                                    <%}%></p>
+
+                                            </div>
+
+
+                                            <div class="modal-footer">
+                                                
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
                                 <%
                                     if (flag == 0) {
                                 %>
@@ -138,6 +172,7 @@
                                             </div>
 
                                             <div class="modal-footer">
+                                                
                                                 <a class="btn btn-primary" href="scripts/inscreverAtletaEmCompeticaoSolo.jsp?idCms=<%=cms.getIdCompeticaoModalidade()%>&idAtleta=<%=idAtleta%>&idCompeticao=<%=idCompeticao%>">Sim</a>
                                                 <a class="btn btn-warning" data-dismiss="modal">Não</a>
                                             </div>
@@ -145,38 +180,10 @@
                                     </div>
                                 </div>
                                                 
-                                <!-- Modal Saiba mais -->
-                                <div class="modal fade" id="2<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel"><%=cms.getNomeCompeticao()%></h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                                <div class="modal-body">
-                                                    
-                                                    <p><%
-                                                        if(cms.getInformacaoExtra() != null){%>
-                                                    <%=cms.getInformacaoExtra()%>
-                                                    <%}else{
-                                                    %>
-                                                    Não há informações extras sobre essa competição
-                                                    <%}%></p>
-                                                    
-                                                </div>
-                                            
-
-                                            <div class="modal-footer">
-                                                <a class="btn btn-primary" data-dismiss="modal">Ok!</a>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                           
+                                                      
                                 <%}
                                     if (flag == 1) {
+                                        if(processo == 'E'){
 
                                 %>
                                 <div class="form-group">
@@ -185,43 +192,48 @@
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cms.getIdCompeticaoModalidade()%>">
                                                 <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
-                                            </button><button type="input" class="btn btn-secondary" disabled="true" style="width: 160px;">Inscrição realizada</button>
+                                            </button><button type="input" class="btn btn-warning" disabled="true" style="width: 160px;">Em Aprovação</button>
                                         </div>
                                     </div>
                                 </div>
                                  
-                                            <!-- Modal Saiba mais -->
-                                            <div class="modal fade" id="2<%=cms.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel"><%=cms.getNomeCompeticao()%></h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-
-                                                            <p><%
-                                                        if (cms.getInformacaoExtra() != null) {%>
-                                                                <%=cms.getInformacaoExtra()%>
-                                                                <%} else {
-                                                                %>
-                                                                Não há informações extras sobre essa competição
-                                                                <%}%></p>
-
-                                                        </div>
-
-
-                                                        <div class="modal-footer">
-                                                            <a class="btn btn-primary" data-dismiss="modal">Ok!</a>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> 
  
                                 <%}
+                                if(processo == 'N'){
+
+                                %>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cms.getNomeCompeticao()%>">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cms.getIdCompeticaoModalidade()%>">
+                                                <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
+                                            </button><button type="input" class="btn btn-danger" disabled="true" style="width: 160px;"><i class="fas fa-times" style="margin-right: 10px;"></i>Negada</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                 
+
+                                <%}
+                                if(processo == 'A'){
+
+                                %>
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cms.getNomeCompeticao()%>">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cms.getIdCompeticaoModalidade()%>">
+                                                <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
+                                            </button><button type="input" class="btn btn-success" disabled="true" style="width: 160px;"><i class="fas fa-check"></i> &nbsp;Aprovada</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                            
+ 
+                                <%}%>
+                                
+                                            
+                                            <%}
                                         }
                                     }%>
 
@@ -232,39 +244,102 @@
                                 %>  
 
                                 <div class="form-group">
-                                    <h4 style="margin: 15px 0px 0px -5px;">Competições coletivas: </h4>
+                                    <h4 style="margin: -5px 0px 0px -5px;">Competições coletivas: </h4>
                                 </div>
 
-                                <%                                    for (CompeticaoModalidadeColetiva cmc : competicao.getCmodalidadecole()) {
-
-
+                                <%
+                                    for (CompeticaoModalidadeColetiva cmc : competicao.getCmodalidadecole()) {
                                 %>
 
                                 <div class="form-group">
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cmc.getNomeCompeticao()%>">
                                         <div class="input-group-append">
-                                            <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
-                                            </a><button type="button" class="btn btn-success" data-toggle="modal" data-target="#<%=cmc.getIdCompeticaoModalidade()%>" style="width: 160px;">Inscrever-se</button>
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#saibaMaisCompeticaoColetiva<%=cmc.getIdCompeticaoModalidade()%>"><i class="fas fa-info-circle"></i>&nbsp;Saiba mais</button>
+                                            
+                                            <!--Compara se o usuário participante é administrador ou vinculado a uma equipe que seja
+                                            , caso seja gera um btn resposnsivo-->
+                                            <%
+                                                
+                                                List<Equipe> equipesRelacionadas = atleta.getEquipes();
+                                                equipesRelacionadas = atleta.getUsuarioParticipante().getEquipe();
+                                                boolean flag = false;
+                                                for(Equipe equipe : equipesRelacionadas){
+                                                    
+                                                    for(InscricaoCompeticaoColetiva inscriColetiva : equipe.getInscricoesCompeticoesColetivas()){
+                                                        if(inscriColetiva.getCompeticaoModalidadeColetiva().getIdCompeticaoModalidade()
+                                                                == cmc.getIdCompeticaoModalidade()){
+                                                            flag = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if(flag == true){
+                                                        break;
+                                                    }
+                                                }
+                                                
+                                                //for(CompeticaoModalidadeColetiva competicaoModalidadeColetiva : )
+                                            %>
+
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" style="width: 160px;">Inscrever-se</button>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Modal -->
-                                <div class="modal fade" id="<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                               <!-- Modal saiba mais-->          
+                                        
+                               <div class="modal fade" id="saibaMaisCompeticaoColetiva<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                   <div class="modal-dialog" role="document">
+                                       <div class="modal-content">
+                                           <div class="modal-header">
+                                               <h5 class="modal-title" id="exampleModalLabel"><%=cmc.getNomeCompeticao()%></h5>
+                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                   <span aria-hidden="true">&times;</span>
+                                               </button>
+                                           </div>
+                                           <div class="modal-body">
+                                               
+                                                            <p><%
+                                                        if (cmc.getInformacaoExtra() == null || cmc.getInformacaoExtra().equals("")){%>
+                                                                Não há informações extras sobre essa competição
+                                                                <%} else {
+                                                                %>
+                                                                <%=cmc.getInformacaoExtra()%>
+                                                                <%}%></p>
+                                           </div>
+                                           <div class="modal-footer">
+                                               <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
+                                               
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>      
+                                <!-- Modal tomada de decissão competição-->
+                                <div class="modal fade" id="modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Deseja realmente realizar inscrição em <%=cmc.getNomeCompeticao()%>?</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <h5 class="modal-title" id="exampleModalLabel">Selecione a opção desejada</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-
-                                            <div class="modal-footer">
-                                                <a class="btn btn-warning" data-dismiss="modal">Não</a>
-                                                <a class="btn btn-primary" href="scripts/inscreverAtletaEmCompeticaoSolo.jsp?idCms=<%=cmc.getIdCompeticaoModalidade()%>">Sim</a>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <h5 style="margin-left: 20px;">1- Criar uma nova equipe:</h5>
+                                                <p style="margin-left: 10px;"><a href="criarEquipe.jsp" role="button" class="btn btn-primary popover-test" title="Criar equipe" data-content="Popover body content is set in this attribute.">Clique aqui</a></p>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                <h5 style="margin-left: 20px;">2- Solicitar entrada em uma equipe: </h5>
+                                                <form action="formSolicitarEntradaEmEquipe.jsp" method="POST">
+                                                    <input type="hidden" name="idCmc" value="<%=cmc.getIdCompeticaoModalidade()%>">
+                                                    <p style="margin-left: 10px;"><button type="submit" role="button" class="btn btn-primary popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute.">Clique aqui</button></p>
+                                                </form>
+                                                
+                                                </div>
                                             </div>
+     
                                         </div>
                                     </div>
                                 </div>      
@@ -273,7 +348,7 @@
 
                             </div>
                         </div>
-                    </form>
+                    
                 </div>
 
 

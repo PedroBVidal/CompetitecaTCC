@@ -28,7 +28,7 @@
     CompeticaoModalidadeSolo competicaoModalidadeSolo = competicaoModalidadeSoloControle.buscarPorId(idCms);
     Atleta atleta = atletaControle.buscarPorId(idAtleta);
     
-    InscricaoCompeticaoSolo inscricaoCompeticaoSolo = new InscricaoCompeticaoSolo(0,competicaoModalidadeSolo, atleta,false);
+    InscricaoCompeticaoSolo inscricaoCompeticaoSolo = new InscricaoCompeticaoSolo(0,competicaoModalidadeSolo, atleta,'E');
     
     
     atleta.adicionarCompeticaoModalidadeSolo(competicaoModalidadeSolo);
@@ -40,7 +40,7 @@
     inscricaoCompeticaoSoloControle.salvar(inscricaoCompeticaoSolo);
     atletaControle.alterarAtleta(atleta);
     competicaoModalidadeSoloControle.alterar(competicaoModalidadeSolo);
-    String msg = "Engresso realizado com sucesso";
+    String msg = "Ingresso realizado com sucesso";
     String color = "success";
     
     response.setCharacterEncoding("UTF-8");

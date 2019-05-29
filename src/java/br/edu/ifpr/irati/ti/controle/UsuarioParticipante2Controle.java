@@ -28,12 +28,20 @@ public class UsuarioParticipante2Controle {
     public void atualizarCad(UsuarioParticipante2 user) {
         usuarioParticipanteDAO.alterar(user);
     }
-    public void criar(UsuarioParticipante2 user) {
+    public void criar(UsuarioParticipante2 user) throws Exception {
+        try{
         usuarioParticipanteDAO.salvar(user);
+        }catch(Exception e){
+            throw new Exception("O Email "+user.getEmail()+" ja existe. Tente novamente");
+        }
     }
     
     public UsuarioParticipante2 buscarPorId(int id){
         return usuarioParticipanteDAO.buscarPorId(id);
+    }
+    
+    public List<UsuarioParticipante2> buscarTodos(){
+        return usuarioParticipanteDAO.buscarTodos(UsuarioParticipante2.class);
     }
     
     

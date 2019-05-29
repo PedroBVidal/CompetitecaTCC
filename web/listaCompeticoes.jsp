@@ -3,7 +3,7 @@
     Created on : 25/10/2018, 15:53:02
     Author     : Usuário
 --%>
-
+<%@page import="java.util.Date"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -106,6 +106,7 @@
                         <div class="modal-body">
                             <form method="POST" action="scripts/ingressoPvd.jsp">
                                 <center>
+                                    <input type="hidden" value="<%=up.getIdUsuario()%>" name="idUsuario">    
                                 <input type="text" class="form-control col-7" name="codigo" placeholder="Insira o código aqui">
                             </center>
                         </div>
@@ -126,8 +127,9 @@
                        name="nomeCompeticao" list="competicoes">
                 <datalist id="competicoes">
                     <%
+                        Date hoje = new Date();
                         for (Competicao c : competicoes) {
-                            if (!c.isInativo() && !c.isPrivado()) {
+                            if (!c.isInativo() && !c.isPrivado() && !hoje.before(c.getDataInicioInsc()) && !hoje.after(c.getDataTerminoInsc())) {
                     %>
                     <option data-value="<%=c.getIdCompeticao()%>" value="<%=c.getNome()%>"></option><%
                             }
@@ -156,7 +158,7 @@
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         String dataInicio = simpleDateFormat.format(competicao.getDataInicio());
                         String dataTermino = simpleDateFormat.format(competicao.getDataTermino());
-                        if (!competicao.isInativo() && !competicao.isPrivado()) {
+                        if (!competicao.isInativo() && !competicao.isPrivado() && !hoje.before(competicao.getDataInicioInsc()) && !hoje.after(competicao.getDataTerminoInsc())) {
                 %>
 
 
@@ -177,9 +179,13 @@
 
                             <div class="form-group">
 
-                                <p class="fontOverpass"><a class="btn btn-success" 
-                                                           href="forminscricaocompeticao.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>&idAtleta=<%=atletaVinculadoUp.getIdAtleta()%>" role="button">Inscrever-se em competições do evento</a><p>
-
+                                <p class="fontOverpass">
+                                <form action="forminscricaocompeticao.jsp" method="POST">
+                                    <input type="hidden" name="idCompeticao" value="<%=competicao.getIdCompeticao()%>">
+                                    <input type="hidden" name="idAtleta" value="<%=atletaVinculadoUp.getIdAtleta()%>">
+                                    <button class="btn btn-success" type="submit" role="button">Inscrever-se em competições do evento</button><p>
+                                </form>
+                                
                             </div>
                         </div>
                     </div>
