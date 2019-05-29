@@ -6,6 +6,8 @@
 package br.edu.ifpr.irati.ti.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 
@@ -37,6 +40,9 @@ public class InscricaoCompeticaoColetiva implements Serializable{
     @JoinColumn(name = "equipe_idEquipe")
     private Equipe equipe;
     
+    @OneToMany
+    private List<Atleta> atletas;
+    
     @Column(name = "aprovada")
     @Type(type = "true_false")
     private boolean inscricaoAceita; 
@@ -46,9 +52,10 @@ public class InscricaoCompeticaoColetiva implements Serializable{
         equipe = new Equipe();
         inscricaoAceita = false;
         competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva();
+        atletas = new ArrayList<>();
     }
 
-    public InscricaoCompeticaoColetiva(int idCompeticaoColetiva, CompeticaoModalidadeColetiva competicaoModalidadeColetiva, Equipe equipe, boolean inscricaoAceita) {
+    public InscricaoCompeticaoColetiva(int idCompeticaoColetiva, CompeticaoModalidadeColetiva competicaoModalidadeColetiva, Equipe equipe, List<Atleta> atletas, boolean inscricaoAceita) {
         this.idCompeticaoColetiva = idCompeticaoColetiva;
         this.competicaoModalidadeColetiva = competicaoModalidadeColetiva;
         this.equipe = equipe;
