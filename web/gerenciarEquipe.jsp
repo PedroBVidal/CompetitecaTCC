@@ -69,6 +69,7 @@
 
                 int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
                 Equipe equipe = equipeControle.buscarPorId(idEquipe);
+                
 
         %>
 
@@ -147,7 +148,7 @@
                             <td><%=nome%></td>
                             <td><%=email%></td>
                             <td>
-                                <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=atleta.getIdAtleta()%>&idComp=<%=atleta.getIdAtleta()%>&op=1" class="btn btn-success">
+                                <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=atleta.getIdAtleta()%>&idComp=<%=atleta.getIdAtleta()%>&op=1" class="btn btn-danger">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
@@ -203,7 +204,7 @@
                             <td><%=nomeCompeticao%></td>
                             <td><%=dataInicio%></td>
                             <td><%=dataTermino%></td>
-                            <td><a href="gerenciarCompModColetiva.jsp?id=<%=cpt.getIdCompeticao()%>" class="btn btn-success">
+                            <td><a href="forminscricaocompeticao.jsp?idCompeticao=<%=cpt.getIdCompeticao()%>&idEquipe=<%=equipe.getIdEquipe()%>" class="btn btn-success">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-clipboard-list"></i>
                                 </a> &nbsp;

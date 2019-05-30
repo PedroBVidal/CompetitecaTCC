@@ -30,11 +30,13 @@
     EquipeControle eqpc = new EquipeControle();
     Equipe eqp = eqpc.buscarPorId(idEquipe);
     for (int i = 0; i < numAtl; i++) {
+       // if(request.getParameter("idAtl" + i) != null){
         atls.add(atc.buscarPorId(Integer.parseInt(request.getParameter("idAtl" + i))));
+       System.out.println(numAtl);
     }
 
     InscricaoCompeticaoColetiva icc = new InscricaoCompeticaoColetiva(0, cmc, eqp, atls, false);
     iccc.salvar(icc);
-    response.sendRedirect("../");
+    response.sendRedirect("../forminscricaocompeticao.jsp?idEquipe="+eqp.getIdEquipe()+"&idCompeticao="+idCompeticao+"&msg=Inscricao Realizada com Sucesso&color=success");
 
 %>
