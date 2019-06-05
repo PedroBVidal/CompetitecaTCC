@@ -8,7 +8,6 @@ package br.edu.ifpr.irati.ti.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,7 +48,7 @@ public class UsuarioParticipante2 implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     private Atleta atleta;
     
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "administrador")
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Equipe> equipe;
 

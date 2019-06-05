@@ -3,21 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpr.irati.ti.DAO;
+package br.edu.ifpr.irati.ti.dao;
 
-import gerais.HibernateUtil;
 import br.edu.ifpr.irati.ti.modelo.Equipe;
-import br.edu.ifpr.irati.ti.modelo.Local;
+import gerais.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
  *
- * @author user
+ * @author Usuário
  */
 public class EquipeDAO {
-    public void salvar(Equipe equipe){
+        public void salvar(Equipe equipe){
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
         sessao.save(equipe);
@@ -53,4 +52,15 @@ public class EquipeDAO {
         session.close();
         return equipe;
     }
+    
+        public Equipe buscarPorId(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from equipe e where e.idEquipe = '" + id + "'";
+        Query query = session.createQuery(hql);
+        query.setMaxResults(1);
+        Equipe equipe = (Equipe) query.uniqueResult();
+        session.clear();
+        session.close();
+        return equipe;
+        }
 }

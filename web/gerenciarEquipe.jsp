@@ -70,7 +70,7 @@
                 int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
                 Equipe equipe = equipeControle.buscarPorId(idEquipe);
                 
-
+                
         %>
 
 
@@ -81,6 +81,7 @@
         <!-- Page Content -->
         <div class="container">
             <%  
+                
                 request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("msg") != null) {
                     String mensagem = request.getParameter("msg");
@@ -486,7 +487,11 @@
                         </div>
                     </div>            
                             
-                            
+                    <%
+                        System.out.println("Estou no final da página gerenciar equipe");
+                        System.out.println("Integrantes da equipe: "+ integrantesEquipe);
+                        System.out.println("ADM DA EQUIPE: " + atletaAdmEquipe);
+                    %>      
                             
                             
                             

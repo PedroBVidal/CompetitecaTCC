@@ -256,5 +256,12 @@ public class Atleta implements Serializable {
         this.segmento = segmento;
     }
 
+    @Override
+    public String toString() {
+        return this.getUsuarioParticipante().getNome();
+    }
+
    
+    
+    
 }

@@ -5,6 +5,7 @@
  */
 package br.edu.ifpr.irati.ti.controle;
 
+import br.edu.ifpr.irati.ti.dao.EquipeDAO;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.modelo.Equipe;
@@ -16,11 +17,14 @@ import java.util.List;
  */
 public class EquipeControle {
     Dao<Equipe> eqpd = new GenericDAO<>(Equipe.class);
+    EquipeDAO equipeDAO = new EquipeDAO();
+    
+    
     public List<Equipe> buscarTodasEquipe(){
         return eqpd.buscarTodos(Equipe.class);
     }
     public Equipe buscarPorId(int id){
-        return eqpd.buscarPorId(id);
+        return equipeDAO.buscarPorId(id);
     }
     public void criarEquipe(Equipe equipe){
         
