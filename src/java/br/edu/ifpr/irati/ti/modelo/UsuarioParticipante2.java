@@ -49,7 +49,7 @@ public class UsuarioParticipante2 implements Serializable {
     private Atleta atleta;
     
     @OneToMany(mappedBy = "administrador", fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
+    //@Fetch(value = FetchMode.SUBSELECT)
     private List<Equipe> equipe;
 
     public UsuarioParticipante2() {

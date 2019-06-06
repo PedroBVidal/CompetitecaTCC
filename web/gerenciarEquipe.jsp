@@ -345,25 +345,108 @@
 
                             <tbody>
                                 <%
-                                    UsuarioParticipante2Controle usuarioParticipante2Controle = new UsuarioParticipante2Controle();
+                                   boolean flag = false;
                                     int contador = 0;
-                                    for(UsuarioParticipante2 up : usuarioParticipante2Controle.buscarTodos()){
+                                    Atleta atletaAdmEquipe = equipe.getAdministrador().getAtleta();
+                                    List<Atleta> integrantesEquipe = new ArrayList<>();
+                                    integrantesEquipe = equipe.getAtletas();
+                                    integrantesEquipe.add(atletaAdmEquipe);
+                                   
+                                    
+                                    for(UsuarioParticipante2 userParticipante : userParticipanteControle.buscarTodos()){
+                                        flag = false;
                                         
                                         
-                                        
-                                    Atleta atleta = up.getAtleta();
-                                    contador++;
+                                        for(Atleta a : equipe.getAtletas()){
+                                            if(a.getIdAtleta() == userParticipante.getAtleta().getIdAtleta()){                                                
+                                                flag = true;
+                                            }
+                                        }
+                                    if(flag == false){
+                                    contador++;    
+                                    
+                                    String idTr = "tr"+contador;
+                                    String idBtnAdd = "btnAdd"+contador;
+                                    String idBtnModalInfo = "btnAdd"+contador;
+                                    String idInputSegmento = "inputSegmento"+contador;
+                                     String idInputEmail = "inputEmail"+contador;
+                                    String idInputNome = "inputNome"+contador;
+                                    String idCheckBox = "checkBox"+contador;
+                                    String dataTargetModal = "modalInfo"+contador;
+                                    
+                                    Atleta atleta = userParticipante.getAtleta();
                                 %>
-                                
-                                <%}%>
+                                <!--Verifica se o atleta possui um segmento-->   
+                            <%
+                                if(atleta.getSegmento() != null){
+                            %>
+                            <input type="hidden" id="<%=idInputSegmento%>" value="<%=atleta.getSegmento().getNome()%>">
+                            <%} else{%>
+                            <input type="hidden" id="<%=idInputSegmento%>" value="">
+                            <%}%>
+                            <input type="hidden" id="<%=idInputNome%>" value="<%=userParticipante.getNome()%>">
+                            <input type="hidden" id="<%=idInputEmail%>" value="<%=userParticipante.getEmail()%>">
+
+                                                        
+                                <tr id="<%=idTr%>" class="">
+                                    <td><%=userParticipante.getNome()%></td>
+                                    <td><%=userParticipante.getEmail()%></td>
+                                    <td>
+                                        
+                                           
+                                        <button type="button" class="btn btn-success" id="<%=idBtnAdd%>" onclick="mudarCorCelula(<%=contador%>);"><i class="fas fa-plus"></i></button>
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#<%=dataTargetModal%>"><i class="far fa-eye"></i></button>
+                                        <input type="checkbox" hidden="true" id="<%=idCheckBox%>" name="<%=idCheckBox%>" value="<%=atleta.getIdAtleta()%>">
+
+                                                                              
+                                        
+                                    </td>
+                                </tr>
+                                <!-- Modal INFO USER PARTICIPANTE -->
+                                <div class="modal fade" id="<%=dataTargetModal%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Nome: <%=userParticipante.getNome()%></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <%
+                                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                                    String dataNascimento = sdf.format(userParticipante.getAtleta().getDataNascimento());
+                                                %>
+                                                <p><span class="font-weight-bold">Email: </span><%=userParticipante.getEmail()%></p>
+                                                <p><span class="font-weight-bold">Data de nascimento: </span><%=dataNascimento%></p>
+                                                <%
+                                                    
+                                                    if(userParticipante.getAtleta().getSegmento() != null){
+                                                %>
+                                                <p><span class="font-weight-bold">Segmento IFPR-IRATI: </span><%=userParticipante.getAtleta().getSegmento().getNome()%></p>
+                                                <%}%>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%}}%>
                             </tbody>
 
                         </table>
 
                     </div>
-                    <!--
+                   
                     <!--Valores fixos a serem puxados pelo form-->                                                      
-                    
+                    <input type="hidden" name="contador" value="<%=contador%>">
+                    <input type="hidden" name="idEquipe" value="<%=idEquipe%>">
+
+                    <div id="divBtnForm" style="margin-top: 10px;">
+
+                    </div>
                    
                 </form>        
                 
@@ -456,7 +539,7 @@
                
                var divBtnForm = document.getElementById("divBtnForm");
                if(celulasSelecionadas !== 0){
-                   divBtnForm.innerHTML = '<button type="button" class="btn btn-success" onclick="abrirModalCadastro();">Adicionar membros</button>';
+                   divBtnForm.innerHTML = '<button type="button" class="btn btn-success" onclick="abrirModalCadastro(<%=contador%>);">Adicionar membros</button>';
                }
                else{
                    divBtnForm.innerHTML = '';
