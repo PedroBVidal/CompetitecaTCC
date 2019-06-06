@@ -45,10 +45,10 @@ public class UsuarioParticipante2 implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<MensagemRecebida> mensagensRecebidas;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     private Atleta atleta;
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "administrador")
+    @OneToMany(mappedBy = "administrador", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Equipe> equipe;
 

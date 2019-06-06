@@ -34,7 +34,7 @@ public class Atleta implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Segmento segmento;
 
     @Column(name = "cpf", nullable = true)
