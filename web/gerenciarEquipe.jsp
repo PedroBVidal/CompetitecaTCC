@@ -64,11 +64,7 @@
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             } else {
 
-                EquipeControle equipeControle = new EquipeControle();
-                UsuarioParticipante2Controle userParticipanteControle = new UsuarioParticipante2Controle();
 
-                int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
-                Equipe equipe = equipeControle.buscarPorId(idEquipe);
                 
                 
         %>
@@ -98,6 +94,16 @@
             <%
                 }
             %>
+            <%
+                System.out.println("ENTREI AQUI");
+                EquipeControle equipeControle = new EquipeControle();
+                UsuarioParticipante2Controle userParticipanteControle = new UsuarioParticipante2Controle();
+
+                int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
+                Equipe equipe = equipeControle.buscarPorId(idEquipe);
+
+
+            %>
             <!-- Page Heading/Breadcrumbs -->
 
             <h1 class="mt-4 mb-3 fontNunito">Gerenciando equipe <span class="fontNunito" style="font-style: italic;"><%=equipe.getNome()%></span>
@@ -118,6 +124,7 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content col-10">
+
                     <div class="tab-pane dark active" id="membros" role="tabpanel">
                         <div class="form-group input-group">
                             <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
@@ -348,8 +355,9 @@
                                    boolean flag = false;
                                     int contador = 0;
                                     Atleta atletaAdmEquipe = equipe.getAdministrador().getAtleta();
-                                    List<Atleta> integrantesEquipe = new ArrayList<>();
-                                    integrantesEquipe = equipe.getAtletas();
+                                    List<Atleta> equipeGetAtletas = equipe.getAtletas();
+                                    List<Atleta> integrantesEquipe = equipeGetAtletas;
+                                    
                                     integrantesEquipe.add(atletaAdmEquipe);
                                    
                                     
@@ -357,11 +365,11 @@
                                         flag = false;
                                         
                                         
-                                        for(Atleta a : equipe.getAtletas()){
+                                        for(Atleta a : integrantesEquipe){
                                             if(a.getIdAtleta() == userParticipante.getAtleta().getIdAtleta()){                                                
                                                 flag = true;
                                             }
-                                        }
+                                            }
                                     if(flag == false){
                                     contador++;    
                                     
@@ -486,9 +494,11 @@
                     </div>            
                             
                     <%
-                        //System.out.println("Estou no final da página gerenciar equipe");
-                        //System.out.println("Integrantes da equipe: "+ integrantesEquipe);
-                        //System.out.println("ADM DA EQUIPE: " + atletaAdmEquipe);
+                        System.out.println("Atletas da equipe: "+ equipe.getAtletas());
+                        System.out.println("Estou no final da página gerenciar equipe");
+                        System.out.println("Integrantes da equipe: "+ integrantesEquipe);
+                        System.out.println("ADM DA EQUIPE: " + atletaAdmEquipe);
+                        
                     %>      
                             
                             

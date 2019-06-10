@@ -10,15 +10,13 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.annotations.Proxy;
-import org.hibernate.annotations.Type;
 
-@Entity(name = "solicitacaoentradaequipe_pp_enviado")
+@Entity(name = "solicitacaoentradaequipe_enviada")
 @PrimaryKeyJoinColumn(name = "idMensagemEnviada")
 @Proxy(lazy = false)
-public class SolicitacaoEntradaEquipeEnviada extends MensagemPPEnviada implements Serializable{
+public class SolicitacaoEntradaEquipeEnviada extends MensagemEnviada implements Serializable{
     
     @Column(name = "estadoSolicitacao")    
     private char estadoSolicitacao; 
@@ -29,24 +27,20 @@ public class SolicitacaoEntradaEquipeEnviada extends MensagemPPEnviada implement
     @ManyToOne
     private Equipe equipe;
     
-    @ManyToOne
-    private UsuarioParticipante2 usuarioDestinatario;
+
     
 
 
     public SolicitacaoEntradaEquipeEnviada() {
     }
 
-    public SolicitacaoEntradaEquipeEnviada(char estadoSolicitacao, String texto, Equipe equipe, UsuarioParticipante2 usuarioDestinatario, List<UsuarioParticipante2> usuariosParticipantes, int idMensagemEnviada, String assunto) {
-        super(usuariosParticipantes, idMensagemEnviada, assunto);
+    public SolicitacaoEntradaEquipeEnviada(char estadoSolicitacao, String texto, Equipe equipe,List<Usuario> usuariosDestinatarios, int idMensagemEnviada, String assunto) {
+        super(idMensagemEnviada, usuariosDestinatarios, assunto);
         this.estadoSolicitacao = estadoSolicitacao;
         this.texto = texto;
         this.equipe = equipe;
-        this.usuarioDestinatario = usuarioDestinatario;
     }
 
-    
-    
     /**
      * @return the texto
      */
@@ -75,19 +69,6 @@ public class SolicitacaoEntradaEquipeEnviada extends MensagemPPEnviada implement
         this.equipe = equipe;
     }
 
-    /**
-     * @return the usuarioDestinatario
-     */
-    public UsuarioParticipante2 getUsuarioDestinatario() {
-        return usuarioDestinatario;
-    }
-
-    /**
-     * @param usuarioDestinatario the usuarioDestinatario to set
-     */
-    public void setUsuarioDestinatario(UsuarioParticipante2 usuarioDestinatario) {
-        this.usuarioDestinatario = usuarioDestinatario;
-    }
 
     /**
      * @return the estadoSolicitacao

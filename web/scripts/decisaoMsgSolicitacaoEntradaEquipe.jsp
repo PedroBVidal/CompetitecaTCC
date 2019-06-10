@@ -4,6 +4,7 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.controle.EquipeControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Equipe"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipante2Controle"%>
@@ -22,6 +23,7 @@
     MsgSolicitacaoEntradaEnviadaControle msgSolicEntEnvControle = new MsgSolicitacaoEntradaEnviadaControle();
     MsgSolicitacaoEntradaRecebidaControle msgSolicEntRecebControle = new MsgSolicitacaoEntradaRecebidaControle();
     UsuarioParticipante2Controle usuarioParticipante2Controle = new UsuarioParticipante2Controle();
+    EquipeControle equipeControle = new EquipeControle();
     
     UsuarioParticipante2 up = usuarioParticipante2Controle.buscarPorId(upSession.getIdUsuario());
     SolicitacaoEntradaEquipeRecebida solicitacaoEntradaEquipeRecebida = msgSolicEntRecebControle.buscarPorId(idMensagemRecebida);
@@ -36,25 +38,13 @@
         // Adiciona o atleta vinculado ao usuário remetente na equipe do usuário destinatário
         int cont = 0;
         boolean flag = false;
-        for(Equipe e : up.getEquipe()){
-            
-            if(e.getIdEquipe() == solicitacaoEntradaEquipeRecebida.getEquipe().getIdEquipe()){
-                
-                for(Atleta a: e.getAtletas()){
-                    if(a.getIdAtleta() == up.getAtleta().getIdAtleta()){
-                        flag = true;
-                    }
-                }
-                if(flag != true){
-                up.getEquipe().get(cont).adicionarAtleta(solicitacaoEntradaEquipeRecebida.getRemetente().getAtleta());
-                }
-                break;
-            }
-            else{
-                cont++;
-            }
-        }
-        usuarioParticipante2Controle.atualizarCad(up);
+        
+        UsuarioParticipante2 usuarioRemetente = (UsuarioParticipante2) solicitacaoEntradaEquipeRecebida.getRemetente();
+        
+        Equipe equipe = equipeControle.buscarPorId(solicitacaoEntradaEquipeRecebida.getEquipe().getIdEquipe());
+        equipe.adicionarAtleta(usuarioRemetente.getAtleta());
+        
+        equipeControle.alterarEquipe(equipe);
         msgSolicEntEnvControle.alterar(solicitacaoEntradaEquipeEnviada);
         msgSolicEntRecebControle.alterar(solicitacaoEntradaEquipeRecebida);
         

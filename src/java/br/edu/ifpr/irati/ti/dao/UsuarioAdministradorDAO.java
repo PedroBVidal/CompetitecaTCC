@@ -20,7 +20,7 @@ public class UsuarioAdministradorDAO {
     
     public UsuarioParticipante buscarPorId(int id){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from usuarioparticipante u where u.idUsuario = '"+id+"'";
+        String hql = "from usuarioParticipante u where u.idUsuario = '"+id+"'";
         Query query = session.createQuery(hql);
         query.setMaxResults(1);
         UsuarioParticipante usuarioParticipante = (UsuarioParticipante) query.uniqueResult();        

@@ -51,9 +51,9 @@ public class Atleta implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<MensagemRecebida> mensagens;
+    //@OneToMany(fetch = FetchType.EAGER)
+    //@Fetch(value = FetchMode.SUBSELECT)
+    //private List<MensagemRecebida> mensagens;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
@@ -75,7 +75,7 @@ public class Atleta implements Serializable {
         this.equipes = new ArrayList<>();
         this.usuarioParticipante = new UsuarioParticipante2();
         this.inscricoesCompeticaoSolo = new ArrayList<>();
-        this.mensagens = new ArrayList<>();
+        //this.mensagens = new ArrayList<>();
         this.competicoesModalidadeSolo = new ArrayList<>();
     }
 
@@ -86,7 +86,7 @@ public class Atleta implements Serializable {
         this.equipes = equipes;
         this.usuarioParticipante = usuarioParticipante;
         this.inscricoesCompeticaoSolo = inscricoesCompeticaoSolo;
-        this.mensagens = mensagens;
+        //this.mensagens = mensagens;
         this.competicoesModalidadeSolo = competicoesModalidadeSolo;
     }
     
@@ -170,19 +170,6 @@ public class Atleta implements Serializable {
         this.inscricoesCompeticaoSolo = inscricoesCompeticaoSolo;
     }
 
-    /**
-     * @return the mensagens
-     */
-    public List<MensagemRecebida> getMensagens() {
-        return mensagens;
-    }
-
-    /**
-     * @param mensagens the mensagens to set
-     */
-    public void setMensagens(List<MensagemRecebida> mensagens) {
-        this.mensagens = mensagens;
-    }
 
     /**
      * @return the competicoesModalidadeSolo

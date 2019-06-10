@@ -11,26 +11,27 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.annotations.Proxy;
 
-@Entity(name = "comunicado_aa_recebido")
+/**
+ *
+ * @author Usuário
+ */
+@Entity(name = "comunicado_recebido")
 @PrimaryKeyJoinColumn(name = "idMensagemRecebida")
 @Proxy(lazy = false)
-public class ComunicadoAARecebido extends MensagemAARecebida implements Serializable {
+public class ComunicadoRecebido extends MensagemRecebida implements Serializable{
     
     
-    //Mudar name para texto
     @Column(name = "texto",nullable = false)
     private String texto;
 
-    public ComunicadoAARecebido() {
-        super();
-        texto = "";
+    public ComunicadoRecebido() {
     }
 
-    public ComunicadoAARecebido(String texto, UsuarioParticipante remetente, int idMensagem, boolean lido, String assunto) {
-        super(remetente, idMensagem, lido, assunto);
+    public ComunicadoRecebido(String texto, int idMensagemRecebida, boolean lido, String assunto, Usuario remetente) {
+        super(idMensagemRecebida, lido, assunto, remetente);
         this.texto = texto;
     }
-    
+
     
     
 
@@ -47,7 +48,6 @@ public class ComunicadoAARecebido extends MensagemAARecebida implements Serializ
     public void setTexto(String texto) {
         this.texto = texto;
     }
-    
     
     
 }

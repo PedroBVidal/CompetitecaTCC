@@ -34,7 +34,7 @@
     <body>
         <%
             Object usuario = session.getAttribute("usuario");
-            if( usuario == null){
+            if(usuario == null){
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             }else if(usuario instanceof UsuarioParticipante){
                 

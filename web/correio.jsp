@@ -4,10 +4,12 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.Segmento"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.ComunicadoRecebido"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Equipe"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.SolicitacaoEntradaEquipeRecebida"%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.ComunicadoAPRecebido"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.MensagemRecebida"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipante2Controle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
@@ -79,9 +81,9 @@
                             <%
                                 for (MensagemRecebida mR : usuarioAdm.getMensagensRecebidas()) {
 
-                                    if (mR instanceof ComunicadoAPRecebido) {
+                                    if (mR instanceof ComunicadoRecebido) {
 
-                                        ComunicadoAPRecebido cR = (ComunicadoAPRecebido) mR;
+                                        ComunicadoRecebido cR = (ComunicadoRecebido) mR;
                                         if (cR.isLido() == false) {
                             %>
                             <div class="card">
@@ -121,7 +123,7 @@
                                 <div id="<%=solicEntReceb.getIdMensagemRecebida()%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <p>
-                                            Usuario remetente: <a href="#" data-target="#1" class="stretched-link" onclick="acionarModalSaibaMaisAtleta(<%=solicEntReceb.getRemetente().getAtleta().getIdAtleta()%>);"><%=solicEntReceb.getRemetente().getNome()%></a>
+                                            Usuario remetente: <a href="#" data-target="#1" class="stretched-link" onclick="acionarModalSaibaMaisAtleta(<%=solicEntReceb.getRemetente().getIdUsuario()%>);"><%=solicEntReceb.getRemetente().getNome()%></a>
                                         
                                         </p>
                                         
@@ -140,11 +142,11 @@
                             </div>
                                             
                                 <!-- Modal INFO USER PARTICIPANTE -->
-                                <div class="modal fade" id="modalSaibaMaisAtleta<%=solicEntReceb.getRemetente().getAtleta().getIdAtleta()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalSaibaMaisAtleta<%=solicEntReceb.getRemetente().getIdUsuario()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Nome: <%=solicEntReceb.getUsuarioDestinatario().getNome()%></h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Nome: <%=solicEntReceb.getRemetente().getNome()%></h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -152,15 +154,31 @@
                                             <div class="modal-body">
                                                 <%
                                                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                                    String dataNascimento = sdf.format(solicEntReceb.getUsuarioDestinatario().getAtleta().getDataNascimento());
+                                                    String dataNascimento = "";
+                                                    String email = "";
+                                                    boolean possuiSegemento = false;
+                                                    String nomeSegmento = "";
+                                                    
+                                                    if(solicEntReceb.getRemetente() instanceof UsuarioParticipante2){
+                                                        UsuarioParticipante2 usuarioRemetente = (UsuarioParticipante2) solicEntReceb.getRemetente();
+                                                         Atleta atletaVinculadoUsuario = usuarioRemetente.getAtleta();
+                                                         dataNascimento = sdf.format(atletaVinculadoUsuario.getDataNascimento());
+                                                         email = usuarioRemetente.getEmail();
+                                                         if(atletaVinculadoUsuario.getSegmento() != null){
+                                                             nomeSegmento = atletaVinculadoUsuario.getSegmento().getNome();
+                                                             possuiSegemento = true;
+                                                         }
+                                                    }
+                                                    
+                                                    
                                                 %>
-                                                <p><span class="font-weight-bold">Email: </span><%=solicEntReceb.getUsuarioDestinatario().getEmail()%></p>
+                                                <p><span class="font-weight-bold">Email: </span><%=email%></p>
                                                 <p><span class="font-weight-bold">Data de nascimento: </span><%=dataNascimento%></p>
                                                 <%
                                                     
-                                                    if(solicEntReceb.getUsuarioDestinatario().getAtleta().getSegmento() != null){
+                                                    if(possuiSegemento){
                                                 %>
-                                                <p><span class="font-weight-bold">Segmento IFPR-IRATI: </span><%=solicEntReceb.getUsuarioDestinatario().getAtleta().getSegmento().getNome()%></p>
+                                                <p><span class="font-weight-bold">Segmento IFPR-IRATI: </span><%=nomeSegmento%></p>
                                                 <%}%>
                                             </div>
                                             <div class="modal-footer">
@@ -190,9 +208,9 @@
                             <%
                                 for (MensagemRecebida mR : usuarioAdm.getMensagensRecebidas()) {
 
-                                    if (mR instanceof ComunicadoAPRecebido) {
+                                    if (mR instanceof ComunicadoRecebido) {
 
-                                        ComunicadoAPRecebido cR = (ComunicadoAPRecebido) mR;
+                                        ComunicadoRecebido cR = (ComunicadoRecebido) mR;
                                         if (cR.isLido() == false) {
                             %>
                             <div class="card">

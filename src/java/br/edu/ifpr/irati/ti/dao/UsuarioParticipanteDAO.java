@@ -21,10 +21,10 @@ public class UsuarioParticipanteDAO {
     
         public UsuarioParticipante2 buscarPorId(int id){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from usuarioparticipante2 u where u.idUsuario = '"+id+"'";
+        String hql = "from usuarioParticipante2 u where u.idUsuario = '"+id+"'";
         Query query = session.createQuery(hql);
         query.setMaxResults(1);
-        UsuarioParticipante2 usuarioParticipante = (UsuarioParticipante2) query.uniqueResult();        
+        UsuarioParticipante2 usuarioParticipante = (UsuarioParticipante2) query.uniqueResult();  
         session.clear();
         session.close();
         return usuarioParticipante;
@@ -34,9 +34,10 @@ public class UsuarioParticipanteDAO {
     public List<UsuarioParticipante2> buscarTudo(){
         Session sessao = HibernateUtil.getSessionFactory().openSession();
         sessao.beginTransaction();
-        String hql = "from usuarioparticipante2";
+        String hql = "from usuarioParticipante2";
         org.hibernate.Query query = sessao.createQuery(hql);
         List results = query.list();
+        
         return results;
     }
 }

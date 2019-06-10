@@ -9,30 +9,33 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.annotations.Proxy;
 
-@Entity(name = "comunicado_pp_enviado")
+
+@Entity(name = "convite_gerenciamento_enviado")
 @PrimaryKeyJoinColumn(name = "idMensagemEnviada")
 @Proxy(lazy = false)
-public class ComunicadoPPEnviado extends MensagemPPEnviada implements Serializable{
+public class ConviteGerenciamentoEnviado extends MensagemEnviada implements Serializable {
     
     @Column(name = "texto",nullable = false)
     private String texto;
-
-    public ComunicadoPPEnviado() {
-    }
     
     
-    public ComunicadoPPEnviado(String texto, int idMensagemEnviada, String assunto) {
-        super(idMensagemEnviada, assunto);
-        this.texto = texto;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Competicao competicao;
+
+    public ConviteGerenciamentoEnviado() {
     }
 
-    public ComunicadoPPEnviado(String texto, List<UsuarioParticipante2> usuariosParticipantes, int idMensagemEnviada, String assunto) {
-        super(usuariosParticipantes, idMensagemEnviada, assunto);
+    public ConviteGerenciamentoEnviado(String texto, Competicao competicao, int idMensagemEnviada, List<Usuario> usuariosDestinatarios, String assunto) {
+        super(idMensagemEnviada, usuariosDestinatarios, assunto);
         this.texto = texto;
+        this.competicao = competicao;
     }
+
 
     /**
      * @return the texto
@@ -47,6 +50,23 @@ public class ComunicadoPPEnviado extends MensagemPPEnviada implements Serializab
     public void setTexto(String texto) {
         this.texto = texto;
     }
+
+
+
+    /**
+     * @return the competicao
+     */
+    public Competicao getCompeticao() {
+        return competicao;
+    }
+
+    /**
+     * @param competicao the competicao to set
+     */
+    public void setCompeticao(Competicao competicao) {
+        this.competicao = competicao;
+    }
+    
     
     
     

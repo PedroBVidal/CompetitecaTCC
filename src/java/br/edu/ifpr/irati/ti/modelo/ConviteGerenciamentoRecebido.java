@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 
@@ -20,10 +18,10 @@ import org.hibernate.annotations.Type;
  *
  * @author Usuário
  */
-@Entity(name = "convite_gerenciamento_aa_recebido")
+@Entity(name = "convite_gerenciamento_recebido")
 @PrimaryKeyJoinColumn(name = "idMensagemRecebida")
 @Proxy(lazy = false)
-public class ConviteGerenciamentoAARecebido extends MensagemAARecebida implements Serializable {
+public class ConviteGerenciamentoRecebido extends MensagemRecebida implements Serializable {
     
     @Column(name = "texto",nullable = false)
     private String texto;
@@ -35,11 +33,11 @@ public class ConviteGerenciamentoAARecebido extends MensagemAARecebida implement
     @ManyToOne(fetch = FetchType.EAGER)
     private Competicao competicao;
 
-    public ConviteGerenciamentoAARecebido() {
+    public ConviteGerenciamentoRecebido() {
     }
 
-    public ConviteGerenciamentoAARecebido(String texto, boolean aceito, Competicao competicao, UsuarioParticipante remetente, int idMensagem, boolean lido, String assunto) {
-        super(remetente, idMensagem, lido, assunto);
+    public ConviteGerenciamentoRecebido(String texto, boolean aceito, Competicao competicao, int idMensagemRecebida, boolean lido, String assunto, Usuario remetente) {
+        super(idMensagemRecebida, lido, assunto, remetente);
         this.texto = texto;
         this.aceito = aceito;
         this.competicao = competicao;

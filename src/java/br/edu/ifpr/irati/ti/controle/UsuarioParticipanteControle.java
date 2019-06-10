@@ -8,6 +8,7 @@ package br.edu.ifpr.irati.ti.controle;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.dao.UsuarioAdministradorDAO;
+import br.edu.ifpr.irati.ti.modelo.Usuario;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
 import java.util.List;
 
@@ -16,33 +17,34 @@ import java.util.List;
  * @author Aluno
  */
 public class UsuarioParticipanteControle {
-    Dao<UsuarioParticipante> uspd = new GenericDAO<>(UsuarioParticipante.class);
+    Dao<Usuario> genericUsuarioDAO = new GenericDAO<>(Usuario.class);
+    Dao<UsuarioParticipante> genericUsuarioAdministradorDAO = new GenericDAO<>(UsuarioParticipante.class);
     UsuarioAdministradorDAO usuarioAdministradorDAO = new UsuarioAdministradorDAO();
     
     public void criar(UsuarioParticipante up) throws Exception{
         try{
-        uspd.salvar(up);
+        genericUsuarioAdministradorDAO.salvar(up);
         }catch(Exception e){
             throw new Exception("O Email "+up.getEmail()+" ja existe em nossa base de dado. Tente novamente");
         }
     }
     public List<UsuarioParticipante> buscarTodos(){
-        return uspd.buscarTodos(UsuarioParticipante.class);
+        return genericUsuarioAdministradorDAO.buscarTodos(UsuarioParticipante.class);
     }
     public UsuarioParticipante buscarPorId(int id){
         return usuarioAdministradorDAO.buscarPorId(id);
     }
     public UsuarioParticipante buscarLogin(String email, String senha) throws Exception{
-        UsuarioParticipante uspdc = uspd.buscarLogin(email, senha);
-        if (uspdc == null) {
+        UsuarioParticipante usuarioParticipante = genericUsuarioAdministradorDAO.buscarLogin(email, senha);
+        if (usuarioParticipante == null) {
             throw new Exception("Acesso Negado. Tente novamente");
         }else{
-        return uspdc;    
+        return usuarioParticipante;    
         }
         
         
     }
     public void atualizarCad(UsuarioParticipante user){
-        uspd.alterar(user);
+        genericUsuarioAdministradorDAO.alterar(user);
     }
 }

@@ -3,6 +3,11 @@
     Created on : 07/10/2018, 10:30:24
     Author     : user
 --%>
+<%@page import="br.edu.ifpr.irati.ti.controle.mensagens.MsgSolicitacaoEntradaRecebidaControle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.MensagemRecebida"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.MensagemAPRecebida"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.MensagemAARecebida"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.SolicitacaoEntradaEquipeRecebida"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Equipe"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.ModalidadeColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
@@ -20,6 +25,7 @@
     int op = Integer.parseInt(request.getParameter("op"));
     EquipeControle eqpc = new EquipeControle();
     UsuarioParticipante2Controle up2c = new UsuarioParticipante2Controle();
+    MsgSolicitacaoEntradaRecebidaControle mserc = new MsgSolicitacaoEntradaRecebidaControle();
     UsuarioParticipante2 up2 = up2c.buscarPorId(Integer.parseInt(request.getParameter("idUsuario")));    
     
     
@@ -45,6 +51,15 @@
                 break;
             }
         }
+        
+        for(MensagemRecebida msgReceb : up2.getMensagensRecebidas()){
+            
+            if(msgReceb instanceof SolicitacaoEntradaEquipeRecebida){
+                
+                mserc.excluir((SolicitacaoEntradaEquipeRecebida) msgReceb);
+            }
+        }
+        
         up2c.atualizarCad(up2);
         eqpc.droparEquipe(eq);
         response.sendRedirect("../listaEquipes.jsp?msg=Equipe removida com sucesso&color=danger");

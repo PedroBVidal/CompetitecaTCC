@@ -4,6 +4,7 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.Usuario"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.SolicitacaoEntradaEquipeRecebida"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -36,11 +37,11 @@
     UsuarioParticipante2 userRemetente = upControle.buscarPorId(idUsuarioRemetente);
     Equipe equipe = equipeControle.buscarPorId(idEquipe);
     
-    List<UsuarioParticipante2> destinatarios = new ArrayList<>();
+    List<Usuario> destinatarios = new ArrayList<>();
     destinatarios.add(userAdmEquipe);
             
-    SolicitacaoEntradaEquipeEnviada msgSolicitacaoEntradaEnviada = new SolicitacaoEntradaEquipeEnviada('E', "Olá, desejo participar de sua equipe", equipe, userRemetente, destinatarios, 0, "Solicitacao de entrada - Equipe: "+equipe.getNome());
-    SolicitacaoEntradaEquipeRecebida msgSolicitacaoEntradaRecebida = new SolicitacaoEntradaEquipeRecebida('E', "Olá, desejo participar de sua equipe ", equipe, userAdmEquipe,msgSolicitacaoEntradaEnviada,userRemetente, 0, false, "Solicitacao de entrada - Equipe: "+equipe.getNome());
+    SolicitacaoEntradaEquipeEnviada msgSolicitacaoEntradaEnviada = new SolicitacaoEntradaEquipeEnviada('E', "Olá, desejo participar de sua equipe", equipe, destinatarios, 0, "Solicitacao de entrada - Equipe: "+equipe.getNome());
+    SolicitacaoEntradaEquipeRecebida msgSolicitacaoEntradaRecebida = new SolicitacaoEntradaEquipeRecebida('E', "Olá, desejo participar de sua equipe ", equipe,msgSolicitacaoEntradaEnviada,0, false, "Solicitacao de entrada - Equipe: "+equipe.getNome(),userRemetente);
     
     
     userAdmEquipe.adicionarMensagemRecebida(msgSolicitacaoEntradaRecebida);

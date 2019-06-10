@@ -78,16 +78,23 @@
                 //UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
                 //UsuarioParticipante upp = upc.buscarPorId(up.getIdUsuario());
                 
+                int flag = 0;
                 System.out.println("Competições vinculadas ao usuário participante" + up.getCompeticoes());
-                 UsuarioParticipanteControle upControle = new UsuarioParticipanteControle();
-            UsuarioParticipante usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
+                UsuarioParticipanteControle upControle = new UsuarioParticipanteControle();
+                UsuarioParticipante usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
                 
+                try {
+                     usuarioParticipante.getCompeticoes();
+                    } catch (Exception e) {
+                        flag = 1;
+                    }
                 
-                
+                if(flag == 0){
                 for(Competicao cptc : usuarioParticipante.getCompeticoes()){
                     System.out.println("Nome:"+cptc.getNome()+"\n Id:"+cptc.getIdCompeticao()+"\n Inativo:"+cptc.isInativo());
                     if(cptc.isInativo() == false){
-                       
+                
+                    
                 %>
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">
@@ -127,7 +134,7 @@
                         </div>
                     </div>
                 </div>
-                <%}}%>
+                <%}}}%>
             </div>
             <a href="criarcompeticao.jsp" class="btn btn-success">
                 <!-- Adicionar icone -->

@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,22 +29,24 @@ public class Equipe implements Serializable {
     private int idEquipe;
 
     @ManyToOne
+    @JoinColumn(name = "idAdministrador")
     private UsuarioParticipante2 administrador;
 
     @Column(name = "nome", nullable = false)
     private String nome;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @Fetch(value = FetchMode.SELECT)
     private List<Atleta> atletas;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Confronto> confrontosModalidadeColetiva;
-
-    @OneToMany
+    
+    
+    /*@OneToMany
     private List<MensagemRecebida> mensagens;
-
+    */
     /*@ManyToOne
     //@JoinColumn(name = "competicao_idCompeticao")
     private Competicao competicao;
@@ -119,18 +122,18 @@ public class Equipe implements Serializable {
         this.modalidade = modalidade;
     }
 
-    public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador, List<Atleta> atletas, ModalidadeColetiva modalidade, List<Confronto> confrontosModalidadeColetiva, List<MensagemRecebida> mensagens, Competicao competicao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas) {
+    public Equipe(int idEquipe, UsuarioParticipante2 administrador, String nome, List<Atleta> atletas, List<Confronto> confrontosModalidadeColetiva, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas, ModalidadeColetiva modalidade) {
         this.idEquipe = idEquipe;
+        this.administrador = administrador;
         this.nome = nome;
         this.atletas = atletas;
         this.confrontosModalidadeColetiva = confrontosModalidadeColetiva;
-        this.mensagens = mensagens;
-        //this.competicao = competicao;
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
         this.competicoesModalidadeColeivas = competicoesModalidadeColeivas;
-        this.administrador = administrador;
         this.modalidade = modalidade;
     }
+
+    
 
     public void adicionarAtleta(Atleta atleta) {
         this.getAtletas().add(atleta);
@@ -205,19 +208,7 @@ public class Equipe implements Serializable {
         this.confrontosModalidadeColetiva = confrontosModalidadeColetiva;
     }
 
-    /**
-     * @return the mensagens
-     */
-    public List<MensagemRecebida> getMensagens() {
-        return mensagens;
-    }
 
-    /**
-     * @param mensagens the mensagens to set
-     */
-    public void setMensagens(List<MensagemRecebida> mensagens) {
-        this.mensagens = mensagens;
-    }
 
     /**
      * @return the competicao

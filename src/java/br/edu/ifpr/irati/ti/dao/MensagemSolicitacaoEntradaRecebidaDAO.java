@@ -20,7 +20,7 @@ public class MensagemSolicitacaoEntradaRecebidaDAO {
     
     public SolicitacaoEntradaEquipeRecebida buscarPorId(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from solicitacaoentradaequipe_pp_recebida s where s.idMensagemRecebida = '" + id + "'";
+        String hql = "from solicitacaoentradaequipe_recebida s where s.idMensagemRecebida = '" + id + "'";
         Query query = session.createQuery(hql);
         query.setMaxResults(1);
         SolicitacaoEntradaEquipeRecebida solicEntReceb = (SolicitacaoEntradaEquipeRecebida) query.uniqueResult();

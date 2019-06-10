@@ -11,40 +11,22 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.annotations.Proxy;
 
-@Entity(name = "usuarioparticipante2")
+@Entity(name = "usuarioParticipante2")
+@PrimaryKeyJoinColumn(name = "idUsuario")
 @Proxy(lazy = false)
-public class UsuarioParticipante2 implements Serializable {
+public class UsuarioParticipante2 extends Usuario implements Serializable {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idUsuario;
-
-    @Column(name="email", nullable = false, unique=true)
-    private String email;
-
-    @Column(name = "nome", nullable = false)
-    private String nome;
-
-    @Column(name = "senha", nullable = false)
+    @Column(name="senha",nullable = false)
     private String senha;
     
-    @OneToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<MensagemEnviada> mensagensEnviadas;
+    @Column(name="email", nullable = false, unique=true)
+    private String email;
     
-    @OneToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<MensagemRecebida> mensagensRecebidas;
-
     @OneToOne
     private Atleta atleta;
     
@@ -53,62 +35,45 @@ public class UsuarioParticipante2 implements Serializable {
     private List<Equipe> equipe;
 
     public UsuarioParticipante2() {
-
     }
 
-    public UsuarioParticipante2(int idUsuario, String email, String nome, String senha) {
-        this.idUsuario = idUsuario;
-        this.email = email;
-        this.nome = nome;
+    public UsuarioParticipante2(int idUsuario,String email,String nome, String senha) {
+        super(idUsuario, nome);
         this.senha = senha;
+        this.email = email;
         this.atleta = new Atleta();
-        this.mensagensEnviadas = new ArrayList<>();
-        this.mensagensRecebidas = new ArrayList<>();
         this.equipe = new ArrayList<>();
-       
     }
 
-    public UsuarioParticipante2(int idUsuario, String email, String nome, String senha, List<MensagemEnviada> mensagensEnviadas, List<MensagemRecebida> mensagensRecebidas, Atleta atleta) {
-        this.idUsuario = idUsuario;
-        this.email = email;
-        this.nome = nome;
+    public UsuarioParticipante2(String senha, String email, Atleta atleta, List<Equipe> equipe, int idUsuario, String nome) {
+        super(idUsuario, nome);
         this.senha = senha;
-        this.mensagensEnviadas = mensagensEnviadas;
-        this.mensagensRecebidas = mensagensRecebidas;
+        this.email = email;
         this.atleta = atleta;
-        this.equipe = new ArrayList<>();
-    }
-
-    public void adicionarMensagemRecebida(MensagemRecebida mensagemRecebida){
-        this.getMensagensRecebidas().add(mensagemRecebida);
+        this.equipe = equipe;
     }
     
-    public void removerMensagemRecebida(MensagemRecebida mensagemRecebida){
-        this.getMensagensRecebidas().remove(mensagemRecebida);
+    public void adicionarEquipe(Equipe equipe){
+        this.equipe.add(equipe);
     }
     
-    public void adicionarMensagemEnviada(MensagemEnviada mensagemEnviada){
-        this.getMensagensEnviadas().add(mensagemEnviada);
+    public void removerEquipe(Equipe equipe){
+        this.equipe.add(equipe);
     }
     
-    public void removerMensagemEnviada(MensagemEnviada mensagemEnviada){
-        this.getMensagensEnviadas().remove(mensagemEnviada);
-    }
-
-
-
+    
     /**
-     * @return the idUsuario
+     * @return the senha
      */
-    public int getIdUsuario() {
-        return idUsuario;
+    public String getSenha() {
+        return senha;
     }
 
     /**
-     * @param idUsuario the idUsuario to set
+     * @param senha the senha to set
      */
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     /**
@@ -126,60 +91,17 @@ public class UsuarioParticipante2 implements Serializable {
     }
 
     /**
-     * @return the nome
+     * @return the atleta
      */
-    public String getNome() {
-        return nome;
+    public Atleta getAtleta() {
+        return atleta;
     }
 
     /**
-     * @param nome the nome to set
+     * @param atleta the atleta to set
      */
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    /**
-     * @return the senha
-     */
-    public String getSenha() {
-        return senha;
-    }
-
-    /**
-     * @param senha the senha to set
-     */
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-
-    /**
-     * @return the mensagensEnviadas
-     */
-    public List<MensagemEnviada> getMensagensEnviadas() {
-        return mensagensEnviadas;
-    }
-
-    /**
-     * @param mensagensEnviadas the mensagensEnviadas to set
-     */
-    public void setMensagensEnviadas(List<MensagemEnviada> mensagensEnviadas) {
-        this.mensagensEnviadas = mensagensEnviadas;
-    }
-
-    /**
-     * @return the mensagensRecebidas
-     */
-    public List<MensagemRecebida> getMensagensRecebidas() {
-        return mensagensRecebidas;
-    }
-
-    /**
-     * @param mensagensRecebidas the mensagensRecebidas to set
-     */
-    public void setMensagensRecebidas(List<MensagemRecebida> mensagensRecebidas) {
-        this.mensagensRecebidas = mensagensRecebidas;
+    public void setAtleta(Atleta atleta) {
+        this.atleta = atleta;
     }
 
     /**
@@ -196,27 +118,10 @@ public class UsuarioParticipante2 implements Serializable {
         this.equipe = equipe;
     }
     
-    public void adicionarEquipe(Equipe equipe){
-        this.equipe.add(equipe);
-    }
     
-    public void removerEquipe(Equipe equipe){
-        this.equipe.remove(equipe);
-    }
+    
 
-    /**
-     * @return the atleta
-     */
-    public Atleta getAtleta() {
-        return atleta;
-    }
-
-    /**
-     * @param atleta the atleta to set
-     */
-    public void setAtleta(Atleta atleta) {
-        this.atleta = atleta;
-    }
+    
 
     
 

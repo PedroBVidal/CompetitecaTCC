@@ -4,6 +4,8 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.controle.mensagens.ComunicadoRecebidoControle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.ComunicadoRecebido"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.InscricaoCompeticaoModalidadeSoloControle"%>
@@ -11,10 +13,6 @@
 <%@page import="br.edu.ifpr.irati.ti.controle.AtletaControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeSoloControle"%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.ComunicadoAPRecebido"%>
-<%@page import="br.edu.ifpr.irati.ti.controle.mensagens.ComunicadoAPRecebidoControle"%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.ComunicadoAPEnviado"%>
-<%@page import="br.edu.ifpr.irati.ti.controle.mensagens.ComunicadoAPEnviadoControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipante2Controle"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -29,13 +27,13 @@
     InscricaoCompeticaoModalidadeSoloControle icmsc = new InscricaoCompeticaoModalidadeSoloControle();
     InscricaoCompeticaoSolo icms = icmsc.buscarId(idInsc);
     UsuarioParticipante2 up2 = icms.getAtleta().getUsuarioParticipante();
-    ComunicadoAPRecebidoControle crc = new ComunicadoAPRecebidoControle();
+    ComunicadoRecebidoControle crc = new ComunicadoRecebidoControle();
     UsuarioParticipante2Controle up2c = new UsuarioParticipante2Controle();
     UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
     if(opt == 1){
         icms.setInscricaoAceita('A');
         icmsc.alterar(icms);
-        ComunicadoAPRecebido comunicado = new ComunicadoAPRecebido("Parabéns, sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi aceita.",up,0,false,icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" - Inscrição Aceita");
+        ComunicadoRecebido comunicado = new ComunicadoRecebido("Parabéns, sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi aceita.",0,false,icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" - Inscrição Aceita",up);
         //comunicado.adicionarUsuarioParticipante(up);
         crc.salvar(comunicado);
         up2.adicionarMensagemRecebida(comunicado);
@@ -43,7 +41,7 @@
        // ComunicadoAPEnviado comunicado2 = new ComunicadoAPEnviado("Parabéns, sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi aceita",0,"Inscrição Aceita");
         response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Inscrição aprovada com sucesso&color=success");
     }else if(opt == 2){
-        ComunicadoAPRecebido comunicado = new ComunicadoAPRecebido("Infelizmente sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi recusada.",up,0,false,icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" - Inscrição Recusada");
+        ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi recusada.",0,false,icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" - Inscrição Recusada",up);
         //comunicado.adicionarUsuarioParticipante(up);
         crc.salvar(comunicado);
         up2.adicionarMensagemRecebida(comunicado);
@@ -52,7 +50,7 @@
         icmsc.alterar(icms);
           response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Incrição negada com sucesso&color=success");
     }else if(opt == 3){
-        ComunicadoAPRecebido comunicado = new ComunicadoAPRecebido("Infelizmente você foi expulso da competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+", sendo assim não há mais a necessidade de comparecer ao evento.",up,0,false,icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" - Expulsão");
+        ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente você foi expulso da competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+", sendo assim não há mais a necessidade de comparecer ao evento.",0,false,icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" - Expulsão",up);
         //comunicado.adicionarUsuarioParticipante(up);
         crc.salvar(comunicado);
         up2.adicionarMensagemRecebida(comunicado);

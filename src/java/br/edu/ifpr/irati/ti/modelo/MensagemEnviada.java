@@ -6,13 +6,19 @@
 package br.edu.ifpr.irati.ti.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 
 /**
@@ -28,6 +34,10 @@ public abstract class MensagemEnviada implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected int idMensagemEnviada;
     
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "mensagensEnviadas")
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Usuario> usuariosDestinatarios;
+    
     @Column(name = "assunto",nullable = false)
     protected String assunto;
 
@@ -36,7 +46,25 @@ public abstract class MensagemEnviada implements Serializable {
 
     public MensagemEnviada(int idMensagemEnviada, String assunto) {
         this.idMensagemEnviada = idMensagemEnviada;
+        this.usuariosDestinatarios = new ArrayList<>();
         this.assunto = assunto;
+    }
+
+    public MensagemEnviada(int idMensagemEnviada, List<Usuario> usuariosDestinatarios, String assunto) {
+        this.idMensagemEnviada = idMensagemEnviada;
+        this.usuariosDestinatarios = usuariosDestinatarios;
+        this.assunto = assunto;
+    }
+    
+    
+
+    
+    public void adicionarUsuarioDestinatario(Usuario usuario){
+        this.setUsuariosDestinatarios(new ArrayList<>());
+    }
+    
+    public void removerUsuarioDestinatario(Usuario usuario){
+        this.setUsuariosDestinatarios(new ArrayList<>());
     }
 
     /**
@@ -65,6 +93,20 @@ public abstract class MensagemEnviada implements Serializable {
      */
     public void setAssunto(String assunto) {
         this.assunto = assunto;
+    }
+
+    /**
+     * @return the usuariosDestinatarios
+     */
+    public List<Usuario> getUsuariosDestinatarios() {
+        return usuariosDestinatarios;
+    }
+
+    /**
+     * @param usuariosDestinatarios the usuariosDestinatarios to set
+     */
+    public void setUsuariosDestinatarios(List<Usuario> usuariosDestinatarios) {
+        this.usuariosDestinatarios = usuariosDestinatarios;
     }
     
     

@@ -12,12 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.annotations.Proxy;
-import org.hibernate.annotations.Type;
 
-@Entity(name = "solicitacaoentradaequipe_pp_recebida")
+@Entity(name = "solicitacaoentradaequipe_recebida")
 @PrimaryKeyJoinColumn(name = "idMensagemRecebida")
 @Proxy(lazy = false)
-public class SolicitacaoEntradaEquipeRecebida extends MensagemPPRecebida implements Serializable {
+public class SolicitacaoEntradaEquipeRecebida extends MensagemRecebida implements Serializable {
     
     @Column(name = "estadoSolicitacao")    
     private char estadoSolicitacao; 
@@ -28,8 +27,7 @@ public class SolicitacaoEntradaEquipeRecebida extends MensagemPPRecebida impleme
     @ManyToOne
     private Equipe equipe;
     
-    @ManyToOne
-    private UsuarioParticipante2 usuarioDestinatario;
+
     
     @OneToOne
     private SolicitacaoEntradaEquipeEnviada solicitacaoEntradaEquipeEnviada;
@@ -38,16 +36,14 @@ public class SolicitacaoEntradaEquipeRecebida extends MensagemPPRecebida impleme
     public SolicitacaoEntradaEquipeRecebida() {
     }
 
-    public SolicitacaoEntradaEquipeRecebida(char estadoSolicitacao, String texto, Equipe equipe, UsuarioParticipante2 usuarioDestinatario, SolicitacaoEntradaEquipeEnviada solicitacaoEntradaEquipeEnviada, UsuarioParticipante2 remetente, int idMensagemRecebida, boolean lido, String assunto) {
-        super(remetente, idMensagemRecebida, lido, assunto);
+    public SolicitacaoEntradaEquipeRecebida(char estadoSolicitacao, String texto, Equipe equipe, SolicitacaoEntradaEquipeEnviada solicitacaoEntradaEquipeEnviada, int idMensagemRecebida, boolean lido, String assunto, Usuario remetente) {
+        super(idMensagemRecebida, lido, assunto, remetente);
         this.estadoSolicitacao = estadoSolicitacao;
         this.texto = texto;
         this.equipe = equipe;
-        this.usuarioDestinatario = usuarioDestinatario;
         this.solicitacaoEntradaEquipeEnviada = solicitacaoEntradaEquipeEnviada;
     }
 
-    
     
 
     /**
@@ -78,19 +74,6 @@ public class SolicitacaoEntradaEquipeRecebida extends MensagemPPRecebida impleme
         this.equipe = equipe;
     }
 
-    /**
-     * @return the usuarioDestinatario
-     */
-    public UsuarioParticipante2 getUsuarioDestinatario() {
-        return usuarioDestinatario;
-    }
-
-    /**
-     * @param usuarioDestinatario the usuarioDestinatario to set
-     */
-    public void setUsuarioDestinatario(UsuarioParticipante2 usuarioDestinatario) {
-        this.usuarioDestinatario = usuarioDestinatario;
-    }
 
     /**
      * @return the solicitacaoEntradaEquipeEnviada

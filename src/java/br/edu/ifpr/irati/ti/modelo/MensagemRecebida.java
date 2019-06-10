@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
@@ -32,26 +33,27 @@ public abstract class MensagemRecebida implements Serializable {
     @Column(name = "assunto",nullable = false)
     protected String assunto;
     
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Usuario remetente;
 
+    
     public MensagemRecebida() {
-        idMensagemRecebida = 0;
-        lido = false;
-        assunto = "";
     }
 
-    public MensagemRecebida(int idMensagemRecebida,String assunto) {
+    public MensagemRecebida(int idMensagemRecebida,String assunto, Usuario remetente) {
         this.idMensagemRecebida = idMensagemRecebida;
         this.lido = false;
         this.assunto = assunto;
+        this.remetente = remetente;
     }
 
-    public MensagemRecebida(int idMensagemRecebida, boolean lido, String assunto) {
+    public MensagemRecebida(int idMensagemRecebida, boolean lido, String assunto, Usuario remetente) {
         this.idMensagemRecebida = idMensagemRecebida;
         this.lido = lido;
         this.assunto = assunto;
+        this.remetente = remetente;
     }
 
-    
 
     /**
      * @return the lido
@@ -95,5 +97,21 @@ public abstract class MensagemRecebida implements Serializable {
         this.idMensagemRecebida = idMensagemRecebida;
     }
 
- 
+    /**
+     * @return the remetente
+     */
+    public Usuario getRemetente() {
+        return remetente;
+    }
+
+    /**
+     * @param remetente the remetente to set
+     */
+    public void setRemetente(Usuario remetente) {
+        this.remetente = remetente;
+    }
+
+    
+    
+    
 }
