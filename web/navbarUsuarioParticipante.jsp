@@ -25,7 +25,7 @@
                     
 %>
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
- <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top">
+ <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top" style="background-color: #3D3D33;">
             <div class="container ">
                 <a class="navbar-brand" href="index.jsp">Competiteca</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
