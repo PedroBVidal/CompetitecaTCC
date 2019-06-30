@@ -21,7 +21,7 @@
         <!-- Navigation -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top">
             <div class="container ">
-                <a class="navbar-brand" href="index.jsp">Competiteca</a>
+                <a class="navbar-brand" href="index.jsp"><img src="img/competiteca.png" alt=""></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -42,10 +42,10 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
                                 <a class="dropdown-item" href="competicoes.jsp">Competições</a>
-                                <a class="dropdown-item" href="atleta.jsp">Atletas</a>
-                                <a class="dropdown-item" href="equipes.jsp">Equipes</a>
+                               <!-- <a class="dropdown-item" href="atleta.jsp">Atletas</a>
+                                <a class="dropdown-item" href="equipes.jsp">Equipes</a>-->
                                 <a class="dropdown-item" href="local.jsp">Locais</a>
-                                <a class="dropdown-item" href="#"></a>
+                                <!--<a class="dropdown-item" href="#"></a>-->
                             </div>
                         </li>
                         <li class="nav-item dropdown">

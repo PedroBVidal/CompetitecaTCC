@@ -19,7 +19,7 @@
 <html lang="en">
 
     <head>
-
+        
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
@@ -34,10 +34,12 @@
         <link href="css/modern-business.css" rel="stylesheet">
         <!-- Página de estilo própria-->
         <link href="css/estilo.css" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+          href="css/fonte/style.css"/>
     </head>
 
-    <body>
+    <body style="font-family: 'Quicksand';">
 
         <header>
             <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
@@ -58,7 +60,7 @@
         <div class="container">
 
             <!-- Page Heading/Breadcrumbs -->
-            <h1 class="mt-4 mb-3">Minhas mensagens
+            <h1 class="mt-4 mb-3 titulos">Minhas mensagens
 
             </h1>
 

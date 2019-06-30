@@ -27,14 +27,17 @@
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
 
+ <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+          href="css/fonte/style.css"/>
     </head>
 
-    <body>
+    <body style="font-family: 'Quicksand';">
 
         <!-- Navigation -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top">
             <div class="container ">
-                <a class="navbar-brand" href="index.jsp">Competiteca</a>
+                <a class="navbar-brand" href="index.jsp"><img src="img/competiteca.png"></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -102,6 +105,7 @@
                     String mensagem = request.getParameter("msg");
                     String cor = request.getParameter("color");
             %>
+            <br>
             <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
                 <strong><%=mensagem%></strong> .
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -112,14 +116,14 @@
             <%
                 }
             %>
-            
-            <h1 class="my-4">Seja Bem-Vindo a Competiteca</h1>
+            <br>
+            <h1 class="my-4 titulos">Seja Bem-Vindo a Competiteca</h1>
 
             <!-- Marketing Icons Section -->
             <div class="row">
                 <div class="col">
                     <div class="card h-100">
-                        <h4 class="card-header">Entre</h4>
+                        <h4 class="card-header titulos">Entre</h4>
                         <div class="card-body">
                             <form action="scripts/ctrlacesso.jsp" method="POST" class="col">
 

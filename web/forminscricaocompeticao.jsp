@@ -38,9 +38,12 @@
         <link href="css/modern-business.css" rel="stylesheet">
         <link href="css/estilo.css" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+          href="css/fonte/style.css"/>
     </head>
 
-    <body>
+    <body style="font-family: 'Quicksand';">
         <%
             UsuarioParticipante2 up = (UsuarioParticipante2) session.getAttribute("usuario");
             if (up == null) {
@@ -72,6 +75,7 @@
                     String mensagem = request.getParameter("msg");
                     String cor = request.getParameter("color");
             %>
+           <br>
             <div class="alert alert-<%=cor%>" role="alert">
                 <strong><%=mensagem%></strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -84,7 +88,7 @@
             %>
 
 
-            <h2 class="col mt-4 mb-3" style="margin: 20px 0px 20px -10px;">Inscreva-se nas competições que deseja partipar dentro de <span class="font-italic"><%=competicao.getNome()%></span></h2>
+            <h2 class="col mt-4 mb-3 titulos" style="margin: 20px 0px 20px -10px;">Inscreva-se nas competições que deseja partipar dentro de <span class="" ><i><%=competicao.getNome()%></i></span></h2>
 
             <div class="row">
 

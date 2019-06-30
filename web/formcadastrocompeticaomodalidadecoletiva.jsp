@@ -31,9 +31,13 @@
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
 
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+          href="css/fonte/style.css"/>
     </head>
 
-    <body>
+    <body style="font-family: 'Quicksand';">
+
         <%
             UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
             if (up == null) {
@@ -52,9 +56,9 @@
 
         <!-- Page Content -->
         <div class="container">
-
+<br>
             <!-- Page Heading/Breadcrumbs -->
-            <h1 class="mt-4 mb-3">Cadastrar nova competição coletiva
+            <h1 class="mt-4 mb-3 titulos">Cadastrar nova competição coletiva
 
 
             </h1><br>

@@ -25,8 +25,12 @@
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
         
+ <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+          href="css/fonte/style.css"/>
     </head>
-    <body>
+
+    <body style="font-family: 'Quicksand';">
         
         <%
            Object usuario = session.getAttribute("usuario");
@@ -47,7 +51,8 @@
         
         
         <!-- Portfolio Section -->
-            <h2>Competições que você participa: </h2>
+        <br>
+            <h2 class="titulos">Competições que você participa: </h2>
 
             <div class="row">
            <%

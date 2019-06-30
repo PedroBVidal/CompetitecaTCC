@@ -21,7 +21,7 @@
 <html lang="pt-br">
 
     <head>
-
+ 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
@@ -65,9 +65,13 @@ div.ex4 {
   overflow: visible;
 }
 </style>
+   <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+          href="css/fonte/style.css"/>
     </head>
 
-    <body>
+    <body style="font-family: 'Quicksand';">
+
         <%
             UsuarioParticipante2 up = (UsuarioParticipante2) session.getAttribute("usuario");
             if(up == null){
@@ -90,7 +94,7 @@ div.ex4 {
 
         <!-- Page Content -->
         <div class="container">
-            <h1 class="my-4">Criar uma nova equipe</h1>
+            <h1 class="my-4 titulos">Criar uma nova equipe</h1>
             <div class="card">
                 <div class="card-header">
                     Etapa 2

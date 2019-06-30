@@ -29,9 +29,12 @@
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
 
+   <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+          href="css/fonte/style.css"/>
     </head>
 
-    <body>
+    <body style="font-family: 'Quicksand';">
         <%
             Object usuario = session.getAttribute("usuario");
             if(usuario == null){
@@ -49,7 +52,8 @@
 
         <!-- Page Content -->
         <div class="container">
-            <h1 class="my-4">Painel de Controle</h1>
+            <br>
+            <h1 class="my-4 titulos">Painel de Controle</h1>
 
             <!-- Marketing Icons Section -->
             <div class="row">

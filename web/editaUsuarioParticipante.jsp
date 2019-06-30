@@ -35,11 +35,11 @@
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
 
-    </head>
+    
 
     
         <%
-            Object usuario = session.getAttribute("usuario");
+           Object usuario = session.getAttribute("usuario");
             
             if(usuario == null){
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
@@ -60,7 +60,12 @@
             }
         %>
 
-        <body <%=onload%>> 
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+          href="css/fonte/style.css"/>
+    </head>
+
+    <body style="font-family: 'Quicksand';"> 
         
         <header>
             <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
@@ -72,7 +77,8 @@
         %>
         <!-- Page Content -->
         <div class="container">
-            <h1 class="my-4">Alterar dados</h1>
+            <br>
+            <h1 class="my-4 titulos">Alterar dados</h1>
             <div class="card">
                 <h5 class="card-header"></h5>
                 <div class="card-body">

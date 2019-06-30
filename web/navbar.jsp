@@ -1,7 +1,7 @@
  <!-- Navigation -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-sucess bg-sucess fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="index.jsp">Competiteca</a>
+                <a class="navbar-brand" href="index.jsp"><img class="navbar-brand" src="img/competiteca.png" alt=""></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

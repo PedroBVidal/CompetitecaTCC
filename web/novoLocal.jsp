@@ -100,9 +100,12 @@
             }
             ;
         </script>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+          href="css/fonte/style.css"/>
     </head>
 
-    <body>
+    <body style="font-family: 'Quicksand';">
         <%
             UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
             if(up == null){
@@ -119,7 +122,8 @@
 
         <!-- Page Content -->
         <div class="container">
-            <h1 class="my-4">Criar um novo Local</h1>
+            <br>
+            <h1 class="my-4 titulos">Criar um novo Local</h1>
 
 
             <form action="scripts/editarLocal.jsp" method="POST" class="col">

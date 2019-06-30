@@ -11,6 +11,13 @@ and open the template in the editor.
 @import url('https://fonts.googleapis.com/css?family=Cabin+Condensed|Overpass');
 @import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
 
+@font-face{
+    font-family: 'Kollektif';
+    src:url("font/Kollektif.ttf");
+}
+.titulo{
+    font-family: 'Kollektif';
+}
 .negrito {
     font-weight: bold;
 }

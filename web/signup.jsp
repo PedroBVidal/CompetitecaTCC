@@ -35,9 +35,12 @@
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+          href="css/fonte/style.css"/>
     </head>
 
-    <body>
+    <body style="font-family: 'Quicksand';">
         <script>
 
                   function validatePassword() {
@@ -117,7 +120,7 @@
         </script>
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="index.jsp">Competiteca</a>
+                <a class="navbar-brand" href="index.jsp"><img src="img/competiteca.png"></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -178,7 +181,8 @@
         <!-- Page Content -->
         <div class="container">
             <div class="col-12">
-                <br><h1 class="text-center">Qual é a sua intenção em nosso site?</h1><br>
+                <br>
+                <br><h1 class="text-center titulos">Qual é a sua intenção em nosso site?</h1><br>
 
                 <a href="signup.jsp?p=2"><button class="col-12 btn-lg btn-primary">Quero encontrar competições para eu ou minha equipe participar</button></a><br><br>
                 <a href="signup.jsp?p=3"><button  class="col-12 btn-lg btn-success">Quero ofertar competições</button></a>
@@ -206,7 +210,9 @@
             <%
                 }
             %>
-            <h1 class="my-4">Cadastro para Participantes</h1>
+            <br>
+            <h1 class="my-4 titulos">Cadastro para Participantes</h1>
+            
             <div class="card">
                 <h5 class="card-header">Cadastro</h5>
                 <div class="card-body">
@@ -288,7 +294,8 @@
             <%
                 }
             %>
-            <h1 class="my-4">Cadastro para Administradores</h1>
+            <br>
+            <h1 class="my-4 titulos">Cadastro para Administradores</h1>
             <!--onblur="pesquisaemail(this.value);"  id="email"-->
 
             <form action="scripts/scriptuserAdministrador.jsp" method="POST" class="col" validate>

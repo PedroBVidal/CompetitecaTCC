@@ -19,11 +19,12 @@
 <html lang="pt-br">
 
     <head>
-
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+        <link rel=""
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
-        <meta name="author" content="">
+        
 
         <title>Modern Business - Start Bootstrap Template</title>
 
@@ -34,10 +35,11 @@
 
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
-
+       <link rel="stylesheet" type="text/css"
+          href="css/fonte/style.css"/>
     </head>
-
-    <body>
+   
+    <body style="font-family: 'Quicksand';">
         <%
             UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
             CompeticaoControle competicaoControle = new CompeticaoControle();
@@ -61,6 +63,7 @@
                 String mensagem = request.getParameter("msg");
                 String cor = request.getParameter("color");
             %>
+           <br>
             <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
                 <strong><%=mensagem%></strong> .
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -71,7 +74,8 @@
             <%
             }
             %>
-            <h1 class="my-4">Minhas Competições</h1>
+            <br>
+            <h1 class="my-4 titulos">Meus Eventos</h1>
             <div class="row">
                 <%
                 SimpleDateFormat formate = new SimpleDateFormat("dd/MM/yyyy");
@@ -96,10 +100,10 @@
                 
                     
                 %>
-
+                
                 <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <a href="#"><img class="card-img-top" src="img/competiteca_default.png" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
                                 <a href="#"><%=cptc.getNome()%></a>
