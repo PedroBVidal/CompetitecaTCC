@@ -194,13 +194,5 @@ public abstract class Confronto implements Serializable {
     public void setResultado(String resultado) {
         this.resultado = resultado;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  
 }

@@ -81,7 +81,7 @@
                     <form action="scripts/editarModalidadeS.jsp" method="POST" class="col">
                         <input type="hidden" name="op" value="1">
                         <input type="hidden" name="idCompeticao" value="<%=idCompeticao%>">
-                        
+                        <>
 
                         <div class="form-group">
                             <label>Nome da modalidade:</label>
