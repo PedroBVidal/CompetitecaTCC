@@ -116,6 +116,12 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     public void setCompeticao(Competicao competicao) {
         this.competicao = competicao;
     }
+    public void adicionarInscricao(InscricaoCompeticaoColetiva icc){
+        this.inscricoesCompeticoesColetivas.add(icc);
+    }
+      public void removerInscricao(InscricaoCompeticaoColetiva icc){
+        this.inscricoesCompeticoesColetivas.remove(icc);
+    }
     
     
     

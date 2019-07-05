@@ -29,7 +29,7 @@
                 response.sendRedirect("../gerenciamento.jsp");
             } catch (Exception e) {
                 session.setAttribute("usuario", null);
-                response.sendRedirect("../login.jsp?e=" + e.getMessage());
+                response.sendRedirect("../login.jsp?msg=" + e.getMessage()+"&color=danger");
             }
 
             if (request.getParameter("c") != null) {
@@ -50,7 +50,7 @@
             } catch (Exception e) {
 
                 session.setAttribute("usuario", null);
-                response.sendRedirect("../login.jsp?e=" + e.getMessage());
+                response.sendRedirect("../login.jsp?msg=" + e.getMessage() +"&color=danger");
             }
 
         }

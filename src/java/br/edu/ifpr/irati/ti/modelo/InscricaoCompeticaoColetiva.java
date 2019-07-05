@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import org.hibernate.annotations.Proxy;
-import org.hibernate.annotations.Type;
 
 /**
  *
@@ -40,26 +40,27 @@ public class InscricaoCompeticaoColetiva implements Serializable{
     @JoinColumn(name = "equipe_idEquipe")
     private Equipe equipe;
     
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Atleta> atletas;
     
+    
     @Column(name = "aprovada")
-    @Type(type = "true_false")
-    private boolean inscricaoAceita; 
+    private char inscricaoAceita; 
 
     public InscricaoCompeticaoColetiva() {
         idCompeticaoColetiva = 0;
         equipe = new Equipe();
-        inscricaoAceita = false;
+        inscricaoAceita = ' ';
         competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva();
         atletas = new ArrayList<>();
     }
 
-    public InscricaoCompeticaoColetiva(int idCompeticaoColetiva, CompeticaoModalidadeColetiva competicaoModalidadeColetiva, Equipe equipe, List<Atleta> atletas, boolean inscricaoAceita) {
+    public InscricaoCompeticaoColetiva(int idCompeticaoColetiva, CompeticaoModalidadeColetiva competicaoModalidadeColetiva, Equipe equipe, List<Atleta> atletas, char inscricaoAceita) {
         this.idCompeticaoColetiva = idCompeticaoColetiva;
         this.competicaoModalidadeColetiva = competicaoModalidadeColetiva;
         this.equipe = equipe;
         this.inscricaoAceita = inscricaoAceita;
+        this.atletas = atletas;
     }
 
     
@@ -95,14 +96,14 @@ public class InscricaoCompeticaoColetiva implements Serializable{
     /**
      * @return the inscricaoAceita
      */
-    public boolean isInscricaoAceita() {
+    public char getInscricaoAceita() {
         return inscricaoAceita;
     }
 
     /**
      * @param inscricaoAceita the inscricaoAceita to set
      */
-    public void setInscricaoAceita(boolean inscricaoAceita) {
+    public void setInscricaoAceita(char inscricaoAceita) {
         this.inscricaoAceita = inscricaoAceita;
     }
 
@@ -118,6 +119,14 @@ public class InscricaoCompeticaoColetiva implements Serializable{
      */
     public void setCompeticaoModalidadeColetiva(CompeticaoModalidadeColetiva competicaoModalidadeColetiva) {
         this.competicaoModalidadeColetiva = competicaoModalidadeColetiva;
+    }
+
+    public List<Atleta> getAtletas() {
+        return atletas;
+    }
+
+    public void setAtletas(List<Atleta> atletas) {
+        this.atletas = atletas;
     }
 
 
