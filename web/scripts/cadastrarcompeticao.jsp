@@ -61,7 +61,7 @@
                 competicaoControle.cadastrarCompeticao(competicao);
                 up.adicionarCompeticao(competicao);
                 upc.atualizarCad(up);
-                response.sendRedirect("../competicoes.jsp?msg=Competicao criada com sucesso&color=success");
+                response.sendRedirect("../competicoes.jsp?msg=Evento criado com sucesso&color=success");
         }
     else{
         response.setCharacterEncoding("UTF-8");

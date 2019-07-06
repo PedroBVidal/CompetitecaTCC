@@ -35,7 +35,7 @@ public class Equipe implements Serializable {
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SELECT)
     private List<Atleta> atletas;
 
@@ -53,11 +53,11 @@ public class Equipe implements Serializable {
      */
     
     @OneToMany(mappedBy = "equipe",fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @Fetch(value = FetchMode.SELECT)
     private List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @Fetch(value = FetchMode.SELECT)
     private List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas;
 
     @OneToOne

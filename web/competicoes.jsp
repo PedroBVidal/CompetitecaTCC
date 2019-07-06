@@ -134,7 +134,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="gerenciamentoDeCompeticao.jsp?idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-success">Gerenciar Competição</button></a>
+                            <a href="gerenciamentoDeCompeticao.jsp?idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-success">Gerenciar evento</button></a>
                         </div>
                     </div>
                 </div>

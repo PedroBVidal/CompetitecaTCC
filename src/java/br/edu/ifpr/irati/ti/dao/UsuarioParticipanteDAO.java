@@ -32,12 +32,13 @@ public class UsuarioParticipanteDAO {
         
         
     public List<UsuarioParticipante2> buscarTudo(){
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
-        sessao.beginTransaction();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
         String hql = "from usuarioParticipante2";
-        org.hibernate.Query query = sessao.createQuery(hql);
+        org.hibernate.Query query = session.createQuery(hql);
         List results = query.list();
-        
+        session.clear();
+        session.close();
         return results;
     }
 }

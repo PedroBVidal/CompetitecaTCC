@@ -36,4 +36,8 @@ public class EquipeControle {
     public void droparEquipe(Equipe equipe){
         eqpd.excluir(equipe);
     }
+    
+    public void buscarEquipesVinculadasAUmaModalidade(){
+        
+    }
 }

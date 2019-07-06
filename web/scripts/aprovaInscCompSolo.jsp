@@ -20,6 +20,7 @@
 
 
 <%
+   request.setCharacterEncoding("UTF-8");
    
     int idInsc = Integer.parseInt(request.getParameter("idInsc"));
     int opt = Integer.parseInt(request.getParameter("opt"));
@@ -39,7 +40,7 @@
         up2.adicionarMensagemRecebida(comunicado);
         up2c.atualizarCad(up2);
        // ComunicadoAPEnviado comunicado2 = new ComunicadoAPEnviado("Parabéns, sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi aceita",0,"Inscrição Aceita");
-        response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Inscrição aprovada com sucesso&color=success");
+        //response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Inscrição aprovada com sucesso&color=success");
     }else if(opt == 2){
         ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi recusada.",0,false,icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" - Inscrição Recusada",up);
         //comunicado.adicionarUsuarioParticipante(up);
@@ -48,7 +49,7 @@
         up2c.atualizarCad(up2);
         icms.setInscricaoAceita('N');
         icmsc.alterar(icms);
-          response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Incrição negada com sucesso&color=success");
+          //response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Incrição negada com sucesso&color=success");
     }else if(opt == 3){
         ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente você foi expulso da competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+", sendo assim não há mais a necessidade de comparecer ao evento.",0,false,icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" - Expulsão",up);
         //comunicado.adicionarUsuarioParticipante(up);
@@ -57,8 +58,32 @@
         up2c.atualizarCad(up2);
         icms.setInscricaoAceita('N');
         icmsc.alterar(icms);
-        response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Competidor Expluso com sucesso&color=success");
+        //response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Competidor Expluso com sucesso&color=success");
     }
 
     
 %>
+<meta charset="utf-8">
+
+    <form method="POST" name="formEnviarDadosInscricao">
+        <input type="hidden" name="id" value="<%=idComp%>">
+        <input type="hidden" name="color" value="success">
+        <%if(opt == 1){%>
+        <input type="hidden" name="msg" value="Ingresso aceito com sucesso">
+        <%}%>
+        <%if(opt == 2){%>
+        <input type="hidden" name="msg" value="Ingresso recusado com sucesso">
+        <%}%>
+        <%if(opt == 3){%>
+        <input type="hidden" name="msg" value="Competidor Expluso com sucesso">
+        
+        <%}%>
+    </form>
+
+<script>
+    window.onload = enviarFormulario();
+    function enviarFormulario(){
+            document.forms["formEnviarDadosInscricao"].action = "../gerenciarCompeticaoModSolo.jsp";
+            document.forms["formEnviarDadosInscricao"].submit();  
+    }
+</script>

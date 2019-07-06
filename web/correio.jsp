@@ -34,8 +34,8 @@
         <link href="css/modern-business.css" rel="stylesheet">
         <!-- Página de estilo própria-->
         <link href="css/estilo.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css"
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css"
           href="css/fonte/style.css"/>
     </head>
 

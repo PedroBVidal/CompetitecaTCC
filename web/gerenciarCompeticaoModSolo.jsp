@@ -4,6 +4,7 @@
     Author     : Usuário
 --%>
 
+<%@page import="java.nio.charset.Charset"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.ModalidadeSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.SistemaEliminatorio"%>
@@ -70,6 +71,8 @@
 
         <!-- Page Content -->
         <div class="container">
+        <br>
+        
             <%
               request.setCharacterEncoding("UTF-8");
           if(request.getParameter("msg") != null){
@@ -87,7 +90,7 @@
             }
             %>
             <!-- Page Heading/Breadcrumbs -->
-            <h1 class="mt-4 mb-3">Gerenciando competicao <span style="color: red;"><%=competicao.getNomeCompeticao()%></span>
+            <h1 class="mt-4 mb-3">Gerenciando competição <span style="color: red;"><%=competicao.getNomeCompeticao()%></span>
 
             </h1><br>
 

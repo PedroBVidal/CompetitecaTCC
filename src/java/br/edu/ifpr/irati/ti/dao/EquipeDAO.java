@@ -55,7 +55,7 @@ public class EquipeDAO {
     
         public Equipe buscarPorId(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from equipe e where e.idEquipe = '" + id + "'";
+        String hql = "select e from equipe e where e.idEquipe = '" + id + "'";
         Query query = session.createQuery(hql);
         query.setMaxResults(1);
         Equipe equipe = (Equipe) query.uniqueResult();
@@ -63,4 +63,15 @@ public class EquipeDAO {
         session.close();
         return equipe;
         }
+        
+        public List<Equipe> buscarTeste(int idCptMod, int idModalidade) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        sessao.beginTransaction();
+        String hql = "select e from equipe as e INNER JOIN e.competicoesModalidadeColeivas as cmc WHERE cmc.idCompeticaoModalidade = '"+idCptMod+"' and e.modalidade = '"+idModalidade+"'";
+        org.hibernate.Query query = sessao.createQuery(hql);
+        List results = query.list();
+        return results;
+        }
+        
+        
 }

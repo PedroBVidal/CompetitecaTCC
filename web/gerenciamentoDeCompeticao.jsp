@@ -89,7 +89,7 @@
             %>
             <!-- Page Heading/Breadcrumbs -->
             <br>
-            <h1 class="mt-4 mb-3 titulos">Gerenciando competicao <span style="color: red;"><%=competicao.getNome()%></span>
+            <h1 class="mt-4 mb-3 titulos">Gerenciando evento <span style="color: red;"><%=competicao.getNome()%></span>
 
             </h1><br>
 
