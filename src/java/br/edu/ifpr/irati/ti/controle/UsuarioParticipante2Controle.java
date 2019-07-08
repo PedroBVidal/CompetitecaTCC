@@ -44,7 +44,13 @@ public class UsuarioParticipante2Controle {
         return usuarioParticipanteDAO.buscarTodos(UsuarioParticipante2.class);
     }
     
+    public void fecharSessao(){
+        usuarioParticipanteDAO.fecharSessao();
+    }
     
+    public boolean sessaoEstaAberta(){
+        return usuarioParticipanteDAO.getSessao().isOpen();
+    }
     
     
 

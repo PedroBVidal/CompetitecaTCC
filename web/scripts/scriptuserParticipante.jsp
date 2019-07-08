@@ -42,7 +42,7 @@
         SegmentoControle segmentoControle = new SegmentoControle();
         
 
-
+        
         if (cmd == 2) {
             int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
             
@@ -60,12 +60,28 @@
         if(request.getParameter("segmento") != null){
             Segmento segmento = segmentoControle.buscarSegmentoPorId(idSegmento);
             atleta.setSegmento(segmento);
+            System.out.println("Sessão aberta(Script) UsuarioParticipanteDAO: "+uspc.sessaoEstaAberta());
+            System.out.println("Sessão aberta(Script) SegmentoDAO: "+segmentoControle.sessaoEstaAberta());
+            segmentoControle.fecharSessao();
         }
         else{
             atleta.setSegmento(null);
         }
-        
+            //
             uspc.atualizarCad(usp);
+            //
+            /*
+            System.out.println("Sessão aberta(Script) UsuarioParticipanteDAO(Generic): "+uspc.sessaoEstaAberta());
+            System.out.println("Sessão aberta(Script) SegmentoDAO: "+segmentoControle.sessaoEstaAberta());
+            System.out.println("Sessão aberta(Script) AtletaDAO(Generic): "+atletaControle.sessaoEstaAberta());
+            */
+
+            uspc.fecharSessao();
+            /*
+            System.out.println("Sessão aberta(Script) AtletaDAO(Generic): "+atletaControle.sessaoEstaAberta());
+            System.out.println("Sessão aberta(Script) SegmentoDAO: "+segmentoControle.sessaoEstaAberta());
+            System.out.println("Sessão aberta(Script) UsuarioParticipanteDAO(Generic): "+uspc.sessaoEstaAberta());
+            */
             atletaControle.alterarAtleta(atleta);
             
             usp = uspc.buscarLogin(email, senha);

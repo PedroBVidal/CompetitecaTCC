@@ -148,6 +148,7 @@
                                 </select>
                                 
                                 <%}
+                                    upc.fecharSessao();
                                 %>
 
                         </div>

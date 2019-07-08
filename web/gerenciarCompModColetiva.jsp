@@ -4,7 +4,8 @@
     Author     : Usuário
 --%>
 
-<%@page import="java.nio.charset.Charset"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoColetiva"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeColetivaControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.ModalidadeSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.SistemaEliminatorio"%>
@@ -59,11 +60,11 @@
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             }else{
                 
-                CompeticaoModalidadeSoloControle competicaoControle = new CompeticaoModalidadeSoloControle();
+                CompeticaoModalidadeColetivaControle competicaoControle = new CompeticaoModalidadeColetivaControle();
                 
                 
                 int idCompeticao = Integer.parseInt(request.getParameter("id"));
-                CompeticaoModalidadeSolo competicao = competicaoControle.buscarPorId(idCompeticao);
+                CompeticaoModalidadeColetiva competicao = competicaoControle.buscarPorId(idCompeticao);
                 
         %>
 
@@ -74,8 +75,6 @@
 
         <!-- Page Content -->
         <div class="container">
-        <br>
-        
             <%
               request.setCharacterEncoding("UTF-8");
           if(request.getParameter("msg") != null){
@@ -123,7 +122,7 @@
                         <table id="tabela1" class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
-                                    <th scope="col">Atleta</th>
+                                    <th scope="col">Equipe</th>
                                     <th scope="col">Ação</th>
                                 </tr>
                             </thead>
@@ -131,46 +130,51 @@
                             <tbody>
                                 <%
                             
-                                    for(InscricaoCompeticaoSolo iMs: competicao.getInscricoesCompeticaoSolo()){
-                                        if(iMs.getInscricaoAceita() == 'E'){
-                                    String nomeAtleta = iMs.getAtleta().getUsuarioParticipante().getNome();
+                                    for(InscricaoCompeticaoColetiva iMc: competicao.getInscricoesCompeticoesColetivas()){
+                                        if(iMc.getInscricaoAceita() == 'E'){
+                                    String nomeEquipe = iMc.getEquipe().getNome();
                                     
                             
                             
                             
                                 %>    
-                            <td><%=nomeAtleta%></td>
+                            <td><%=nomeEquipe%></td>
                             <td>
-                                <a href="scripts/aprovaInscCompSolo.jsp?opt=1&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-success">
+                                <a href="scripts/aprovaInscCompColetiva.jsp?opt=1&idInsc=<%=iMc.getIdCompeticaoColetiva()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-success">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-check"></i>
                                 </a> &nbsp;
-                                <a href="scripts/aprovaInscCompSolo.jsp?opt=2&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
+                                <a href="scripts/aprovaInscCompColetiva.jsp?opt=2&idInsc=<%=iMc.getIdCompeticaoColetiva()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-danger">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-times"></i>
                                 </a> &nbsp;
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMs.getAtleta().getIdAtleta()%>">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMc.getEquipe().getIdEquipe()%>">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-eye"></i>
                                 </button></td>
 
                             </tbody>
 
-                            <div class="modal fade" id="<%=iMs.getAtleta().getIdAtleta()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<%=iMc.getEquipe().getIdEquipe()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel"><%=nomeAtleta%></h5>
+                                            <h5 class="modal-title" id="exampleModalLabel"><%=nomeEquipe%></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
 
-                                            Nome do Atleta:&nbsp; <%=nomeAtleta%> <br>
-                                            Email para Contato:&nbsp;<%=iMs.getAtleta().getUsuarioParticipante().getEmail()%>
-
-
+                                            <b>Nome da Equipe:</b>&nbsp; <%=nomeEquipe%> <br>
+                                            <b>Email para Contato:</b>&nbsp;<%=iMc.getEquipe().getAdministrador().getEmail()%><br>
+                                            <b>Atletas Inscritos:</b><br>
+                                            <ul>
+                                            <%for (Atleta atl : iMc.getAtletas()) {%>
+                                            <li><%=atl.getUsuarioParticipante().getNome()%></li>   
+                                            <%    }
+                                            %>
+                                            </ul>
 
                                         </div>
                                         <div class="modal-footer">
@@ -208,7 +212,7 @@
                         <table id="table" class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
-                                    <th scope="col">Atleta</th>
+                                    <th scope="col">Equipe</th>
                                     <th scope="col">Ação</th>
                                 </tr>
                             </thead>
@@ -216,43 +220,48 @@
                             <tbody>
                                 <%
                             
-                                    for(InscricaoCompeticaoSolo iMs: competicao.getInscricoesCompeticaoSolo()){
-                                        if(iMs.getInscricaoAceita() == 'A'){
-                                    String nomeAtleta = iMs.getAtleta().getUsuarioParticipante().getNome();
+                                    for(InscricaoCompeticaoColetiva iMc: competicao.getInscricoesCompeticoesColetivas()){
+                                        if(iMc.getInscricaoAceita() == 'A'){
+                                    String nomeEquipe = iMc.getEquipe().getNome();
                                     
                             
                             
                             
                                 %>    
-                            <td><%=nomeAtleta%></td>
+                            <td><%=nomeEquipe%></td>
                             <td>
 
-                                <a href="scripts/aprovaInscCompSolo.jsp?opt=3&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
+                                <a href="scripts/aprovaInscCompColetiva.jsp?opt=3&idInsc=<%=iMc.getIdCompeticaoColetiva()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-danger">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-trash-alt"></i>
                                 </a> &nbsp;
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMs.getAtleta().getIdAtleta()%>">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMc.getEquipe().getIdEquipe()%>">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-eye"></i>
                                 </button></td>
 
                             </tbody>
 
-                            <div class="modal fade" id="<%=iMs.getAtleta().getIdAtleta()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<%=iMc.getEquipe().getIdEquipe()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel"><%=nomeAtleta%></h5>
+                                            <h5 class="modal-title" id="exampleModalLabel"><%=nomeEquipe%></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
 
-                                            Nome do Atleta:&nbsp; <%=nomeAtleta%> <br>
-                                            Email para Contato:&nbsp;<%=iMs.getAtleta().getUsuarioParticipante().getEmail()%>
-
-
+                                            <b>Nome da Equipe:</b>&nbsp; <%=nomeEquipe%> <br>
+                                            <b>Email para Contato:</b>&nbsp;<%=iMc.getEquipe().getAdministrador().getEmail()%><br>
+                                            <b>Atletas Inscritos:</b><br>
+                                            <ul>
+                                            <%for (Atleta atl : iMc.getAtletas()) {%>
+                                             <li><%=atl.getUsuarioParticipante().getNome()%></li>       
+                                               <% }
+                                            %>
+                                            </ul>
 
                                         </div>
                                         <div class="modal-footer">

@@ -4,6 +4,8 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipante2Controle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.MensagemRecebida"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
 <%@page import="java.util.List"%>
@@ -24,28 +26,34 @@
 
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
-        
- <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css"
-          href="css/fonte/style.css"/>
+        <link href="css/estilo.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/fonte/style.css"/>
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+         
     </head>
 
     <body style="font-family: 'Quicksand';">
         
-        <%
+<%
            Object usuario = session.getAttribute("usuario");
            if (usuario == null) {
            response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
            } else if (usuario instanceof UsuarioParticipante2) {
-
-           UsuarioParticipante2 up = (UsuarioParticipante2) usuario;
+           UsuarioParticipante2 upSession = (UsuarioParticipante2) usuario;
            
-        %>
+           UsuarioParticipante2Controle upControle = new UsuarioParticipante2Controle();
+           UsuarioParticipante2 up = upControle.buscarPorId(upSession.getIdUsuario());
+
+           
+
+
+%>
+                <!-- Navigation -->
         
         <header>
             <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
         </header>
-        
         <div class="container">
         
         
@@ -89,9 +97,11 @@
     
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 </html>
-<%} else {
+<%
+    upControle.fecharSessao();
+%>
+<%  } else {
         response.sendRedirect("login.jsp?e=Pagina de acesso restrito");
     }
 %>

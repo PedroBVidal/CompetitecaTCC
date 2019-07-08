@@ -30,7 +30,7 @@ public class UsuarioParticipante2 extends Usuario implements Serializable {
     @OneToOne
     private Atleta atleta;
     
-    @OneToMany(mappedBy = "administrador", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "administrador", fetch = FetchType.LAZY)
     //@Fetch(value = FetchMode.SUBSELECT)
     private List<Equipe> equipe;
 

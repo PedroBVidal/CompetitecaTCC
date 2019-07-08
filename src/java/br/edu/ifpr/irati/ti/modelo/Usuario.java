@@ -36,11 +36,11 @@ public abstract class Usuario implements Serializable {
     private String nome;
 
     
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SELECT)
     private List<MensagemEnviada> mensagensEnviadas;
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SELECT)
     private List<MensagemRecebida> mensagensRecebidas;
 

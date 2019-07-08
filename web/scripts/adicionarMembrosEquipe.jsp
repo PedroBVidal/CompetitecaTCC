@@ -20,6 +20,7 @@
     
     int contador = Integer.parseInt(request.getParameter("contador"));
     int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
+    boolean membroJaParticipanteDaEquipe = false;
     
     Equipe equipe = equipeControle.buscarPorId(idEquipe);
     
@@ -39,8 +40,21 @@
     for(Atleta a: membrosEquipe){
         equipe.adicionarAtleta(a);
     }
+    // Verifica se algum membro selecionado já é participante da equipe 
+    for(Atleta atletaEquipe: equipe.getAtletas()){
+        for(Atleta atletaSelecionado : membrosEquipe){
+            if(atletaSelecionado.getIdAtleta() == atletaEquipe.getIdAtleta()){
+                membroJaParticipanteDaEquipe = true;
+            }
+        }
+    }
     
+    atletaControle.fecharSessaoDAOEspecifico();
+    equipeControle.fecharSessaoDAOEspecifico();
+
     equipeControle.alterarEquipe(equipe);
+    
+    equipeControle.fecharSessaoDAOGeneric();
     
     if(membrosEquipe.size() == 1){
     response.sendRedirect("../gerenciarEquipe.jsp?msg=Membro adicionado com sucesso&color=success&idEquipe="+idEquipe);

@@ -25,4 +25,11 @@ public class SegmentoControle {
         return segmentoDAO.buscarPorId(id);
     }
     
+    public boolean sessaoEstaAberta(){
+        return segmentoDAO.getSessao().isOpen();
+    }
+    
+    public void fecharSessao(){
+        segmentoDAO.fecharSessao();
+    }
 }

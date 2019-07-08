@@ -2,48 +2,46 @@
 package br.edu.ifpr.irati.ti.dao;
 
 import br.edu.ifpr.irati.ti.modelo.Confronto;
-import gerais.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
-import org.hibernate.Session;
 
 
-public class ConfrontoDAO {
+public class ConfrontoDAO extends Sessao{
     
     public void salvar(Confronto confronto){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(confronto);
-        session.getTransaction().commit();
-        session.clear();
-        session.close();
+        abrirSessao();
+        sessao.beginTransaction();
+        sessao.save(confronto);
+        sessao.getTransaction().commit();
+        sessao.clear();
+        sessao.close();
     }
     
     public void alterar(Confronto confronto){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.update(confronto);
-        session.getTransaction().commit();   
-        session.clear();
-        session.close();
+        abrirSessao();
+        sessao.beginTransaction();
+        sessao.update(confronto);
+        sessao.getTransaction().commit();   
+        sessao.clear();
+        sessao.close();
     }
     
     public void excluir(Confronto confronto){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.delete(confronto);
-        session.getTransaction().commit();
-        session.clear();
-        session.close();
+        abrirSessao();
+        sessao.beginTransaction();
+        sessao.delete(confronto);
+        sessao.getTransaction().commit();
+        sessao.clear();
+        sessao.close();
     }
     
     public List<Confronto> buscarTodos(){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         String hql = "from confronto";
-        Query query = session.createQuery(hql);
+        Query query = sessao.createQuery(hql);
         List results = query.list();
-        session.clear();
-        session.close();
+        sessao.clear();
+        sessao.close();
         return results;
     }
     

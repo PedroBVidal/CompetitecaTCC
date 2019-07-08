@@ -10,7 +10,6 @@
 <%@page import="br.edu.ifpr.irati.ti.modelo.Equipe"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipante2Controle"%>
-<%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -25,7 +24,7 @@
         <meta name="author" content="">
 
         <title>Modern Business - Start Bootstrap Template</title>
-        
+
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -33,36 +32,34 @@
 
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css"
-          href="css/fonte/style.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css"
+              href="css/fonte/style.css"/>
     </head>
 
     <body style="font-family: 'Quicksand';">
         <%
             UsuarioParticipante2 up = (UsuarioParticipante2) session.getAttribute("usuario");
-            CompeticaoControle competicaoControle = new CompeticaoControle();
             
-           
             
             if (up == null) {
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             } else {
-                
+                UsuarioParticipante2Controle upControle = new UsuarioParticipante2Controle();
         %>
 
         <header>
-            <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
+            <jsp:include page="navbarUsuarioParticipante.jsp" flush="true"/>
         </header>
 
         <div class="container">
-            <%
+            <%  
                 request.setCharacterEncoding("UTF-8");
-            if(request.getParameter("msg") != null){
-                String mensagem = request.getParameter("msg");
-                String cor = request.getParameter("color");
+                    if (request.getParameter("msg") != null) {
+                        String mensagem = request.getParameter("msg");
+                        String cor = request.getParameter("color");
             %>
-           <br>
+            <br>
             <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
                 <strong><%=mensagem%></strong> .
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -71,23 +68,20 @@
             </div>
 
             <%
-            }
+                }
             %>
             <br>
             <h1 class="my-4 titulos">Minhas Equipes</h1>
             <div class="row">
                 <%
-             
-                 UsuarioParticipante2Controle upControle = new UsuarioParticipante2Controle();
-            UsuarioParticipante2 usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
-                
-                
-                
-                for(Equipe equipe : usuarioParticipante.getEquipe()){
-                   
-                       System.out.println("Nome equipe: "+ equipe.getNome());
-                       System.out.println("Integrantes: "+ equipe.getAtletas());
-                       System.out.println("ADM: " + equipe.getAdministrador());
+                    
+                    UsuarioParticipante2 usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
+
+                    for (Equipe equipe : usuarioParticipante.getEquipe()) {
+
+                        System.out.println("Nome equipe: " + equipe.getNome());
+                        System.out.println("Integrantes: " + equipe.getAtletas());
+                        System.out.println("ADM: " + equipe.getAdministrador());
                 %>
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">
@@ -98,7 +92,7 @@
                                 <a href="#"><%=equipe.getNome()%></a>
                             </h4>
                             <p class="card-text"><b>Modalidade:</b><%=equipe.getModalidade().getNome()%></p>
-                            
+
                             <!-- Button trigger modal -->
                             <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#<%=equipe.getIdEquipe()%>"><i class="fas fa-trash-alt"></i></button></a>&nbsp;
 
@@ -141,8 +135,8 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <%
-            
-        }
+
+            }
         %>
     </body>
 

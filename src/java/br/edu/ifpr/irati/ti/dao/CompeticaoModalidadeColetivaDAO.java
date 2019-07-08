@@ -5,37 +5,30 @@
  */
 package br.edu.ifpr.irati.ti.dao;
 
-import br.edu.ifpr.irati.ti.modelo.Competicao;
 import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva;
-import gerais.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
-import org.hibernate.Session;
 
 /**
  *
  * @author Usuário
  */
-public class CompeticaoModalidadeColetivaDAO {
+public class CompeticaoModalidadeColetivaDAO extends Sessao{
     
         public List<CompeticaoModalidadeColetiva> buscarCompeticoesColetivasVinculadasCompeticaoModalidade(int idModalidadeColetiva) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         String hql = "from competicaomodalidade cmc where cmc.idCompeticaoModalidadde = '"+idModalidadeColetiva+"'";
-        Query query = session.createQuery(hql);
+        Query query = sessao.createQuery(hql);
         List results = query.list();
-        session.clear();
-        session.close();
         return results;
     }
     
         public CompeticaoModalidadeColetiva buscarPorId(int id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         String hql = "from competicaomodalidadecoletiva c where c.administrador = '" + id + "'";
-        Query query = session.createQuery(hql);
+        Query query = sessao.createQuery(hql);
         query.setMaxResults(1);
         CompeticaoModalidadeColetiva competicaoModalidadeColetiva = (CompeticaoModalidadeColetiva) query.uniqueResult();
-        session.clear();
-        session.close();
         return competicaoModalidadeColetiva;
         
     }

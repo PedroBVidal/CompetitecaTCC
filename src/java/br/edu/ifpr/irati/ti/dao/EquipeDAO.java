@@ -6,36 +6,36 @@
 package br.edu.ifpr.irati.ti.dao;
 
 import br.edu.ifpr.irati.ti.modelo.Equipe;
-import gerais.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
-import org.hibernate.Session;
+
 
 /**
  *
  * @author Usuário
  */
-public class EquipeDAO {
-        public void salvar(Equipe equipe){
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
+public class EquipeDAO extends Sessao {
+    
+    public void salvar(Equipe equipe){
+        abrirSessao();
         sessao.beginTransaction();
         sessao.save(equipe);
         sessao.getTransaction().commit();
     }
     public void alterar(Equipe equipe){
-       Session sessao = HibernateUtil.getSessionFactory().openSession();
+       abrirSessao();
        sessao.beginTransaction();
        sessao.update(equipe);
        sessao.getTransaction().commit();
     }
     public void excluir(Equipe equipe){
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         sessao.beginTransaction();
         sessao.delete(equipe);
         sessao.getTransaction().commit();
     }
     public List<Equipe> buscarTudo(){
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         sessao.beginTransaction();
         String hql = "from equipe";
         org.hibernate.Query query = sessao.createQuery(hql);
@@ -43,29 +43,25 @@ public class EquipeDAO {
         return results;
     }
     public Equipe buscar(String str){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         String hql = "from equipe a where e.nome = '"+str+"' ";
-        Query query = session.createQuery(hql);
+        Query query = sessao.createQuery(hql);
         query.setMaxResults(1);
         Equipe equipe = (Equipe) query.uniqueResult();        
-        session.clear();
-        session.close();
         return equipe;
     }
     
         public Equipe buscarPorId(int id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         String hql = "select e from equipe e where e.idEquipe = '" + id + "'";
-        Query query = session.createQuery(hql);
+        Query query = sessao.createQuery(hql);
         query.setMaxResults(1);
         Equipe equipe = (Equipe) query.uniqueResult();
-        session.clear();
-        session.close();
         return equipe;
         }
         
-        public List<Equipe> buscarTeste(int idCptMod, int idModalidade) {
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        public List<Equipe> buscarEquipesPorModalidadeECompeticaoColetiva(int idCptMod, int idModalidade) {
+        abrirSessao();
         sessao.beginTransaction();
         String hql = "select e from equipe as e INNER JOIN e.competicoesModalidadeColeivas as cmc WHERE cmc.idCompeticaoModalidade = '"+idCptMod+"' and e.modalidade = '"+idModalidade+"'";
         org.hibernate.Query query = sessao.createQuery(hql);
