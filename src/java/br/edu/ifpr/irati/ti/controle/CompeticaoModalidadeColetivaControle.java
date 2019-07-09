@@ -32,6 +32,5 @@ public class CompeticaoModalidadeColetivaControle {
     public void fecharSessaoDAOGeneric(){
         competicaoModalidadeColetivaDAO.fecharSessao();
     }
-    
-    
+
 }

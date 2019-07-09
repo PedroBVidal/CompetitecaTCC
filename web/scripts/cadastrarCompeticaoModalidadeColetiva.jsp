@@ -57,7 +57,7 @@
     ModalidadeColetiva modalidadeColetiva = modalidadeColetivaControle.buscaPorId(idModalidadeColetiva);
     SistemaDeContagem sistemaDeContagem = sistemaDeContagemControle.buscarPorId(idSistemaDeContagem);
     
-    competicaoControle.fecharSessaoDAOEspecifico();
+    
     modalidadeColetivaControle.fecharSessaoDAOGeneric();
     sistemaDeContagemControle.fecharSessaoDAOEspecifico();
     
@@ -88,6 +88,7 @@
         competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
         competicaoModalidadeColetivaControle.fecharSessaoDAOGeneric();
         
+        competicaoControle.fecharSessaoDAOEspecifico();
         competicaoControle.autualizarCompeticao(competicao);
         competicaoControle.fecharSessaoDAOGeneric();
         
@@ -118,6 +119,7 @@
         competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
         competicaoModalidadeColetivaControle.fecharSessaoDAOGeneric();
         
+        competicaoControle.fecharSessaoDAOEspecifico();
         competicaoControle.autualizarCompeticao(competicao);
         competicaoControle.fecharSessaoDAOGeneric();
         
@@ -140,6 +142,7 @@
         competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
         competicaoModalidadeColetivaControle.fecharSessaoDAOGeneric();
         
+        competicaoControle.fecharSessaoDAOEspecifico();
         competicaoControle.autualizarCompeticao(competicao);
         competicaoControle.fecharSessaoDAOGeneric();
         

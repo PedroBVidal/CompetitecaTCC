@@ -36,16 +36,16 @@ public class Competicao implements Serializable {
     @Column(name = "informacaoExtra", nullable = true, length = 400)
     private String informacaoExtra;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @Fetch(value = FetchMode.SELECT)
     private Set<UsuarioParticipante> administradores;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "competicao")
-    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "competicao")
+    @Fetch(value = FetchMode.SELECT)
     private Set<CompeticaoModalidadeColetiva> cmodalidadecole;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "competicao")
-    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "competicao")
+    @Fetch(value = FetchMode.SELECT)
     private Set<CompeticaoModalidadeSolo> cmodalidadesolo;
 
     @Temporal(TemporalType.DATE)

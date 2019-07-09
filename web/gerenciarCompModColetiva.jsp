@@ -140,11 +140,11 @@
                                 %>    
                             <td><%=nomeEquipe%></td>
                             <td>
-                                <a href="scripts/aprovaInscCompColetiva.jsp?opt=1&idInsc=<%=iMc.getIdCompeticaoColetiva()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-success">
+                                <a href="scripts/aprovaInscCompColetiva.jsp?opt=1&idInsc=<%=iMc.getIdInscricao()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-success">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-check"></i>
                                 </a> &nbsp;
-                                <a href="scripts/aprovaInscCompColetiva.jsp?opt=2&idInsc=<%=iMc.getIdCompeticaoColetiva()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-danger">
+                                <a href="scripts/aprovaInscCompColetiva.jsp?opt=2&idInsc=<%=iMc.getIdInscricao()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-danger">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-times"></i>
                                 </a> &nbsp;
@@ -231,7 +231,7 @@
                             <td><%=nomeEquipe%></td>
                             <td>
 
-                                <a href="scripts/aprovaInscCompColetiva.jsp?opt=3&idInsc=<%=iMc.getIdCompeticaoColetiva()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-danger">
+                                <a href="scripts/aprovaInscCompColetiva.jsp?opt=3&idInsc=<%=iMc.getIdInscricao()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-danger">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-trash-alt"></i>
                                 </a> &nbsp;

@@ -65,7 +65,7 @@
     ModalidadeSolo modalidadeSolo = modalidadeSoloControle.buscaPorId(idModalidadeSolo);
     SistemaDeContagem sistemaDeContagem = sistemaDeContagemControle.buscarPorId(idSistemaDeContagem);
     
-    competicaoControle.fecharSessaoDAOEspecifico();
+
     modalidadeSoloControle.fecharSessaoDAOGeneric();
     sistemaDeContagemControle.fecharSessaoDAOEspecifico();
     
@@ -100,6 +100,7 @@
         competicaoModalidadeSoloControle.salvar(competicaoModalidadeSolo);
         competicaoModalidadeSoloControle.fecharSessaoDAOGeneric();
         
+        competicaoControle.fecharSessaoDAOEspecifico();
         competicaoControle.autualizarCompeticao(competicao);
         competicaoControle.fecharSessaoDAOGeneric();
     }
@@ -133,6 +134,7 @@
         competicaoModalidadeSoloControle.salvar(competicaoModalidadeSolo);
         competicaoModalidadeSoloControle.fecharSessaoDAOGeneric();
         
+        competicaoControle.fecharSessaoDAOEspecifico();
         competicaoControle.autualizarCompeticao(competicao);
         competicaoControle.fecharSessaoDAOGeneric();
     }
@@ -158,6 +160,7 @@
         competicaoModalidadeSoloControle.salvar(competicaoModalidadeSolo);
         competicaoModalidadeSoloControle.fecharSessaoDAOGeneric();
         
+        competicaoControle.fecharSessaoDAOEspecifico();
         competicaoControle.autualizarCompeticao(competicao);
         competicaoControle.fecharSessaoDAOGeneric();
         

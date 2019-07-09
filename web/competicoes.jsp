@@ -80,7 +80,6 @@
                 //UsuarioParticipante upp = upc.buscarPorId(up.getIdUsuario());
                 
                 int flag = 0;
-                System.out.println("Competições vinculadas ao usuário participante" + up.getCompeticoes());
                 UsuarioParticipanteControle upControle = new UsuarioParticipanteControle();
                 UsuarioParticipante usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
                 

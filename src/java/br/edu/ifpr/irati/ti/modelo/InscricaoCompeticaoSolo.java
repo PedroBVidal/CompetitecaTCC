@@ -4,14 +4,12 @@ package br.edu.ifpr.irati.ti.modelo;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import org.hibernate.annotations.Proxy;
-import org.hibernate.annotations.Type;
 
 /**
  *
@@ -23,7 +21,7 @@ public class InscricaoCompeticaoSolo implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idCompeticaoSolo;
+    private int idInscricao;
     
     @ManyToOne
     @JoinColumn(name = "competicaoModalidadeSolo_idCompeticaoModalidade")
@@ -39,34 +37,19 @@ public class InscricaoCompeticaoSolo implements Serializable{
     private char inscricaoAceita; 
 
     public InscricaoCompeticaoSolo() {
-        idCompeticaoSolo = 0;
+        idInscricao = 0;
         atleta = new Atleta();
         inscricaoAceita = ' ';
         competicaoModalidadeSolo = new CompeticaoModalidadeSolo();
     }
 
     public InscricaoCompeticaoSolo(int idCompeticaoSolo, CompeticaoModalidadeSolo competicaoModalidadeSolo, Atleta atleta, char inscricaoAceita) {
-        this.idCompeticaoSolo = idCompeticaoSolo;
+        this.idInscricao = idCompeticaoSolo;
         this.competicaoModalidadeSolo = competicaoModalidadeSolo;
         this.atleta = atleta;
         this.inscricaoAceita = inscricaoAceita;
     }
 
-    
-
-    /**
-     * @return the idCompeticaoSolo
-     */
-    public int getIdCompeticaoSolo() {
-        return idCompeticaoSolo;
-    }
-
-    /**
-     * @param idCompeticaoSolo the idCompeticaoSolo to set
-     */
-    public void setIdCompeticaoSolo(int idCompeticaoSolo) {
-        this.idCompeticaoSolo = idCompeticaoSolo;
-    }
 
     /**
      * @return the atleta
@@ -101,6 +84,20 @@ public class InscricaoCompeticaoSolo implements Serializable{
      */
     public void setCompeticaoModalidadeSolo(CompeticaoModalidadeSolo competicaoModalidadeSolo) {
         this.competicaoModalidadeSolo = competicaoModalidadeSolo;
+    }
+
+    /**
+     * @return the idInscricao
+     */
+    public int getIdInscricao() {
+        return idInscricao;
+    }
+
+    /**
+     * @param idInscricao the idInscricao to set
+     */
+    public void setIdInscricao(int idInscricao) {
+        this.idInscricao = idInscricao;
     }
     
     

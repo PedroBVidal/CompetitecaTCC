@@ -30,7 +30,7 @@ public class InscricaoCompeticaoColetiva implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idCompeticaoColetiva;
+    private int idInscricao;
   
     @ManyToOne
     @JoinColumn(name = "competicaoModalidadeColetiva_idCompeticaoModalidade")
@@ -48,7 +48,7 @@ public class InscricaoCompeticaoColetiva implements Serializable{
     private char inscricaoAceita; 
 
     public InscricaoCompeticaoColetiva() {
-        idCompeticaoColetiva = 0;
+        idInscricao = 0;
         equipe = new Equipe();
         inscricaoAceita = ' ';
         competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva();
@@ -56,7 +56,7 @@ public class InscricaoCompeticaoColetiva implements Serializable{
     }
 
     public InscricaoCompeticaoColetiva(int idCompeticaoColetiva, CompeticaoModalidadeColetiva competicaoModalidadeColetiva, Equipe equipe, List<Atleta> atletas, char inscricaoAceita) {
-        this.idCompeticaoColetiva = idCompeticaoColetiva;
+        this.idInscricao = idCompeticaoColetiva;
         this.competicaoModalidadeColetiva = competicaoModalidadeColetiva;
         this.equipe = equipe;
         this.inscricaoAceita = inscricaoAceita;
@@ -65,19 +65,7 @@ public class InscricaoCompeticaoColetiva implements Serializable{
 
     
 
-    /**
-     * @return the idCompeticaoColetiva
-     */
-    public int getIdCompeticaoColetiva() {
-        return idCompeticaoColetiva;
-    }
-
-    /**
-     * @param idCompeticaoColetiva the idCompeticaoColetiva to set
-     */
-    public void setIdCompeticaoColetiva(int idCompeticaoColetiva) {
-        this.idCompeticaoColetiva = idCompeticaoColetiva;
-    }
+    
 
     /**
      * @return the equipe
@@ -127,6 +115,20 @@ public class InscricaoCompeticaoColetiva implements Serializable{
 
     public void setAtletas(List<Atleta> atletas) {
         this.atletas = atletas;
+    }
+
+    /**
+     * @return the idInscricao
+     */
+    public int getIdInscricao() {
+        return idInscricao;
+    }
+
+    /**
+     * @param idInscricao the idInscricao to set
+     */
+    public void setIdInscricao(int idInscricao) {
+        this.idInscricao = idInscricao;
     }
 
 

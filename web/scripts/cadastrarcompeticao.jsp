@@ -62,6 +62,7 @@
                 competicaoControle.cadastrarCompeticao(competicao);
                 competicaoControle.fecharSessaoDAOGeneric();
                 up.adicionarCompeticao(competicao);
+
                 upc.atualizarCad(up);
                 upc.fecharSessaoDAOGeneric();
                 response.sendRedirect("../competicoes.jsp?msg=Evento criado com sucesso&color=success");
