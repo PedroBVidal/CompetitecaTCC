@@ -29,7 +29,7 @@ public class CompeticaoModalidadeColetivaControle {
         competicaoModalidadeColetivaDAO.alterar(competicaoModalidadeColetiva);
     }
     
-    public void fecharSessaoDAOEspecifico(){
+    public void fecharSessaoDAOGeneric(){
         competicaoModalidadeColetivaDAO.fecharSessao();
     }
     

@@ -19,10 +19,11 @@
         int id = Integer.parseInt(request.getParameter("idCompeticao"));
         
         Competicao competicao = competicaoControle.buscarCompeticaoPorId(id);
-        
+        competicaoControle.fecharSessaoDAOEspecifico();
         competicao.setInativo(true);
         
         competicaoControle.autualizarCompeticao(competicao);
+        competicaoControle.fecharSessaoDAOGeneric();
         response.sendRedirect("../competicoes.jsp?msg=Competicao apagada com sucesso&color=success");
 
         

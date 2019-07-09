@@ -59,7 +59,7 @@
     equipeControle.fecharSessaoDAOGeneric();
     
     if(membroJaParticipanteDaEquipe){
-          response.sendRedirect("../gerenciarEquipe.jsp?msg=Atual membro da equipe foi selecionado&color=warning&idEquipe="+idEquipe); 
+          response.sendRedirect("../gerenciarEquipe.jsp?msg=Foi adicionado um integrante participante da equipe!&color=warning&idEquipe="+idEquipe); 
     }
     else{
     if(membrosEquipe.size() == 1){

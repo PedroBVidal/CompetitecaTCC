@@ -99,7 +99,7 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </html>
 <%
-    upControle.fecharSessao();
+    upControle.fecharSessaoDAOGeneric();
 %>
 <%  } else {
         response.sendRedirect("login.jsp?e=Pagina de acesso restrito");

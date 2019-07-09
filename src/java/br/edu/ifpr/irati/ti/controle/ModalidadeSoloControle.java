@@ -7,7 +7,6 @@ package br.edu.ifpr.irati.ti.controle;
 
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
-import br.edu.ifpr.irati.ti.modelo.ModalidadeColetiva;
 import br.edu.ifpr.irati.ti.modelo.ModalidadeSolo;
 import java.util.List;
 
@@ -53,5 +52,10 @@ public class ModalidadeSoloControle {
      */
     public void alterarModalidadeSolo(ModalidadeSolo mc){
         msc.alterar(mc);
+    }
+    
+    
+    public void fecharSessaoDAOGeneric(){
+        msc.fecharSessao();
     }
 }

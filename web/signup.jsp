@@ -200,6 +200,7 @@
                     String mensagem = request.getParameter("msg");
                     String cor = request.getParameter("color");
             %>
+            <br>
             <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
                 <strong><%=mensagem%></strong> .
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

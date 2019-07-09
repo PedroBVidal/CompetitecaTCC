@@ -77,6 +77,7 @@
               String cor = request.getParameter("color");
               
             %>
+            <br>
             <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
                 <strong><%=mensagem%></strong> .
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -233,7 +234,7 @@
   
                                         <div class="modal-footer">
                                             <a href="scripts/inativarCompeticaoModalidadeColetiva.jsp?idEvento=<%=competicao.getIdCompeticao()%>&idCompeticao=<%=cptMc.getIdCompeticaoModalidade()%>"><button class="btn btn-secondary">Sim</button></a>
-                                            <button type="button" class="btn btn-primary">Cancelar</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
                                             
                                         </div>
                                     </div>
@@ -396,7 +397,7 @@
   
                                         <div class="modal-footer">
                                             <a href="scripts/inativarCompeticaoModalidadeSolo.jsp?idEvento=<%=competicao.getIdCompeticao()%>&idCompeticao=<%=cptMs.getIdCompeticaoModalidade()%>"><button class="btn btn-secondary">Sim</button></a>
-                                            <button type="button" class="btn btn-primary">Cancelar</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
                                             
                                         </div>
                                     </div>

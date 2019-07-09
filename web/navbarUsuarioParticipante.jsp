@@ -53,7 +53,7 @@
                                             }
                                         }
                                 
-                                upControle.fecharSessao();
+                                upControle.fecharSessaoDAOGeneric();
 
                                 %>
                                 <%

@@ -20,6 +20,8 @@
        
        UsuarioParticipanteControle uspc = new UsuarioParticipanteControle();
        UsuarioParticipante usuarioParticipante = uspc.buscarPorId(id);
+       uspc.fecharSessaoDAOEspecifico();
+       
        usuarioParticipante.setNome(nome);
        usuarioParticipante.setEmail(email);
        usuarioParticipante.setSenha(senha);
@@ -35,6 +37,7 @@
         UsuarioParticipante usp = new UsuarioParticipante(id,nome,email,senha);
         UsuarioParticipanteControle uspc = new UsuarioParticipanteControle();
         uspc.criar(usp);
+        uspc.fecharSessaoDAOGeneric();
         response.sendRedirect("../login.jsp?color=success&msg=Cadastro efetuado, agora entre com o tipo Administrador");
         }catch(Exception e){
             response.sendRedirect("../signup.jsp?p=3&color=danger&msg="+e.getMessage());

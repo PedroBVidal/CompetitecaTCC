@@ -83,10 +83,10 @@
         competicao.adicionarCompeticaoModalidadeColetiva(competicaoModalidadeColetiva);
         
         sistemaDeDesempateControle.salvar(sistemaDeDesempate);
-        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
-        
         sistemaDeDesempateControle.fecharSessaoDAOEspecifico();
-        competicaoModalidadeColetivaControle.fecharSessaoDAOEspecifico();
+        
+        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
+        competicaoModalidadeColetivaControle.fecharSessaoDAOGeneric();
         
         competicaoControle.autualizarCompeticao(competicao);
         competicaoControle.fecharSessaoDAOGeneric();
@@ -113,10 +113,10 @@
         competicao.adicionarCompeticaoModalidadeColetiva(competicaoModalidadeColetiva);
         
         sistemaDeDesempateControle.salvar(sistemaDeDesempate);
-        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
-        
         sistemaDeDesempateControle.fecharSessaoDAOEspecifico();
-        competicaoModalidadeColetivaControle.fecharSessaoDAOEspecifico();
+        
+        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
+        competicaoModalidadeColetivaControle.fecharSessaoDAOGeneric();
         
         competicaoControle.autualizarCompeticao(competicao);
         competicaoControle.fecharSessaoDAOGeneric();
@@ -135,10 +135,10 @@
         competicao.adicionarCompeticaoModalidadeColetiva(competicaoModalidadeColetiva);
         
         sistemaDeDesempateControle.salvar(sistemaDeDesempate);
-        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
-        
         sistemaDeDesempateControle.fecharSessaoDAOEspecifico();
-        competicaoModalidadeColetivaControle.fecharSessaoDAOEspecifico();
+        
+        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
+        competicaoModalidadeColetivaControle.fecharSessaoDAOGeneric();
         
         competicaoControle.autualizarCompeticao(competicao);
         competicaoControle.fecharSessaoDAOGeneric();
