@@ -40,7 +40,7 @@ public class InscricaoCompeticaoColetiva implements Serializable{
     @JoinColumn(name = "equipe_idEquipe")
     private Equipe equipe;
     
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Atleta> atletas;
     
     

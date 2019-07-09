@@ -29,7 +29,9 @@ public class CompeticaoModalidadeColetivaControle {
         competicaoModalidadeColetivaDAO.alterar(competicaoModalidadeColetiva);
     }
     
-    
+    public void fecharSessaoDAOEspecifico(){
+        competicaoModalidadeColetivaDAO.fecharSessao();
+    }
     
     
 }

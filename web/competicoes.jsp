@@ -42,9 +42,6 @@
     <body style="font-family: 'Quicksand';">
         <%
             UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
-            CompeticaoControle competicaoControle = new CompeticaoControle();
-            
-           
             
             if (up == null) {
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
@@ -153,7 +150,7 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <%
-            
+           upControle.fecharSessaoDAOEspecifico();
         }
         %>
     </body>

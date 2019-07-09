@@ -47,4 +47,12 @@ public class UsuarioParticipanteControle {
     public void atualizarCad(UsuarioParticipante user){
         genericUsuarioAdministradorDAO.alterar(user);
     }
+    
+    public void fecharSessaoDAOEspecifico(){
+        usuarioAdministradorDAO.fecharSessao();
+    }
+    
+    public void fecharSessaoDAOGeneric(){
+        genericUsuarioAdministradorDAO.fecharSessao();
+    }
 }

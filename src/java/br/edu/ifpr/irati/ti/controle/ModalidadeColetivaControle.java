@@ -54,4 +54,11 @@ public class ModalidadeColetivaControle {
     public void alterarModalidadeColetiva(ModalidadeColetiva mc){
         dmc.alterar(mc);
     }
+    
+    
+    public void fecharSessaoDAOGeneric(){
+        dmc.fecharSessao();
+    }
+    
+    
 }

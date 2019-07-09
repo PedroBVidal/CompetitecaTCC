@@ -25,12 +25,12 @@ public class UsuarioParticipante  extends Usuario implements Serializable {
     @Column(name="email", nullable = false, unique=true)
     private String email;
     
-    @ManyToMany(mappedBy = "administradores", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "administradores", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Competicao> competicoes;
     
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Local> locais;
 

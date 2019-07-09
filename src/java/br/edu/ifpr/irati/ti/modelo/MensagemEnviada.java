@@ -34,7 +34,7 @@ public abstract class MensagemEnviada implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected int idMensagemEnviada;
     
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "mensagensEnviadas")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "mensagensEnviadas")
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Usuario> usuariosDestinatarios;
     

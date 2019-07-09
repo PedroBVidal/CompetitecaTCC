@@ -55,5 +55,12 @@ public class CompeticaoControle {
         }
 
     }
-
+    
+    public void fecharSessaoDAOEspecifico(){
+        competicaoDAO.fecharSessao();
+    }
+    
+    public void fecharSessaoDAOGeneric(){
+        competicaoDAOGeneric.fecharSessao();
+    }
 }

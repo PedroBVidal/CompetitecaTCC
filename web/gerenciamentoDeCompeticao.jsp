@@ -59,8 +59,8 @@
                 
                 int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
                 Competicao competicao = competicaoControle.buscarCompeticaoPorId(idCompeticao);
-                System.out.println("Competições solo (1): " + competicao.getCmodalidadesolo());
-                System.out.println("Competições coletivas (1):" + competicao.getCmodalidadecole());
+                
+                
         %>
 
         <header>

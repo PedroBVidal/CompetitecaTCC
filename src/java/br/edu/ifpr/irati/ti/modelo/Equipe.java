@@ -35,11 +35,11 @@ public class Equipe implements Serializable {
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SELECT)
     private List<Atleta> atletas;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Confronto> confrontosModalidadeColetiva;
     
