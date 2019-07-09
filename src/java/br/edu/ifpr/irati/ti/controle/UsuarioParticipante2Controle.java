@@ -3,8 +3,6 @@ package br.edu.ifpr.irati.ti.controle;
 
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
-import br.edu.ifpr.irati.ti.modelo.Atleta;
-import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2;
 import java.util.List;
 
@@ -44,7 +42,13 @@ public class UsuarioParticipante2Controle {
         return usuarioParticipanteDAO.buscarTodos(UsuarioParticipante2.class);
     }
     
+    public void fecharSessaoDAOGeneric(){
+        usuarioParticipanteDAO.fecharSessao();
+    }
     
+    public boolean sessaoEstaAberta(){
+        return usuarioParticipanteDAO.getSessao().isOpen();
+    }
     
     
 

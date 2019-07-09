@@ -36,4 +36,26 @@ public class EquipeControle {
     public void droparEquipe(Equipe equipe){
         eqpd.excluir(equipe);
     }
+    
+    public boolean sessaoEstaAbertaDAOGeneric() {
+        return eqpd.getSessao().isOpen();
+    }
+    
+    public boolean sessaoEstaAbertaDAOEspecifico(){
+        return equipeDAO.getSessao().isOpen();
+    }
+    
+    public void fecharSessaoDAOGeneric(){
+        eqpd.fecharSessao();
+    }
+    
+    public void fecharSessaoDAOEspecifico(){
+        equipeDAO.fecharSessao();
+    }
+    public void buscarEquipesVinculadasAUmaModalidade(){
+        
+    }
+    
+    
+    
 }

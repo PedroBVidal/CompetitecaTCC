@@ -1,4 +1,5 @@
 
+import br.edu.ifpr.irati.ti.controle.CompeticaoControle;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.dao.SegmentoDAO;
@@ -22,10 +23,15 @@ public class BuscarSegmentos {
         
         SegmentoDAO segmentoDAO = new SegmentoDAO();
         Dao<Segmento> segmentoDAO2 = new GenericDAO<>(Segmento.class);
+        CompeticaoControle cptc = new CompeticaoControle();
         
         List<Segmento> segmentos = segmentoDAO2.buscarTodos(Segmento.class);
         
         System.out.println(segmentos);
+        
+        List<Competicao> competicoes = cptc.buscarTodasCompeticoes();
+        
+        System.out.println(competicoes);
     }
     
 }

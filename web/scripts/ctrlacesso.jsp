@@ -25,6 +25,7 @@
 
             try {
                 UsuarioParticipante up = upc.buscarLogin(email, senha);
+                upc.fecharSessaoDAOGeneric();
                 session.setAttribute("usuario", up);
                 response.sendRedirect("../gerenciamento.jsp");
             } catch (Exception e) {
@@ -45,6 +46,7 @@
 
             try {
                 UsuarioParticipante2 usuarioParticipante = usuarioParticpanteControle.buscarLogin(email, senha);
+                usuarioParticpanteControle.fecharSessaoDAOGeneric();
                 session.setAttribute("usuario", usuarioParticipante);
                 response.sendRedirect("../interfaceDoParticipante.jsp");
             } catch (Exception e) {

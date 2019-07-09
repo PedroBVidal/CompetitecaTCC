@@ -15,6 +15,13 @@ and open the template in the editor.
     font-family: 'Kollektif';
     src:url("font/Kollektif.ttf");
 }
+
+button.btnLink:hover {
+    
+    cursor: pointer;
+    background-color: red;
+}
+
 .titulo{
     font-family: 'Kollektif';
 }
@@ -50,3 +57,4 @@ and open the template in the editor.
 .overflowTableTabPane {
     overflow: auto; width: 920px; height: 350px;
 }
+

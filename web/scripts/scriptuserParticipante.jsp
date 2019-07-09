@@ -42,7 +42,7 @@
         SegmentoControle segmentoControle = new SegmentoControle();
         
 
-
+        
         if (cmd == 2) {
             int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
             
@@ -60,15 +60,34 @@
         if(request.getParameter("segmento") != null){
             Segmento segmento = segmentoControle.buscarSegmentoPorId(idSegmento);
             atleta.setSegmento(segmento);
+            System.out.println("Sessão aberta(Script) UsuarioParticipanteDAO: "+uspc.sessaoEstaAberta());
+            System.out.println("Sessão aberta(Script) SegmentoDAO: "+segmentoControle.sessaoEstaAberta());
+            segmentoControle.fecharSessao();
         }
         else{
             atleta.setSegmento(null);
         }
-        
+            //
             uspc.atualizarCad(usp);
+            //
+            /*
+            System.out.println("Sessão aberta(Script) UsuarioParticipanteDAO(Generic): "+uspc.sessaoEstaAberta());
+            System.out.println("Sessão aberta(Script) SegmentoDAO: "+segmentoControle.sessaoEstaAberta());
+            System.out.println("Sessão aberta(Script) AtletaDAO(Generic): "+atletaControle.sessaoEstaAberta());
+            */
+
+            uspc.fecharSessaoDAOGeneric();
+            /*
+            System.out.println("Sessão aberta(Script) AtletaDAO(Generic): "+atletaControle.sessaoEstaAberta());
+            System.out.println("Sessão aberta(Script) SegmentoDAO: "+segmentoControle.sessaoEstaAberta());
+            System.out.println("Sessão aberta(Script) UsuarioParticipanteDAO(Generic): "+uspc.sessaoEstaAberta());
+            */
             atletaControle.alterarAtleta(atleta);
+            atletaControle.fecharSessaoDAOGeneric();
             
             usp = uspc.buscarLogin(email, senha);
+            uspc.fecharSessaoDAOGeneric();
+            
             session.setAttribute("usuario", usp);
             response.sendRedirect("../interfaceDoParticipante.jsp");
 
@@ -89,8 +108,10 @@
             atleta.setUsuarioParticipante(usuarioParticipante);
             
             atletaControle.criarAtleta(atleta);
+            atletaControle.fecharSessaoDAOGeneric();
             uspc.criar(usuarioParticipante);
-
+            uspc.fecharSessaoDAOGeneric();
+            
             response.sendRedirect("../login.jsp?color=success&msg=Cadastro efetuado, agora entre com o tipo Participante");
         }catch(Exception e){
             response.sendRedirect("../signup.jsp?p=2&color=danger&msg="+e.getMessage());

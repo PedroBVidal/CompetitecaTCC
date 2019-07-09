@@ -17,6 +17,7 @@ import java.util.List;
  * @author Aluno
  */
 public class UsuarioParticipanteControle {
+    
     Dao<Usuario> genericUsuarioDAO = new GenericDAO<>(Usuario.class);
     Dao<UsuarioParticipante> genericUsuarioAdministradorDAO = new GenericDAO<>(UsuarioParticipante.class);
     UsuarioAdministradorDAO usuarioAdministradorDAO = new UsuarioAdministradorDAO();
@@ -46,5 +47,13 @@ public class UsuarioParticipanteControle {
     }
     public void atualizarCad(UsuarioParticipante user){
         genericUsuarioAdministradorDAO.alterar(user);
+    }
+    
+    public void fecharSessaoDAOEspecifico(){
+        usuarioAdministradorDAO.fecharSessao();
+    }
+    
+    public void fecharSessaoDAOGeneric(){
+        genericUsuarioAdministradorDAO.fecharSessao();
     }
 }

@@ -6,40 +6,35 @@
 package br.edu.ifpr.irati.ti.dao;
 
 import br.edu.ifpr.irati.ti.modelo.Segmento;
-import br.edu.ifpr.irati.ti.modelo.Segmento;
-import gerais.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
-import org.hibernate.Session;
+
 
 /**
  *
  * @author Usuário
  */
-public class SegmentoDAO {
+public class SegmentoDAO extends Sessao {
     
-    
-        public Segmento buscarPorId(int id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+    public Segmento buscarPorId(int id) {
+        abrirSessao();
         String hql = "from segmento s where s.idSegmento = '" + id + "'";
-        Query query = session.createQuery(hql);
+        Query query = sessao.createQuery(hql);
         query.setMaxResults(1);
         Segmento segmento = (Segmento) query.uniqueResult();
-        session.clear();
-        session.close();
+
         return segmento;
     }
         
         
         public List<Segmento> buscarTodos(){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         String hql = "from segmento";
-        Query query = session.createQuery(hql);
+        Query query = sessao.createQuery(hql);
         List results = query.list();
-        session.clear();
-        session.close();
         return results;
     }
-        
+
         
 }

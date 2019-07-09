@@ -59,8 +59,8 @@
                 
                 int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
                 Competicao competicao = competicaoControle.buscarCompeticaoPorId(idCompeticao);
-                System.out.println("Competições solo (1): " + competicao.getCmodalidadesolo());
-                System.out.println("Competições coletivas (1):" + competicao.getCmodalidadecole());
+                
+                
         %>
 
         <header>
@@ -77,6 +77,7 @@
               String cor = request.getParameter("color");
               
             %>
+            <br>
             <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
                 <strong><%=mensagem%></strong> .
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -89,7 +90,7 @@
             %>
             <!-- Page Heading/Breadcrumbs -->
             <br>
-            <h1 class="mt-4 mb-3 titulos">Gerenciando competicao <span style="color: red;"><%=competicao.getNome()%></span>
+            <h1 class="mt-4 mb-3 titulos">Gerenciando evento <span style="color: red;"><%=competicao.getNome()%></span>
 
             </h1><br>
 
@@ -233,7 +234,7 @@
   
                                         <div class="modal-footer">
                                             <a href="scripts/inativarCompeticaoModalidadeColetiva.jsp?idEvento=<%=competicao.getIdCompeticao()%>&idCompeticao=<%=cptMc.getIdCompeticaoModalidade()%>"><button class="btn btn-secondary">Sim</button></a>
-                                            <button type="button" class="btn btn-primary">Cancelar</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
                                             
                                         </div>
                                     </div>
@@ -396,7 +397,7 @@
   
                                         <div class="modal-footer">
                                             <a href="scripts/inativarCompeticaoModalidadeSolo.jsp?idEvento=<%=competicao.getIdCompeticao()%>&idCompeticao=<%=cptMs.getIdCompeticaoModalidade()%>"><button class="btn btn-secondary">Sim</button></a>
-                                            <button type="button" class="btn btn-primary">Cancelar</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
                                             
                                         </div>
                                     </div>

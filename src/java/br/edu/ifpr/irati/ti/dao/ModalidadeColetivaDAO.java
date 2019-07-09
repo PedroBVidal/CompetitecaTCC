@@ -15,27 +15,29 @@ import org.hibernate.Session;
  *
  * @author user
  */
-public class ModalidadeColetivaDAO {
+public class ModalidadeColetivaDAO extends br.edu.ifpr.irati.ti.dao.Sessao {
+    
+    
     public void salvar(ModalidadeColetiva modalidadecoletiva){
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         sessao.beginTransaction();
         sessao.save(modalidadecoletiva);
         sessao.getTransaction().commit();
     }
     public void alterar(ModalidadeColetiva modalidadecoletiva){
-       Session sessao = HibernateUtil.getSessionFactory().openSession();
+       abrirSessao();
        sessao.beginTransaction();
        sessao.update(modalidadecoletiva);
        sessao.getTransaction().commit();
     }
     public void excluir(ModalidadeColetiva modalidade){
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         sessao.beginTransaction();
         sessao.delete(modalidade);
         sessao.getTransaction().commit();
     }
     public List<ModalidadeColetiva> buscarTudo(){
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         sessao.beginTransaction();
         String hql = "from modalidadeColetiva";
         org.hibernate.Query query = sessao.createQuery(hql);
@@ -48,8 +50,6 @@ public class ModalidadeColetivaDAO {
         Query query = session.createQuery(hql);
         query.setMaxResults(1);
         ModalidadeColetiva modalidadecoletiva = (ModalidadeColetiva) query.uniqueResult();        
-        session.clear();
-        session.close();
         return modalidadecoletiva;
     }
 }

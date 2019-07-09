@@ -56,6 +56,11 @@
     Competicao competicao = competicaoControle.buscarCompeticaoPorId(idEvento);
     ModalidadeColetiva modalidadeColetiva = modalidadeColetivaControle.buscaPorId(idModalidadeColetiva);
     SistemaDeContagem sistemaDeContagem = sistemaDeContagemControle.buscarPorId(idSistemaDeContagem);
+    
+    
+    modalidadeColetivaControle.fecharSessaoDAOGeneric();
+    sistemaDeContagemControle.fecharSessaoDAOEspecifico();
+    
     SistemaDeDesempate sistemaDeDesempate = new SistemaDeDesempate(0, sistemaDesempate, sistemaDesempateSecundario);
    
     if(sistemaCompeticao.equals("Sistema eliminatório")){
@@ -78,9 +83,14 @@
         competicao.adicionarCompeticaoModalidadeColetiva(competicaoModalidadeColetiva);
         
         sistemaDeDesempateControle.salvar(sistemaDeDesempate);
-        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
-        competicaoControle.autualizarCompeticao(competicao);
+        sistemaDeDesempateControle.fecharSessaoDAOEspecifico();
         
+        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
+        competicaoModalidadeColetivaControle.fecharSessaoDAOGeneric();
+        
+        competicaoControle.fecharSessaoDAOEspecifico();
+        competicaoControle.autualizarCompeticao(competicao);
+        competicaoControle.fecharSessaoDAOGeneric();
         
     }
     else if(sistemaCompeticao.equals("Sistema misto")){
@@ -104,8 +114,14 @@
         competicao.adicionarCompeticaoModalidadeColetiva(competicaoModalidadeColetiva);
         
         sistemaDeDesempateControle.salvar(sistemaDeDesempate);
+        sistemaDeDesempateControle.fecharSessaoDAOEspecifico();
+        
         competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
+        competicaoModalidadeColetivaControle.fecharSessaoDAOGeneric();
+        
+        competicaoControle.fecharSessaoDAOEspecifico();
         competicaoControle.autualizarCompeticao(competicao);
+        competicaoControle.fecharSessaoDAOGeneric();
         
     }
     else{
@@ -121,9 +137,14 @@
         competicao.adicionarCompeticaoModalidadeColetiva(competicaoModalidadeColetiva);
         
         sistemaDeDesempateControle.salvar(sistemaDeDesempate);
-        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
-        competicaoControle.autualizarCompeticao(competicao);
+        sistemaDeDesempateControle.fecharSessaoDAOEspecifico();
         
+        competicaoModalidadeColetivaControle.salvar(competicaoModalidadeColetiva);
+        competicaoModalidadeColetivaControle.fecharSessaoDAOGeneric();
+        
+        competicaoControle.fecharSessaoDAOEspecifico();
+        competicaoControle.autualizarCompeticao(competicao);
+        competicaoControle.fecharSessaoDAOGeneric();
         
     }
     

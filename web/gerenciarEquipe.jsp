@@ -95,13 +95,14 @@
                 }
             %>
             <%
+                int p = 0;
                 System.out.println("ENTREI AQUI");
                 EquipeControle equipeControle = new EquipeControle();
                 UsuarioParticipante2Controle userParticipanteControle = new UsuarioParticipante2Controle();
 
                 int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
                 Equipe equipe = equipeControle.buscarPorId(idEquipe);
-
+                p++;
 
             %>
             <!-- Page Heading/Breadcrumbs -->
@@ -148,6 +149,7 @@
 
                                     <%
                                         for (Atleta atleta : equipe.getAtletas()) {
+                                            p++;
                                             String nome = atleta.getUsuarioParticipante().getNome();
                                             String email = atleta.getUsuarioParticipante().getEmail();
 
@@ -497,6 +499,7 @@
                             System.out.println("Estou no final da página gerenciar equipe");
                             System.out.println("Integrantes da equipe: " + integrantesEquipe);
                             System.out.println("ADM DA EQUIPE: " + atletaAdmEquipe);
+                            System.out.println("P: "+ p);
 
                         %>      
 

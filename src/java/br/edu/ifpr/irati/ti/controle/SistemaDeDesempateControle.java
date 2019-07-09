@@ -27,4 +27,9 @@ public class SistemaDeDesempateControle {
         sistemaDeDesempateDAO.salvar(sistemaDeDesempate);
     }
     
+    public void fecharSessaoDAOEspecifico(){
+        sistemaDeDesempateDAO.fecharSessao();
+    }
+    
+    
 }

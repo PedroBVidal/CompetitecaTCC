@@ -115,7 +115,9 @@
                             </div>
 
 
-                            <%                                    for (CompeticaoModalidadeSolo cms : competicao.getCmodalidadesolo()) {
+                            <%
+                                for (CompeticaoModalidadeSolo cms : competicao.getCmodalidadesolo()) {
+                                    if(cms.isInativo() == false){
                                     int flag = 0;
                                     char processo = ' ';
                                     for (InscricaoCompeticaoSolo ics : atleta.getInscricoesCompeticaoSolo()) {
@@ -244,7 +246,7 @@
 
 
                             <%}
-                                        }
+}                               }
                                     }
                                 }%>
 
@@ -265,6 +267,7 @@
                             </div>
 
                             <%  for (CompeticaoModalidadeColetiva cmc : competicao.getCmodalidadecole()) {
+                                    if(cmc.isInativo() == false){
                                     if (idEquipe > 0) {
                                         int flag = 0;
                                         char processo = ' ';
@@ -470,7 +473,7 @@
             </div>
         </div>      
         <%}
-                        }%>
+                        }}%>
 
     </div>
 </div>

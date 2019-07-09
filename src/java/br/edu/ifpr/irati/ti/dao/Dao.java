@@ -7,7 +7,8 @@ package br.edu.ifpr.irati.ti.dao;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.criteria.Order;
+import org.hibernate.Session;
+
 
 /**
  *
@@ -29,5 +30,13 @@ public interface Dao<T> {
     public T buscarLogin(String email, String senha);
     
     public T buscarCodigoPrivado(String codigo);
+    
+    public Session abrirSessao();
+    
+    public void fecharSessao();
+    
+    public Session getSessao();
+    
+    public void setSessao(Session sessao);
     
 }

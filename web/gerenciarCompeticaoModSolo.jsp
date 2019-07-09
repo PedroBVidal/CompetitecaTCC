@@ -4,6 +4,7 @@
     Author     : Usuário
 --%>
 
+<%@page import="java.nio.charset.Charset"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.ModalidadeSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.SistemaEliminatorio"%>
@@ -73,6 +74,8 @@
 
         <!-- Page Content -->
         <div class="container">
+        <br>
+        
             <%
               request.setCharacterEncoding("UTF-8");
           if(request.getParameter("msg") != null){
@@ -138,11 +141,11 @@
                                 %>    
                             <td><%=nomeAtleta%></td>
                             <td>
-                                <a href="scripts/aprovaInscCompSolo.jsp?opt=1&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-success">
+                                <a href="scripts/aprovaInscCompSolo.jsp?opt=1&idInsc=<%=iMs.getIdInscricao()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-success">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-check"></i>
                                 </a> &nbsp;
-                                <a href="scripts/aprovaInscCompSolo.jsp?opt=2&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
+                                <a href="scripts/aprovaInscCompSolo.jsp?opt=2&idInsc=<%=iMs.getIdInscricao()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-times"></i>
                                 </a> &nbsp;
@@ -224,7 +227,7 @@
                             <td><%=nomeAtleta%></td>
                             <td>
 
-                                <a href="scripts/aprovaInscCompSolo.jsp?opt=3&idInsc=<%=iMs.getIdCompeticaoSolo()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
+                                <a href="scripts/aprovaInscCompSolo.jsp?opt=3&idInsc=<%=iMs.getIdInscricao()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>&idAtleta=<%=iMs.getAtleta().getIdAtleta()%>" class="btn btn-danger">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-trash-alt"></i>
                                 </a> &nbsp;

@@ -19,10 +19,11 @@
         int id = Integer.parseInt(request.getParameter("idCompeticao"));
         
         Competicao competicao = competicaoControle.buscarCompeticaoPorId(id);
-        
+        competicaoControle.fecharSessaoDAOEspecifico();
         competicao.setInativo(true);
         
         competicaoControle.autualizarCompeticao(competicao);
+        competicaoControle.fecharSessaoDAOGeneric();
         response.sendRedirect("../competicoes.jsp?msg=Competicao apagada com sucesso&color=success");
 
         
@@ -59,9 +60,12 @@
         }
         competicao.adicionarAdministrador(up);
                 competicaoControle.cadastrarCompeticao(competicao);
+                competicaoControle.fecharSessaoDAOGeneric();
                 up.adicionarCompeticao(competicao);
+
                 upc.atualizarCad(up);
-                response.sendRedirect("../competicoes.jsp?msg=Competicao criada com sucesso&color=success");
+                upc.fecharSessaoDAOGeneric();
+                response.sendRedirect("../competicoes.jsp?msg=Evento criado com sucesso&color=success");
         }
     else{
         response.setCharacterEncoding("UTF-8");

@@ -20,6 +20,7 @@
     
     int contador = Integer.parseInt(request.getParameter("contador"));
     int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
+    boolean membroJaParticipanteDaEquipe = false;
     
     Equipe equipe = equipeControle.buscarPorId(idEquipe);
     
@@ -36,16 +37,36 @@
     }
     }
     
+        // Verifica se algum membro selecionado já é participante da equipe 
+    for(Atleta atletaEquipe: equipe.getAtletas()){
+        for(Atleta atletaSelecionado : membrosEquipe){
+            if(atletaSelecionado.getIdAtleta() == atletaEquipe.getIdAtleta()){
+                membroJaParticipanteDaEquipe = true;
+            }
+        }
+    }
+    
+    if(membroJaParticipanteDaEquipe == false){
     for(Atleta a: membrosEquipe){
         equipe.adicionarAtleta(a);
     }
-    
+    }
+    atletaControle.fecharSessaoDAOEspecifico();
+    equipeControle.fecharSessaoDAOEspecifico();
+
     equipeControle.alterarEquipe(equipe);
     
+    equipeControle.fecharSessaoDAOGeneric();
+    
+    if(membroJaParticipanteDaEquipe){
+          response.sendRedirect("../gerenciarEquipe.jsp?msg=Foi adicionado um integrante participante da equipe!&color=warning&idEquipe="+idEquipe); 
+    }
+    else{
     if(membrosEquipe.size() == 1){
     response.sendRedirect("../gerenciarEquipe.jsp?msg=Membro adicionado com sucesso&color=success&idEquipe="+idEquipe);
     }
     if(membrosEquipe.size() != 1){
     response.sendRedirect("../gerenciarEquipe.jsp?msg=Membros adicionados com sucesso&color=success&idEquipe="+idEquipe);
+    }
     }
 %>

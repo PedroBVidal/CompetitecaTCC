@@ -31,4 +31,8 @@ public class CompeticaoModalidadeSoloControle {
         competicaoModalidadeSoloDAO.alterar(competicaoModalidadeSolo);
     }
     
+    public void fecharSessaoDAOGeneric(){
+        competicaoModalidadeSoloDAO.fecharSessao();
+    }
+    
 }

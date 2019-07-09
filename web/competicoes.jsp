@@ -42,9 +42,6 @@
     <body style="font-family: 'Quicksand';">
         <%
             UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
-            CompeticaoControle competicaoControle = new CompeticaoControle();
-            
-           
             
             if (up == null) {
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
@@ -83,7 +80,6 @@
                 //UsuarioParticipante upp = upc.buscarPorId(up.getIdUsuario());
                 
                 int flag = 0;
-                System.out.println("Competições vinculadas ao usuário participante" + up.getCompeticoes());
                 UsuarioParticipanteControle upControle = new UsuarioParticipanteControle();
                 UsuarioParticipante usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
                 
@@ -121,7 +117,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir <%=cptc.getNome()%>?</h5>
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -134,7 +130,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="gerenciamentoDeCompeticao.jsp?idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-success">Gerenciar Competição</button></a>
+                            <a href="gerenciamentoDeCompeticao.jsp?idCompeticao=<%=cptc.getIdCompeticao()%>"><button class="btn btn-success">Gerenciar evento</button></a>
                         </div>
                     </div>
                 </div>
@@ -153,7 +149,7 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <%
-            
+           upControle.fecharSessaoDAOEspecifico();
         }
         %>
     </body>

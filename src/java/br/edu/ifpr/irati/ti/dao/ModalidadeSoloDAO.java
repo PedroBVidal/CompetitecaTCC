@@ -2,59 +2,53 @@
 package br.edu.ifpr.irati.ti.dao;
 
 import br.edu.ifpr.irati.ti.modelo.ModalidadeSolo;
-import gerais.HibernateUtil;
 import java.util.List;
 import org.hibernate.Query;
-import org.hibernate.Session;
 
 
-public class ModalidadeSoloDAO {
+
+public class ModalidadeSoloDAO extends Sessao{
     
     public void salvar(ModalidadeSolo modalidadesolo){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(modalidadesolo);
-        session.getTransaction().commit();
-        session.clear();
-        session.close();
+        abrirSessao();
+        sessao.beginTransaction();
+        sessao.save(modalidadesolo);
+        sessao.getTransaction().commit();
+
     }
     
     public void alterar(ModalidadeSolo modalidadesolo){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.update(modalidadesolo);
-        session.getTransaction().commit();   
-        session.clear();
-        session.close();
+        abrirSessao();
+        sessao.beginTransaction();
+        sessao.update(modalidadesolo);
+        sessao.getTransaction().commit();   
+
     }
     
     public void excluir(ModalidadeSolo modalidadesolo){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.delete(modalidadesolo);
-        session.getTransaction().commit();
-        session.clear();
-        session.close();
+        abrirSessao();
+        sessao.beginTransaction();
+        sessao.delete(modalidadesolo);
+        sessao.getTransaction().commit();
+
     }
     
     public List<ModalidadeSolo> buscarTodos(){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         String hql = "from modalidadesolo";
-        Query query = session.createQuery(hql);
+        Query query = sessao.createQuery(hql);
         List results = query.list();
-        session.clear();
-        session.close();
+
         return results;
     }
     
     public ModalidadeSolo buscar(String str){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         String hql = "from modalidadesolo m where m.nome = '"+str+"' ";
-        Query query = session.createQuery(hql);
+        Query query = sessao.createQuery(hql);
         query.setMaxResults(1);
         ModalidadeSolo modalidadesolo = (ModalidadeSolo) query.uniqueResult();        
-        session.clear();
-        session.close();
+
         return modalidadesolo;
     }  
 }

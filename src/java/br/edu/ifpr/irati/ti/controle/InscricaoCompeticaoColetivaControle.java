@@ -31,4 +31,8 @@ public class InscricaoCompeticaoColetivaControle {
         inscricaoCompeticaoColetivaDAO.alterar(icc);
     }
     
+        public void fecharSessaoDAOGeneric(){
+        inscricaoCompeticaoColetivaDAO.fecharSessao();
+    }
+    
 }

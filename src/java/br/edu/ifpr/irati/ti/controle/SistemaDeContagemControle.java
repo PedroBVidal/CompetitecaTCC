@@ -27,4 +27,10 @@ public class SistemaDeContagemControle {
          return sistemaDeContagemDAO.buscarPorId(id);
      }
      
+    public void fecharSessaoDAOEspecifico(){
+        sistemaDeContagemDAO.fecharSessao();
+    }
+    
+     
+     
 }

@@ -40,14 +40,14 @@ public class Atleta implements Serializable {
     @Column(name = "cpf", nullable = true)
     private String cpf;
 
-    @ManyToMany(mappedBy = "atletas", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "atletas", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Equipe> equipes;
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "atleta")
     private UsuarioParticipante2 usuarioParticipante;
 
-    @OneToMany(mappedBy = "atleta", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "atleta", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo;
 
@@ -55,7 +55,7 @@ public class Atleta implements Serializable {
     //@Fetch(value = FetchMode.SUBSELECT)
     //private List<MensagemRecebida> mensagens;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<CompeticaoModalidadeSolo> competicoesModalidadeSolo;
 

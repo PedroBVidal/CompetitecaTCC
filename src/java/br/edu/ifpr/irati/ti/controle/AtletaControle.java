@@ -9,7 +9,6 @@ import br.edu.ifpr.irati.ti.dao.AtletaDAO;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.modelo.Atleta;
-import br.edu.ifpr.irati.ti.modelo.Equipe;
 import java.util.List;
 
 /**
@@ -36,4 +35,17 @@ public class AtletaControle {
     public void droparAtleta(Atleta atleta){
         atdl.excluir(atleta);
     }
+    
+    public void fecharSessaoDAOGeneric(){
+       atdl.fecharSessao();  
+    }
+    
+    public void fecharSessaoDAOEspecifico(){
+       atletaDAO.fecharSessao();  
+    }
+        
+    public boolean sessaoEstaAberta(){
+        return atdl.getSessao().isOpen();
+    }
+    
 }

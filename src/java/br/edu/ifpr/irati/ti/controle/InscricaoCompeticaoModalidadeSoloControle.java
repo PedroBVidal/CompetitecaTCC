@@ -30,4 +30,8 @@ public class InscricaoCompeticaoModalidadeSoloControle {
         inscricaoCompeticaoModalidadeSoloDAO.alterar(ics);
     }
     
+    public void fecharSessaoDAOGeneric(){
+        inscricaoCompeticaoModalidadeSoloDAO.fecharSessao();
+    }
+    
 }

@@ -5,27 +5,25 @@
  */
 package br.edu.ifpr.irati.ti.dao;
 
-import br.edu.ifpr.irati.ti.modelo.Competicao;
+
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
-import gerais.HibernateUtil;
 import org.hibernate.Query;
-import org.hibernate.Session;
+
 
 /**
  *
  * @author Usuário
  */
-public class UsuarioAdministradorDAO {
+public class UsuarioAdministradorDAO extends Sessao {
     
     
     public UsuarioParticipante buscarPorId(int id){
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        abrirSessao();
         String hql = "from usuarioParticipante u where u.idUsuario = '"+id+"'";
-        Query query = session.createQuery(hql);
+        Query query = sessao.createQuery(hql);
         query.setMaxResults(1);
         UsuarioParticipante usuarioParticipante = (UsuarioParticipante) query.uniqueResult();        
-        session.clear();
-        session.close();
+
         return usuarioParticipante;
     }
 }
