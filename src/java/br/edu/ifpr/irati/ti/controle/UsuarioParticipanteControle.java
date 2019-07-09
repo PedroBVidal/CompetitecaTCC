@@ -56,4 +56,8 @@ public class UsuarioParticipanteControle {
     public void fecharSessaoDAOGeneric(){
         genericUsuarioAdministradorDAO.fecharSessao();
     }
+    
+    public void abrirSessaoDAOGeneric(){
+        genericUsuarioAdministradorDAO.abrirSessao();
+    }
 }
