@@ -63,4 +63,8 @@ public class CompeticaoControle {
     public void fecharSessaoDAOGeneric(){
         competicaoDAOGeneric.fecharSessao();
     }
+    
+    public void abrirSessaoDAOGeneric(){
+        competicaoDAOGeneric.abrirSessao();
+    }
 }

@@ -13,6 +13,7 @@
 <%
     request.setCharacterEncoding("UTF-8");
     CompeticaoControle competicaoControle = new CompeticaoControle();
+    UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
     
     if(request.getParameter("op").equals("1")){
         
@@ -40,9 +41,10 @@
     */
     
     
-    UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
+    
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
+    UsuarioParticipante usuarioADM = upc.buscarPorId(up.getIdUsuario());
     Date dataInicioCompeticao, dataTerminoCompeticao;
     Date dataInicioInscricao, dataTerminoInscricao;
     dataInicioCompeticao = sdf.parse(sDataInicioCompeticao);
@@ -58,12 +60,14 @@
         }else{
         competicao = new Competicao(0, nomeCompeticao,dataInicioInscricao,dataTerminoInscricao,dataInicioCompeticao,dataTerminoCompeticao,request.getParameter("infoadicional"));
         }
-        competicao.adicionarAdministrador(up);
+                
+                competicao.adicionarAdministrador(usuarioADM);
+        
                 competicaoControle.cadastrarCompeticao(competicao);
                 competicaoControle.fecharSessaoDAOGeneric();
-                up.adicionarCompeticao(competicao);
-
-                upc.atualizarCad(up);
+                usuarioADM.adicionarCompeticao(competicao);
+                upc.fecharSessaoDAOEspecifico();
+                upc.atualizarCad(usuarioADM);
                 upc.fecharSessaoDAOGeneric();
                 response.sendRedirect("../competicoes.jsp?msg=Evento criado com sucesso&color=success");
         }
