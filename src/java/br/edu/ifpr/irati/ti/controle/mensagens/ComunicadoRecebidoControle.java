@@ -36,5 +36,14 @@ public class ComunicadoRecebidoControle {
         comunicadoRecebGenericDAO.excluir(comunicadoRecebido);
     }
     
+        
+    public void fecharSessaoDAOGeneric(){
+        comunicadoRecebGenericDAO.fecharSessao();
+    }
+    
+    public boolean sesssaoEstaAberta(){
+        return comunicadoRecebGenericDAO.getSessao().isOpen();
+    }
+    
     
 }

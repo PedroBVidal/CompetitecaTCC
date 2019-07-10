@@ -270,18 +270,33 @@
                                     if(cmc.isInativo() == false){
                                     if (idEquipe > 0) {
                                         int flag = 0;
+                                        int bandeira = 0;
+                                        
                                         char processo = ' ';
-                                        for (InscricaoCompeticaoColetiva icc : equp.getInscricoesCompeticoesColetivas()) {
-                                            if (icc.getCompeticaoModalidadeColetiva().getIdCompeticaoModalidade() == cmc.getIdCompeticaoModalidade()) {
+                                        
+                                        List<Equipe> equipes = atleta.getEquipes();
+                                        for(Equipe e : atleta.getUsuarioParticipante().getEquipe()){
+                                            equipes.add(e);
+                                        }
+                                        
+                                        for(Equipe equipe : equipes){
+                                            for(InscricaoCompeticaoColetiva icc : equipe.getInscricoesCompeticoesColetivas()){
+                                                if(icc.getCompeticaoModalidadeColetiva().getIdCompeticaoModalidade() == cmc.getIdCompeticaoModalidade()){
                                                 processo = icc.getInscricaoAceita();
-                                                flag = 1;
+                                                bandeira = 1;
+                                                break; 
+                                                }
+                                            }
+                                            if(bandeira == 1){
                                                 break;
                                             }
                                         }
+                                        
+                                        System.out.println("FLAG : "+ flag);
                                         if (cmc.getModalidadeColetiva().getIdModColetiva() == equp.getModalidade().getIdModColetiva()) {
                                             if (flag == 0) {
-
-
+                                            
+                                       
                             %>
                             <div class="form-group">
                                 <div class="input-group mb-3">
@@ -292,7 +307,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <% } else if (flag == 1) {
+                            <% } else if (bandeira == 1) {
                                 if (processo == 'E') {
 
                             %>
@@ -375,7 +390,8 @@
                             <div class="modal-body">
 
                                 <p><%
-                                                if (cmc.getInformacaoExtra() == null || cmc.getInformacaoExtra().equals("")) {%>
+                                    
+                                    if (cmc.getInformacaoExtra() == null || cmc.getInformacaoExtra().equals("")) {%>
                                     Não há informações extras sobre essa competição
                                     <%} else {
                                     %>

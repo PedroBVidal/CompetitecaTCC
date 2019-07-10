@@ -35,5 +35,9 @@ public class ComunicadoEnviadoControle {
         comunicadoEnvGenericDAO.excluir(comunicadoEnviado);
     }
     
+        
+    public void fecharSessaoDAOGeneric(){
+        comunicadoEnvGenericDAO.fecharSessao();
+    }
     
 }
