@@ -26,7 +26,11 @@
     EquipeControle equipeControle = new EquipeControle();
     
     UsuarioParticipante2 up = usuarioParticipante2Controle.buscarPorId(upSession.getIdUsuario());
+    usuarioParticipante2Controle.fecharSessaoDAOGeneric();
+    
     SolicitacaoEntradaEquipeRecebida solicitacaoEntradaEquipeRecebida = msgSolicEntRecebControle.buscarPorId(idMensagemRecebida);
+    msgSolicEntRecebControle.fecharSessaoDAOEspecifico();
+    
     SolicitacaoEntradaEquipeEnviada solicitacaoEntradaEquipeEnviada = solicitacaoEntradaEquipeRecebida.getSolicitacaoEntradaEquipeEnviada();
 
     if(op == 1){
@@ -41,13 +45,18 @@
         
         UsuarioParticipante2 usuarioRemetente = (UsuarioParticipante2) solicitacaoEntradaEquipeRecebida.getRemetente();
         
+        
         Equipe equipe = equipeControle.buscarPorId(solicitacaoEntradaEquipeRecebida.getEquipe().getIdEquipe());
         equipe.adicionarAtleta(usuarioRemetente.getAtleta());
         
+        equipeControle.fecharSessaoDAOEspecifico();
         equipeControle.alterarEquipe(equipe);
-        msgSolicEntEnvControle.alterar(solicitacaoEntradaEquipeEnviada);
-        msgSolicEntRecebControle.alterar(solicitacaoEntradaEquipeRecebida);
+        equipeControle.fecharSessaoDAOGeneric();
         
+        msgSolicEntEnvControle.alterar(solicitacaoEntradaEquipeEnviada);
+        msgSolicEntEnvControle.fecharSessaoDAOGeneric();
+        msgSolicEntRecebControle.alterar(solicitacaoEntradaEquipeRecebida);
+        msgSolicEntRecebControle.fecharSessaoDAOGeneric();
     }
     
     if(op == 2){

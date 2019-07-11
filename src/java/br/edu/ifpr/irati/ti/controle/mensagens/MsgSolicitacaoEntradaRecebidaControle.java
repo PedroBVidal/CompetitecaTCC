@@ -40,6 +40,12 @@ public class MsgSolicitacaoEntradaRecebidaControle {
         return genericSolicEntradaEquipeRecebidaDAO.buscarTodos(SolicitacaoEntradaEquipeRecebida.class);
     }
     
+        public void fecharSessaoDAOGeneric(){
+        genericSolicEntradaEquipeRecebidaDAO.fecharSessao();
+    }
     
+    public void fecharSessaoDAOEspecifico(){
+        msgSolicitacaoEntradaRecebidaDAO.fecharSessao();
+    }
     
 }

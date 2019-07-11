@@ -50,6 +50,8 @@ public class UsuarioParticipante2Controle {
         return usuarioParticipanteDAO.getSessao().isOpen();
     }
     
-    
+    public void abrirSessaoDAOGeneric(){
+        usuarioParticipanteDAO.abrirSessao();
+    }
 
 }

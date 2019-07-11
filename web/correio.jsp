@@ -202,6 +202,12 @@
 
                     </div>
                 </div>
+                        
+                        
+                        
+                        
+                        
+                        
                 <!--Caixa de Entrada(Lidas e Não Lidas)-->
                 <div class="tab-pane fade" id="entrada" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <div class="row">
@@ -252,7 +258,133 @@
 
                             <% }
                                         }
-                                    }%>
+
+
+                                    if(mR instanceof SolicitacaoEntradaEquipeRecebida){
+                                        SolicitacaoEntradaEquipeRecebida solictEntReceb = (SolicitacaoEntradaEquipeRecebida) mR;
+                                        if(solictEntReceb.isLido() == false){
+                            %>
+                                        
+                                        
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#e<%=solictEntReceb.getIdMensagemRecebida()%>" aria-expanded="true" aria-controls="collapseOne">
+                                            <span style="color:#dc3545;"><%=solictEntReceb.getAssunto()%></span>
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="e<%=solictEntReceb.getIdMensagemRecebida()%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p>
+                                            Usuario remetente: <a href="javascript:acionarModalSaibaMaisAtleta2(<%=solictEntReceb.getRemetente().getIdUsuario()%>)" data-target="#1" class="stretched-link"><%=solictEntReceb.getRemetente().getNome()%></a>
+                                        
+                                        </p>
+                                        
+                                        <%=solictEntReceb.getTexto()%><span class="font-weight-bold"><%=solictEntReceb.getEquipe().getNome()%>.</span><br><br>
+                                        
+                                        <form name="formularioMsgSolicitacao" action="scripts/decisaoMsgSolicitacaoEntradaEquipe.jsp">
+                                            <input type="hidden" id="idMensagemRecebida" name="idMensagemRecebida" value="<%=solictEntReceb.getIdMensagemRecebida()%>">
+                                            <input type="hidden" id="opcao" name="op">
+                                        </form>
+                                        
+                                        <button type="button" class="btn btn btn-success" onclick="enviarFormulario(1);">Aceitar</button>
+                                        <button type="button" class="btn btn-danger btn" onclick="enviarFormulario(2);">Rejeitar</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                                            
+                            <!-- Modal INFO USER PARTICIPANTE (CAIXA DE ENTRADA)-->
+                                <div class="modal fade" id="modalSaibaMaisAtleta2<%=solictEntReceb.getRemetente().getIdUsuario()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Nome: <%=solictEntReceb.getRemetente().getNome()%></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <%
+                                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                                    String dataNascimento = "";
+                                                    String email = "";
+                                                    boolean possuiSegemento = false;
+                                                    String nomeSegmento = "";
+                                                    
+                                                    if(solictEntReceb.getRemetente() instanceof UsuarioParticipante2){
+                                                        UsuarioParticipante2 usuarioRemetente = (UsuarioParticipante2) solictEntReceb.getRemetente();
+                                                         Atleta atletaVinculadoUsuario = usuarioRemetente.getAtleta();
+                                                         dataNascimento = sdf.format(atletaVinculadoUsuario.getDataNascimento());
+                                                         email = usuarioRemetente.getEmail();
+                                                         if(atletaVinculadoUsuario.getSegmento() != null){
+                                                             nomeSegmento = atletaVinculadoUsuario.getSegmento().getNome();
+                                                             possuiSegemento = true;
+                                                         }
+                                                    }
+                                                    
+                                                    
+                                                %>
+                                                <p><span class="font-weight-bold">Email: </span><%=email%></p>
+                                                <p><span class="font-weight-bold">Data de nascimento: </span><%=dataNascimento%></p>
+                                                <%
+                                                    
+                                                    if(possuiSegemento){
+                                                %>
+                                                <p><span class="font-weight-bold">Segmento IFPR-IRATI: </span><%=nomeSegmento%></p>
+                                                <%}%>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                
+                                            
+                                            
+                                            
+                                            
+                                            
+                            <%} else{%>
+                             <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#e<%=solictEntReceb.getIdMensagemRecebida()%>" aria-expanded="true" aria-controls="collapseOne">
+                                            <span style="color:#28a745;"><%=solictEntReceb.getAssunto()%></span>
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="e<%=solictEntReceb.getIdMensagemRecebida()%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p>
+                                            Usuario remetente: <%=solictEntReceb.getRemetente().getNome()%>
+                                        
+                                        </p>
+                                        
+                                        <%=solictEntReceb.getTexto()%><span class="font-weight-bold"><%=solictEntReceb.getEquipe().getNome()%>.</span><br><br>
+                                        
+                                        
+                                        <%
+                                            String texto = "";
+                                            if(solictEntReceb.getEstadoSolicitacao() == 'A'){
+                                                texto = "Solcitação aceita";
+                                            }
+                                            if(solictEntReceb.getEstadoSolicitacao() == 'N'){
+                                                texto = "Solicitação negada";
+                                            }
+                                        %>
+                                        <button type="button" class="btn btn btn-outline-primary" disabled><%=texto%></button>
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <%}}}%>
                         </div>
 
 
@@ -287,11 +419,16 @@
             }
             
             function acionarModalSaibaMaisAtleta(idAtleta){
-                alert("Olá!");
                 $('#modalSaibaMaisAtleta'+idAtleta).modal('show');
             
             }
-                
+            
+            function acionarModalSaibaMaisAtleta2(idAtleta){
+                $('#modalSaibaMaisAtleta2'+idAtleta).modal('show');
+            
+            }
+    
+    
             </script>
     </body>
 
