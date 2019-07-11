@@ -61,6 +61,7 @@
 
     <body style="font-family: 'Quicksand';">
         <%
+            request.setCharacterEncoding("UTF-8");
             UsuarioParticipante2 up2 = (UsuarioParticipante2) session.getAttribute("usuario");
             if (up2 == null) {
 
@@ -77,7 +78,7 @@
 
         <!-- Page Content -->
         <div class="container">
-            <%                request.setCharacterEncoding("UTF-8");
+            <%     request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("msg") != null) {
                     String mensagem = request.getParameter("msg");
                     String cor = request.getParameter("color");

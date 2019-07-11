@@ -53,9 +53,9 @@
                 int idAtleta = 0;
                 // Pega o id passado como parâmtro no botão "Realizar Inscrição" da jsp listaCompeticoes.jsp
                 int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
-                
-                    idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
-                
+
+                idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
+
                 CompeticaoControle competicaoControle = new CompeticaoControle();
 
                 Competicao competicao = competicaoControle.buscarCompeticaoPorId(idCompeticao);
@@ -185,107 +185,108 @@
 
 
                             <%}
+                                            }
+                                        }
                                     }
                                 }
-
                             %> 
-
-
-                            <!-- Modal saiba mais-->          
-
-                            <div class="modal fade" id="saibaMaisCompeticaoColetiva<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel"><%=cmc.getNomeCompeticao()%></h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-
-                                            <p><%
-                                                if (cmc.getInformacaoExtra() == null || cmc.getInformacaoExtra().equals("")) {%>
-                                                Não há informações extras sobre essa competição
-                                                <%} else {
-                                                %>
-                                                <%=cmc.getInformacaoExtra()%>
-                                                <%}%></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>      
-                            <!-- Modal tomada de decissão competição-->
-                            <div class="modal fade" id="modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <%if (equp.getAtletas().size() >= cmc.getModalidadeColetiva().getLotacaoMaximaEquipe()) {%>
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Selecione os atletas que participarão</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="scripts/inscricaoCompModColetiva.jsp" method="POST">
-                                                <div class="row">
-                                                    <ul>
-                                                        <%
-                                                            int i = 0;
-                                                            for (Atleta atl : equp.getAtletas()) {
-
-                                                        %>
-
-                                                        <li><input type="checkbox" name="idAtl<%=i%>" value="<%=atl.getIdAtleta()%>">&nbsp;<%=atl.getUsuarioParticipante().getNome()%></li>
-
-                                                        <% i++;
-                                                            }
-
-                                                        %>
-                                                    </ul>
-                                                </div>
-                                                <hr>
-
-                                                <input type="hidden" name="numAtl" value="<%=equp.getAtletas().size()%>">
-                                                <input type="hidden" name="idCompeticao" value="<%=competicao.getIdCompeticao()%>">
-                                                <input type="hidden" name="idEquipe" value="<%=equp.getIdEquipe()%>">
-                                                <input type="hidden" name="idCompModCol" value="<%=cmc.getIdCompeticaoModalidade()%>">
-                                                <p style="margin-left: 10px;"><button type="submit" role="button" class="btn btn-success popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute.">Inscrever</button></p>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                    <%} else if (equp.getAtletas().size() < cmc.getModalidadeColetiva().getLotacaoMaximaEquipe()) {
-                                    %>
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Alerta</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Você não Possui um número de membros suficientes para se inscrever nesta competição!<br>
-                                        Numero necessário:&nbsp;<b><%=cmc.getModalidadeColetiva().getLotacaoMaximaEquipe()%></b><br>
-                                        Restam <b><%=cmc.getModalidadeColetiva().getLotacaoMaximaEquipe() - equp.getAtletas().size()%></b> atletas em sua equipe
-                                    </div>
-                                </div>
-                                <%}%>
-
-                            </div>
-
-                            <%}
-                                    }
-                                }%>
                         </div>
 
                     </div>
                 </div>
+                <%for (CompeticaoModalidadeColetiva cmc2 : competicao.getCmodalidadecole()) {%>
+                <!-- Modal saiba mais-->          
+
+                <div class="modal fade" id="saibaMaisCompeticaoColetiva<%=cmc2.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"><%=cmc2.getNomeCompeticao()%></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <p><%
+                                                if (cmc2.getInformacaoExtra() == null || cmc2.getInformacaoExtra().equals("")) {%>
+                                    Não há informações extras sobre essa competição
+                                    <%} else {
+                                    %>
+                                    <%=cmc2.getInformacaoExtra()%>
+                                    <%}%></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+                <!-- Modal tomada de decissão competição-->
+                <div class="modal fade" id="modalTomadaDecissao<%=cmc2.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <%if (equp.getAtletas().size() >= cmc2.getModalidadeColetiva().getLotacaoMaximaEquipe()) {%>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Selecione os atletas que participarão</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="scripts/inscricaoCompModColetiva.jsp" method="POST">
+                                    <div class="row">
+                                        <ul>
+                                            <%
+                                                int i = 0;
+                                                for (Atleta atl : equp.getAtletas()) {
+
+                                            %>
+
+                                            <li><input type="checkbox" name="idAtl<%=i%>" value="<%=atl.getIdAtleta()%>">&nbsp;<%=atl.getUsuarioParticipante().getNome()%></li>
+
+                                            <% i++;
+                                                }
+
+                                            %>
+                                        </ul>
+                                    </div>
+                                    <hr>
+
+                                    <input type="hidden" name="numAtl" value="<%=equp.getAtletas().size()%>">
+                                    <input type="hidden" name="idCompeticao" value="<%=competicao.getIdCompeticao()%>">
+                                    <input type="hidden" name="idEquipe" value="<%=equp.getIdEquipe()%>">
+                                    <input type="hidden" name="idCompModCol" value="<%=cmc2.getIdCompeticaoModalidade()%>">
+                                    <p style="margin-left: 10px;"><button type="submit" role="button" class="btn btn-success popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute.">Inscrever</button></p>
+                                </form>
+
+                            </div>
+                        </div>
+                        <%} else if (equp.getAtletas().size() < cmc2.getModalidadeColetiva().getLotacaoMaximaEquipe()) {
+                        %>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Alerta</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Você não Possui um número de membros suficientes para se inscrever nesta competição!<br>
+                            Numero necessário:&nbsp;<b><%=cmc2.getModalidadeColetiva().getLotacaoMaximaEquipe()%></b><br>
+                            Restam <b><%=cmc2.getModalidadeColetiva().getLotacaoMaximaEquipe() - equp.getAtletas().size()%></b> atletas em sua equipe
+                        </div>
+                    </div>
+                    <%}%>
+
+                </div>
+
+                <%}
+                        }
+                    %>
+
 
             </div>
         </div>
