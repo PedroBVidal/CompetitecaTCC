@@ -209,7 +209,7 @@
                             <div class="modal-body">
 
                                 <p><%
-                                                if (cmc2.getInformacaoExtra() == null || cmc2.getInformacaoExtra().equals("")) {%>
+                                    if (cmc2.getInformacaoExtra() == null || cmc2.getInformacaoExtra().equals("")) {%>
                                     Não há informações extras sobre essa competição
                                     <%} else {
                                     %>
@@ -262,30 +262,31 @@
                                     <p style="margin-left: 10px;"><button type="submit" role="button" class="btn btn-success popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute.">Inscrever</button></p>
                                 </form>
 
+                                <%} else if (equp.getAtletas().size() < cmc2.getModalidadeColetiva().getLotacaoMaximaEquipe()) {
+                                %>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Alerta</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Você não Possui um número de membros suficientes para se inscrever nesta competição!<br>
+                                    Numero necessário:&nbsp;<b><%=cmc2.getModalidadeColetiva().getLotacaoMaximaEquipe()%></b><br>
+                                    Restam <b><%=cmc2.getModalidadeColetiva().getLotacaoMaximaEquipe() - equp.getAtletas().size()%></b> atletas em sua equipe
+                                </div>
+
+                                <%}%>
                             </div>
                         </div>
-                        <%} else if (equp.getAtletas().size() < cmc2.getModalidadeColetiva().getLotacaoMaximaEquipe()) {
-                        %>
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Alerta</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            Você não Possui um número de membros suficientes para se inscrever nesta competição!<br>
-                            Numero necessário:&nbsp;<b><%=cmc2.getModalidadeColetiva().getLotacaoMaximaEquipe()%></b><br>
-                            Restam <b><%=cmc2.getModalidadeColetiva().getLotacaoMaximaEquipe() - equp.getAtletas().size()%></b> atletas em sua equipe
-                        </div>
                     </div>
-                    <%}%>
-
                 </div>
 
                 <%}
-                        }
-                    %>
+                    }
+                %>
 
 
             </div>

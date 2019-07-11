@@ -271,80 +271,82 @@
                                 </div>
                             </div>
                             <%}%>
-                            </div>
+                        </div>
                     </div>
-                            
-                              <%  for (CompeticaoModalidadeColetiva cmc : competicao.getCmodalidadecole()) {
-                            %>
-                            <!-- Modal saiba mais-->          
 
-                            <div class="modal fade" id="saibaMaisCompeticaoColetiva<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel"><%=cmc.getNomeCompeticao()%></h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
+                    <%  for (CompeticaoModalidadeColetiva cmc : competicao.getCmodalidadecole()) {
+                    %>
+                    <!-- Modal saiba mais-->          
 
-                                            <p><%
-
-                                                if (cmc.getInformacaoExtra() == null || cmc.getInformacaoExtra().equals("")) {%>
-                                                Não há informações extras sobre essa competição
-                                                <%} else {
-                                                %>
-                                                <%=cmc.getInformacaoExtra()%>
-                                                <%}%></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
-
-                                        </div>
-                                    </div>
+                    <div class="modal fade" id="saibaMaisCompeticaoColetiva<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"><%=cmc.getNomeCompeticao()%></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                            </div>      
-                            <!-- Modal tomada de decissão competição-->
-                            <div class="modal fade" id="modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
+                                <div class="modal-body">
 
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Selecione a opção desejada</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <p><%
 
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <h5 style="margin-left: 20px;">1- Criar uma nova equipe:</h5>
-                                                <p style="margin-left: 10px;"><a href="criarEquipe.jsp" role="button" class="btn btn-primary popover-test" title="Criar equipe" data-content="Popover body content is set in this attribute.">Clique aqui</a></p>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <h5 style="margin-left: 20px;">2- Solicitar entrada em uma equipe: </h5>
-                                                <form action="formSolicitarEntradaEmEquipe.jsp" method="POST">
-                                                    <input type="hidden" name="idCmc" value="<%=cmc.getIdCompeticaoModalidade()%>">
-                                                    <p style="margin-left: 10px;"><button type="submit" role="button" class="btn btn-primary popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute.">Clique aqui</button></p>
-                                                </form>
+                                        if (cmc.getInformacaoExtra() == null || cmc.getInformacaoExtra().equals("")) {%>
+                                        Não há informações extras sobre essa competição
+                                        <%} else {
+                                        %>
+                                        <%=cmc.getInformacaoExtra()%>
+                                        <%}%></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
 
-                                            </div>
-                                        </div><%}%>
+                                </div>
+                            </div>
+                        </div>
+                    </div>      
+                    <!-- Modal tomada de decissão competição-->
+                    <div class="modal fade" id="modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Selecione a opção desejada</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <h5 style="margin-left: 20px;">1- Criar uma nova equipe:</h5>
+                                        <p style="margin-left: 10px;"><a href="criarEquipe.jsp" role="button" class="btn btn-primary popover-test" title="Criar equipe" data-content="Popover body content is set in this attribute.">Clique aqui</a></p>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <h5 style="margin-left: 20px;">2- Solicitar entrada em uma equipe: </h5>
+                                        <form action="formSolicitarEntradaEmEquipe.jsp" method="POST">
+                                            <input type="hidden" name="idCmc" value="<%=cmc.getIdCompeticaoModalidade()%>">
+                                            <p style="margin-left: 10px;"><button type="submit" role="button" class="btn btn-primary popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute.">Clique aqui</button></p>
+                                        </form>
 
                                     </div>
                                 </div>
-                            </div>      
-                            <%}
-                            %>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
 
-                        
+
+                    <%}
+                    %>
+
+
 
                 </div>
             </div>
         </div>
-                            
+
 
 
 
