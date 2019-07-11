@@ -214,7 +214,7 @@
                                     <td><%=nomeCompeticao%></td>
                                     <td><%=dataInicio%></td>
                                     <td><%=dataTermino%></td>
-                                    <td><a href="forminscricaocompeticao.jsp?idCompeticao=<%=cpt.getIdCompeticao()%>&idEquipe=<%=equipe.getIdEquipe()%>" class="btn btn-success">
+                                    <td><a href="forminscricaocoletiva.jsp?idCompeticao=<%=cpt.getIdCompeticao()%>&idEquipe=<%=equipe.getIdEquipe()%>" class="btn btn-success">
                                             <!-- Adicionar icone -->
                                             <i class="fas fa-clipboard-list"></i>
                                         </a> &nbsp;

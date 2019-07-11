@@ -5,10 +5,9 @@
  */
 package br.edu.ifpr.irati.ti.controle.mensagens;
 
-import br.edu.ifpr.irati.ti.dao.AtletaDAO;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
-import br.edu.ifpr.irati.ti.modelo.ComunicadoAPEnviado;
+import br.edu.ifpr.irati.ti.modelo.ComunicadoEnviado;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ import java.util.List;
  * @author gustavo
  */
 public class ComunicadoAPEnviadoControle {
-        Dao<ComunicadoAPEnviado> atdl = new GenericDAO<>(ComunicadoAPEnviado.class);
+        Dao<ComunicadoEnviado> atdl = new GenericDAO<>(ComunicadoAPEnviado.class);
    
     public List<ComunicadoAPEnviado> buscarTodos(){
         return atdl.buscarTodos(ComunicadoAPEnviado.class);

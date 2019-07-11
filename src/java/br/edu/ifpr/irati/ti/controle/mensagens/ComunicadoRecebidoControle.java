@@ -35,6 +35,8 @@ public class ComunicadoRecebidoControle {
     public void excluir(ComunicadoRecebido comunicadoRecebido){
         comunicadoRecebGenericDAO.excluir(comunicadoRecebido);
     }
-    
+     public void fecharSessaoDAO(){
+        comunicadoRecebGenericDAO.fecharSessao();
+    }
     
 }
