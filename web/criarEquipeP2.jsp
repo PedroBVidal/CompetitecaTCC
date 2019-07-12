@@ -1,4 +1,5 @@
 
+<%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeColetivaControle"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
@@ -111,26 +112,28 @@ div.ex4 {
                                 <%
                                     ModalidadeColetivaControle mcc = new ModalidadeColetivaControle();
                                     CompeticaoControle competicaoControle = new CompeticaoControle();
+                                    CompeticaoModalidadeColetivaControle cmcc = new CompeticaoModalidadeColetivaControle();
                                     
                                     ModalidadeColetiva modalidadeColetivaSelecionada = mcc.buscaPorId(idModalidadeColetivaSelecionada);
-                                    boolean flag;
-                                    List<CompeticaoModalidadeColetiva> competicoesModalidadesColetivas = new ArrayList<>();
                                     
+                                    List<CompeticaoModalidadeColetiva> competicoesModalidadesColetivas = cmcc.buscarCompeticoesColetivasVinculasModalidade(idModalidadeColetivaSelecionada);
+                                    List<Competicao> competicoesPrivadas = new ArrayList<>();
                                     int contadorCheckBox = 0;
                                     
-                                    for(Competicao cpt : competicaoControle.buscarTodasCompeticoes()){
-                                        System.out.println("Nome competição" + cpt.getNome());
-                                        for(CompeticaoModalidadeColetiva cmc : cpt.getCmodalidadecole()){
-                                            System.out.println(cmc.getNomeCompeticao());
-                                        if(cmc.getModalidadeColetiva().getIdModColetiva() == idModalidadeColetivaSelecionada){
-                                        System.out.println("entrei aqui");    
+                                    
+                                       
+                                for(CompeticaoModalidadeColetiva cmc : competicoesModalidadesColetivas){
+                                    
+
                                         contadorCheckBox++;  
-                                        flag = true;
+                                        
                                         
                                         String idCheckBox = "checkBox"+contadorCheckBox;
                                         String idTdNomeCmc = "idTdNomeCmc"+contadorCheckBox;
                                         String idTdNomeCpt = "idTdNomeCpt"+contadorCheckBox;
                                         String idTr = "idTr"+contadorCheckBox;
+                                        String idCodigoCpt = "codigoCpt"+contadorCheckBox;
+                                        String idCptPrivada = "idCptPrivada"+contadorCheckBox;
                                 %>
                                 
                                 <%
@@ -189,11 +192,19 @@ div.ex4 {
                                 <%}%>
                                 <tr id="<%=idTr%>" class="">
                                 <input id="<%=idTdNomeCmc%>" type="hidden" value="<%=cmc.getNomeCompeticao()%>">
-                                <input id="<%=idTdNomeCpt%>" type="hidden" value="<%=cpt.getNome()%>">
+                                <input id="<%=idTdNomeCpt%>" type="hidden" value="<%=cmc.getCompeticao().getNome()%>">
                                 
-                                
+                                <%
+                                // Criar input's caso a cmc esteja vinculada a uma competição PRIVADA
+                                if(cmc.getCompeticao().isPrivado()){
+                                %>
+                                <input type="hidden" id="<%=idCodigoCpt%>" value="<%=cmc.getCompeticao().getCodPriv()%>"></input>
+                                <input type="hidden" id="<%=idCptPrivada%>" value="<%=cmc.getCompeticao().getIdCompeticao()%>"></input>
+                                <%}else{%>
+                                <input type="hidden" id="<%=idCodigoCpt%>" value="0"></input>
+                                <%}%>
                                 <td><%=cmc.getNomeCompeticao()%></td>
-                                <td><%=cpt.getNome()%></td>
+                                <td><%=cmc.getCompeticao().getNome()%></td>
                                 <td><%=modalidadeColetivaSelecionada.getNome()%></td>
                                 <td>
                                     
@@ -202,9 +213,9 @@ div.ex4 {
                                         <label></label>
                                 </td>
                                 
-                                <%}%>
+                                
                                 </tr>
-                                <%}}%>
+                                <%}%>
                     
 
                         </tbody>
@@ -219,7 +230,7 @@ div.ex4 {
                  <label for="" class="col-md-12">
                     <div class="row">  
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success" data-toggle="modal" onclick="abrirModalCadastro(<%=contadorCheckBox%>);">
+                        <button type="button" class="btn btn-success" data-toggle="modal" onclick="abrirModalCompeticoesPrivadas(<%=contadorCheckBox%>)">
                         Próximo
                     </button>
                         <button style="margin-left: 10px;" type="button" class="btn btn-info" data-toggle="modal" data-target="#modalAjuda">
@@ -228,7 +239,39 @@ div.ex4 {
                     </div>   
                 </label>
                 </form> 
+                 
+            <!-- Modal inserir código competições privadas -->
+                    <div class="modal fade" id="modalCptsPrivadas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Insira o código dos eventos privados</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">Evento</th>
+                                                <th scope="col">Código</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="bodyModalCptsPrivadas">
+                                            
 
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="confereCod();">Sim</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Modal competições selecionadas-->
                     <div class="modal fade" id="modalCompeticoesVinculadas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -249,7 +292,7 @@ div.ex4 {
                                             </tr>
                                         </thead>
                                         <tbody id="bodyModal">
-
+                                            
 
                                         </tbody>
                                     </table>
@@ -324,15 +367,23 @@ div.ex4 {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
 
         <script>
+            
+            var numeroCod = [];
+            
             $('input#txt_consulta').quicksearch('table#tabela tbody tr');
             
 
             function acionarModalCompeticoesVinculadas(){
                 $('#modalCompeticoesVinculadas').modal('show');
+                
             }
             
             function acionarModalNenhumaCompeticaoVinculada(){
                 $('#modalNenhumaCompeticaoVinculada').modal('show');
+            }
+            
+            function acionarModalCptsPrivadas(){
+                $('#modalCptsPrivadas').modal('show');
             }
             
             function enviarFormulario(op){
@@ -366,6 +417,7 @@ div.ex4 {
                 var dadosBodyModal = '';
                 var existeCheckBoxSelecionado = false;
                 
+                
                 for (var i = 1; i <= contador; i++) {
                     
 
@@ -393,6 +445,81 @@ div.ex4 {
                 }
 
             }
+            
+         function abrirModalCompeticoesPrivadas(contador){
+                alert("Entrei aqui");
+                var dadosBodyModalCptsPrivadas = '';
+                var existeCompeticaoPrivadaSelecionada = false;
+                var existeCheckBoxSelecionado = false;
+                var idsEventos = [];
+                var existeEventoPrivadoDuplicado = false;
+                
+                for (var i = 1; i <= contador; i++) {
+                    
+
+                    var checkBox = document.getElementById("checkBox"+i);
+                    
+                    if(checkBox.checked === true){
+                        existeCheckBoxSelecionado = true;
+                        var codigo = document.getElementById("codigoCpt"+i).value;
+                        
+                        
+                        
+                        
+                        if(codigo !== '0'){
+                        var idCompeticaoPrivada = document.getElementById("idCptPrivada"+i).value;
+                        
+                        if(idsEventos !== null){
+                        for(var j = 0; j < idsEventos.length; j++){
+                            if(idsEventos[j] === idCompeticaoPrivada){
+                                existeEventoPrivadoDuplicado = true;
+                                break;
+                            }
+                        }
+                        if(existeEventoPrivadoDuplicado === false){
+                            idsEventos.push(idCompeticaoPrivada);
+                        }
+                        }
+                        else{
+                            idsEventos.push(idCompeticaoPrivada);
+                        }
+                        
+                        if(existeEventoPrivadoDuplicado === false){
+                        existeCompeticaoPrivadaSelecionada = true;
+                        var bodyModalCpt = document.getElementById("bodyModalCptsPrivadas");
+                        //var nomeCompeticaoColetiva = document.getElementById("idTdNomeCmc"+i).value;
+                        var nomeEvento = document.getElementById("idTdNomeCpt"+i).value;
+
+                        numeroCod.push(i);
+                       
+                       dadosBodyModalCptsPrivadas += '<tr><td>'+nomeEvento+'</td><td><input type="text" class="form-control" id="inputCodigo"'+i+' placeholder="Insira o código aqui"></td></tr>';
+                        }
+                        existeEventoPrivadoDuplicado = false;
+                        }
+                    }
+                }
+                if(existeCompeticaoPrivadaSelecionada === true){
+                bodyModalCpt.innerHTML = dadosBodyModalCptsPrivadas;
+                acionarModalCptsPrivadas();
+                }
+                else if(existeCheckBoxSelecionado === true){
+                    abrirModalCadastro(contador);
+                }
+                else{
+                    acionarModalNenhumaCompeticaoVinculada();
+                }  
+                
+            }
+            
+            function confereCod(){
+               alert("Entrei aqui no cofereCod");
+               alert(document.getElementById("inputCodigo4"));
+                for(var i = 0; i < numeroCod.length; i++){
+                    var cod = document.getElementById("inputCodigo"+numeroCod[i]);
+                    alert(cod);
+                }
+            }
+            
         </script>
         <%
         }

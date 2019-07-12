@@ -41,6 +41,8 @@ public class CompeticaoControle {
     public void autualizarCompeticao(Competicao competicao) {
         competicaoDAOGeneric.alterar(competicao);
     }
+    
+    
 
     public void inativarCompeticao(Competicao competicao) {
 
