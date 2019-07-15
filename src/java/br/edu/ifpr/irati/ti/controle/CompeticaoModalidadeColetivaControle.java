@@ -5,9 +5,11 @@
  */
 package br.edu.ifpr.irati.ti.controle;
 
+import br.edu.ifpr.irati.ti.dao.CompeticaoModalidadeColetivaDAO;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva;
+import java.util.List;
 
 /**
  *
@@ -15,21 +17,31 @@ import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva;
  */
 public class CompeticaoModalidadeColetivaControle {
     
-    Dao<CompeticaoModalidadeColetiva> competicaoModalidadeColetivaDAO = new GenericDAO<>(CompeticaoModalidadeColetiva.class);
+    Dao<CompeticaoModalidadeColetiva> competicaoModalidadeColetivaDAOGeneric = new GenericDAO<>(CompeticaoModalidadeColetiva.class);
+    CompeticaoModalidadeColetivaDAO competicaoModalidadeColetivaDAO = new CompeticaoModalidadeColetivaDAO();
+    
     
     public void salvar(CompeticaoModalidadeColetiva competicaoModalidadeColetiva){
-        competicaoModalidadeColetivaDAO.salvar(competicaoModalidadeColetiva);
+        competicaoModalidadeColetivaDAOGeneric.salvar(competicaoModalidadeColetiva);
     }
     
     public CompeticaoModalidadeColetiva buscarPorId(int id){
-        return competicaoModalidadeColetivaDAO.buscarPorId(id);
+        return competicaoModalidadeColetivaDAOGeneric.buscarPorId(id);
     }
     
     public void alterar(CompeticaoModalidadeColetiva competicaoModalidadeColetiva){
-        competicaoModalidadeColetivaDAO.alterar(competicaoModalidadeColetiva);
+        competicaoModalidadeColetivaDAOGeneric.alterar(competicaoModalidadeColetiva);
+    }
+    
+    public List<CompeticaoModalidadeColetiva> buscarCompeticoesColetivasVinculasModalidade(int idModalidadeColetiva){
+        return competicaoModalidadeColetivaDAO.buscarCompeticoesColetivasVinculadasModalidadeColetiva(idModalidadeColetiva);
     }
     
     public void fecharSessaoDAOGeneric(){
+        competicaoModalidadeColetivaDAOGeneric.fecharSessao();
+    }
+    
+    public void fechaarSessaoDAOEspecifico(){
         competicaoModalidadeColetivaDAO.fecharSessao();
     }
 

@@ -148,7 +148,7 @@
                                 </select>
                                 
                                 <%}
-                                    upc.fecharSessao();
+                                    upc.fecharSessaoDAOGeneric();
                                 %>
 
                         </div>

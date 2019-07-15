@@ -13,7 +13,8 @@
     Competicao comp = cc.buscarCompeticaoPorId(id);
     
     comp.setPrivado(true);
+    cc.fecharSessaoDAOEspecifico();
     cc.autualizarCompeticao(comp);
-    
+    cc.fecharSessaoDAOGeneric();
     response.sendRedirect("../gerenciamentoDeCompeticao.jsp?idCompeticao="+id);
 %>
