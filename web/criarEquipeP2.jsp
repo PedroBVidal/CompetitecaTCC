@@ -266,8 +266,9 @@ div.ex4 {
 
                                 </div>
                                 <div class="modal-footer">
+                                    <span id="spanCodIncorreto"></span>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="confereCod();">Sim</button>
+                                    <button type="button" class="btn btn-primary"  onclick="confereCod();">Sim</button>
                                 </div>
                             </div>
                         </div>
@@ -363,6 +364,7 @@ div.ex4 {
 
         <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
+
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
 
@@ -491,8 +493,10 @@ div.ex4 {
                         var nomeEvento = document.getElementById("idTdNomeCpt"+i).value;
 
                         numeroCod.push(i);
-                       
-                       dadosBodyModalCptsPrivadas += '<tr><td>'+nomeEvento+'</td><td><input type="text" class="form-control" id="inputCodigo"'+i+' placeholder="Insira o código aqui"></td></tr>';
+                        var idInptCod = "inputCodigo"+i;
+                        var divCodInvalido = "divCodInvalido"+i;
+                        
+                       dadosBodyModalCptsPrivadas += '<tr><td>'+nomeEvento+'</td><td><input type="text" class="form-control" id="'+idInptCod+'" placeholder="Insira o código aqui"><div class="text-lowercase" style="color:red" id="'+divCodInvalido+'"></div></td></tr>';
                         }
                         existeEventoPrivadoDuplicado = false;
                         }
@@ -513,10 +517,39 @@ div.ex4 {
             
             function confereCod(){
                alert("Entrei aqui no cofereCod");
-               alert(document.getElementById("inputCodigo4"));
+               alert(numeroCod);
+            
+               var codigoIncorreto = [];
+               var codIncorreto = false;
+               
                 for(var i = 0; i < numeroCod.length; i++){
-                    var cod = document.getElementById("inputCodigo"+numeroCod[i]);
-                    alert(cod);
+                    var codDigitado = document.getElementById("inputCodigo"+numeroCod[i]).value;
+                    var codEvento = document.getElementById("codigoCpt"+numeroCod[i]).value;
+                    
+                    alert(codDigitado);
+                    alert(codEvento);
+                    
+                    if(codDigitado === codEvento){
+                        alert("Código igual");
+                    }
+                    if(codDigitado !== codEvento){
+                        alert("código diferente");
+                        codIncorreto = true;
+                        codigoIncorreto.push(numeroCod[i]);
+                    }
+                    
+                    if(codIncorreto){
+                        $("#spanCodIncorreto").text("13,13");
+                        for(var j = 0; j < codigoIncorreto.length; j++){
+                            alert("Entrei no cod incoreto");
+
+                           
+                        }
+                    }
+                    else{
+                      alert("Cod incorreto é diferente de null");  
+                    }
+                    
                 }
             }
             
