@@ -88,14 +88,14 @@
             %>
 
 
-            <h2 class="col mt-4 mb-3 titulos" style="margin: 20px 0px 20px -10px;">Inscreva-se nas competições que deseja partipar dentro de <span class="" ><i><%=competicao.getNome()%></i></span></h2>
+            <h2 class="col mt-4 mb-3 titulos" style="margin: 40px 0px 20px -10px;">Inscreva-se nas competições que deseja partipar dentro de <span class="" ><i><%=competicao.getNome()%></i></span></h2>
 
             <div class="row">
 
                 <div class="col-12">
 
 
-                    <div class="card">
+                    <div class="card" style="margin-bottom: 20px;">
                         <div class="card-header">
                             Inscrição
                         </div>
@@ -115,7 +115,8 @@
                             </div>
 
 
-                            <%                                for (CompeticaoModalidadeSolo cms : competicao.getCmodalidadesolo()) {
+                            <% 
+                                for (CompeticaoModalidadeSolo cms : competicao.getCmodalidadesolo()) {
                                     if (cms.isInativo() == false) {
                                         int flag = 0;
                                         char processo = ' ';
@@ -260,6 +261,8 @@
                             </div>
 
                             <%  for (CompeticaoModalidadeColetiva cmc : competicao.getCmodalidadecole()) {
+                                if(cmc.isInativo() == false){
+                            
                             %>
                             <div class="form-group">
                                 <div class="input-group mb-3">
@@ -270,11 +273,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <%}%>
+                            <%}}%>
                         </div>
                     </div>
 
                     <%  for (CompeticaoModalidadeColetiva cmc : competicao.getCmodalidadecole()) {
+                        if(cmc.isInativo() == false){
                     %>
                     <!-- Modal saiba mais-->          
 
@@ -335,16 +339,23 @@
                             </div>
                         </div>
                     </div>
-                    <%}%>
-
-
+                                            
+                                                             
+                                            
+                                            
+                           
+                    <%}}%>
+          
                     <%}
                     %>
 
 
 
                 </div>
+
             </div>
+                    
+
         </div>
 
 

@@ -39,9 +39,13 @@
     String sistemaCompeticao = request.getParameter("sistemaCompeticao");
     int idSistemaDeContagem = Integer.parseInt(request.getParameter("sistemaContagem"));
     String infoAdicional = request.getParameter("infoAdicional");
-    if(request.getParameter("infoAdicional") != null && !request.getParameter("infoAdicional").equals("")){
-        infoAdicional = request.getParameter("infoAdicional");     
+    
+    System.out.println("INFO ADICIONAL: "+ infoAdicional);
+    
+    if(infoAdicional.equals("")){
+        System.out.println("INFO ADICIONAL null ou equal '': "+ infoAdicional);
     }
+
     
     
     
@@ -75,7 +79,7 @@
         System.out.println("É um sistema eliminatório");
         boolean repescagem;
         CompeticaoModalidadeSolo competicaoModalidadeSolo;
-        if(!infoAdicional.equals("")|| infoAdicional != null){
+        if(!infoAdicional.equals("")){
             competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaEliminatorio(), competicao,infoAdicional);
         }else{
             competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaEliminatorio(), competicao);
@@ -166,5 +170,5 @@
         
     }
     
-    response.sendRedirect("../gerenciamentoDeCompeticao.jsp?idCompeticao="+idEvento);
+        response.sendRedirect("../gerenciamentoDeCompeticao.jsp?idCompeticao="+idEvento);
 %>

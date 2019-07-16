@@ -109,7 +109,7 @@
 
                                 <div class="card-body">
 
-                                    <form action="scripts/cadastrarCompeticaoModalidadeSolo.jsp">
+                                    <form name="formCompeticaoModalidadeSolo" action="">
 
                                         <div class="form-group">
 
@@ -158,7 +158,7 @@
 
                                         <div class="form-group">
                                             <label for="inputState">Sistema de desempate:</label>
-                                            <select id="modalidadeColetiva" class="form-control" name="sistemaDesempate">
+                                            <select id="sistemaDesempate1" class="form-control" name="sistemaDesempate">
                                                 <option selected>Pontos sofridos</option>
                                                 <option>Pontos marcados</option>
                                                 <option>Vitorias</option>
@@ -167,11 +167,15 @@
 
                                         <div class="form-group">
                                             <label for="inputState">Sistema de desempate secundário:</label>
-                                            <select id="modalidadeColetiva" class="form-control" name="sistemaDesempateSecundario">
+                                            <select id="sistemaDesempate2" class="form-control" name="sistemaDesempateSecundario">
                                                 <option selected>Pontos sofridos</option>
                                                 <option>Pontos marcados</option>
                                                 <option>Vitorias</option>
                                             </select>
+                                            <div id="divErroSistemaDesempate">
+
+                                            </div>
+                                            
                                         </div>
 
                                         <div class="form-group" id="divSisMistoElim">
@@ -179,11 +183,10 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Informação adicional sobre a competição(opcional):</label>
-                                            <textarea value="null" style="resize:none;" name="infoAdicional" class="form-control">
-                                            </textarea>
+                                            <textarea style="resize:none;" name="infoAdicional" class="form-control"></textarea>
                                         </div>
 
-                                        <button type="submit" class="btn btn-success">Cadastrar competição</button>
+                                            <button type="button" class="btn btn-success" onclick="validar();">Cadastrar competição</button>
                                     </form>
                                 </div>
                             </div>
@@ -236,6 +239,24 @@
                                                         div.innerHTML = '';
                                                     }
                                                 }
+                                                
+                                                function validar(){
+                                        
+                                                        var sistemaDesempate1 = document.getElementById("sistemaDesempate1").value;
+                                                        var sistemaDesempate2 = document.getElementById("sistemaDesempate2").value;
+                                                        var divErroSistemaDesempate = document.getElementById("divErroSistemaDesempate");
+                                                        if(sistemaDesempate1 === sistemaDesempate2){
+
+                                                        divErroSistemaDesempate.innerHTML = '<p class="text-danger">O sistemas de desempate primário e secundário devem ser diferentes.</p>';
+                                                        }
+                                                        else{
+                                                        divErroSistemaDesempate.innerHTML = '';
+                                                        document.forms["formCompeticaoModalidadeSolo"].action = "scripts/cadastrarCompeticaoModalidadeSolo.jsp";
+                                                        document.forms["formCompeticaoModalidadeSolo"].submit();
+                                                    }
+                                        
+                                        
+                                    }
 
 
         </script>

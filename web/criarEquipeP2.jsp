@@ -268,7 +268,7 @@ div.ex4 {
                                 <div class="modal-footer">
                                     <span id="spanCodIncorreto"></span>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                    <button type="button" class="btn btn-primary"  onclick="confereCod();">Sim</button>
+                                    <button type="button" class="btn btn-primary"  onclick="confereCod(<%=contadorCheckBox%>);">Sim</button>
                                 </div>
                             </div>
                         </div>
@@ -371,6 +371,7 @@ div.ex4 {
         <script>
             
             var numeroCod = [];
+            var codigoIncorreto = [];
             
             $('input#txt_consulta').quicksearch('table#tabela tbody tr');
             
@@ -415,7 +416,10 @@ div.ex4 {
            
             function abrirModalCadastro(contador){
                 
-                   
+                alert("ABRIR MODAL CADASTRO");
+                
+                
+                
                 var dadosBodyModal = '';
                 var existeCheckBoxSelecionado = false;
                 
@@ -449,7 +453,9 @@ div.ex4 {
             }
             
          function abrirModalCompeticoesPrivadas(contador){
-                alert("Entrei aqui");
+                alert(contador);
+                
+                numeroCod = [];
                 var dadosBodyModalCptsPrivadas = '';
                 var existeCompeticaoPrivadaSelecionada = false;
                 var existeCheckBoxSelecionado = false;
@@ -515,43 +521,68 @@ div.ex4 {
                 
             }
             
-            function confereCod(){
-               alert("Entrei aqui no cofereCod");
+            function confereCod(contador){
+                
+                
+               alert("Contador confere cod"+ contador);
                alert(numeroCod);
-            
-               var codigoIncorreto = [];
+               
+                for(var j = 0; j < codigoIncorreto.length; j++){
+                //alert("Ohhh yeah");
+
+                var divCodInvalido = document.getElementById("divCodInvalido"+codigoIncorreto[j]);
+                
+                //alert("Div cod invalido: "+ divCodInvalido);
+                divCodInvalido.innerHTML = '';        
+                                       
+                           
+                }
+               
+               
+               codigoIncorreto = [];
+               
                var codIncorreto = false;
                
                 for(var i = 0; i < numeroCod.length; i++){
                     var codDigitado = document.getElementById("inputCodigo"+numeroCod[i]).value;
                     var codEvento = document.getElementById("codigoCpt"+numeroCod[i]).value;
                     
-                    alert(codDigitado);
-                    alert(codEvento);
+                    //alert("Código digitado: "+ codDigitado);
+                    //alert("Código evento: "+ codEvento);
                     
                     if(codDigitado === codEvento){
-                        alert("Código igual");
+                        //alert("Código igual");
                     }
                     if(codDigitado !== codEvento){
-                        alert("código diferente");
+                        //alert("código diferente");
                         codIncorreto = true;
                         codigoIncorreto.push(numeroCod[i]);
                     }
-                    
-                    if(codIncorreto){
-                        $("#spanCodIncorreto").text("13,13");
-                        for(var j = 0; j < codigoIncorreto.length; j++){
-                            alert("Entrei no cod incoreto");
+                                      
+                }
+                if(codIncorreto){
 
+                //alert("codigo incorreto: "+ codigoIncorreto);
+                for(var j = 0; j < codigoIncorreto.length; j++){
+                alert("Ohhh yeah");
+
+                var divCodInvalido = document.getElementById("divCodInvalido"+codigoIncorreto[j]);
+                
+                //alert("Div cod invalido: "+ divCodInvalido);
+                var textCodInvalido = '<p class="text-danger">Código inválido</p>';
+                divCodInvalido.innerHTML = textCodInvalido;        
+                                       
                            
-                        }
-                    }
-                    else{
-                      alert("Cod incorreto é diferente de null");  
-                    }
+                }
                     
                 }
+                else{
+                    codIncorreto = [];
+                    $('#modalCptsPrivadas').modal('hide');
+                    abrirModalCadastro(contador);
+                }
             }
+
             
         </script>
         <%

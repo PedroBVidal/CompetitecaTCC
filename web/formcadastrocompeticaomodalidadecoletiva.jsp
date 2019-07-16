@@ -90,7 +90,6 @@
 
 
 
-
                     <!-- List group -->
                     <div class="row">
 
@@ -107,8 +106,8 @@
 
                                 <div class="card-body">
 
-                                    <form action="scripts/cadastrarCompeticaoModalidadeColetiva.jsp">
-
+                                    <form action="" name="formCompeticaoModalidadeColetiva">
+                                        <!--scripts/cadastrarCompeticaoModalidadeColetiva.jsp-->
                                         <div class="form-group">
 
                                             <input type="hidden" name="idCompeticao" value="<%=idCompeticao%>">
@@ -156,7 +155,7 @@
 
                                         <div class="form-group">
                                             <label for="inputState">Sistema de desempate:</label>
-                                            <select id="modalidadeColetiva" class="form-control" name="sistemaDesempate">
+                                            <select id="sistemaDesempate1" class="form-control" name="sistemaDesempate">
                                                 <option selected>Pontos sofridos</option>
                                                 <option>Pontos marcados</option>
                                                 <option>Vitorias</option>
@@ -165,18 +164,22 @@
 
                                         <div class="form-group">
                                             <label for="inputState">Sistema de desempate secundário:</label>
-                                            <select id="modalidadeColetiva" class="form-control" name="sistemaDesempateSecundario">
+                                            <select id="sistemaDesempate2" class="form-control" name="sistemaDesempateSecundario">
                                                 <option selected>Pontos sofridos</option>
                                                 <option>Pontos marcados</option>
                                                 <option>Vitorias</option>
                                             </select>
+                                            <div id="divErroSistemaDesempate">
+                                                
+                                            </div>
+                                            
                                         </div>
 
                                         <div class="form-group" id="divSisMistoElim">
 
                                         </div>
 
-                                        <button type="submit" class="btn btn-success">Cadastrar competição</button>
+                                            <button type="button" class="btn btn-success" onclick="validar();">Cadastrar competição</button>
                                     </form>
                                 </div>
                             </div>
@@ -228,6 +231,24 @@
                                            var div = document.getElementById("divSisMistoElim");
                                            div.innerHTML = '';
                                         }
+                                    }
+                                    
+                                    function validar(){
+                                        
+                                        var sistemaDesempate1 = document.getElementById("sistemaDesempate1").value;
+                                        var sistemaDesempate2 = document.getElementById("sistemaDesempate2").value;
+                                        var divErroSistemaDesempate = document.getElementById("divErroSistemaDesempate");
+                                        if(sistemaDesempate1 === sistemaDesempate2){
+                                            
+                                            divErroSistemaDesempate.innerHTML = '<p class="text-danger">O sistemas de desempate primário e secundário devem ser diferentes.</p>';
+                                        }
+                                        else{
+                                            divErroSistemaDesempate.innerHTML = '';
+                                             document.forms["formCompeticaoModalidadeColetiva"].action = "scripts/cadastrarCompeticaoModalidadeColetiva.jsp";
+                                             document.forms["formCompeticaoModalidadeColetiva"].submit();
+                                        }
+                                        
+                                        
                                     }
 
 
