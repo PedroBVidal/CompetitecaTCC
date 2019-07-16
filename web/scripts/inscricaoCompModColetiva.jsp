@@ -40,6 +40,6 @@
     iccc.salvar(icc);
     cmc.adicionarInscricao(icc);
     cmcc.alterar(cmc);
-    response.sendRedirect("../forminscricaocompeticao.jsp?idEquipe="+eqp.getIdEquipe()+"&idCompeticao="+idCompeticao+"&msg=Inscricao Realizada com Sucesso&color=success");
+    response.sendRedirect("../forminscricaocoletiva.jsp?idEquipe="+eqp.getIdEquipe()+"&idCompeticao="+idCompeticao+"&msg=Inscricao Realizada com Sucesso&color=success");
 
 %>

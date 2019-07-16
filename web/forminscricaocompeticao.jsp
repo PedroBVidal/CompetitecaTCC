@@ -335,6 +335,106 @@
                                         </form>
 
                                     </div>
+                                    <div class="row">
+                                        <h5 style="margin-left: 20px;">3- Ingressar com uma de minhas equipes: </h5>
+                                        <p style="margin-left: 10px;"><button type="button" role="button" class="btn btn-primary" data-toggle="collapse" data-target="#equipes<%=cmc.getIdCompeticaoModalidade()%>" aria-expanded="false" aria-controls="equipes<%=cmc.getIdCompeticaoModalidade()%>" >Clique aqui</button></p>
+
+                                        <div class="collapse col-12" id="equipes<%=cmc.getIdCompeticaoModalidade()%>">
+                                            <% int flag = 0;
+                                                int i = 0;                                                
+                                                UsuarioParticipante2 up22 = atleta.getUsuarioParticipante();
+                                                for (Equipe equp : up22.getEquipe()) {
+                                                    if (equp.getModalidade().getIdModColetiva() == cmc.getModalidadeColetiva().getIdModColetiva()) {
+                                                        flag++;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if (flag > 0) {
+                                            %>
+                                            <h4>Escolha a equipe que irá inscrever:</h4><br>
+                                            <div class="accordion" id="equipas<%=cmc.getIdCompeticaoModalidade()%>">
+                                                <%for (Equipe eq : up22.getEquipe()) {
+                                                        if (eq.getModalidade().getIdModColetiva() == cmc.getModalidadeColetiva().getIdModColetiva()) {
+                                                %>
+                                                <div class="card">
+                                                    <div class="card-header" id="<%=i%>-<%=cmc.getIdCompeticaoModalidade()%>">
+                                                        <h2 class="mb-0">
+                                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#<%=eq.getIdEquipe()%>-<%=cmc.getIdCompeticaoModalidade()%>" aria-expanded="false" aria-controls="<%=eq.getIdEquipe()%>-<%=cmc.getIdCompeticaoModalidade()%>">
+                                                                <%=eq.getNome()%>
+                                                            </button>
+                                                        </h2>
+                                                    </div>
+
+                                                    <div id="<%=eq.getIdEquipe()%>-<%=cmc.getIdCompeticaoModalidade()%>" class="collapse" aria-labelledby="<%=i%>-<%=cmc.getIdCompeticaoModalidade()%>" data-parent="#equipas<%=cmc.getIdCompeticaoModalidade()%>">
+                                                        <p>Selecione os atletas de sua equipe que participarão desta competição:</p><br>
+                                                        <div class="card-body">
+                                                            <form action="scripts/inscricaoCompModColetiva.jsp" method="POST">
+                                                                <div class="row">
+                                                                    <ul>
+                                                                        <%
+                                                                            int j = 0;
+                                                                            for (Atleta atl : eq.getAtletas()) {
+
+                                                                        %>
+
+                                                                        <li><input type="checkbox" name="idAtl<%=j%>" value="<%=atl.getIdAtleta()%>">&nbsp;<%=atl.getUsuarioParticipante().getNome()%></li>
+
+                                                                        <% i++;
+                                                                            }
+
+                                                                        %>
+                                                                    </ul>
+                                                                </div>
+                                                                <hr>
+
+                                                                <input type="hidden" name="numAtl" value="<%=eq.getAtletas().size()%>">
+                                                                <input type="hidden" name="idCompeticao" value="<%=competicao.getIdCompeticao()%>">
+                                                                <input type="hidden" name="idEquipe" value="<%=eq.getIdEquipe()%>">
+                                                                <input type="hidden" name="idCompModCol" value="<%=cmc.getIdCompeticaoModalidade()%>">
+                                                                <%int sinal = 0;
+                                                                    char estado = ' ';
+                                                                    for (InscricaoCompeticaoColetiva icc : cmc.getInscricoesCompeticoesColetivas()) {
+                                                                        if (icc.getEquipe().getIdEquipe() == eq.getIdEquipe()) {
+                                                                            sinal++;
+                                                                            estado = icc.getInscricaoAceita();
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                    if (sinal > 0) {
+                                                                        if (estado == 'A') {%>
+                                                                <p style="margin-left: 10px;"><button type="submit" role="button" disabled="true" class="btn btn-success popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute."><i class="fas fa-check"></i>Aprovada</button></p>        
+                                                                <%}
+                                                                    if (estado == 'N') {%>
+                                                                <p style="margin-left: 10px;"><button type="submit" role="button" disabled="true" class="btn btn-danger popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute."><i class="fas fa-times" style="margin-right: 10px;"></i>Negada</button></p>        
+                                                                <%}
+                                                                    if (estado == 'E') {%>
+                                                                <p style="margin-left: 10px;"><button type="submit" role="button" disabled="true" class="btn btn-warning popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute.">Em Aprovação</button></p>        
+                                                                <%}%>
+
+                                                                <%} else {
+                                                                %>
+                                                                <p style="margin-left: 10px;"><button type="submit" role="button" class="btn btn-success popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute.">Inscrever</button></p>
+                                                                <%}%>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <%i++;
+                                                        }
+                                                    }%>
+                                            </div>
+                                            <%} else {%>
+                                            <div class="card card-body">
+                                                Você não possui nenhuma equipe, ou nenhuma equipe elegível para esta competição<br>
+                                                Crie uma equipe, caso queira (vá o item 2), senão solicite o ingresso à uma equipe no item 1.
+                                            </div>
+                                            <%}%>
+                                        </div>
+
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
