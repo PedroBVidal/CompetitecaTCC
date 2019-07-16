@@ -315,32 +315,39 @@
                             <div class="modal-content">
 
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Selecione a opção desejada</h5>
+                                    <h5 class="modal-title">Selecione a opção desejada</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="row">
-                                        <h5 style="margin-left: 20px;">1- Criar uma nova equipe:</h5>
-                                        <p style="margin-left: 10px;"><a href="criarEquipe.jsp" role="button" class="btn btn-primary popover-test" title="Criar equipe" data-content="Popover body content is set in this attribute.">Clique aqui</a></p>
-                                    </div>
-                                    <hr>
-                                    <div class="row">
-                                        <h5 style="margin-left: 20px;">2- Solicitar entrada em uma equipe: </h5>
-                                        <form action="formSolicitarEntradaEmEquipe.jsp" method="POST">
-                                            <input type="hidden" name="idCmc" value="<%=cmc.getIdCompeticaoModalidade()%>">
-                                            <p style="margin-left: 10px;"><button type="submit" role="button" class="btn btn-primary popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute.">Clique aqui</button></p>
-                                        </form>
-
-                                    </div>
-                                    <div class="row">
-                                        <h5 style="margin-left: 20px;">3- Ingressar com uma de minhas equipes: </h5>
-                                        <p style="margin-left: 10px;"><button type="button" role="button" class="btn btn-primary" data-toggle="collapse" data-target="#equipes<%=cmc.getIdCompeticaoModalidade()%>" aria-expanded="false" aria-controls="equipes<%=cmc.getIdCompeticaoModalidade()%>" >Clique aqui</button></p>
+                                    <ul class="list-unstyled">
+                                        <div class="media">
+                                            <img src="img/icons8-1-c-48.png" class="align-self-start mr-3" alt="...">
+                                            <div class="media-body">
+                                                <h5 class="mt-0"><a href="" class="stretched-link">Solicitar entrada em uma equipe</a></h5>
+                                                <p>Solicite entrada em uma equipe que participará da competição <%=cmc.getNomeCompeticao()%>.</p>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <img src="img/icons8-2-c-48.png" class="align-self-start mr-3" alt="...">
+                                            <div class="media-body">
+                                                <h5 class="mt-0"><a href="criarEquipe.jsp" class="stretched-link">Criar minha equipe</a></h5>
+                                                <p>Crie sua equipe e adicione seus integrantes, para depois ingressar com ela em <%=cmc.getNomeCompeticao()%>.</p>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <img src="img/icons8-3-c-48.png" class="align-self-start mr-3" alt="...">
+                                            <div class="media-body">
+                                                <h5 class="mt-0"><a href="javascript:acionarCollapseEquipes(<%=cmc.getIdCompeticaoModalidade()%>)" class="stretched-link">Ingressar com uma de minhas equipes</a></h5>
+                                                <p>Ingresse com uma de suas equipes de Basquete 3x3 em <%=cmc.getNomeCompeticao()%>.</p>
+                                            </div>
+                                        </div>
+                                        
 
                                         <div class="collapse col-12" id="equipes<%=cmc.getIdCompeticaoModalidade()%>">
-                                            <% int flag = 0;
+                                            <% 
+                                                int flag = 0;
                                                 int i = 0;                                                
                                                 UsuarioParticipante2 up22 = atleta.getUsuarioParticipante();
                                                 for (Equipe equp : up22.getEquipe()) {
@@ -435,6 +442,7 @@
 
 
                                     </div>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -445,7 +453,55 @@
                                             
                            
                     <%}}%>
-          
+          <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button>
+
+          <!-- Modal -->
+          <div class="modal" tabindex="-1" role="dialog" id="exampleModalCenter">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Selecione a opção desejada</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          <ul class="list-unstyled">
+                              <div class="media">
+                                  <img src="img/icons8-1-c-48.png" class="align-self-start mr-3" alt="...">
+                                  <div class="media-body">
+                                      <h5 class="mt-0"><a href="#" class="stretched-link">Solicitar entrada em uma equipe</a></h5>
+                                      <p>Solicite entrada em uma equipe que participará da competição IRAJIF 2019.</p>
+                                  </div>
+                              </div>
+                              <div class="media">
+                                  <img src="img/icons8-2-c-48.png" class="align-self-start mr-3" alt="...">
+                                  <div class="media-body">
+                                      <h5 class="mt-0"><a href="#" class="stretched-link">Criar minha equipe</a></h5>
+                                      <p>Crie sua equipe e adicione seus integrantes, para depois ingressar com ela em IRAJIF 2019.</p>
+                                  </div>
+                              </div>
+                            <div class="media">
+                                  <img src="img/icons8-3-c-48.png" class="align-self-start mr-3" alt="...">
+                                  <div class="media-body">
+                                      <h5 class="mt-0"><a href="#" class="stretched-link">Ingressar com uma de minhas equipes</a></h5>
+                                      <p>Ingresse com uma de suas equipes de Basquete 3x3 em IRAJIF 2019.</p>
+                                  </div>
+                              </div>
+                              
+                              
+                          </ul>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
                     <%}
                     %>
 
@@ -469,6 +525,12 @@
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
         <script>
+            function acionarCollapseEquipes(idCompeticaoModalidade){
+                alert(idCompeticaoModalidade);
+                $('#equipes'+idCompeticaoModalidade).collapse();
+            }
+            
+            
         </script>
         <%
             }
