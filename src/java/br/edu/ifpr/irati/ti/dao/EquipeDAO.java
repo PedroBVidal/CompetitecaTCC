@@ -69,5 +69,24 @@ public class EquipeDAO extends Sessao {
         return results;
         }
         
+        public List<Equipe> buscarEquipesAbertasACmc(int idCptMod) {
+        abrirSessao();
+        sessao.beginTransaction();
+        String hql = "select e from equipe as e INNER JOIN e.competicoesModalidadeColeivas as cmc WHERE cmc.idCompeticaoModalidade = '"+idCptMod+"'";
+        org.hibernate.Query query = sessao.createQuery(hql);
+        List results = query.list();
+        
+        return results;
+        }
+        
+        public List<Equipe> buscarEquipesAbertasACmc2(int idCptMod) {
+        abrirSessao();
+        sessao.beginTransaction();
+        String hql = "select e from equipe as e INNER JOIN e.competicoesModalidadeColeivas as cmc WHERE cmc.idCompeticaoModalidade = '"+idCptMod+"'";
+        org.hibernate.Query query = sessao.createQuery(hql);
+        List results = query.list();
+        sessao.close();
+        return results;
+        }
         
 }

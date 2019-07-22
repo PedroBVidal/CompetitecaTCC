@@ -102,26 +102,51 @@
                 UsuarioParticipante2Controle userParticipanteControle = new UsuarioParticipante2Controle();
 
                 int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
+                int op = 0;
+                if(request.getParameter("op") != null){
+                op = Integer.parseInt(request.getParameter("op"));
+                }
                 Equipe equipe = equipeControle.buscarPorId(idEquipe);
                 p++;
 
             %>
             <!-- Page Heading/Breadcrumbs -->
-
+            <br>
+            <%
+                if(op == 0){
+            %>
             <h1 class="mt-4 mb-3 titulos">Gerenciando equipe <span class="titulos" style="font-style: italic;"><%=equipe.getNome()%></span>
-
+            <%}%>
+            <%
+                if(op == 2){
+            %>
+            <h1 class="mt-4 mb-3 titulos">Visualizando equipe <span class="titulos" style="font-style: italic;"><%=equipe.getNome()%></span>
+            <%}%>
             </h1><br>
 
 
             <!-- List group -->
             <div class="row">
                 <div class="list-group col-2" id="myList" role="tablist">
+                    
+                    <%
+                        if(op == 0){
+                    %>
                     <a class="list-group-item list-group-item-action active" data-toggle="list" href="#membros" role="tab">Minha equipe</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#adicionarMembros" role="tab">Adicionar membros</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#competicoes" role="tab">Buscar Competições</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#mcompeticoes" role="tab">Minhas Competições</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#solicitacoes" role="tab">Solicitações</a>
-
+                    <%}%>
+                    <%
+                    if(op == 2){
+                    %>
+                    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#membros" role="tab">Minha equipe</a>
+                    <a class="list-group-item list-group-item-action disabled" data-toggle="list" href="#adicionarMembros" role="tab">Adicionar membros</a>
+                    <a class="list-group-item list-group-item-action disabled" data-toggle="list" href="#competicoes" role="tab">Buscar Competições</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#mcompeticoes" role="tab">Minhas Competições</a>
+                    <a class="list-group-item list-group-item-action disabled" data-toggle="list" href="#solicitacoes" role="tab">Solicitações</a>
+                    <%}%>
                 </div>
 
                 <!-- Tab panes -->
@@ -159,10 +184,22 @@
                                         <td><%=nome%></td>
                                         <td><%=email%></td>
                                         <td>
+                                            <%
+                                                if(op == 0){
+                                            %>
                                             <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=atleta.getIdAtleta()%>&idComp=<%=atleta.getIdAtleta()%>&op=1" class="btn btn-danger">
                                                 <!-- Adicionar icone -->
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
+                                            <%}%>
+                                            <%  
+                                                if(op == 2){
+                                            %>
+                                            <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=atleta.getIdAtleta()%>&idComp=<%=atleta.getIdAtleta()%>&op=1" class="btn btn-danger disabled">
+                                                <!-- Adicionar icone -->
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                            <%}%>
                                         </td>    
                                         <%}%>
                                     </tr>

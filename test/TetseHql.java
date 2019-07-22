@@ -24,15 +24,12 @@ public class TetseHql {
     CompeticaoModalidadeColetivaDAO competicaoModalidadeColetivaDAO = new CompeticaoModalidadeColetivaDAO();
     EquipeDAO equipeDAO = new EquipeDAO();
     
-    List<CompeticaoModalidadeColetiva> cmc = competicaoModalidadeColetivaDAO.buscarCompeticoesColetivasVinculadasModalidadeColetiva(1);
-        System.out.println("DATE: "+ cmc);  
-        
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println(date);
-        System.out.println(sdf.format(date));
-        
-        System.exit(0);
+    List<Equipe> equipes = equipeDAO.buscarEquipesAbertasACmc(8);
+    
+    for(Equipe e : equipes){
+        System.out.println("Nome da equipe: "+ e.getNome());
+    }
+    System.exit(0);
         
         
         

@@ -3,6 +3,7 @@
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipanteControle"%>
 <%
+request.setCharacterEncoding("UTF-8");
 int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
 System.out.println(idUsuario); 
 int idCompeticao = Integer.parseInt(request.getParameter("idComp"));

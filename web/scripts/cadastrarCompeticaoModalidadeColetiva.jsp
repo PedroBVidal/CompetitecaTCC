@@ -34,7 +34,7 @@
     String sRepesgagem = request.getParameter("respescagem");
     String sistemaCompeticao = request.getParameter("sistemaCompeticao");
     int idSistemaDeContagem = Integer.parseInt(request.getParameter("sistemaContagem"));
-    
+    String infoAdicional = request.getParameter("infoAdicional");
     
     
     
@@ -66,9 +66,14 @@
     if(sistemaCompeticao.equals("Sistema eliminatório")){
         System.out.println("É um sistema eliminatório");
         boolean repescagem;
-        
-        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao);
-        
+        CompeticaoModalidadeColetiva competicaoModalidadeColetiva;
+        if(!infoAdicional.equals("")|| infoAdicional != null){
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao, infoAdicional);
+        }
+        else{
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao);
+ 
+        }
         if(sRepesgagem == null){
             repescagem = false;
         }
@@ -97,7 +102,15 @@
         System.out.println("É um sistema misto");
         boolean repescagem;
         
-        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaMisto(), competicao);
+                
+        CompeticaoModalidadeColetiva competicaoModalidadeColetiva;
+        if(!infoAdicional.equals("")|| infoAdicional != null){
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao, infoAdicional);
+        }
+        else{
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao);
+ 
+        }
         
         
         if(sRepesgagem == null){
@@ -127,7 +140,14 @@
     else{
         System.out.println("É um sistema todos contra todos");
         
-        CompeticaoModalidadeColetiva competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaTodosContraTodos(), competicao);
+        CompeticaoModalidadeColetiva competicaoModalidadeColetiva;
+        if(!infoAdicional.equals("")|| infoAdicional != null){
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao, infoAdicional);
+        }
+        else{
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao);
+ 
+        }
                
         
         SistemaTodosContraTodos sistemaTodosContraTodos = new SistemaTodosContraTodos(sistemaDeContagem, sistemaDeDesempate, 0, sistemaCompeticao, new CompeticaoModalidadeColetiva());

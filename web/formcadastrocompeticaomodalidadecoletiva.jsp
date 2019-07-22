@@ -178,7 +178,10 @@
                                         <div class="form-group" id="divSisMistoElim">
 
                                         </div>
-
+                                            <div class="form-group">
+                                                <label>Informação adicional sobre a competição(opcional):</label>
+                                                <textarea style="resize:none;" name="infoAdicional" class="form-control"></textarea>
+                                            </div>
                                             <button type="button" class="btn btn-success" onclick="validar();">Cadastrar competição</button>
                                     </form>
                                 </div>

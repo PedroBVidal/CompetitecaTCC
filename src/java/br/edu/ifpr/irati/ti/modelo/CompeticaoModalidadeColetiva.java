@@ -48,7 +48,7 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     }
     
     public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao,Competicao competicao, String informacaoExtra) {
-        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, nomeCompeticao);
+        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, informacaoExtra);
         this.modalidadeColetiva = modalidadeColetiva;
         this.equipesCompeticao = new ArrayList<>();
         this.inscricoesCompeticoesColetivas = new ArrayList<>();

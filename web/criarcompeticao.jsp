@@ -38,6 +38,7 @@
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
                 
             }else{
+                request.setCharacterEncoding("UTF-8");
         %>
 
         <!-- Navigation -->
@@ -51,7 +52,7 @@
         <div class="container">
 
             <!-- Page Heading/Breadcrumbs -->
-            <h1 class="mt-4 mb-3 titulos">Criar competição
+            <h1 class="mt-4 mb-3 titulos">Criar evento
 
 
             </h1><br>
@@ -63,8 +64,8 @@
 
                 <!-- Content Column -->
                 <div class="col-lg-9 mb-4">
-                    <%
-                request.setCharacterEncoding("UTF-8");
+            <%
+               
             if(request.getParameter("msg") != null){
                 String mensagem = request.getParameter("msg");
                 String cor = request.getParameter("color");
@@ -106,8 +107,11 @@
                         </div>
                         <div class="form-group">
                             <label>Informação adicional sobre a competição(opcional):</label>
-                            <textarea style="resize:none;" name="infoadicional" class="form-control">
-                            </textarea>
+                            <textarea style="resize:none;" name="infoadicional" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Competição do tipo interséries?</label>
+
                         </div>
                         <button type="submit" class="btn btn-success">
                             <!-- Adicionar icone -->

@@ -52,8 +52,14 @@ public class EquipeControle {
     public void fecharSessaoDAOEspecifico(){
         equipeDAO.fecharSessao();
     }
-    public void buscarEquipesVinculadasAUmaModalidade(){
-        
+    public List<Equipe> buscarEquipesAbertasCmc(int idCmc){
+        return equipeDAO.buscarEquipesAbertasACmc(idCmc);
+    }
+        public List<Equipe> buscarEquipesAbertasCmc2(int idCmc){
+        return equipeDAO.buscarEquipesAbertasACmc2(idCmc);
+    }
+    public void abrirSessaoDAOEspecifico(){
+        equipeDAO.abrirSessao();
     }
     
     

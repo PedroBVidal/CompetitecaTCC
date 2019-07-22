@@ -89,13 +89,18 @@
                         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#"><%=equipe.getNome()%></a>
+                                <a href="javascript:enviarFormGerenciarEquipe()"><%=equipe.getNome()%></a>
                             </h4>
                             <p class="card-text"><b>Modalidade:</b><%=equipe.getModalidade().getNome()%></p>
-
+                            
+                            <div class="row" style="margin-left: 1px;">
+                            <form action="gerenciarEquipe.jsp" method="POST" name="formGerenciarEquipe">
                             <!-- Button trigger modal -->
+                            <input type="hidden" name="idEquipe" value="<%=equipe.getIdEquipe()%>">
+                            <a href="javascript:enviarFormGerenciarEquipe()"><button class="btn btn-success">Gerenciar equipe</button></a>
                             <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#<%=equipe.getIdEquipe()%>"><i class="fas fa-trash-alt"></i></button></a>&nbsp;
-
+                            </form>
+                            </div>
 
 
                             <!-- Modal -->
@@ -103,24 +108,83 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir <%=equipe.getNome()%>?</h5>
-                                            <button type="button" data-dismiss="modal" aria-label="Close">
+                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir a equipe <%=equipe.getNome()%>?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
 
                                         <div class="modal-footer">
                                             <a href="scripts/editarEquipe.jsp?op=2&idEquipe=<%=equipe.getIdEquipe()%>&idUsuario=<%=usuarioParticipante.getIdUsuario()%>"><button class="btn btn-secondary">Sim</button></a>
-                                            <button type="button" data-dismiss="modal" class="btn btn-danger">Cancelar</button>
+                                            <button type="button" data-dismiss="modal" class="btn btn-primary">Cancelar</button>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="gerenciarEquipe.jsp?idEquipe=<%=equipe.getIdEquipe()%>"><button class="btn btn-success">Gerenciar Equipe</button></a>
+
+                            <span class="badge badge-info"><i class="fas fa-user-cog"></i>&nbsp;Administrador</span>
                         </div>
                     </div>
                 </div>
+                <%}%>
+                <%
+                    
+                    
+
+                    for (Equipe equipe : usuarioParticipante.getAtleta().getEquipes()) {
+
+                        System.out.println("Nome equipe: " + equipe.getNome());
+                        System.out.println("Integrantes: " + equipe.getAtletas());
+                        System.out.println("ADM: " + equipe.getAdministrador());
+                %>
+                
+                                <div class="col-lg-4 col-sm-6 portfolio-item">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="javascript:enviarFormVisualizarEquipe()"><%=equipe.getNome()%></a>
+                            </h4>
+                            <p class="card-text"><b>Modalidade:</b><%=equipe.getModalidade().getNome()%></p>
+                            
+                            <div class="row" style="margin-left: 1px;">
+                            <!-- Button trigger modal -->
+                            <a><button type="hidden" class="btn btn-danger" data-toggle="modal" data-target="#<%=equipe.getIdEquipe()%>"><i class="fas fa-sign-out-alt"></i></button></a>&nbsp;
+                            <form name="formVisualizarEquipe" method="POST" action="gerenciarEquipe.jsp">
+                                <input type="hidden" name="idEquipe" value="<%=equipe.getIdEquipe()%>">
+                                <input type="hidden" name="op" value="2">
+                            <a href="javascript:enviarFormVisualizarEquipe()"><button class="btn btn-success">Visualizar equipe</button></a>
+                            </form>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="<%=equipe.getIdEquipe()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente sair da equipe <%=equipe.getNome()%>?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <a href="scripts/excluirAtletaEquipe.jsp?idAtleta=<%=usuarioParticipante.getAtleta().getIdAtleta()%>&idEquipe=<%=equipe.getIdEquipe()%>&idUsuario=<%=usuarioParticipante.getIdUsuario()%>"><button class="btn btn-secondary">Sim</button></a>
+                                            <button type="button" data-dismiss="modal" class="btn btn-primary">Cancelar</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            
+                            <span class="badge badge-info"><i class="fas fa-user"></i>&nbsp;Participante</span>
+                        </div>
+                    </div>
+                </div>
+
                 <%}%>
             </div>
             <a href="criarEquipe.jsp" class="btn btn-success">
@@ -134,6 +198,17 @@
 
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script>
+            
+            function enviarFormVisualizarEquipe(){
+                document.forms["formVisualizarEquipe"].submit();
+            }
+            
+            function enviarFormGerenciarEquipe(){
+                document.forms["formGerenciarEquipe"].submit();
+            }
+            
+        </script>
         <%
 
             }

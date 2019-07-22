@@ -79,7 +79,7 @@ div.ex4 {
                 
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             }else{
-                
+                request.setCharacterEncoding("UTF-8");
                 int idModalidadeColetivaSelecionada = Integer.parseInt(request.getParameter("modalidade"));
                 String nomeEquipe = request.getParameter("nomeEquipe");
                 int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
