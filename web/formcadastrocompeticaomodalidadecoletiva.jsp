@@ -178,6 +178,9 @@
                                         <div class="form-group" id="divSisMistoElim">
 
                                         </div>
+                                        <div class="form-group" id="divJogosIdaVolta">
+                                           <div class="form-group form-check"><input type="checkbox" class="form-check-input" id="exampleCheck1" name="jogosidavolta" value="sim"><label class="form-check-label" for="exampleCheck1">Jogos com ida e volta?</label></div> 
+                                        </div>
                                             <div class="form-group">
                                                 <label>Informação adicional sobre a competição(opcional):</label>
                                                 <textarea style="resize:none;" name="infoAdicional" class="form-control"></textarea>
@@ -225,15 +228,29 @@
                                         var itemSelecionado = e.options[e.selectedIndex].text;
 
 
-                                        if (itemSelecionado === "Sistema eliminatório" || "Sistema misto") {
+                                        if (itemSelecionado === "Sistema eliminatório") {
                                             var div = document.getElementById("divSisMistoElim");
+                                            var div2 = document.getElementById("divJogosIdaVolta");
                                             div.innerHTML = '<div class="form-group form-check"><input type="checkbox" class="form-check-input" id="exampleCheck1" name="respescagem" value="sim"><label class="form-check-label" for="exampleCheck1">Emilinatórias com repescagem?</label></div>';
+                                            div2.innerHTML = '';
                                         }
                                         
                                         if (itemSelecionado === "Sistema todos contra todos"){
+                                           alert("Entrei aqui");
                                            var div = document.getElementById("divSisMistoElim");
+                                           var div2 = document.getElementById("divJogosIdaVolta");
                                            div.innerHTML = '';
+                                           div2.innerHTML = '<div class="form-group form-check"><input type="checkbox" class="form-check-input" id="exampleCheck1" name="jogosidavolta" value="sim"><label class="form-check-label" for="exampleCheck1">Jogos com ida e volta?</label></div>';
                                         }
+                                        
+                                        if(itemSelecionado === "Sistema misto"){
+                                            var div = document.getElementById("divSisMistoElim");
+                                            var div2 = document.getElementById("divJogosIdaVolta");
+                                            div.innerHTML = '<div class="form-group form-check"><input type="checkbox" class="form-check-input" id="exampleCheck1" name="respescagem" value="sim"><label class="form-check-label" for="exampleCheck1">Emilinatórias com repescagem?</label></div>';
+                                            div2.innerHTML = '<div class="form-group form-check"><input type="checkbox" class="form-check-input" id="exampleCheck1" name="jogosidavolta" value="sim"><label class="form-check-label" for="exampleCheck1">Jogos com ida e volta?</label></div>';
+
+                                        }
+                                        
                                     }
                                     
                                     function validar(){

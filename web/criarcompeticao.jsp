@@ -91,39 +91,66 @@
                         </div>
                         <div class="form-group">
                             <label>Data de início das inscrições:</label>
-                            <input required type="text" class="naozeibeu form-control" name="dataInicioInsc">
+                            <input required type="text" class="naozeibeu form-control" name="dataInicioInsc" id="dataInicioInscricao">
                         </div>
                         <div class="form-group">
                             <label> Data de término das Inscrições:</label>
-                            <input required type="text" class="naozeibeu form-control" name="dataTerminoInsc">
+                            <input required type="text" class="naozeibeu form-control" name="dataTerminoInsc"  id="dataTerminoInscricao">
+                            <div id="datasInscricaoIncorretas">
+                                
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Data de início da competição:</label>
-                            <input required type="text" class="naozeibeu form-control" name="dataInicioCompeticao">
+                            <input required type="text" class="naozeibeu form-control" name="dataInicioCompeticao"  id="dataInicioCpt">
                         </div>
                         <div class="form-group">
                             <label> Data de término da competição:</label>
-                            <input required type="text" class="naozeibeu form-control" name="dataTerminoCompeticao">
+                            <input required type="text" class="naozeibeu form-control" name="dataTerminoCompeticao"  id="dataTerminoCpt">
+                            <div id="datasCompeticaoIncorretas">
+                                
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Informação adicional sobre a competição(opcional):</label>
                             <textarea style="resize:none;" name="infoadicional" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Competição do tipo interséries?</label>
-
+                            <input type="checkbox" name="checkBoxInterseries">&nbsp;<label>Competição do tipo interséries? <a href="javascript:abirModalSaibaMaisInterseries();" class="badge badge-primary"><i class="fas fa-info"></i>&nbsp;Ajuda</a></label><br>
+                            
                         </div>
                         <button type="submit" class="btn btn-success">
-                            <!-- Adicionar icone -->
+                            <!-- Adicionar icone onclick="validarFormulario();"-->
                             <i class="fas fa-plus"></i>&nbsp;Criar
                         </button>
                     </form>
                 </div>
+
+                        
             </div>
             <!-- /.row -->
+            <!-- Modal Ajuda interséries-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ajuda</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Em uma competição do tipo interséries apenas equipes de um mesmo ano poderão inscrever-se nas competições coletivas.</p>
+                            <p>Exemplo: Uma equipe do 2º ANO pode ser composta por membros do 2ºANO AGRO E 2ºANO INFO.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
 
 
 
@@ -131,9 +158,55 @@
 
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="js/moment.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
         <script>
             $('.naozeibeu').mask('00/00/0000', {reverse: true});
+            
+            function abirModalSaibaMaisInterseries(){
+                $('#exampleModal').modal('show');
+            }
+            
+            function validarFormulario(){
+                alert("validar");
+                var dataInicioCompeticao = document.getElementById("dataInicioCpt").value;
+                var dataTerminoCompeticao = document.getElementById("dataTerminoCpt").value;
+                var dataInicioInscricao = document.getElementById("dataInicioInscricao").value;
+                var dataTerminoIncricao = document.getElementById("dataTerminoInscricao").value;
+                var divDatasCompeticaoIncorretas = document.getElementById("datasCompeticaoIncorretas");
+                var divDatasInscricaoIncorretas = document.getElementById("datasInscricaoIncorretas");
+                
+                
+                var dateString = dataInicioCompeticao;
+                var momentObj = moment(dataInicioCompeticao, 'dd/MM/yyyy');
+                
+                alert(momentObj);
+                //var momentString = momentObj.format('YYYY-MM-DD');
+                
+                
+                //var day = moment(dataInicioCompeticao);
+                
+                //alert(dataInicioCompeticao);
+                
+                //alert("DATA INICIO INCRICAO: "+ dataInicioInscricao);
+                //alert("DATA TERMINO INCRICAO: "+ dataTerminoIncricao);
+                //alert("DATA INCIO COMPETICAO: "+ dataInicioCompeticao);
+                //alert("DATA INICIO COMPETICAO: "+ dataTerminoCompeticao);
+                
+                                  //document.forms["formCompeticaoModalidadeColetiva"].action = "scripts/cadastrarCompeticaoModalidadeColetiva.jsp";
+
+                if(dataInicioInscricao <= dataTerminoIncricao){
+                    alert("Entrei aqui!");
+                  
+
+                }
+
+                
+
+            }
+            
+            
+            
         </script>
         <%
         }

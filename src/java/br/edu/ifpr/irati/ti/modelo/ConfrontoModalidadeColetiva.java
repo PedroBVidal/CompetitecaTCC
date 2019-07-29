@@ -21,7 +21,7 @@ import org.hibernate.annotations.Proxy;
 public class ConfrontoModalidadeColetiva extends Confronto implements Serializable {
     
     
-    @ManyToMany(mappedBy = "confrontosModalidadeColetiva", fetch=FetchType.EAGER)
+    @ManyToMany(mappedBy = "confrontosModalidadeColetiva", fetch=FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     protected List<Equipe> equipes;
     
@@ -34,6 +34,14 @@ public class ConfrontoModalidadeColetiva extends Confronto implements Serializab
         modalidadeColetiva = new ModalidadeColetiva();
     }
 
+    public ConfrontoModalidadeColetiva(List<Equipe> equipes, ModalidadeColetiva modalidadeColetiva) {
+        this.equipes = equipes;
+        this.modalidadeColetiva = modalidadeColetiva;
+    }
+
+    
+   
+    
     public ConfrontoModalidadeColetiva(List<Equipe> equipes, ModalidadeColetiva modalidadeColetiva, int idConfronto, Date data, Date horaInicio, Date horaTermino, String periodo, Local local, boolean finalizado, String resultado) {
         super(idConfronto, data, horaInicio, horaTermino, periodo, local, finalizado, resultado);
         this.equipes = equipes;

@@ -4,6 +4,7 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.EquipeCompeticao"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeColetivaControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.ModalidadeSolo"%>
@@ -47,7 +48,7 @@
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
 
-   <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css"
               href="css/fonte/style.css"/>
     </head>
@@ -55,17 +56,16 @@
     <body style="font-family: 'Quicksand';">
         <%
             UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
-            if(up == null){
-                
+            if (up == null) {
+
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
-            }else{
-                
+            } else {
+
                 CompeticaoModalidadeColetivaControle competicaoControle = new CompeticaoModalidadeColetivaControle();
-                
-                
+
                 int idCompeticao = Integer.parseInt(request.getParameter("id"));
                 CompeticaoModalidadeColetiva competicao = competicaoControle.buscarPorId(idCompeticao);
-                
+
         %>
 
         <header>
@@ -75,11 +75,10 @@
 
         <!-- Page Content -->
         <div class="container">
-            <%
-              request.setCharacterEncoding("UTF-8");
-          if(request.getParameter("msg") != null){
-              String mensagem = request.getParameter("msg");
-              String cor = request.getParameter("color");
+            <%                request.setCharacterEncoding("UTF-8");
+                if (request.getParameter("msg") != null) {
+                    String mensagem = request.getParameter("msg");
+                    String cor = request.getParameter("color");
             %>
             <br>
             <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
@@ -90,7 +89,7 @@
             </div>
 
             <%
-            }
+                }
             %>
             <!-- Page Heading/Breadcrumbs -->
             <h1 class="mt-4 mb-3 titulos">Gerenciando competicao <span style="color: red;"><%=competicao.getNomeCompeticao()%></span>
@@ -102,11 +101,11 @@
             <!-- List group -->
             <div class="row">
                 <div class="list-group col-2" id="myList" role="tablist">
-                    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#messages" role="tab">Mensagens</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#messages" role="tab">Mensagens</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#inscricao" role="tab">Inscrições</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Competidores</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">Classificações</a>
-
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#competidores" role="tab">Competidores</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#tabeladocampeonato" role="tab">Tabela do campeonato</a>
+                    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#jogos" role="tab">Jogos</a>
 
 
                 </div>
@@ -129,14 +128,12 @@
 
                             <tbody>
                                 <%
-                            
-                                    for(InscricaoCompeticaoColetiva iMc: competicao.getInscricoesCompeticoesColetivas()){
-                                        if(iMc.getInscricaoAceita() == 'E'){
-                                    String nomeEquipe = iMc.getEquipe().getNome();
-                                    
-                            
-                            
-                            
+
+                                    for (InscricaoCompeticaoColetiva iMc : competicao.getInscricoesCompeticoesColetivas()) {
+                                        if (iMc.getInscricaoAceita() == 'E') {
+                                            String nomeEquipe = iMc.getEquipe().getNome();
+
+
                                 %>    
                             <td><%=nomeEquipe%></td>
                             <td>
@@ -170,10 +167,10 @@
                                             <b>Email para Contato:</b>&nbsp;<%=iMc.getEquipe().getAdministrador().getEmail()%><br>
                                             <b>Atletas Inscritos:</b><br>
                                             <ul>
-                                            <%for (Atleta atl : iMc.getAtletas()) {%>
-                                            <li><%=atl.getUsuarioParticipante().getNome()%></li>   
-                                            <%    }
-                                            %>
+                                                <%for (Atleta atl : iMc.getAtletas()) {%>
+                                                <li><%=atl.getUsuarioParticipante().getNome()%></li>   
+                                                    <%    }
+                                                    %>
                                             </ul>
 
                                         </div>
@@ -183,7 +180,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <%}}%>
+                            <%}
+                                }%>
                         </table>
                         <script>
                             //Código de busca da tabela
@@ -194,11 +192,241 @@
                     </div>
 
 
-                    <div class="tab-pane" id="profile" role="tabpanel">
+                    <div class="tab-pane" id="tabeladocampeonato" role="tabpanel">
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                </a></span>
+                            <input name="consulta" id="txt_consulta1" placeholder="Consultar" type="text" class="form-control">
+                        </div>
+                        <table class="table table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Equipe</th>
+                                    <th scope="col">P</th>
+                                    <th scope="col">J</th>
+                                    <th scope="col">V</th>
+                                    <th scope="col">E</th>
+                                    <th scope="col">D</th>
+                                    <th scope="col">GP</th>
+                                    <th scope="col">GC</th>
+                                    <th scope="col">SG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    int contador = 0;
+                                    for(EquipeCompeticao equipeCompeticao : competicao.getEquipesCompeticao()){
+                                       contador++; 
+                                %>
+                                <tr>
+                                    <th scope="row"><%=contador%>°</th>
+                                    <td><%=equipeCompeticao.getEquipe().getNome()%></td>
+                                    <td><%=equipeCompeticao.getPontosMarcados()%></td>
+                                    <td><%=equipeCompeticao.getPontos()%></td>
+                                    <td><%=equipeCompeticao.getJogos()%></td>
+                                    <td><%=equipeCompeticao.getVitorias()%></td>
+                                    <td><%=equipeCompeticao.getEmpates()%></td>
+                                    <td><%=equipeCompeticao.getDerrotas()%></td>
+                                    <td><%=equipeCompeticao.getPontosMarcados()%></td>
+                                    <td><%=equipeCompeticao.getPontosSofridos()%></td>
+                                </tr>
+                                <%}%>
+                                <tr>
+                                    <th scope="row">X°</th>
+                                    <td>Vingadores</td>
 
-                        <h1>NONE</h1>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>3</td>
+                                    <td>5</td>
+                                    <td>8</td>
+                                    <td>10</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>24</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">X°</th>
+                                    <td>Vingadores Amazonenzes</td>
+
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>3</td>
+                                    <td>5</td>
+                                    <td>8</td>
+                                    <td>10</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>24</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
+
+                    <div class="tab-pane active" id="jogos" role="tabpanel">
+                        
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="teste-tab" data-toggle="tab" href="#teste" role="tab" aria-controls="teste" aria-selected="false">Profile</a>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="tab-content" id="myTabContent">
+                                    <!--Tab JOGOS-->
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            
+                                        <div class="col-sm-6">
+                                            <div class="card" style="width: 25rem; mar">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Jogo 1</h5>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" style="width: 8.5rem;">Vingadores</span>
+                                                        </div>
+                                                        <input type="text" aria-label="First name" class="form-control">
+                                                        <input type="text" aria-label="Last name" class="form-control">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" style="width: 8.5rem;">Lituanos</span>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-sm-left" style="margin-top: 10px;">Local:</p>
+                                                    <p class="text-sm-left">Data:</p>
+                                                    <p><span class="badge badge-pill badge-warning">Não realizado</span></p>
+                                                    
+                                                    <a href="#" class="btn btn-primary">Inserir dados do jogo</a>
+                                                    <button type="button" class="btn btn-success">Finalizar jogo</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                                                                <div class="col-sm-6">
+                                            <div class="card" style="width: 25rem;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Jogo 1</h5>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" style="width: 8.5rem;">Vingadores</span>
+                                                        </div>
+                                                        <input type="text" aria-label="First name" class="form-control">
+                                                        <input type="text" aria-label="Last name" class="form-control">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" style="width: 8.5rem;">Lituanos</span>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-sm-left" style="margin-top: 10px;">Local:</p>
+                                                    <p class="text-sm-left">Data:</p>
+                                                    <p><span class="badge badge-pill badge-warning">Não realizado</span></p>
+                                                    
+                                                    <a href="#" class="btn btn-primary">Inserir dados do jogo</a>
+                                                    <button type="button" class="btn btn-success">Finalizar jogo</button>
+                                                </div>
+                                            </div>
+                                        </div>                                        <div class="col-sm-6">
+                                            <div class="card" style="width: 25rem;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Jogo 1</h5>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" style="width: 8.5rem;">Vingadores</span>
+                                                        </div>
+                                                        <input type="text" aria-label="First name" class="form-control">
+                                                        <input type="text" aria-label="Last name" class="form-control">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" style="width: 8.5rem;">Lituanos</span>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-sm-left" style="margin-top: 10px;">Local:</p>
+                                                    <p class="text-sm-left">Data:</p>
+                                                    <p><span class="badge badge-pill badge-warning">Não realizado</span></p>
+                                                    
+                                                    <a href="#" class="btn btn-primary">Inserir dados do jogo</a>
+                                                    <button type="button" class="btn btn-success">Finalizar jogo</button>
+                                                </div>
+                                            </div>
+                                        </div>                                        <div class="col-sm-6">
+                                            <div class="card" style="width: 25rem;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Jogo 1</h5>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" style="width: 8.5rem;">Vingadores</span>
+                                                        </div>
+                                                        <input type="text" aria-label="First name" class="form-control">
+                                                        <input type="text" aria-label="Last name" class="form-control">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" style="width: 8.5rem;">Lituanos</span>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-sm-left" style="margin-top: 10px;">Local:</p>
+                                                    <p class="text-sm-left">Data:</p>
+                                                    <p><span class="badge badge-pill badge-warning">Não realizado</span></p>
+                                                    
+                                                    <a href="#" class="btn btn-primary">Inserir dados do jogo</a>
+                                                    <button type="button" class="btn btn-success">Finalizar jogo</button>
+                                                </div>
+                                            </div>
+                                        </div>                                        <div class="col-sm-6">
+                                            <div class="card" style="width: 25rem;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Jogo 1</h5>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" style="width: 8.5rem;">Vingadores</span>
+                                                        </div>
+                                                        <input type="text" aria-label="First name" class="form-control">
+                                                        <input type="text" aria-label="Last name" class="form-control">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" style="width: 8.5rem;">Lituanos</span>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-sm-left" style="margin-top: 10px;">Local:</p>
+                                                    <p class="text-sm-left">Data:</p>
+                                                    <p><span class="badge badge-pill badge-warning">Não realizado</span></p>
+                                                    
+                                                    <a href="#" class="btn btn-primary">Inserir dados do jogo</a>
+                                                    <button type="button" class="btn btn-success">Finalizar jogo</button>
+                                                </div>
+                                            </div>
+                                        </div>                                                                       
+                                        </div>
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="gerenciarCompModColetiva.jsp?id=<%=competicao.getIdCompeticaoModalidade()%>" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <div class="tab-pane fade" id="teste" role="tabpanel" aria-labelledby="teste-tab">1</div>
+                                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                                </div>
+                            </div>
+                        </div>       
+                    </div>
 
                     <div class="tab-pane active" id="messages" role="tabpanel">
 
@@ -219,30 +447,28 @@
 
                             <tbody>
                                 <%
-                            
-                                    for(InscricaoCompeticaoColetiva iMc: competicao.getInscricoesCompeticoesColetivas()){
-                                        if(iMc.getInscricaoAceita() == 'A'){
-                                    String nomeEquipe = iMc.getEquipe().getNome();
-                                    
-                            
-                            
-                            
+
+                                    for (EquipeCompeticao equipeCompeticao : competicao.getEquipesCompeticao()) {
+
+                                        String nomeEquipe = equipeCompeticao.getEquipe().getNome();
+
+
                                 %>    
                             <td><%=nomeEquipe%></td>
                             <td>
 
-                                <a href="scripts/aprovaInscCompColetiva.jsp?opt=3&idInsc=<%=iMc.getIdInscricao()%>&idComp=<%=competicao.getIdCompeticaoModalidade()%>" class="btn btn-danger">
+                                <a href="#" class="btn btn-danger">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-trash-alt"></i>
                                 </a> &nbsp;
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=iMc.getEquipe().getIdEquipe()%>">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#<%=equipeCompeticao.getEquipe().getIdEquipe()%>">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-eye"></i>
                                 </button></td>
 
                             </tbody>
 
-                            <div class="modal fade" id="<%=iMc.getEquipe().getIdEquipe()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<%=equipeCompeticao.getEquipe().getIdEquipe()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -254,13 +480,13 @@
                                         <div class="modal-body">
 
                                             <b>Nome da Equipe:</b>&nbsp; <%=nomeEquipe%> <br>
-                                            <b>Email para Contato:</b>&nbsp;<%=iMc.getEquipe().getAdministrador().getEmail()%><br>
+                                            <b>Email para Contato:</b>&nbsp;<%=equipeCompeticao.getEquipe().getAdministrador().getEmail()%><br>
                                             <b>Atletas Inscritos:</b><br>
                                             <ul>
-                                            <%for (Atleta atl : iMc.getAtletas()) {%>
-                                             <li><%=atl.getUsuarioParticipante().getNome()%></li>       
-                                               <% }
-                                            %>
+                                                <%for (Atleta atl : equipeCompeticao.getAtletasEquipe()) {%>
+                                                <li><%=atl.getUsuarioParticipante().getNome()%></li>       
+                                                    <% }
+                                                    %>
                                             </ul>
 
                                         </div>
@@ -270,7 +496,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <%}}%>
+                            <%}%>
                         </table>
                         <script>
                             //Código de busca da tabela
@@ -291,7 +517,7 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <%
-        }
+            }
         %>
     </body>
 

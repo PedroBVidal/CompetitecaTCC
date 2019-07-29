@@ -105,6 +105,7 @@
                 for(Atleta a : atletasVinculadosUp){
                     
                 Competicao competicao = a.getCompeticao();
+                
                 int idAtleta = a.getIdAtleta();
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String dataInicio = simpleDateFormat.format(competicao.getDataInicio());
