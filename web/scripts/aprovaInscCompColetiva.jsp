@@ -4,6 +4,10 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeColetivaControle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.EquipeCompeticao"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.EquipeCompeticaoControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.InscricaoCompeticaoColetivaControle"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.mensagens.ComunicadoRecebidoControle"%>
@@ -25,12 +29,17 @@
 
     int idInsc = Integer.parseInt(request.getParameter("idInsc"));
     int opt = Integer.parseInt(request.getParameter("opt"));
-    String idComp = request.getParameter("idComp");
+    int idComp = Integer.parseInt(request.getParameter("idComp"));
+    
     InscricaoCompeticaoColetivaControle icmsc = new InscricaoCompeticaoColetivaControle();
+    EquipeCompeticaoControle equipeCompeticaoControle = new EquipeCompeticaoControle();
     UsuarioParticipante2Controle up2c = new UsuarioParticipante2Controle();
+    ComunicadoRecebidoControle crc = new ComunicadoRecebidoControle();
+    CompeticaoModalidadeColetivaControle cmcc = new CompeticaoModalidadeColetivaControle();
+    
     InscricaoCompeticaoColetiva icms = icmsc.buscarId(idInsc);
     UsuarioParticipante2 up2 = up2c.buscarPorId(icms.getEquipe().getAdministrador().getIdUsuario());
-    ComunicadoRecebidoControle crc = new ComunicadoRecebidoControle();
+    CompeticaoModalidadeColetiva cmc = cmcc.buscarPorId(idComp);
     
     UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
 
@@ -48,7 +57,15 @@
         //comunicado.adicionarUsuarioParticipante(up);
         crc.salvar(comunicado);
         crc.fecharSessaoDAOGeneric();
-        icmsc.fecharSessaoDAOGeneric();
+        
+        EquipeCompeticao equipeCompeticao = new EquipeCompeticao(0, icms.getEquipe(), icms.getAtletas());
+        equipeCompeticaoControle.salvar(equipeCompeticao);
+        equipeCompeticaoControle.fecharSessaoDAOGeneric();
+        
+        cmc.getEquipesCompeticao().add(equipeCompeticao);
+        cmcc.alterar(cmc);
+        cmcc.fecharSessaoDAOGeneric();
+        //icmsc.fecharSessaoDAOGeneric();
         
         
         up2.adicionarMensagemRecebida(comunicado);

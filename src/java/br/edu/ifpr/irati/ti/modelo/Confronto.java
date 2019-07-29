@@ -26,7 +26,7 @@ public abstract class Confronto implements Serializable {
     protected int idConfronto;
     
     @Temporal(TemporalType.DATE)
-    protected Date data;
+    protected Date dataConfronto;
     
     @Temporal(TemporalType.TIME)
     protected Date horaInicio;
@@ -52,7 +52,7 @@ public abstract class Confronto implements Serializable {
 
     public Confronto() {
         this.idConfronto = 0;
-        this.data = new Date();
+        this.dataConfronto = new Date();
         this.horaInicio = new Date();
         this.horaTermino = new Date();
         this.periodo = "";
@@ -60,10 +60,12 @@ public abstract class Confronto implements Serializable {
         this.resultado = "";
         this.finalizado = false;
     }
+    
+    
 
     public Confronto(int idConfronto, Date data, Date horaInicio, Date horaTermino, String periodo) {
         this.idConfronto = idConfronto;
-        this.data = data;
+        this.dataConfronto = data;
         this.horaInicio = horaInicio;
         this.horaTermino = horaTermino;
         this.periodo = periodo;
@@ -74,7 +76,7 @@ public abstract class Confronto implements Serializable {
 
     public Confronto(int idConfronto, Date data, Date horaInicio, Date horaTermino, String periodo, Local local, boolean finalizado, String resultado) {
         this.idConfronto = idConfronto;
-        this.data = data;
+        this.dataConfronto = data;
         this.horaInicio = horaInicio;
         this.horaTermino = horaTermino;
         this.periodo = periodo;
@@ -97,19 +99,7 @@ public abstract class Confronto implements Serializable {
         this.idConfronto = idConfronto;
     }
 
-    /**
-     * @return the data
-     */
-    public Date getData() {
-        return data;
-    }
 
-    /**
-     * @param data the data to set
-     */
-    public void setData(Date data) {
-        this.data = data;
-    }
 
     /**
      * @return the horaInicio

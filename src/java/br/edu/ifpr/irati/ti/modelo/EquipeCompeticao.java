@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
@@ -24,12 +26,32 @@ public class EquipeCompeticao implements Serializable {
     @OneToOne
     private Equipe equipe;
     
-        
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Atleta> atletasEquipe;
+    
     @Column(name="pontosMarcados")
     private double pontosMarcados;
     
     @Column(name="pontosSofridos")
     private double pontosSofridos;
+    
+    @Column(name="vitorias")
+    private int vitorias;
+    
+    @Column(name="empates")
+    private int empates;
+        
+    @Column(name="derrotas")
+    private int derrotas;
+    
+    @Column(name="jogos")
+    private int jogos;
+    
+    @Column(name="pontos")
+    private int pontos;
+    
+
+    
     
     @OneToMany
     private List<Equipe> adversariosQueAEquipeVenceu;
@@ -43,32 +65,58 @@ public class EquipeCompeticao implements Serializable {
     public EquipeCompeticao() {
         idEquipeCompeticao = 0;
         equipe = new Equipe();
+        atletasEquipe = new ArrayList<>();
         pontosMarcados = 0;
         pontosSofridos = 0;
         adversariosQueAEquipeVenceu = new ArrayList<>();
         adversariosQueAEquipePerdeu = new ArrayList<>();
         adversariosQueAEquipeEmpatou = new ArrayList<>();
+        vitorias = 0;
+        jogos = 0;
+        pontos = 0;
+        derrotas = 0;
+        empates = 0;
     }
 
-    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, double pontosMarcados, double pontosSofridos) {
+    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe,List<Atleta> atletasEquipe) {
         this.idEquipeCompeticao = idEquipeCompeticao;
         this.equipe = equipe;
-        this.pontosMarcados = pontosMarcados;
-        this.pontosSofridos = pontosSofridos;
+        this.pontosMarcados = 0;
+        this.pontosSofridos = 0;
+        this.atletasEquipe = atletasEquipe;
         this.adversariosQueAEquipeVenceu = new ArrayList<>();
         this.adversariosQueAEquipePerdeu = new ArrayList<>();
         this.adversariosQueAEquipeEmpatou = new ArrayList<>();
+        this.vitorias = 0;
+        this.jogos = 0;
+        this.pontos = 0;
+        this.derrotas = 0;
+        this.empates = 0;
     }
 
-    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, double pontosMarcados, double pontosSofridos, List<Equipe> adversariosQueAEquipeVenceu, List<Equipe> adversariosQueAEquipePerdeu, List<Equipe> adversariosQueAEquipeEmpatou) {
+    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, List<Atleta> atletasEquipe, double pontosMarcados, double pontosSofridos, int vitorias, int empates, int derrotas, int jogos, int pontos, List<Equipe> adversariosQueAEquipeVenceu, List<Equipe> adversariosQueAEquipePerdeu, List<Equipe> adversariosQueAEquipeEmpatou) {
         this.idEquipeCompeticao = idEquipeCompeticao;
         this.equipe = equipe;
+        this.atletasEquipe = atletasEquipe;
         this.pontosMarcados = pontosMarcados;
         this.pontosSofridos = pontosSofridos;
+        this.vitorias = vitorias;
+        this.empates = empates;
+        this.derrotas = derrotas;
+        this.jogos = jogos;
+        this.pontos = pontos;
         this.adversariosQueAEquipeVenceu = adversariosQueAEquipeVenceu;
         this.adversariosQueAEquipePerdeu = adversariosQueAEquipePerdeu;
         this.adversariosQueAEquipeEmpatou = adversariosQueAEquipeEmpatou;
     }
+
+    
+
+    
+
+    
+
+    
 
     /**
      * @return the idEquipeCompeticao
@@ -166,6 +214,90 @@ public class EquipeCompeticao implements Serializable {
      */
     public void setAdversariosQueAEquipeEmpatou(List<Equipe> adversariosQueAEquipeEmpatou) {
         this.adversariosQueAEquipeEmpatou = adversariosQueAEquipeEmpatou;
+    }
+
+    /**
+     * @return the atletasEquipe
+     */
+    public List<Atleta> getAtletasEquipe() {
+        return atletasEquipe;
+    }
+
+    /**
+     * @param atletasEquipe the atletasEquipe to set
+     */
+    public void setAtletasEquipe(List<Atleta> atletasEquipe) {
+        this.atletasEquipe = atletasEquipe;
+    }
+
+    /**
+     * @return the vitorias
+     */
+    public int getVitorias() {
+        return vitorias;
+    }
+
+    /**
+     * @param vitorias the vitorias to set
+     */
+    public void setVitorias(int vitorias) {
+        this.vitorias = vitorias;
+    }
+
+    /**
+     * @return the jogos
+     */
+    public int getJogos() {
+        return jogos;
+    }
+
+    /**
+     * @param jogos the jogos to set
+     */
+    public void setJogos(int jogos) {
+        this.jogos = jogos;
+    }
+
+    /**
+     * @return the pontos
+     */
+    public int getPontos() {
+        return pontos;
+    }
+
+    /**
+     * @param pontos the pontos to set
+     */
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
+    }
+
+    /**
+     * @return the empates
+     */
+    public int getEmpates() {
+        return empates;
+    }
+
+    /**
+     * @param empates the empates to set
+     */
+    public void setEmpates(int empates) {
+        this.empates = empates;
+    }
+
+    /**
+     * @return the derrotas
+     */
+    public int getDerrotas() {
+        return derrotas;
+    }
+
+    /**
+     * @param derrotas the derrotas to set
+     */
+    public void setDerrotas(int derrotas) {
+        this.derrotas = derrotas;
     }
     
     

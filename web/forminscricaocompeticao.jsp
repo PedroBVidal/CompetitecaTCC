@@ -397,8 +397,8 @@
                                             <img src="img/icons8-3-c-48.png" class="align-self-start mr-3" alt="...">
                                             <div class="media-body">
                                                 
-                                                <h5 class="mt-0"><a href="javascript:acionarCollapseEquipes(<%=cmc.getIdCompeticaoModalidade()%>)" class="stretched-link">Ingressar com uma de minhas equipes</a></h5>
-                                                <p>Ingresse com uma de suas equipes de Basquete 3x3 em <%=cmc.getNomeCompeticao()%>.</p>
+                                                <h5 class="mt-0"><a data-toggle="collapse" data-target="#equipes<%=cmc.getIdCompeticaoModalidade()%>" aria-expanded="false" aria-controls="equipes<%=cmc.getIdCompeticaoModalidade()%>" class="stretched-link">Ingressar com uma de minhas equipes</a></h5>
+                                                <p>Ingresse com uma de suas equipes em <%=cmc.getNomeCompeticao()%>.</p>
                                                 
                                             </div>
                                         </div>
@@ -501,7 +501,7 @@
 
 
                                     </div>
-                                    </ul>
+                                    
                                 </div>
                             </div>
                         </div>
