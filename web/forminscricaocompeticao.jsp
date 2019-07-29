@@ -349,27 +349,27 @@
                                             <img src="img/icons8-1-c-48.png" class="align-self-start mr-3" alt="...">
                                             <div class="media-body">
                                                 <%
-                                                    boolean usuarioÉAdministradorDeEquipe = false;
+                                                    boolean usuarioEAdministradorDeEquipe = false;
                                                     
                                                     for(Equipe equipeAtleta : atleta.getUsuarioParticipante().getEquipe()){
-                                                    usuarioÉAdministradorDeEquipe = false;    
+                                                    usuarioEAdministradorDeEquipe = false;    
                                                     
                                                         for(CompeticaoModalidadeColetiva cmcEquipe : equipeAtleta.getCompeticoesModalidadeColeivas()){
                                                             if(cmc.getIdCompeticaoModalidade() == cmcEquipe.getIdCompeticaoModalidade()){
-                                                            usuarioÉAdministradorDeEquipe = true;    
+                                                            usuarioEAdministradorDeEquipe = true;    
                                                             break;
                                                                 
                                                             }
                                                             
                                                         }
-                                                        if(usuarioÉAdministradorDeEquipe == true){
+                                                        if(usuarioEAdministradorDeEquipe == true){
                                                             break;
                                                         }
                                                     }
                                                 %>
                                                 
                                                 <%
-                                                    if(usuarioÉAdministradorDeEquipe == true){
+                                                    if(usuarioEAdministradorDeEquipe == true){
                                                 %>
                                                 <h5 class="mt-0"><a  class="stretched-link">Solicitar entrada em uma equipe</a></h5>
                                                 <p>Você já possui uma equipe aberta a competição <%=cmc.getNomeCompeticao()%>, portando não pode solicitar entrada em outras equipes abertas a ela.</p>
@@ -383,7 +383,7 @@
                                             <img src="img/icons8-2-c-48.png" class="align-self-start mr-3" alt="...">
                                             <div class="media-body">
                                                 <%
-                                                    if(usuarioÉAdministradorDeEquipe == true){
+                                                    if(usuarioEAdministradorDeEquipe == true){
                                                 %>
                                                 <h5 class="mt-0"><a class="stretched-link">Criar minha equipe (Já possui)</a></h5>
                                                 <p>Você já possui uma equipe aberta a competição <%=cmc.getNomeCompeticao()%>!</p>
