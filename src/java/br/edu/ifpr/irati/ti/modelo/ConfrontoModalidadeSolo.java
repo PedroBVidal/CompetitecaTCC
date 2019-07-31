@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -19,7 +18,7 @@ public class ConfrontoModalidadeSolo extends Confronto implements Serializable {
     
     
     @ManyToMany//(mappedBy = "confrontosModalidadeSolo", fetch=FetchType.EAGER)
-    protected List<Atleta> atletas;
+    private List<AtletaCompeticao> atletas;
     
     
     @ManyToOne
@@ -31,25 +30,13 @@ public class ConfrontoModalidadeSolo extends Confronto implements Serializable {
         this.modalidadeSolo = new ModalidadeSolo();
     }
 
-    public ConfrontoModalidadeSolo(List<Atleta> atletas, ModalidadeSolo modalidadeSolo, int idConfronto, Date data, Date horaInicio, Date horaTermino, String periodo, Local local, boolean finalizado, String resultado) {
+    public ConfrontoModalidadeSolo(List<AtletaCompeticao> atletas, ModalidadeSolo modalidadeSolo, int idConfronto, Date data, Date horaInicio, Date horaTermino, String periodo, Local local, boolean finalizado, String resultado) {
         super(idConfronto, data, horaInicio, horaTermino, periodo, local, finalizado, resultado);
         this.atletas = atletas;
         this.modalidadeSolo = modalidadeSolo;
     }
 
-    /**
-     * @return the atletas
-     */
-    public List<Atleta> getAtletas() {
-        return atletas;
-    }
-
-    /**
-     * @param atletas the atletas to set
-     */
-    public void setAtletas(List<Atleta> atletas) {
-        this.atletas = atletas;
-    }
+    
 
     /**
      * @return the modalidadeSolo
@@ -63,6 +50,20 @@ public class ConfrontoModalidadeSolo extends Confronto implements Serializable {
      */
     public void setModalidadeSolo(ModalidadeSolo modalidadeSolo) {
         this.modalidadeSolo = modalidadeSolo;
+    }
+
+    /**
+     * @return the atletas
+     */
+    public List<AtletaCompeticao> getAtletas() {
+        return atletas;
+    }
+
+    /**
+     * @param atletas the atletas to set
+     */
+    public void setAtletas(List<AtletaCompeticao> atletas) {
+        this.atletas = atletas;
     }
     
     

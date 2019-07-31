@@ -232,34 +232,7 @@
                                     <td><%=equipeCompeticao.getPontosSofridos()%></td>
                                 </tr>
                                 <%}%>
-                                <tr>
-                                    <th scope="row">X°</th>
-                                    <td>Vingadores</td>
 
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>3</td>
-                                    <td>5</td>
-                                    <td>8</td>
-                                    <td>10</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>24</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">X°</th>
-                                    <td>Vingadores Amazonenzes</td>
-
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>3</td>
-                                    <td>5</td>
-                                    <td>8</td>
-                                    <td>10</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>24</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -431,7 +404,9 @@
                     <div class="tab-pane active" id="messages" role="tabpanel">
 
                     </div>
-                    <div class="tab-pane" id="settings" role="tabpanel">
+                                                        
+                    <!--Tab pane competidores-->
+                    <div class="tab-pane" id="competidores" role="tabpanel">
                         <div class="form-group input-group">
                             <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
                                 </a></span>
@@ -498,16 +473,51 @@
                             </div>
                             <%}%>
                         </table>
+                        
+                        <button type="button" class="btn btn-success">Success</button>
+                        
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmarGerarJogos">
+                            Gerar jogos da competição
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Deseja realmente gerar os jogos da competição <%=competicao.getNomeCompeticao()%></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary">Sim</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                        
+                </div>
+
+            </div>
+        </div>
                         <script>
                             //Código de busca da tabela
                             $('input#txt_consulta').quicksearch('table#tabela tbody tr');
 
                         </script>
-                    </div>
-                </div>
 
-            </div>
-        </div>
 
 
 

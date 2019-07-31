@@ -46,6 +46,10 @@ public abstract class CompeticaoModalidade implements Serializable {
     @Column(name = "inativo")
     @Type(type = "true_false")
     private boolean inativo;
+    
+    @Column(name = "jogosemandamento")
+    @Type(type = "true_false")
+    private boolean jogosEmAndamento;
 
     public CompeticaoModalidade() {
         idCompeticaoModalidade = 0;
@@ -53,6 +57,7 @@ public abstract class CompeticaoModalidade implements Serializable {
         confrontos = new ArrayList<>();
         statusFormularioInscricaoPublica = false;
         informacaoExtra = "";
+        jogosEmAndamento = false;
     }
 
     public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao) {
@@ -61,6 +66,7 @@ public abstract class CompeticaoModalidade implements Serializable {
         this.sistemaDeCompeticao = sistemaDeCompeticao;
         this.confrontos = new ArrayList<>();
         this.statusFormularioInscricaoPublica = false;
+        this.jogosEmAndamento = false;
     }
     
     public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, String informacaoExtra) {
@@ -70,15 +76,21 @@ public abstract class CompeticaoModalidade implements Serializable {
         this.informacaoExtra = informacaoExtra;
         this.confrontos = new ArrayList<>();
         this.statusFormularioInscricaoPublica = false;
+        this.jogosEmAndamento = false;
     }
 
-    public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica) {
+    public CompeticaoModalidade(int idCompeticaoModalidade, String informacaoExtra, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica, boolean inativo, boolean jogosEmAndamento) {
         this.idCompeticaoModalidade = idCompeticaoModalidade;
+        this.informacaoExtra = informacaoExtra;
         this.nomeCompeticao = nomeCompeticao;
         this.sistemaDeCompeticao = sistemaDeCompeticao;
         this.confrontos = confrontos;
         this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
+        this.inativo = inativo;
+        this.jogosEmAndamento = jogosEmAndamento;
     }
+
+    
 
     /**
      * @return the idCompeticaoModalidade
@@ -179,4 +191,22 @@ public abstract class CompeticaoModalidade implements Serializable {
         this.informacaoExtra = informacaoExtra;
     }
 
+    /**
+     * @return the jogosEmAndamento
+     */
+    public boolean isJogosEmAndamento() {
+        return jogosEmAndamento;
+    }
+
+    /**
+     * @param jogosEmAndamento the jogosEmAndamento to set
+     */
+    public void setJogosEmAndamento(boolean jogosEmAndamento) {
+        this.jogosEmAndamento = jogosEmAndamento;
+    }
+    
+    
+    
+    
+    
 }
