@@ -444,7 +444,7 @@
 
                                                                         %>
 
-                                                                        <li><input type="checkbox" name="idAtl<%=j%>" value="<%=atl.getIdAtleta()%>">&nbsp;<%=atl.getUsuarioParticipante().getNome()%></li>
+                                                                        <li><input type="checkbox" name="idAtl<%=j%>+<%=eq.getIdEquipe()%>" value="<%=atl.getIdAtleta()%>">&nbsp;<%=atl.getUsuarioParticipante().getNome()%></li>
 
                                                                         <% i++;
                                                                             }
@@ -455,6 +455,7 @@
                                                                 <hr>
 
                                                                 <input type="hidden" name="numAtl" value="<%=eq.getAtletas().size()%>">
+                                                                <input type="hidden" name="op" value="1">
                                                                 <input type="hidden" name="idCompeticao" value="<%=competicao.getIdCompeticao()%>">
                                                                 <input type="hidden" name="idEquipe" value="<%=eq.getIdEquipe()%>">
                                                                 <input type="hidden" name="idCompModCol" value="<%=cmc.getIdCompeticaoModalidade()%>">

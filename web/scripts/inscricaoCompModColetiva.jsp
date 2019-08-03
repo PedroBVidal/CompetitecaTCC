@@ -30,16 +30,23 @@
     EquipeControle eqpc = new EquipeControle();
     Equipe eqp = eqpc.buscarPorId(idEquipe);
     for (int i = 0; i < numAtl; i++) {
-      if(request.getParameter("idAtl" + i) != null){
-        atls.add(atc.buscarPorId(Integer.parseInt(request.getParameter("idAtl" + i))));
-       }
-       System.out.println(numAtl);
+        if (request.getParameter("op").equals("1")) {
+            if (request.getParameter("idAtl" + i+"+"+idEquipe) != null) {
+                atls.add(atc.buscarPorId(Integer.parseInt(request.getParameter("idAtl" + i+"+"+idEquipe))));
+            }
+        }else{
+
+        if (request.getParameter("idAtl" + i) != null) {
+            atls.add(atc.buscarPorId(Integer.parseInt(request.getParameter("idAtl" + i))));
+        }
+        }
+        System.out.println(numAtl);
     }
 
     InscricaoCompeticaoColetiva icc = new InscricaoCompeticaoColetiva(0, cmc, eqp, atls, 'E');
     iccc.salvar(icc);
     cmc.adicionarInscricao(icc);
     cmcc.alterar(cmc);
-    response.sendRedirect("../forminscricaocoletiva.jsp?idEquipe="+eqp.getIdEquipe()+"&idCompeticao="+idCompeticao+"&msg=Inscricao Realizada com Sucesso&color=success");
+    response.sendRedirect("../forminscricaocoletiva.jsp?idEquipe=" + eqp.getIdEquipe() + "&idCompeticao=" + idCompeticao + "&msg=Inscricao Realizada com Sucesso&color=success");
 
 %>

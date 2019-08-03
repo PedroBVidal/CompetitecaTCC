@@ -59,7 +59,7 @@
                                 <%
                                     if(contadorMensagens != 0){
                                 %>
-                                <span class="badge badge-info">
+                                <span class="badge badge-pill badge-primary">
 
                                     <%=contadorMensagens%>
                                 </span>
