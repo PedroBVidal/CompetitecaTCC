@@ -33,9 +33,9 @@
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
 
- <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css"
-          href="css/fonte/style.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css"
+              href="css/fonte/style.css"/>
     </head>
 
     <body style="font-family: 'Quicksand';">
@@ -58,7 +58,7 @@
 
         <!-- Page Content -->
         <div class="container">
-<br>
+            <br>
             <!-- Page Heading/Breadcrumbs -->
             <h1 class="mt-4 mb-3 titulos">Cadastrar nova competição individual
 
@@ -130,7 +130,10 @@
                                                 <%}%>
                                             </select>
                                         </div>
-
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput">Número de vagas a disponibilizar:</label>
+                                            <input type="text" class="form-control" id="formGroupExampleInput" name="numVagas">
+                                        </div>
                                         <div class="form-group">
                                             <label for="inputState">Sistema de competição:</label>
                                             <select id="sisCompeticao" class="form-control" name="sistemaCompeticao" onchange="proximoPasso()">
@@ -175,7 +178,7 @@
                                             <div id="divErroSistemaDesempate">
 
                                             </div>
-                                            
+
                                         </div>
 
                                         <div class="form-group" id="divSisMistoElim">
@@ -186,7 +189,7 @@
                                             <textarea style="resize:none;" name="infoAdicional" class="form-control"></textarea>
                                         </div>
 
-                                            <button type="button" class="btn btn-success" onclick="validar();">Cadastrar competição</button>
+                                        <button type="button" class="btn btn-success" onclick="validar();">Cadastrar competição</button>
                                     </form>
                                 </div>
                             </div>
@@ -239,24 +242,23 @@
                                                         div.innerHTML = '';
                                                     }
                                                 }
-                                                
-                                                function validar(){
-                                        
-                                                        var sistemaDesempate1 = document.getElementById("sistemaDesempate1").value;
-                                                        var sistemaDesempate2 = document.getElementById("sistemaDesempate2").value;
-                                                        var divErroSistemaDesempate = document.getElementById("divErroSistemaDesempate");
-                                                        if(sistemaDesempate1 === sistemaDesempate2){
+
+                                                function validar() {
+
+                                                    var sistemaDesempate1 = document.getElementById("sistemaDesempate1").value;
+                                                    var sistemaDesempate2 = document.getElementById("sistemaDesempate2").value;
+                                                    var divErroSistemaDesempate = document.getElementById("divErroSistemaDesempate");
+                                                    if (sistemaDesempate1 === sistemaDesempate2) {
 
                                                         divErroSistemaDesempate.innerHTML = '<p class="text-danger">O sistemas de desempate primário e secundário devem ser diferentes.</p>';
-                                                        }
-                                                        else{
+                                                    } else {
                                                         divErroSistemaDesempate.innerHTML = '';
                                                         document.forms["formCompeticaoModalidadeSolo"].action = "scripts/cadastrarCompeticaoModalidadeSolo.jsp";
                                                         document.forms["formCompeticaoModalidadeSolo"].submit();
                                                     }
-                                        
-                                        
-                                    }
+
+
+                                                }
 
 
         </script>

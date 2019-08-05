@@ -26,10 +26,10 @@ public abstract class CompeticaoModalidade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idCompeticaoModalidade;
-    
+
     @Column(name = "informacaoExtra", nullable = true)
     private String informacaoExtra;
-    
+
     @Column(name = "nomecompeticao", nullable = false, length = 100)
     private String nomeCompeticao;
 
@@ -47,37 +47,62 @@ public abstract class CompeticaoModalidade implements Serializable {
     @Type(type = "true_false")
     private boolean inativo;
 
+    @Column(name = "jogosemandamento")
+    @Type(type = "true_false")
+    private boolean jogosEmAndamento;
+
+    @Column(name = "num_participantes")
+    private int numParticipantes;
+    @Column(name = "num_vagas")
+    private int numVagas;
+    @Column(name = "num_vagas_disp")
+    private int numVagasDisp = numVagas - numParticipantes;
+
     public CompeticaoModalidade() {
         idCompeticaoModalidade = 0;
         nomeCompeticao = "";
         confrontos = new ArrayList<>();
         statusFormularioInscricaoPublica = false;
         informacaoExtra = "";
+        jogosEmAndamento = false;
+        numVagas = 0;
+        numParticipantes = 0;
     }
 
-    public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao) {
+    public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, int numVagas) {
         this.idCompeticaoModalidade = idCompeticaoModalidade;
         this.nomeCompeticao = nomeCompeticao;
         this.sistemaDeCompeticao = sistemaDeCompeticao;
         this.confrontos = new ArrayList<>();
         this.statusFormularioInscricaoPublica = false;
+        this.jogosEmAndamento = false;
+        this.numVagas = numVagas;
+        this.numParticipantes = 0;
     }
-    
-    public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, String informacaoExtra) {
+
+    public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, String informacaoExtra, int numVagas) {
         this.idCompeticaoModalidade = idCompeticaoModalidade;
         this.nomeCompeticao = nomeCompeticao;
         this.sistemaDeCompeticao = sistemaDeCompeticao;
         this.informacaoExtra = informacaoExtra;
         this.confrontos = new ArrayList<>();
         this.statusFormularioInscricaoPublica = false;
+        this.jogosEmAndamento = false;
+        this.numVagas = numVagas;
+        this.numParticipantes = 0;
     }
 
-    public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica) {
+    public CompeticaoModalidade(int idCompeticaoModalidade, String informacaoExtra, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica, boolean inativo, boolean jogosEmAndamento, int numVagas) {
         this.idCompeticaoModalidade = idCompeticaoModalidade;
+        this.informacaoExtra = informacaoExtra;
         this.nomeCompeticao = nomeCompeticao;
         this.sistemaDeCompeticao = sistemaDeCompeticao;
         this.confrontos = confrontos;
         this.statusFormularioInscricaoPublica = statusFormularioInscricaoPublica;
+        this.inativo = inativo;
+        this.jogosEmAndamento = jogosEmAndamento;
+        this.numVagas = numVagas;
+        this.numParticipantes = 0;
     }
 
     /**
@@ -179,4 +204,34 @@ public abstract class CompeticaoModalidade implements Serializable {
         this.informacaoExtra = informacaoExtra;
     }
 
+    /**
+     * @return the jogosEmAndamento
+     */
+    public boolean isJogosEmAndamento() {
+        return jogosEmAndamento;
+    }
+
+    /**
+     * @param jogosEmAndamento the jogosEmAndamento to set
+     */
+    public void setJogosEmAndamento(boolean jogosEmAndamento) {
+        this.jogosEmAndamento = jogosEmAndamento;
+    }
+
+    public int getNumParticipantes() {
+        return numParticipantes;
+    }
+
+    public void setNumParticipantes(int numParticipantes) {
+        this.numParticipantes = numParticipantes;
+    }
+
+    public int getNumVagas() {
+        return numVagas;
+    }
+
+    public void setNumVagas(int numVagas) {
+        this.numVagas = numVagas;
+    }
+    
 }

@@ -21,7 +21,7 @@ import org.hibernate.annotations.Proxy;
 @Proxy(lazy = false)
 public class ComunicadoEnviado extends MensagemEnviada implements Serializable{
     
-    @Column(name = "texto",nullable = false)
+    @Column(name = "texto",nullable = false, length = 2000)
     private String texto;
 
     public ComunicadoEnviado() {

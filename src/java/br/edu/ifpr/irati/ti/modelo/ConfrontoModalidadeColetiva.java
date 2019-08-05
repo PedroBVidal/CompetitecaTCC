@@ -21,9 +21,9 @@ import org.hibernate.annotations.Proxy;
 public class ConfrontoModalidadeColetiva extends Confronto implements Serializable {
     
     
-    @ManyToMany(mappedBy = "confrontosModalidadeColetiva", fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
-    protected List<Equipe> equipes;
+    private List<EquipeCompeticao> equipes;
     
     @ManyToOne
     protected ModalidadeColetiva modalidadeColetiva;
@@ -34,8 +34,7 @@ public class ConfrontoModalidadeColetiva extends Confronto implements Serializab
         modalidadeColetiva = new ModalidadeColetiva();
     }
 
-    public ConfrontoModalidadeColetiva(List<Equipe> equipes, ModalidadeColetiva modalidadeColetiva) {
-        super();
+    public ConfrontoModalidadeColetiva(List<EquipeCompeticao> equipes, ModalidadeColetiva modalidadeColetiva) {
         this.equipes = equipes;
         this.modalidadeColetiva = modalidadeColetiva;
     }
@@ -43,25 +42,13 @@ public class ConfrontoModalidadeColetiva extends Confronto implements Serializab
     
    
     
-    public ConfrontoModalidadeColetiva(List<Equipe> equipes, ModalidadeColetiva modalidadeColetiva, int idConfronto, Date data, Date horaInicio, Date horaTermino, String periodo, Local local, boolean finalizado, String resultado) {
+    public ConfrontoModalidadeColetiva(List<EquipeCompeticao> equipes, ModalidadeColetiva modalidadeColetiva, int idConfronto, Date data, Date horaInicio, Date horaTermino, String periodo, Local local, boolean finalizado, String resultado) {
         super(idConfronto, data, horaInicio, horaTermino, periodo, local, finalizado, resultado);
         this.equipes = equipes;
         this.modalidadeColetiva = modalidadeColetiva;
     }
 
-    /**
-     * @return the equipes
-     */
-    public List<Equipe> getEquipes() {
-        return equipes;
-    }
-
-    /**
-     * @param equipes the equipes to set
-     */
-    public void setEquipes(List<Equipe> equipes) {
-        this.equipes = equipes;
-    }
+    
 
     /**
      * @return the modalidadeColetiva
@@ -75,7 +62,21 @@ public class ConfrontoModalidadeColetiva extends Confronto implements Serializab
      */
     public void setModalidadeColetiva(ModalidadeColetiva modalidadeColetiva) {
         this.modalidadeColetiva = modalidadeColetiva;
+      }
+
+    /**
+     * @return the equipes
+     */
+    public List<EquipeCompeticao> getEquipes() {
+        return equipes;
     }
+
+    /**
+     * @param equipes the equipes to set
+     */
+    public void setEquipes(List<EquipeCompeticao> equipes) {
+        this.equipes = equipes;
+  }
     
     
     
