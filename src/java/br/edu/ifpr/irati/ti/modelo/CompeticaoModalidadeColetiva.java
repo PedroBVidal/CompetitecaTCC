@@ -64,46 +64,6 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     }
 
     
-        
-    
-
-    public void gerarConfrontosSistemaTodosContraTodos(List<EquipeCompeticao> equipesCompeticao){
-        
-        List<ConfrontoModalidadeColetiva> confrontosModalidadesColetivas = new ArrayList<>();
-        
-        
-        int numeroEquipes = equipesCompeticao.size();
-        System.out.println("Número de equipes: "+ numeroEquipes);
-        int i = 0, j = 1,z=1;
-        
-        while(i < numeroEquipes){
-            System.out.println("I: "+ i);
-            while(z <= (numeroEquipes - (i + 1))){
-            System.out.println("J: "+ j);
-            EquipeCompeticao e1 = equipesCompeticao.get(i);
-            EquipeCompeticao e2 = equipesCompeticao.get(j);
-            
-            List<EquipeCompeticao> equipesConfrontantes = new ArrayList<>();
-            equipesConfrontantes.add(e1);
-            equipesConfrontantes.add(e2);
-            ConfrontoModalidadeColetiva confrontoColetivo = new ConfrontoModalidadeColetiva(equipesConfrontantes, this.getModalidadeColetiva());
-            confrontosModalidadesColetivas.add(confrontoColetivo);
-            j++;
-            z++;
-            }
-            i++;
-            j = i + 1;
-            z = 1;
-        }
-        int cont = 1;
-        for(ConfrontoModalidadeColetiva confronmc : confrontosModalidadesColetivas){
-            System.out.println("Confronto "+ cont);
-            System.out.println(confronmc.getEquipes().get(0).getEquipe().getNome()+"("+confronmc.getEquipes().get(0).getIdEquipeCompeticao());
-            System.out.println(confronmc.getEquipes().get(1).getEquipe().getNome()+"("+confronmc.getEquipes().get(1).getIdEquipeCompeticao());
-            System.out.println("");
-            cont++;
-        }
-    }
 
     /**
      * @return the modalidadeColetiva

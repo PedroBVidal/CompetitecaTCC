@@ -473,17 +473,16 @@
                             </div>
                             <%}%>
                         </table>
+                       
                         
-                        <button type="button" class="btn btn-success">Success</button>
                         
-
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmarGerarJogos">
                             Gerar jogos da competição
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="modalConfirmarGerarJogos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -492,11 +491,13 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
+
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary">Sim</button>
+                                        <form action="scripts/gerarJogosCompeticaoModalidadeColetiva.jsp">
+                                            <input type="hidden" value="<%=competicao.getIdCompeticaoModalidade()%>" name="idCompModColetiva">
+                                            <button type="submit" class="btn btn-primary">Sim</button>
+                                        </form>
+                                        
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                     </div>
                                 </div>
