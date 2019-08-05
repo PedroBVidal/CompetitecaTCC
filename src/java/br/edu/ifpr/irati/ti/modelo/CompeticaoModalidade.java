@@ -56,7 +56,7 @@ public abstract class CompeticaoModalidade implements Serializable {
     @Column(name = "num_vagas")
     private int numVagas;
     @Column(name = "num_vagas_disp")
-    private int numVagasDisp = numVagas - numParticipantes;
+    private int numVagasDisp;
 
     public CompeticaoModalidade() {
         idCompeticaoModalidade = 0;
@@ -78,6 +78,7 @@ public abstract class CompeticaoModalidade implements Serializable {
         this.jogosEmAndamento = false;
         this.numVagas = numVagas;
         this.numParticipantes = 0;
+        this.numVagas = numVagas;
     }
 
     public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, String informacaoExtra, int numVagas) {
@@ -90,6 +91,7 @@ public abstract class CompeticaoModalidade implements Serializable {
         this.jogosEmAndamento = false;
         this.numVagas = numVagas;
         this.numParticipantes = 0;
+        this.numVagasDisp = numVagas;
     }
 
     public CompeticaoModalidade(int idCompeticaoModalidade, String informacaoExtra, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica, boolean inativo, boolean jogosEmAndamento, int numVagas) {
@@ -103,6 +105,7 @@ public abstract class CompeticaoModalidade implements Serializable {
         this.jogosEmAndamento = jogosEmAndamento;
         this.numVagas = numVagas;
         this.numParticipantes = 0;
+        this.numVagasDisp = numVagas;
     }
 
     /**
@@ -223,7 +226,9 @@ public abstract class CompeticaoModalidade implements Serializable {
     }
 
     public void setNumParticipantes(int numParticipantes) {
+        this.numVagasDisp = this.numVagas - numParticipantes;
         this.numParticipantes = numParticipantes;
+        
     }
 
     public int getNumVagas() {
@@ -233,5 +238,15 @@ public abstract class CompeticaoModalidade implements Serializable {
     public void setNumVagas(int numVagas) {
         this.numVagas = numVagas;
     }
+    public void adicionarParticipante(){
+        this.numParticipantes++;
+        this.numVagasDisp = this.numVagas - this.numParticipantes;
+    }
+
+    public int getNumVagasDisp() {
+        return numVagasDisp;
+    }
+    
+    
     
 }

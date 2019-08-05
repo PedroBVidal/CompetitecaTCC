@@ -44,6 +44,7 @@
     UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
 
     if (opt == 1) {
+        cmc.adicionarParticipante();
         String atletas = "<ul>";
         icms.setInscricaoAceita('A');
         icmsc.alterar(icms);
