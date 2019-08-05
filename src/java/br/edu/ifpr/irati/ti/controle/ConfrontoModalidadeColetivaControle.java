@@ -5,7 +5,6 @@
  */
 package br.edu.ifpr.irati.ti.controle;
 
-import br.edu.ifpr.irati.ti.dao.CompeticaoModalidadeColetivaDAO;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva;
@@ -19,51 +18,43 @@ import java.util.List;
  *
  * @author Usuário
  */
-public class CompeticaoModalidadeColetivaControle {
+public class ConfrontoModalidadeColetivaControle {
     
-    Dao<CompeticaoModalidadeColetiva> competicaoModalidadeColetivaDAOGeneric = new GenericDAO<>(CompeticaoModalidadeColetiva.class);
-    CompeticaoModalidadeColetivaDAO competicaoModalidadeColetivaDAO = new CompeticaoModalidadeColetivaDAO();
+    Dao<ConfrontoModalidadeColetiva> confrontoModalidadeColetivaDAOGeneric = new GenericDAO<>(ConfrontoModalidadeColetiva.class);
+
     
-    
-    public void salvar(CompeticaoModalidadeColetiva competicaoModalidadeColetiva){
-        competicaoModalidadeColetivaDAOGeneric.salvar(competicaoModalidadeColetiva);
+    public void salvar(ConfrontoModalidadeColetiva confrontoModalidadeColetiva){
+        confrontoModalidadeColetivaDAOGeneric.salvar(confrontoModalidadeColetiva);
     }
     
-    public CompeticaoModalidadeColetiva buscarPorId(int id){
-        return competicaoModalidadeColetivaDAOGeneric.buscarPorId(id);
+    public ConfrontoModalidadeColetiva buscarPorId(int id){
+        return confrontoModalidadeColetivaDAOGeneric.buscarPorId(id);
     }
     
-    public void alterar(CompeticaoModalidadeColetiva competicaoModalidadeColetiva){
-        competicaoModalidadeColetivaDAOGeneric.alterar(competicaoModalidadeColetiva);
-    }
-    
-    public List<CompeticaoModalidadeColetiva> buscarCompeticoesColetivasVinculasModalidade(int idModalidadeColetiva){
-        return competicaoModalidadeColetivaDAO.buscarCompeticoesColetivasVinculadasModalidadeColetiva(idModalidadeColetiva);
+    public void alterar(ConfrontoModalidadeColetiva confrontoModalidadeColetiva){
+        confrontoModalidadeColetivaDAOGeneric.alterar(confrontoModalidadeColetiva);
     }
     
     public void fecharSessaoDAOGeneric(){
-        competicaoModalidadeColetivaDAOGeneric.fecharSessao();
+        confrontoModalidadeColetivaDAOGeneric.fecharSessao();
     }
     
-    public void fechaarSessaoDAOEspecifico(){
-        competicaoModalidadeColetivaDAO.fecharSessao();
-    }
-    
-    public void gerarConfrontosSistemaTodosContraTodos(CompeticaoModalidadeColetiva cmc){
+    public void gerarConfrontosModalidadeColetiva(CompeticaoModalidadeColetiva cmc){
         
         List<Confronto> confrontosModalidadesColetivas = new ArrayList<>();
         List<EquipeCompeticao> equipesCompeticao = cmc.getEquipesCompeticao();
         ConfrontoModalidadeColetivaControle confrontoColetivoControle = new ConfrontoModalidadeColetivaControle();
         CompeticaoModalidadeColetivaControle cmcc = new CompeticaoModalidadeColetivaControle();
         
+        
         int numeroEquipes = equipesCompeticao.size();
         System.out.println("Número de equipes: "+ numeroEquipes);
         int i = 0, j = 1,z=1;
         
         while(i < numeroEquipes){
-            System.out.println("I: "+ i);
+
             while(z <= (numeroEquipes - (i + 1))){
-            System.out.println("J: "+ j);
+
             EquipeCompeticao e1 = equipesCompeticao.get(i);
             EquipeCompeticao e2 = equipesCompeticao.get(j);
             
@@ -71,6 +62,8 @@ public class CompeticaoModalidadeColetivaControle {
             equipesConfrontantes.add(e1);
             equipesConfrontantes.add(e2);
             ConfrontoModalidadeColetiva confrontoColetivo = new ConfrontoModalidadeColetiva(equipesConfrontantes, cmc.getModalidadeColetiva());
+            // A cada confronto coletivo criado, salva no banco.
+            confrontoColetivoControle.salvar((ConfrontoModalidadeColetiva) confrontoColetivo);
             confrontosModalidadesColetivas.add(confrontoColetivo);
             j++;
             z++;
@@ -80,22 +73,27 @@ public class CompeticaoModalidadeColetivaControle {
             z = 1;
         }
         int cont = 1;
-        for(Confronto confronmc : confrontosModalidadesColetivas){
-            /*
+        for(Confronto confronmcGeneric : confrontosModalidadesColetivas){
+            
+            ConfrontoModalidadeColetiva confronmc = (ConfrontoModalidadeColetiva) confronmcGeneric;
+            
             System.out.println("Confronto "+ cont);
-            System.out.println(confronmc.getEquipes().get(0).getEquipe().getNome()+"("+confronmc.getEquipes().get(0).getIdEquipeCompeticao());
+     
+            System.out.println(confronmc.getEquipes().get(0)+"("+confronmc.getEquipes().get(0).getIdEquipeCompeticao());
             System.out.println(confronmc.getEquipes().get(1).getEquipe().getNome()+"("+confronmc.getEquipes().get(1).getIdEquipeCompeticao());
             System.out.println("");
-            */
-            confrontoColetivoControle.salvar((ConfrontoModalidadeColetiva) confronmc);
+            
+
             
             cont++;
         }
+        
         cmc.setJogosEmAndamento(true);
+        
+        // Adiciona a lista de confronto a competição
         cmc.setConfrontos(confrontosModalidadesColetivas);
         cmcc.alterar(cmc);
-        
+        cmcc.fecharSessaoDAOGeneric();
     }
-    
     
 }

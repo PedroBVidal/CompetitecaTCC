@@ -59,6 +59,7 @@ public class Local implements Serializable {
         this.estado = "";
         this.numero = 0;
         this.cep = "";
+        this.bairro = "";
     }
 
     public int getIdLocal() {

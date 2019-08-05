@@ -35,6 +35,7 @@ public class ConfrontoModalidadeColetiva extends Confronto implements Serializab
     }
 
     public ConfrontoModalidadeColetiva(List<EquipeCompeticao> equipes, ModalidadeColetiva modalidadeColetiva) {
+        super();
         this.equipes = equipes;
         this.modalidadeColetiva = modalidadeColetiva;
     }

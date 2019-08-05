@@ -4,6 +4,8 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.Confronto"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.ConfrontoModalidadeColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.EquipeCompeticao"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeColetivaControle"%>
@@ -262,119 +264,65 @@
                                     <!--Tab JOGOS-->
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
+                                        <%
+                                            if(competicao.isJogosEmAndamento() == true){
+                                                
+                                            int numeroJogo = 1;    
+                                            for(Confronto confronto : competicao.getConfrontos()){
+
+                                                ConfrontoModalidadeColetiva confronModColetiva = (ConfrontoModalidadeColetiva) confronto;
                                             
+                                        %>
+                                        
                                         <div class="col-sm-6">
-                                            <div class="card" style="width: 25rem; mar">
+                                            <div class="card">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">Jogo 1</h5>
+                                                    <h5 class="card-title">Jogo <%=numeroJogo%></h5>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.5rem;">Vingadores</span>
+                                                            <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(0).getEquipe().getNome()%></span>
                                                         </div>
                                                         <input type="text" aria-label="First name" class="form-control">
                                                         <input type="text" aria-label="Last name" class="form-control">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.5rem;">Lituanos</span>
+                                                            <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(1).getEquipe().getNome()%></span>
                                                         </div>
                                                     </div>
                                                     <p class="text-sm-left" style="margin-top: 10px;">Local:</p>
                                                     <p class="text-sm-left">Data:</p>
                                                     <p><span class="badge badge-pill badge-warning">Não realizado</span></p>
                                                     
-                                                    <a href="#" class="btn btn-primary">Inserir dados do jogo</a>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalInserirDadosJogo<%=confronModColetiva.getIdConfronto()%>">Inserir dados do jogo</button>
                                                     <button type="button" class="btn btn-success">Finalizar jogo</button>
                                                 </div>
                                             </div>
                                         </div>
-                                                                                <div class="col-sm-6">
-                                            <div class="card" style="width: 25rem;">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Jogo 1</h5>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.5rem;">Vingadores</span>
+
+                                                    <!-- Modal inserir dados do jogo-->
+                                                    <div class="modal fade" id="modalInserirDadosJogo<%=confronModColetiva.getIdConfronto()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Inserir dados do Jogo 1</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    ...
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <input type="text" aria-label="First name" class="form-control">
-                                                        <input type="text" aria-label="Last name" class="form-control">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.5rem;">Lituanos</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="text-sm-left" style="margin-top: 10px;">Local:</p>
-                                                    <p class="text-sm-left">Data:</p>
-                                                    <p><span class="badge badge-pill badge-warning">Não realizado</span></p>
+                                                    </div>            
                                                     
-                                                    <a href="#" class="btn btn-primary">Inserir dados do jogo</a>
-                                                    <button type="button" class="btn btn-success">Finalizar jogo</button>
-                                                </div>
-                                            </div>
-                                        </div>                                        <div class="col-sm-6">
-                                            <div class="card" style="width: 25rem;">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Jogo 1</h5>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.5rem;">Vingadores</span>
-                                                        </div>
-                                                        <input type="text" aria-label="First name" class="form-control">
-                                                        <input type="text" aria-label="Last name" class="form-control">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.5rem;">Lituanos</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="text-sm-left" style="margin-top: 10px;">Local:</p>
-                                                    <p class="text-sm-left">Data:</p>
-                                                    <p><span class="badge badge-pill badge-warning">Não realizado</span></p>
                                                     
-                                                    <a href="#" class="btn btn-primary">Inserir dados do jogo</a>
-                                                    <button type="button" class="btn btn-success">Finalizar jogo</button>
-                                                </div>
-                                            </div>
-                                        </div>                                        <div class="col-sm-6">
-                                            <div class="card" style="width: 25rem;">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Jogo 1</h5>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.5rem;">Vingadores</span>
-                                                        </div>
-                                                        <input type="text" aria-label="First name" class="form-control">
-                                                        <input type="text" aria-label="Last name" class="form-control">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.5rem;">Lituanos</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="text-sm-left" style="margin-top: 10px;">Local:</p>
-                                                    <p class="text-sm-left">Data:</p>
-                                                    <p><span class="badge badge-pill badge-warning">Não realizado</span></p>
-                                                    
-                                                    <a href="#" class="btn btn-primary">Inserir dados do jogo</a>
-                                                    <button type="button" class="btn btn-success">Finalizar jogo</button>
-                                                </div>
-                                            </div>
-                                        </div>                                        <div class="col-sm-6">
-                                            <div class="card" style="width: 25rem;">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Jogo 1</h5>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.5rem;">Vingadores</span>
-                                                        </div>
-                                                        <input type="text" aria-label="First name" class="form-control">
-                                                        <input type="text" aria-label="Last name" class="form-control">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.5rem;">Lituanos</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="text-sm-left" style="margin-top: 10px;">Local:</p>
-                                                    <p class="text-sm-left">Data:</p>
-                                                    <p><span class="badge badge-pill badge-warning">Não realizado</span></p>
-                                                    
-                                                    <a href="#" class="btn btn-primary">Inserir dados do jogo</a>
-                                                    <button type="button" class="btn btn-success">Finalizar jogo</button>
-                                                </div>
-                                            </div>
-                                        </div>                                                                       
+                                        
+                                        <%  numeroJogo++;}}
+                                        %>                                                                                                              
                                         </div>
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination">
@@ -473,17 +421,16 @@
                             </div>
                             <%}%>
                         </table>
+                       
                         
-                        <button type="button" class="btn btn-success">Success</button>
                         
-
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmarGerarJogos">
                             Gerar jogos da competição
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="modalConfirmarGerarJogos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -492,11 +439,13 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
+
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary">Sim</button>
+                                        <form action="scripts/gerarJogosCompeticaoModalidadeColetiva.jsp">
+                                            <input type="hidden" value="<%=competicao.getIdCompeticaoModalidade()%>" name="idCompModColetiva">
+                                            <button type="submit" class="btn btn-primary">Sim</button>
+                                        </form>
+                                        
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                     </div>
                                 </div>
@@ -512,6 +461,9 @@
 
             </div>
         </div>
+            <%
+                competicaoControle.fecharSessaoDAOGeneric();
+            %>
                         <script>
                             //Código de busca da tabela
                             $('input#txt_consulta').quicksearch('table#tabela tbody tr');
