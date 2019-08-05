@@ -3,16 +3,20 @@ package br.edu.ifpr.irati.ti.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 
@@ -38,7 +42,7 @@ public abstract class Confronto implements Serializable {
     @Column (name = "periodo", nullable = false, length = 100)
     protected String periodo;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     protected Local local;
     
         
@@ -56,7 +60,6 @@ public abstract class Confronto implements Serializable {
         this.horaInicio = new Date();
         this.horaTermino = new Date();
         this.periodo = "";
-        this.local = new Local();
         this.resultado = "";
         this.finalizado = false;
     }
@@ -69,7 +72,6 @@ public abstract class Confronto implements Serializable {
         this.horaInicio = horaInicio;
         this.horaTermino = horaTermino;
         this.periodo = periodo;
-        this.local = new Local();
         this.resultado = "";
         this.finalizado = false;
     }

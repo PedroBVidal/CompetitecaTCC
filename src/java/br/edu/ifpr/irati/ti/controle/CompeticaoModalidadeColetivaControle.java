@@ -91,9 +91,10 @@ public class CompeticaoModalidadeColetivaControle {
             
             cont++;
         }
-        
+        cmc.setJogosEmAndamento(true);
         cmc.setConfrontos(confrontosModalidadesColetivas);
         cmcc.alterar(cmc);
+        
     }
     
     

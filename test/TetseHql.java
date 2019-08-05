@@ -1,4 +1,5 @@
 
+import br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeColetivaControle;
 import br.edu.ifpr.irati.ti.dao.CompeticaoModalidadeColetivaDAO;
 import br.edu.ifpr.irati.ti.dao.EquipeDAO;
 import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva;
@@ -22,13 +23,13 @@ public class TetseHql {
         
     
     CompeticaoModalidadeColetivaDAO competicaoModalidadeColetivaDAO = new CompeticaoModalidadeColetivaDAO();
+    CompeticaoModalidadeColetivaControle competicaoControle = new CompeticaoModalidadeColetivaControle();
+
     EquipeDAO equipeDAO = new EquipeDAO();
     
-    List<Equipe> equipes = equipeDAO.buscarEquipesAbertasACmc(8);
+    CompeticaoModalidadeColetiva cmc = competicaoControle.buscarPorId(1);
     
-    for(Equipe e : equipes){
-        System.out.println("Nome da equipe: "+ e.getNome());
-    }
+        System.out.println(cmc.getConfrontos());
     System.exit(0);
         
    
