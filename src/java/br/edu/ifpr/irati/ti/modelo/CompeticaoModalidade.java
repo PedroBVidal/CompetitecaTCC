@@ -242,6 +242,10 @@ public abstract class CompeticaoModalidade implements Serializable {
         this.numParticipantes++;
         this.numVagasDisp = this.numVagas - this.numParticipantes;
     }
+    public void retirarParticipante(){
+        this.numParticipantes--;
+        this.numVagasDisp = this.numVagas - this.numParticipantes;
+    }
 
     public int getNumVagasDisp() {
         return numVagasDisp;

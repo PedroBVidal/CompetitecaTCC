@@ -103,6 +103,9 @@
         ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente a equipe " + icms.getEquipe().getNome() + " foi expulsa da competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + ", sendo assim não há mais a necessidade de comparecer ao evento.", 0, false, icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Expulsão", up);
           response.sendRedirect("../gerenciarCompModColetiva.jsp?id="+idComp+"&msg=Incrição negada com sucesso&color=success");
     }else if(opt == 3){
+        cmc.retirarParticipante();
+        cmcc.alterar(cmc);
+        cmcc.fecharSessaoDAOGeneric();
         ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente a equipe "+icms.getEquipe().getNome()+" foi expulsa da competição "+icms.getCompeticaoModalidadeColetiva().getNomeCompeticao()+", sendo assim não há mais a necessidade de comparecer ao evento.",0,false,icms.getCompeticaoModalidadeColetiva().getNomeCompeticao()+" - Expulsão",up);
         icms.setInscricaoAceita('N');
         icmsc.alterar(icms);

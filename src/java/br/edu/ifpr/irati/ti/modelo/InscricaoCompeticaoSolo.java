@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
 
 /**
@@ -32,6 +33,8 @@ public class InscricaoCompeticaoSolo implements Serializable{
     @JoinColumn(name = "atleta_idAtleta")
     private Atleta atleta;
     
+    @OneToOne
+    private AtletaCompeticao atletaCompeticao;
     @Column(name = "aprovada")
     
     private char inscricaoAceita; 
@@ -41,6 +44,7 @@ public class InscricaoCompeticaoSolo implements Serializable{
         atleta = new Atleta();
         inscricaoAceita = ' ';
         competicaoModalidadeSolo = new CompeticaoModalidadeSolo();
+        //atletaCompeticao = new AtletaCompeticao();
     }
 
     public InscricaoCompeticaoSolo(int idCompeticaoSolo, CompeticaoModalidadeSolo competicaoModalidadeSolo, Atleta atleta, char inscricaoAceita) {
@@ -48,6 +52,7 @@ public class InscricaoCompeticaoSolo implements Serializable{
         this.competicaoModalidadeSolo = competicaoModalidadeSolo;
         this.atleta = atleta;
         this.inscricaoAceita = inscricaoAceita;
+        //this.atletaCompeticao = new AtletaCompeticao();
     }
 
 

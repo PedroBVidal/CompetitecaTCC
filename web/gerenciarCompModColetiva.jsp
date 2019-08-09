@@ -374,7 +374,7 @@
                                     for (EquipeCompeticao equipeCompeticao : competicao.getEquipesCompeticao()) {
 
                                         String nomeEquipe = equipeCompeticao.getEquipe().getNome();
-
+                                        
 
                                 %>    
                             <td><%=nomeEquipe%></td>
