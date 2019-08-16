@@ -1,7 +1,10 @@
 
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
+import br.edu.ifpr.irati.ti.dao.UsuarioAdministradorDAO;
+import br.edu.ifpr.irati.ti.modelo.Competicao;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,8 +23,16 @@ public class Testuseradm {
      */
     public static void main(String[] args) {
        UsuarioParticipante up = new UsuarioParticipante(0, "Gustavo H.S.Oliveira", "oliveiragugahso@hotmail.com", "curitiba320");
+        UsuarioAdministradorDAO usuarioAdministradorDAO = new UsuarioAdministradorDAO();
        Dao<UsuarioParticipante> upc = new GenericDAO<>(UsuarioParticipante.class);
-       upc.salvar(up);
+       
+        List<Competicao> competicoes = usuarioAdministradorDAO.buscarPorIdConfrontos(1);
+        
+        for(Competicao competicao : competicoes){
+            System.out.println(competicao.getNome());
+        }
+       
+       
        
        
     }

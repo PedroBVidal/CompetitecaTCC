@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 
 /**
@@ -42,13 +43,25 @@ public class GenericDAO<T> implements Dao<T> {
     public GenericDAO(Class classePersistente) {
         this.classePersistente = classePersistente;
     }
-
+    
+    @Override
+    public void flush(){
+        this.getSessao().flush();
+    }
+    
+    @Override
+    public boolean isDirty(){
+        return this.getSessao().isDirty();
+    }
 
 
     
     @Override
     public T buscarPorId(Serializable id) {
         abrirSessao(); 
+        System.out.println("IS DT 1: "+sessao.isDirty());
+        
+        System.out.println("IS DT 2: "+sessao.isDirty());
         T t = (T) getSessao().load(classePersistente, id);
         return t;
     }
@@ -57,12 +70,14 @@ public class GenericDAO<T> implements Dao<T> {
     public void salvar(T t) {
         
         abrirSessao(); 
-        getSessao().beginTransaction();
+        Transaction trans = getSessao().beginTransaction();
 
+        
         getSessao().save(t);
         
+        
         getSessao().getTransaction().commit();
-
+        
     }
 
     @Override
@@ -71,8 +86,10 @@ public class GenericDAO<T> implements Dao<T> {
         getSessao().beginTransaction();
 
         getSessao().update(t);
-
+        
+        
         getSessao().getTransaction().commit();
+        
 
     }
 

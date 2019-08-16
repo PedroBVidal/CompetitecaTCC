@@ -27,8 +27,13 @@ public abstract class Sessao {
     public void fecharSessao() {
         if (getSessao() != null || getSessao().isOpen() == true) {
             getSessao().clear();
+            
             getSessao().close();
         }
+    }
+    
+    public void flush(){
+        getSessao().flush();
     }
 
     /**

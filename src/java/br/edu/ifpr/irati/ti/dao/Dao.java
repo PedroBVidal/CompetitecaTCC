@@ -39,4 +39,8 @@ public interface Dao<T> {
     
     public void setSessao(Session sessao);
     
+    public void flush();
+    
+    public boolean isDirty();
+    
 }

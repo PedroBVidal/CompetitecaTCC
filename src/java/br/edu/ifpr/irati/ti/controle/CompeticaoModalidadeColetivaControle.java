@@ -49,6 +49,12 @@ public class CompeticaoModalidadeColetivaControle {
         competicaoModalidadeColetivaDAO.fecharSessao();
     }
     
+    public boolean sessaoDAOGenericEstaAberta(){
+        return competicaoModalidadeColetivaDAOGeneric.getSessao().isOpen();
+    }
+    
+
+    
     public void gerarConfrontosSistemaTodosContraTodos(CompeticaoModalidadeColetiva cmc){
         
         List<Confronto> confrontosModalidadesColetivas = new ArrayList<>();

@@ -68,4 +68,8 @@ public class CompeticaoDAO extends Sessao{
 
         return competicao;
     }
+    
+    public boolean isDirty(){
+        return getSessao().isDirty();
+    }
 }

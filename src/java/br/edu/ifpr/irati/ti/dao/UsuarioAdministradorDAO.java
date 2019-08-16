@@ -6,7 +6,10 @@
 package br.edu.ifpr.irati.ti.dao;
 
 
+import br.edu.ifpr.irati.ti.modelo.Competicao;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
+import java.util.List;
+import javax.persistence.EntityManager;
 import org.hibernate.Query;
 
 
@@ -21,9 +24,20 @@ public class UsuarioAdministradorDAO extends Sessao {
         abrirSessao();
         String hql = "from usuarioParticipante u where u.idUsuario = '"+id+"'";
         Query query = sessao.createQuery(hql);
+        
         query.setMaxResults(1);
         UsuarioParticipante usuarioParticipante = (UsuarioParticipante) query.uniqueResult();        
-
+        
         return usuarioParticipante;
+    }
+    
+        public List<Competicao> buscarPorIdConfrontos(int id){
+        abrirSessao();
+        String hql = "select u.competicoes from usuarioParticipante u where u.idUsuario = '"+id+"'";
+        Query query = sessao.createQuery(hql);
+
+        List results = query.list();
+        
+        return results;
     }
 }

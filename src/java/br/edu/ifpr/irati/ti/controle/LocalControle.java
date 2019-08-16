@@ -53,4 +53,8 @@ public class LocalControle {
     public void alterarLocal(Local local){
         dlc.alterar(local);
     }
+    
+    public void fecharSessaoDAOGeneric(){
+        dlc.fecharSessao();
+    }
 }

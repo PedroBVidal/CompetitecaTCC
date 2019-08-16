@@ -69,4 +69,8 @@ public class CompeticaoControle {
     public void abrirSessaoDAOGeneric(){
         competicaoDAOGeneric.abrirSessao();
     }
+    
+    public boolean isDirty(){
+        return competicaoDAO.isDirty();
+    }
 }

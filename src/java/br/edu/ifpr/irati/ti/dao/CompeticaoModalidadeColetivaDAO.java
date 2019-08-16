@@ -5,7 +5,10 @@
  */
 package br.edu.ifpr.irati.ti.dao;
 
+import br.edu.ifpr.irati.ti.modelo.Competicao;
 import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva;
+import br.edu.ifpr.irati.ti.modelo.Confronto;
+import br.edu.ifpr.irati.ti.modelo.ConfrontoModalidadeColetiva;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,20 +24,26 @@ public class CompeticaoModalidadeColetivaDAO extends Sessao{
     
         public CompeticaoModalidadeColetiva buscarPorId(int id) {
         abrirSessao();
-        String hql = "from competicaomodalidadecoletiva c where c.idCompeticaoModalidadde = '" + id + "'";
+        String hql = "competicaomodalidadecoletiva c where c.idCompeticaoModalidadde = '" + id + "'";
         Query query = sessao.createQuery(hql);
         query.setMaxResults(1);
         CompeticaoModalidadeColetiva competicaoModalidadeColetiva = (CompeticaoModalidadeColetiva) query.uniqueResult();
         return competicaoModalidadeColetiva;
         
     }
+        
+        
      
-     public List<Date> testeCompeticao(){
+    public Competicao buscarPorId2(int id) {
         abrirSessao();
-        SQLQuery query = sessao.createSQLQuery("SELECT CURRENT_DATE");
-        List results = (List) query.list();
-        return results;
-     }
+        String hql = "select c.competicao from competicaomodalidadecoletiva c where c.idCompeticaoModalidadde = '" + id + "'";
+        Query query = sessao.createQuery(hql);
+        query.setMaxResults(1);
+        Competicao competicao = (Competicao) query.uniqueResult();
+        return competicao;
+        
+    }
+
      
      public List<CompeticaoModalidadeColetiva> buscarCompeticoesColetivasVinculadasModalidadeColetiva(int idModalidadeColetiva){
         abrirSessao();

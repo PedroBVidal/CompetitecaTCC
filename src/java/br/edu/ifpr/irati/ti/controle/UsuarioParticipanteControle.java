@@ -8,6 +8,7 @@ package br.edu.ifpr.irati.ti.controle;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.dao.UsuarioAdministradorDAO;
+import br.edu.ifpr.irati.ti.modelo.Competicao;
 import br.edu.ifpr.irati.ti.modelo.Usuario;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
 import java.util.List;
@@ -33,8 +34,10 @@ public class UsuarioParticipanteControle {
         return genericUsuarioAdministradorDAO.buscarTodos(UsuarioParticipante.class);
     }
     public UsuarioParticipante buscarPorId(int id){
-        return usuarioAdministradorDAO.buscarPorId(id);
+        UsuarioParticipante usuarioParticipante =  usuarioAdministradorDAO.buscarPorId(id);
+        return usuarioParticipante;
     }
+    
     public UsuarioParticipante buscarLogin(String email, String senha) throws Exception{
         UsuarioParticipante usuarioParticipante = genericUsuarioAdministradorDAO.buscarLogin(email, senha);
         if (usuarioParticipante == null) {
@@ -59,5 +62,17 @@ public class UsuarioParticipanteControle {
     
     public void abrirSessaoDAOGeneric(){
         genericUsuarioAdministradorDAO.abrirSessao();
+    }
+    
+    public void flush(){
+        genericUsuarioAdministradorDAO.flush();
+    }
+    
+    public boolean isDirty(){
+        return genericUsuarioAdministradorDAO.isDirty();
+    }
+    
+    public List<Competicao> buscarCompeticoesVinculadasAoUsuarioParticipante(int idUsuario){
+        return usuarioAdministradorDAO.buscarPorIdConfrontos(idUsuario);
     }
 }

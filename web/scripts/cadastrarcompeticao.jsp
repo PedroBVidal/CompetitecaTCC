@@ -45,6 +45,7 @@
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
     UsuarioParticipante usuarioADM = upc.buscarPorId(up.getIdUsuario());
+
     Date dataInicioCompeticao, dataTerminoCompeticao;
     Date dataInicioInscricao, dataTerminoInscricao;
     dataInicioCompeticao = sdf.parse(sDataInicioCompeticao);
@@ -64,8 +65,9 @@
                 competicao.adicionarAdministrador(usuarioADM);
         
                 competicaoControle.cadastrarCompeticao(competicao);
-                competicaoControle.fecharSessaoDAOGeneric();
+                
                 usuarioADM.adicionarCompeticao(competicao);
+                competicaoControle.fecharSessaoDAOGeneric();
                 upc.fecharSessaoDAOEspecifico();
                 upc.atualizarCad(usuarioADM);
                 upc.fecharSessaoDAOGeneric();

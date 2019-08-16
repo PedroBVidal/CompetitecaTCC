@@ -81,8 +81,11 @@
                 
                 int flag = 0;
                 UsuarioParticipanteControle upControle = new UsuarioParticipanteControle();
-                UsuarioParticipante usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
+                //CompeticaoControle competicaoControle = new CompeticaoControle();
+                upControle.abrirSessaoDAOGeneric();
+                upControle.flush();
                 
+                UsuarioParticipante usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
                 try {
                      usuarioParticipante.getCompeticoes();
                     } catch (Exception e) {
@@ -90,10 +93,12 @@
                     }
                 
                 if(flag == 0){
-                for(Competicao cptc : usuarioParticipante.getCompeticoes()){
+                for(Competicao cptc : upControle.buscarCompeticoesVinculadasAoUsuarioParticipante(up.getIdUsuario())){
+                    upControle.flush();
+                    System.out.println("IS DIRTY: "+upControle.isDirty());
                     System.out.println("Nome:"+cptc.getNome()+"\n Id:"+cptc.getIdCompeticao()+"\n Inativo:"+cptc.isInativo());
                     if(cptc.isInativo() == false){
-                
+                        
                     
                 %>
                 
@@ -149,7 +154,6 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <%
-           upControle.fecharSessaoDAOEspecifico();
         }
         %>
     </body>

@@ -3,6 +3,8 @@ package br.edu.ifpr.irati.ti.controle;
 
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
+import br.edu.ifpr.irati.ti.dao.UsuarioAdministradorDAO;
+import br.edu.ifpr.irati.ti.modelo.Competicao;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
 public class UsuarioParticipante2Controle {
 
     Dao<UsuarioParticipante2> usuarioParticipanteDAO = new GenericDAO<>(UsuarioParticipante2.class);
+
     
     public UsuarioParticipante2 buscarLogin(String email, String senha) throws Exception {
 
@@ -53,5 +56,9 @@ public class UsuarioParticipante2Controle {
     public void abrirSessaoDAOGeneric(){
         usuarioParticipanteDAO.abrirSessao();
     }
+    
+
+    
+    
 
 }

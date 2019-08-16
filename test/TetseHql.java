@@ -3,6 +3,8 @@ import br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeColetivaControle;
 import br.edu.ifpr.irati.ti.dao.CompeticaoModalidadeColetivaDAO;
 import br.edu.ifpr.irati.ti.dao.EquipeDAO;
 import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva;
+import br.edu.ifpr.irati.ti.modelo.Confronto;
+import br.edu.ifpr.irati.ti.modelo.ConfrontoModalidadeColetiva;
 import br.edu.ifpr.irati.ti.modelo.Equipe;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,9 +29,11 @@ public class TetseHql {
 
     EquipeDAO equipeDAO = new EquipeDAO();
     
-    CompeticaoModalidadeColetiva cmc = competicaoControle.buscarPorId(1);
+    Equipe equipe = equipeDAO.buscarPorId(1);
+        System.out.println(equipe);
+    //String string  = competicaoModalidadeColetivaDAO.buscarPorId2(1);
     
-        System.out.println(cmc.getConfrontos());
+        //System.out.println(competicaoModalidadeColetivaDAO.buscarPorId2(1));
     System.exit(0);
         
    

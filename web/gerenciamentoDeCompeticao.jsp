@@ -356,6 +356,7 @@
                                 <%
                                     System.out.println("Competições solo: " + competicao.getCmodalidadesolo());
                                     System.out.println("Competições coletivas:" + competicao.getCmodalidadecole());
+                                    System.out.println(competicaoControle.isDirty());
                                     for(CompeticaoModalidadeSolo cptMs: competicao.getCmodalidadesolo()){
                                         
                                         if(!cptMs.isInativo()){

@@ -38,7 +38,7 @@ public class Competicao implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SELECT)
-    private Set<UsuarioParticipante> administradores;
+    private List<UsuarioParticipante> administradores;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "competicao")
     @Fetch(value = FetchMode.SELECT)
@@ -75,7 +75,7 @@ public class Competicao implements Serializable {
         idCompeticao = 0;
         cmodalidadecole = new HashSet<>();
         cmodalidadesolo = new HashSet<>();
-        administradores = new HashSet<>();
+        administradores = new ArrayList<>();
         dataInicio = new Date();
         dataTermino = new Date();
         dataInicioInsc = new Date();
@@ -90,7 +90,7 @@ public class Competicao implements Serializable {
         this.nome = nome;
         cmodalidadecole = new HashSet<>();
         cmodalidadesolo = new HashSet<>();
-        administradores = new HashSet<>();
+        administradores = new ArrayList<>();
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
         this.dataInicioInsc = dataInicioInsc;
@@ -104,7 +104,7 @@ public class Competicao implements Serializable {
         this.nome = nome;
         this.cmodalidadecole = new HashSet<>();
         this.cmodalidadesolo = new HashSet<>();
-        this.administradores = new HashSet<>();
+        this.administradores = new ArrayList<>();
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
         this.dataInicioInsc = dataInicioInsc;
@@ -114,7 +114,7 @@ public class Competicao implements Serializable {
         this.informacaoExtra = informacaoExtra;
     }
 
-    public Competicao(int idCompeticao, String nome, String informacaoExtra, Set<UsuarioParticipante> administradores, Set<CompeticaoModalidadeColetiva> cmodalidadecole, Set<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicioInsc, Date dataTerminoInsc, Date dataInicio, Date dataTermino, boolean inativo, String codPriv, boolean privado) {
+    public Competicao(int idCompeticao, String nome, String informacaoExtra, List<UsuarioParticipante> administradores, Set<CompeticaoModalidadeColetiva> cmodalidadecole, Set<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino, Date dataInicioInsc, Date dataTerminoInsc, boolean inativo, String codPriv, boolean privado) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
         this.informacaoExtra = informacaoExtra;
@@ -123,10 +123,14 @@ public class Competicao implements Serializable {
         this.cmodalidadesolo = cmodalidadesolo;
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
+        this.dataInicioInsc = dataInicioInsc;
+        this.dataTerminoInsc = dataTerminoInsc;
         this.inativo = inativo;
         this.codPriv = codPriv;
         this.privado = privado;
     }
+
+        
 
     public Date getDataInicioInsc() {
         return dataInicioInsc;
@@ -286,19 +290,7 @@ public class Competicao implements Serializable {
 
     }
 
-    /**
-     * @return the administradores
-     */
-    public Set<UsuarioParticipante> getAdministradores() {
-        return administradores;
-    }
-
-    /**
-     * @param administradores the administradores to set
-     */
-    public void setAdministradores(Set<UsuarioParticipante> administradores) {
-        this.administradores = administradores;
-    }
+    
 
     /**
      * @return the cmodalidadecole
@@ -340,6 +332,20 @@ public class Competicao implements Serializable {
      */
     public void setInformacaoExtra(String informacaoExtra) {
         this.informacaoExtra = informacaoExtra;
+    }
+
+    /**
+     * @return the administradores
+     */
+    public List<UsuarioParticipante> getAdministradores() {
+        return administradores;
+    }
+
+    /**
+     * @param administradores the administradores to set
+     */
+    public void setAdministradores(List<UsuarioParticipante> administradores) {
+        this.administradores = administradores;
     }
     
     

@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.annotations.Fetch;
@@ -25,13 +26,11 @@ public class UsuarioParticipante  extends Usuario implements Serializable {
     @Column(name="email", nullable = false, unique=true)
     private String email;
     
-    @ManyToMany(mappedBy = "administradores", fetch = FetchType.LAZY)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "administradores")
     private List<Competicao> competicoes;
     
     
-    @OneToMany(fetch = FetchType.LAZY)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY)    
     private List<Local> locais;
 
     public UsuarioParticipante() {

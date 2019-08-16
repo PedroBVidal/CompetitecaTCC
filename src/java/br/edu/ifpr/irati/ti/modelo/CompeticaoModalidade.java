@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +38,7 @@ public abstract class CompeticaoModalidade implements Serializable {
     @JoinColumn(name = "sistemacomp_id", referencedColumnName = "idSistemaDeCompeticao", nullable = false)
     private SistemaDeCompeticao sistemaDeCompeticao;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Confronto> confrontos;
 
     @Column(name = "status_formulario_inscricao_publica")
@@ -138,7 +139,7 @@ public abstract class CompeticaoModalidade implements Serializable {
      * @return the confrontos
      */
     public List<Confronto> getConfrontos() {
-        return confrontos;
+        return this.confrontos;
     }
 
     /**
