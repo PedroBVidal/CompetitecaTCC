@@ -92,12 +92,30 @@
 
             <%
                 }
+                int emAprov = 0;
+                for (InscricaoCompeticaoColetiva icc : competicao.getInscricoesCompeticoesColetivas()) {
+                    if (icc.getInscricaoAceita() == 'E') {
+                        emAprov++;
+                    }
+                }
             %>
             <!-- Page Heading/Breadcrumbs -->
-            <h1 class="mt-4 mb-3 titulos">Gerenciando competicao <span style="color: red;"><%=competicao.getNomeCompeticao()%></span>
-
-            </h1><br>
-
+            <h1 class="mt-4 mb-3 titulos">Gerenciando competicao <span style="color: red;"><%=competicao.getNomeCompeticao()%> </span>
+            </h1>
+            <%if (competicao.getNumVagasDisp() > 0) {%>
+            <span class="badge badge-pill badge-success" style="width: 1.75in;">Vagas Disp.:&nbsp;<%=competicao.getNumVagasDisp()%>&nbsp;|&nbsp;<%=competicao.getNumVagas()%></span>
+            <%} else {
+            %>
+            <span class="badge badge-pill badge-danger" style="width: 1.75in;">Insc. Fechadas</span>
+            <%}%>
+            &nbsp;
+            <%if (emAprov <= competicao.getNumVagasDisp()) {%>
+            <span class="badge badge-pill badge-success" style="width: 1.75in;">Em aprovação:&nbsp;<%=emAprov%></span>
+            <%} else {%>
+            <span class="badge badge-pill badge-danger" style="width: 1.75in;">Em aprovação:&nbsp;<%=emAprov%></span>
+            <%}%>
+            <br>
+            <br>
 
 
             <!-- List group -->
@@ -218,8 +236,8 @@
                             <tbody>
                                 <%
                                     int contador = 0;
-                                    for(EquipeCompeticao equipeCompeticao : competicao.getEquipesCompeticao()){
-                                       contador++; 
+                                    for (EquipeCompeticao equipeCompeticao : competicao.getEquipesCompeticao()) {
+                                        contador++;
                                 %>
                                 <tr>
                                     <th scope="row"><%=contador%>°</th>
@@ -241,7 +259,7 @@
 
 
                     <div class="tab-pane active" id="jogos" role="tabpanel">
-                        
+
                         <div class="card text-center">
                             <div class="card-header">
                                 <ul class="nav nav-tabs card-header-tabs">
@@ -264,65 +282,67 @@
                                     <!--Tab JOGOS-->
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
-                                        <%
-                                            if(competicao.isJogosEmAndamento() == true){
-                                                
-                                            int numeroJogo = 1;    
-                                            for(Confronto confronto : competicao.getConfrontos()){
+                                            <%
+                                                if (competicao.isJogosEmAndamento() == true) {
 
-                                                ConfrontoModalidadeColetiva confronModColetiva = (ConfrontoModalidadeColetiva) confronto;
-                                            
-                                        %>
-                                        
-                                        <div class="col-sm-6">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Jogo <%=numeroJogo%></h5>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(0).getEquipe().getNome()%></span>
-                                                        </div>
-                                                        <input type="text" aria-label="First name" class="form-control">
-                                                        <input type="text" aria-label="Last name" class="form-control">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(1).getEquipe().getNome()%></span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="text-sm-left" style="margin-top: 10px;">Local:</p>
-                                                    <p class="text-sm-left">Data:</p>
-                                                    <p><span class="badge badge-pill badge-warning">Não realizado</span></p>
-                                                    
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalInserirDadosJogo<%=confronModColetiva.getIdConfronto()%>">Inserir dados do jogo</button>
-                                                    <button type="button" class="btn btn-success">Finalizar jogo</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                    int numeroJogo = 1;
+                                                    for (Confronto confronto : competicao.getConfrontos()) {
 
-                                                    <!-- Modal inserir dados do jogo-->
-                                                    <div class="modal fade" id="modalInserirDadosJogo<%=confronModColetiva.getIdConfronto()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Inserir dados do Jogo 1</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    ...
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                                </div>
+                                                        ConfrontoModalidadeColetiva confronModColetiva = (ConfrontoModalidadeColetiva) confronto;
+
+                                            %>
+
+                                            <div class="col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Jogo <%=numeroJogo%></h5>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(0).getEquipe().getNome()%></span>
+                                                            </div>
+                                                            <input type="text" aria-label="First name" class="form-control">
+                                                            <input type="text" aria-label="Last name" class="form-control">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(1).getEquipe().getNome()%></span>
                                                             </div>
                                                         </div>
-                                                    </div>            
-                                                    
-                                                    
-                                        
-                                        <%  numeroJogo++;}}
-                                        %>                                                                                                              
+                                                        <p class="text-sm-left" style="margin-top: 10px;">Local:</p>
+                                                        <p class="text-sm-left">Data:</p>
+                                                        <p><span class="badge badge-pill badge-warning">Não realizado</span></p>
+
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalInserirDadosJogo<%=confronModColetiva.getIdConfronto()%>">Inserir dados do jogo</button>
+                                                        <button type="button" class="btn btn-success">Finalizar jogo</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal inserir dados do jogo-->
+                                            <div class="modal fade" id="modalInserirDadosJogo<%=confronModColetiva.getIdConfronto()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Inserir dados do Jogo 1</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            ...
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>            
+
+
+
+                                            <%  numeroJogo++;
+                                                    }
+                                                }
+                                            %>                                                                                                              
                                         </div>
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination">
@@ -352,7 +372,7 @@
                     <div class="tab-pane active" id="messages" role="tabpanel">
 
                     </div>
-                                                        
+
                     <!--Tab pane competidores-->
                     <div class="tab-pane" id="competidores" role="tabpanel">
                         <div class="form-group input-group">
@@ -374,7 +394,7 @@
                                     for (EquipeCompeticao equipeCompeticao : competicao.getEquipesCompeticao()) {
 
                                         String nomeEquipe = equipeCompeticao.getEquipe().getNome();
-                                        
+
 
                                 %>    
                             <td><%=nomeEquipe%></td>
@@ -421,9 +441,9 @@
                             </div>
                             <%}%>
                         </table>
-                       
-                        
-                        
+
+
+
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmarGerarJogos">
                             Gerar jogos da competição
@@ -434,7 +454,12 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
+                                        <%if (competicao.isJogosEmAndamento()) {%>
+                                                <h5 class="modal-title" id="exampleModalLabel">Deseja gerar novamente os jogos desta competição? <%=competicao.getNomeCompeticao()%></h5>
+                                           <%}else{
+                                        %>
                                         <h5 class="modal-title" id="exampleModalLabel">Deseja realmente gerar os jogos da competição <%=competicao.getNomeCompeticao()%></h5>
+                                        <%}%>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -445,30 +470,30 @@
                                             <input type="hidden" value="<%=competicao.getIdCompeticaoModalidade()%>" name="idCompModColetiva">
                                             <button type="submit" class="btn btn-primary">Sim</button>
                                         </form>
-                                        
+
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        
-                        
-                        
+
+
+
+
                     </div>
-                        
+
                 </div>
 
             </div>
         </div>
-            <%
-                competicaoControle.fecharSessaoDAOGeneric();
-            %>
-                        <script>
-                            //Código de busca da tabela
-                            $('input#txt_consulta').quicksearch('table#tabela tbody tr');
+        <%
+            competicaoControle.fecharSessaoDAOGeneric();
+        %>
+        <script>
+            //Código de busca da tabela
+            $('input#txt_consulta').quicksearch('table#tabela tbody tr');
 
-                        </script>
+        </script>
 
 
 

@@ -15,24 +15,27 @@ import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo;
  * @author Usuário
  */
 public class CompeticaoModalidadeSoloControle {
-    
+
     Dao<CompeticaoModalidadeSolo> competicaoModalidadeSoloDAO = new GenericDAO<>(CompeticaoModalidadeSolo.class);
 
-    
-    public void salvar(CompeticaoModalidadeSolo competicaoModalidadeSolo){
+    public void salvar(CompeticaoModalidadeSolo competicaoModalidadeSolo) {
         competicaoModalidadeSoloDAO.salvar(competicaoModalidadeSolo);
     }
-    
-    public CompeticaoModalidadeSolo buscarPorId(int id){
+
+    public CompeticaoModalidadeSolo buscarPorId(int id) {
         return competicaoModalidadeSoloDAO.buscarPorId(id);
     }
-    
-    public void alterar(CompeticaoModalidadeSolo competicaoModalidadeSolo){
+
+    public void alterar(CompeticaoModalidadeSolo competicaoModalidadeSolo) {
         competicaoModalidadeSoloDAO.alterar(competicaoModalidadeSolo);
     }
-    
-    public void fecharSessaoDAOGeneric(){
+
+    public void fecharSessaoDAOGeneric() {
         competicaoModalidadeSoloDAO.fecharSessao();
     }
-    
+
+    public void gerarPartidaTodosContraTodos() {
+
+    }
+
 }

@@ -387,31 +387,31 @@
                                             <img src="img/icons8-1-c-48.png" class="align-self-start mr-3" alt="...">
                                             <div class="media-body">
                                                 <%
-                                                    boolean usuarioEAdministradorDeEquipe = false;
-
-                                                    for (Equipe equipeAtleta : atleta.getUsuarioParticipante().getEquipe()) {
-                                                        usuarioEAdministradorDeEquipe = false;
-
-                                                        for (CompeticaoModalidadeColetiva cmcEquipe : equipeAtleta.getCompeticoesModalidadeColeivas()) {
-                                                            if (cmc.getIdCompeticaoModalidade() == cmcEquipe.getIdCompeticaoModalidade()) {
-                                                                usuarioEAdministradorDeEquipe = true;
-                                                                break;
-
+                                                    boolean usuarioÉAdministradorDeEquipe = false;
+                                                    
+                                                    for(Equipe equipeAtleta : atleta.getUsuarioParticipante().getEquipe()){
+                                                    usuarioÉAdministradorDeEquipe = false;    
+                                                    
+                                                        for(CompeticaoModalidadeColetiva cmcEquipe : equipeAtleta.getCompeticoesModalidadeColeivas()){
+                                                            if(cmc.getIdCompeticaoModalidade() == cmcEquipe.getIdCompeticaoModalidade()){
+                                                            usuarioÉAdministradorDeEquipe = true;    
+                                                            break;
+                                                                
                                                             }
-
+                                                            
                                                         }
-                                                        if (usuarioEAdministradorDeEquipe == true) {
+                                                        if(usuarioÉAdministradorDeEquipe == true){
                                                             break;
                                                         }
                                                     }
                                                 %>
-
+                                                
                                                 <%
-                                                    if (usuarioEAdministradorDeEquipe == true) {
+                                                    if(usuarioÉAdministradorDeEquipe == true){
                                                 %>
                                                 <h5 class="mt-0"><a  class="stretched-link">Solicitar entrada em uma equipe</a></h5>
                                                 <p>Você já possui uma equipe aberta a competição <%=cmc.getNomeCompeticao()%>, portando não pode solicitar entrada em outras equipes abertas a ela.</p>
-                                                <%} else {%>
+                                                <%}else{%>
                                                 <h5 class="mt-0"><a href="javascript:acionarModalSocilitarEntradaEquipe(<%=cmc.getIdCompeticaoModalidade()%>)" class="stretched-link">Solicitar entrada em uma equipe</a></h5>
                                                 <p>Solicite entrada em uma equipe que participará da competição <%=cmc.getNomeCompeticao()%>.</p>
                                                 <%}%>
@@ -421,11 +421,11 @@
                                             <img src="img/icons8-2-c-48.png" class="align-self-start mr-3" alt="...">
                                             <div class="media-body">
                                                 <%
-                                                    if (usuarioEAdministradorDeEquipe == true) {
+                                                    if(usuarioÉAdministradorDeEquipe == true){
                                                 %>
                                                 <h5 class="mt-0"><a class="stretched-link">Criar minha equipe (Já possui)</a></h5>
                                                 <p>Você já possui uma equipe aberta a competição <%=cmc.getNomeCompeticao()%>!</p>
-                                                <%} else {%>
+                                                <%}else{%>
                                                 <h5 class="mt-0"><a href="criarEquipe.jsp" class="stretched-link">Criar minha equipe</a></h5>
                                                 <p>Crie sua equipe e adicione seus integrantes, para depois ingressar com ela em <%=cmc.getNomeCompeticao()%>.</p>
                                                 <%}%>
@@ -434,18 +434,18 @@
                                         <div class="media">
                                             <img src="img/icons8-3-c-48.png" class="align-self-start mr-3" alt="...">
                                             <div class="media-body">
-
+                                                
                                                 <h5 class="mt-0"><a data-toggle="collapse" data-target="#equipes<%=cmc.getIdCompeticaoModalidade()%>" aria-expanded="false" aria-controls="equipes<%=cmc.getIdCompeticaoModalidade()%>" class="stretched-link">Ingressar com uma de minhas equipes</a></h5>
                                                 <p>Ingresse com uma de suas equipes em <%=cmc.getNomeCompeticao()%>.</p>
-
+                                                
                                             </div>
                                         </div>
-
+                                        
 
                                         <div class="collapse col-12" id="equipes<%=cmc.getIdCompeticaoModalidade()%>">
-                                            <%
+                                            <% 
                                                 int flag = 0;
-                                                int i = 0;
+                                                int i = 0;                                                
                                                 UsuarioParticipante2 up22 = atleta.getUsuarioParticipante();
                                                 for (Equipe equp : up22.getEquipe()) {
                                                     if (equp.getModalidade().getIdModColetiva() == cmc.getModalidadeColetiva().getIdModColetiva()) {
@@ -482,18 +482,17 @@
 
                                                                         %>
 
-                                                                        <li><input type="checkbox" name="idAtl<%=j%>+<%=eq.getIdEquipe()%>" value="<%=atl.getIdAtleta()%>">&nbsp;<%=atl.getUsuarioParticipante().getNome()%></li>
+                                                                        <li><input type="checkbox" name="idAtl<%=j+"+"+eq.getIdEquipe()%>" value="<%=atl.getIdAtleta()%>">&nbsp;<%=atl.getUsuarioParticipante().getNome()%></li>
 
-                                                                        <% i++;
+                                                                        <% j++;
                                                                             }
 
                                                                         %>
                                                                     </ul>
                                                                 </div>
                                                                 <hr>
-
-                                                                <input type="hidden" name="numAtl" value="<%=eq.getAtletas().size()%>">
                                                                 <input type="hidden" name="op" value="1">
+                                                                <input type="hidden" name="numAtl" value="<%=eq.getAtletas().size()%>">
                                                                 <input type="hidden" name="idCompeticao" value="<%=competicao.getIdCompeticao()%>">
                                                                 <input type="hidden" name="idEquipe" value="<%=eq.getIdEquipe()%>">
                                                                 <input type="hidden" name="idCompModCol" value="<%=cmc.getIdCompeticaoModalidade()%>">
@@ -506,8 +505,8 @@
                                                                             break;
                                                                         }
                                                                     }
-                                                                    if (sinal > 0) {
-                                                                        if (estado == 'A') {%>
+                                                                if (sinal > 0) {
+                                                                if (estado == 'A') {%>
                                                                 <p style="margin-left: 10px;"><button type="submit" role="button" disabled="true" class="btn btn-success popover-test" title="Solicitar entrada em equipe" data-content="Popover body content is set in this attribute."><i class="fas fa-check"></i>Aprovada</button></p>        
                                                                 <%}
                                                                     if (estado == 'N') {%>
@@ -539,11 +538,11 @@
                                         </div>
 
 
+                                    </div>
+                                    
                                 </div>
-
                             </div>
                         </div>
-                    </div>
 
                     <!--Modal Solcitação de entrada em equipe-->              
                     <div id="modalSolicitacaoEntradaEquipe<%=cmc.getIdCompeticaoModalidade()%>"class="modal" tabindex="-1" role="dialog">

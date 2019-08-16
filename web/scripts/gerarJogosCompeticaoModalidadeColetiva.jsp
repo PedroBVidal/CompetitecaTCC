@@ -16,31 +16,36 @@
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeColetivaControle"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<% 
+<%
 
     int idCompeticaoModalidadeColetiva = Integer.parseInt(request.getParameter("idCompModColetiva"));
-    
+
     CompeticaoModalidadeColetivaControle cmcc = new CompeticaoModalidadeColetivaControle();
 
     CompeticaoModalidadeColetiva cmc = cmcc.buscarPorId(idCompeticaoModalidadeColetiva);
-    
     cmcc.fecharSessaoDAOGeneric();
-    
-    cmcc.gerarConfrontosSistemaTodosContraTodos(cmc);
-    
+    if (cmc.isJogosEmAndamento()) {
+        cmc.setConfrontos(new ArrayList<Confronto>());
+        cmcc.alterar(cmc);
+        cmcc.fecharSessaoDAOGeneric();
+        cmcc.gerarConfrontosSistemaTodosContraTodos(cmc);
+    } else {
 
-    
+        cmcc.gerarConfrontosSistemaTodosContraTodos(cmc);
+    }
+
+
 %>
 <meta charset="utf-8">
 
-    <form method="POST" name="formEnviarIdCompeticaoColetivaAlterada">
-        <input type="hidden" name="id" value="<%=cmc.getIdCompeticaoModalidade()%>">
-    </form>
+<form method="POST" name="formEnviarIdCompeticaoColetivaAlterada">
+    <input type="hidden" name="id" value="<%=cmc.getIdCompeticaoModalidade()%>">
+</form>
 
 <script>
     window.onload = enviarFormulario();
-    function enviarFormulario(){
-            document.forms["formEnviarIdCompeticaoColetivaAlterada"].action = "../gerenciarCompModColetiva.jsp";
-            document.forms["formEnviarIdCompeticaoColetivaAlterada"].submit();  
+    function enviarFormulario() {
+        document.forms["formEnviarIdCompeticaoColetivaAlterada"].action = "../gerenciarCompModColetiva.jsp";
+        document.forms["formEnviarIdCompeticaoColetivaAlterada"].submit();
     }
 </script>
