@@ -39,24 +39,24 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     }
     
 
-    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao,Competicao competicao) {
-        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao);
+    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva,int idCompeticaoModalidade, String nomeCompeticao, int numVagas,SistemaDeCompeticao sistemaDeCompeticao,Competicao competicao) {
+        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao,numVagas);
         this.modalidadeColetiva = modalidadeColetiva;
         this.equipesCompeticao = new ArrayList<>();
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
         this.competicao = competicao;
     }
     
-    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao,Competicao competicao, String informacaoExtra) {
-        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, informacaoExtra);
+    public CompeticaoModalidadeColetiva(ModalidadeColetiva modalidadeColetiva,int idCompeticaoModalidade, String nomeCompeticao, int numVagas,SistemaDeCompeticao sistemaDeCompeticao,Competicao competicao, String informacaoExtra) {
+        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, informacaoExtra, numVagas);
         this.modalidadeColetiva = modalidadeColetiva;
         this.equipesCompeticao = new ArrayList<>();
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
         this.competicao = competicao;
     }
 
-    public CompeticaoModalidadeColetiva(Competicao competicao, ModalidadeColetiva modalidadeColetiva, List<EquipeCompeticao> equipesCompeticao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, int idCompeticaoModalidade, String informacaoExtra, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica, boolean inativo, boolean jogosEmAndamento) {
-        super(idCompeticaoModalidade, informacaoExtra, nomeCompeticao, sistemaDeCompeticao, confrontos, statusFormularioInscricaoPublica, inativo, jogosEmAndamento);
+    public CompeticaoModalidadeColetiva(Competicao competicao, ModalidadeColetiva modalidadeColetiva, List<EquipeCompeticao> equipesCompeticao, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, int idCompeticaoModalidade, String informacaoExtra, String nomeCompeticao, int numVagas,SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica, boolean inativo, boolean jogosEmAndamento) {
+        super(idCompeticaoModalidade, informacaoExtra, nomeCompeticao, sistemaDeCompeticao, confrontos, statusFormularioInscricaoPublica, inativo, jogosEmAndamento, numVagas);
         this.competicao = competicao;
         this.modalidadeColetiva = modalidadeColetiva;
         this.equipesCompeticao = equipesCompeticao;

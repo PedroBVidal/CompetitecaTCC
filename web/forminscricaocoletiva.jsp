@@ -131,6 +131,12 @@
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cmc.getNomeCompeticao()%>">
                                     <div class="input-group-append">
+                                        <%if (cmc.getNumVagasDisp() > 0) {%>
+                                        <span class="input-group-text"><span class="badge badge-pill badge-success" style="width: 1in;">Vagas:&nbsp;<%=cmc.getNumVagasDisp()%></span></span>
+                                        <%} else {
+                                        %>
+                                        <span class="input-group-text"><span class="badge badge-pill badge-danger" style="width: 1in;">Insc. Fechadas</span></span>
+                                        <%}%>
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#saibaMaisCompeticaoColetiva<%=cmc.getIdCompeticaoModalidade()%>"><i class="fas fa-info-circle"></i>&nbsp;Saiba mais</button>
                                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalTomadaDecissao<%=cmc.getIdCompeticaoModalidade()%>" style="width: 160px;">Inscrever-se</button>                  
                                     </div>
@@ -144,6 +150,12 @@
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cmc.getNomeCompeticao()%>">
                                     <div class="input-group-append">
+                                        <%if (cmc.getNumVagasDisp() > 0) {%>
+                                        <span class="input-group-text"><span class="badge badge-pill badge-success" style="width: 1in;">Vagas:&nbsp;<%=cmc.getNumVagasDisp()%></span></span>
+                                        <%} else {
+                                        %>
+                                        <span class="input-group-text"><span class="badge badge-pill badge-danger" style="width: 1in;">Insc. Fechadas</span></span>
+                                        <%}%>
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cmc.getIdCompeticaoModalidade()%>">
                                             <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
                                         </button><button type="input" class="btn btn-warning" disabled="true" style="width: 160px;">Em Aprovação</button>
@@ -160,6 +172,12 @@
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cmc.getNomeCompeticao()%>">
                                     <div class="input-group-append">
+                                        <%if (cmc.getNumVagasDisp() > 0) {%>
+                                        <span class="input-group-text"><span class="badge badge-pill badge-success" style="width: 1in;">Vagas:&nbsp;<%=cmc.getNumVagasDisp()%></span></span>
+                                        <%} else {
+                                        %>
+                                        <span class="input-group-text"><span class="badge badge-pill badge-danger" style="width: 1in;">Insc. Fechadas</span></span>
+                                        <%}%>
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cmc.getIdCompeticaoModalidade()%>">
                                             <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
                                         </button><button type="input" class="btn btn-danger" disabled="true" style="width: 160px;"><i class="fas fa-times" style="margin-right: 10px;"></i>Negada</button>
@@ -176,6 +194,12 @@
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" disabled="true"  aria-label="Recipient's username" aria-describedby="button-addon2" value="<%=cmc.getNomeCompeticao()%>">
                                     <div class="input-group-append">
+                                        <%if (cmc.getNumVagasDisp() > 0) {%>
+                                        <span class="input-group-text"><span class="badge badge-pill badge-success" style="width: 1in;">Vagas:&nbsp;<%=cmc.getNumVagasDisp()%></span></span>
+                                        <%} else {
+                                        %>
+                                        <span class="input-group-text"><span class="badge badge-pill badge-danger" style="width: 1in;">Insc. Fechadas</span></span>
+                                        <%}%>
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#2<%=cmc.getIdCompeticaoModalidade()%>">
                                             <i class="fas fa-info-circle"></i>&nbsp;Saiba mais
                                         </button><button type="input" class="btn btn-success" disabled="true" style="width: 160px;"><i class="fas fa-check"></i> &nbsp;Aprovada</button>
@@ -245,7 +269,7 @@
 
                                             %>
 
-                                            <li><input type="checkbox" name="idAtl<%=i%>" value="<%=atl.getIdAtleta()%>">&nbsp;<%=atl.getUsuarioParticipante().getNome()%></li>
+                                            <li><input type="checkbox" name="idAtl<%=i+"+"+equp.getIdEquipe()%>" value="<%=atl.getIdAtleta()%>">&nbsp;<%=atl.getUsuarioParticipante().getNome()%></li>
 
                                             <% i++;
                                                 }
@@ -254,7 +278,7 @@
                                         </ul>
                                     </div>
                                     <hr>
-
+                                    <input type="hidden" name="op" value="1">
                                     <input type="hidden" name="numAtl" value="<%=equp.getAtletas().size()%>">
                                     <input type="hidden" name="idCompeticao" value="<%=competicao.getIdCompeticao()%>">
                                     <input type="hidden" name="idEquipe" value="<%=equp.getIdEquipe()%>">

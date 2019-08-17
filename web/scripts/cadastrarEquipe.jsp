@@ -64,11 +64,6 @@
         upc.atualizarCad(uADMEquipe);
         
         
-
-        
-
-
-        
         response.sendRedirect("../listaEquipes.jsp?msg=Equipe criada com sucesso&color=success");
         
     

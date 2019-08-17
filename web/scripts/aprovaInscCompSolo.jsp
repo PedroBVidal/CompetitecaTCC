@@ -25,6 +25,8 @@
     int idInsc = Integer.parseInt(request.getParameter("idInsc"));
     int opt = Integer.parseInt(request.getParameter("opt"));
     String idComp = request.getParameter("idComp");
+    CompeticaoModalidadeSoloControle cmc = new CompeticaoModalidadeSoloControle();
+    CompeticaoModalidadeSolo cms = cmc.buscarPorId(Integer.parseInt(idComp));
     InscricaoCompeticaoModalidadeSoloControle icmsc = new InscricaoCompeticaoModalidadeSoloControle();
     UsuarioParticipante2Controle up2c = new UsuarioParticipante2Controle();
     InscricaoCompeticaoSolo icms = icmsc.buscarId(idInsc);
@@ -32,6 +34,9 @@
     ComunicadoRecebidoControle crc = new ComunicadoRecebidoControle();
     UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
     if(opt == 1){
+        cms.adicionarParticipante();
+        cmc.alterar(cms);
+        cmc.fecharSessaoDAOGeneric();
         icms.setInscricaoAceita('A');
         icmsc.alterar(icms);
         icmsc.fecharSessaoDAOGeneric();
@@ -59,6 +64,9 @@
         icmsc.fecharSessaoDAOGeneric();
           //response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Incrição negada com sucesso&color=success");
     }else if(opt == 3){
+        cms.retirarParticipante();
+        cmc.alterar(cms);
+        cmc.fecharSessaoDAOGeneric();
         ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente você foi expulso da competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+", sendo assim não há mais a necessidade de comparecer ao evento.",0,false,icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" - Expulsão",up);
         //comunicado.adicionarUsuarioParticipante(up);
         crc.salvar(comunicado);

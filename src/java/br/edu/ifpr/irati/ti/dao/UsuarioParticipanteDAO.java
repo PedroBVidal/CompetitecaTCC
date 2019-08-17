@@ -19,6 +19,7 @@ public class UsuarioParticipanteDAO extends Sessao {
         
         public UsuarioParticipante2 buscarPorId(int id){
         abrirSessao();
+        
         String hql = "from usuarioParticipante2 u where u.idUsuario = '"+id+"'";
         Query query = sessao.createQuery(hql);
         query.setMaxResults(1);

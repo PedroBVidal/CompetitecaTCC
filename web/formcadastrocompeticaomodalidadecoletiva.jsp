@@ -127,7 +127,10 @@
                                                 <%}%>
                                             </select>
                                         </div>
-
+                                            <div class="form-group">
+                                                <label for="formGroupExampleInput">Número de vagas a disponibilizar:</label>
+                                                <input type="text" class="form-control" id="formGroupExampleInput" name="numVagas">
+                                            </div>
                                         <div class="form-group">
                                             <label for="inputState">Sistema de competição:</label>
                                             <select id="sisCompeticao" class="form-control" name="sistemaCompeticao" onchange="proximoPasso()">

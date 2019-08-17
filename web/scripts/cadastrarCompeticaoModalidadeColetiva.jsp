@@ -36,6 +36,7 @@
     String sistemaCompeticao = request.getParameter("sistemaCompeticao");
     int idSistemaDeContagem = Integer.parseInt(request.getParameter("sistemaContagem"));
     String infoAdicional = request.getParameter("infoAdicional");
+    int numVagas = Integer.parseInt(request.getParameter("numVagas"));
     
     
     
@@ -69,10 +70,10 @@
         boolean repescagem;
         CompeticaoModalidadeColetiva competicaoModalidadeColetiva;
         if(!infoAdicional.equals("")|| infoAdicional != null){
-        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao, infoAdicional);
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao,numVagas,new SistemaEliminatorio(), competicao, infoAdicional);
         }
         else{
-        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao);
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, numVagas,new SistemaEliminatorio(), competicao);
  
         }
         if(sRepesgagem == null){
@@ -107,10 +108,10 @@
                 
         CompeticaoModalidadeColetiva competicaoModalidadeColetiva;
         if(!infoAdicional.equals("")|| infoAdicional != null){
-        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao, infoAdicional);
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, numVagas,new SistemaEliminatorio(), competicao, infoAdicional);
         }
         else{
-        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao);
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, numVagas,new SistemaEliminatorio(), competicao);
  
         }
         
@@ -151,10 +152,10 @@
         
         CompeticaoModalidadeColetiva competicaoModalidadeColetiva;
         if(!infoAdicional.equals("")|| infoAdicional != null){
-        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao, infoAdicional);
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, numVagas,new SistemaEliminatorio(), competicao, infoAdicional);
         }
         else{
-        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, new SistemaEliminatorio(), competicao);
+        competicaoModalidadeColetiva = new CompeticaoModalidadeColetiva(modalidadeColetiva, 0, nomeCompeticao, numVagas,new SistemaEliminatorio(), competicao);
         }
         if(sJogosIdaVolta == null){
             jogosIdaVolta = false;

@@ -39,7 +39,7 @@
     String sistemaCompeticao = request.getParameter("sistemaCompeticao");
     int idSistemaDeContagem = Integer.parseInt(request.getParameter("sistemaContagem"));
     String infoAdicional = request.getParameter("infoAdicional");
-    
+    int numVagas = Integer.parseInt(request.getParameter("numVagas"));
     System.out.println("INFO ADICIONAL: "+ infoAdicional);
     
     if(infoAdicional.equals("")){
@@ -80,9 +80,9 @@
         boolean repescagem;
         CompeticaoModalidadeSolo competicaoModalidadeSolo;
         if(!infoAdicional.equals("")){
-            competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaEliminatorio(), competicao,infoAdicional);
+            competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, numVagas,new SistemaEliminatorio(), competicao,infoAdicional);
         }else{
-            competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaEliminatorio(), competicao);
+            competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, numVagas,new SistemaEliminatorio(), competicao);
         }
         // Compra se o request consegui puxar uma parâmetro("sim"). Caso isso ocorre o sistema a ser cadastrado possui repescagem.
         if(sRepesgagem == null){
@@ -114,9 +114,9 @@
         CompeticaoModalidadeSolo competicaoModalidadeSolo;
         
         if(!infoAdicional.equals("")|| infoAdicional != null){
-        competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaMisto(), competicao,infoAdicional);
+        competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, numVagas,new SistemaMisto(), competicao,infoAdicional);
         }else{
-        competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaMisto(), competicao);
+        competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, numVagas,new SistemaMisto(), competicao);
         }
         
         if(sRepesgagem == null){
@@ -147,12 +147,12 @@
         CompeticaoModalidadeSolo competicaoModalidadeSolo;
          
         if(!infoAdicional.equals("")|| infoAdicional != null){
-       competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaTodosContraTodos(), competicao,infoAdicional);
+       competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, numVagas,new SistemaTodosContraTodos(), competicao,infoAdicional);
         }else{
-        competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, new SistemaTodosContraTodos(), competicao);
+        competicaoModalidadeSolo = new CompeticaoModalidadeSolo(modalidadeSolo, 0, nomeCompeticao, numVagas,new SistemaTodosContraTodos(), competicao);
         }
         
-        SistemaTodosContraTodos sistemaTodosContraTodos = new SistemaTodosContraTodos(sistemaDeContagem, sistemaDeDesempate, 0, sistemaCompeticao, new CompeticaoModalidadeSolo());
+        SistemaTodosContraTodos sistemaTodosContraTodos = new SistemaTodosContraTodos(sistemaDeContagem, sistemaDeDesempate, 0, sistemaCompeticao, new CompeticaoModalidadeSolo(), false);
         
         sistemaTodosContraTodos.setCompeticaoModalidade(competicaoModalidadeSolo);
         competicaoModalidadeSolo.setSistemaDeCompeticao(sistemaTodosContraTodos);

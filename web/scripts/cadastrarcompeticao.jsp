@@ -64,9 +64,10 @@
                 
                 competicao.adicionarAdministrador(usuarioADM);
         
-                competicaoControle.cadastrarCompeticao(competicao);
+                
                 
                 usuarioADM.adicionarCompeticao(competicao);
+                competicaoControle.cadastrarCompeticao(competicao);
                 competicaoControle.fecharSessaoDAOGeneric();
                 upc.fecharSessaoDAOEspecifico();
                 upc.atualizarCad(usuarioADM);

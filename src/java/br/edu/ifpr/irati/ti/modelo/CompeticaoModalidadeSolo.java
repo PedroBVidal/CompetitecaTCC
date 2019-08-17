@@ -43,24 +43,24 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
     }
     
 
-    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, Competicao competicao) {
-        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao);
+    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,int idCompeticaoModalidade, String nomeCompeticao, int numVagas,SistemaDeCompeticao sistemaDeCompeticao, Competicao competicao) {
+        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao,numVagas);
         this.modalidadeSolo = modalidadeSolo;
         this.atletasCompeticao = new ArrayList<>();
         this.inscricoesCompeticaoSolo = new ArrayList<>();
         this.competicao = competicao;
     }
     
-    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, Competicao competicao, String informacaoExtra) {
-        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, informacaoExtra);
+    public CompeticaoModalidadeSolo(ModalidadeSolo modalidadeSolo,int idCompeticaoModalidade, String nomeCompeticao, int numVagas,SistemaDeCompeticao sistemaDeCompeticao, Competicao competicao, String informacaoExtra) {
+        super(idCompeticaoModalidade, nomeCompeticao, sistemaDeCompeticao, informacaoExtra, numVagas);
         this.modalidadeSolo = modalidadeSolo;
         this.atletasCompeticao = new ArrayList<>();
         this.inscricoesCompeticaoSolo = new ArrayList<>();
         this.competicao = competicao;
     }
 
-    public CompeticaoModalidadeSolo(Competicao competicao, ModalidadeSolo modalidadeSolo, List<AtletaCompeticao> atletasCompeticao, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, int idCompeticaoModalidade, String informacaoExtra, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica, boolean inativo, boolean jogosEmAndamento) {
-        super(idCompeticaoModalidade, informacaoExtra, nomeCompeticao, sistemaDeCompeticao, confrontos, statusFormularioInscricaoPublica, inativo, jogosEmAndamento);
+    public CompeticaoModalidadeSolo(Competicao competicao, ModalidadeSolo modalidadeSolo, List<AtletaCompeticao> atletasCompeticao, List<InscricaoCompeticaoSolo> inscricoesCompeticaoSolo, int idCompeticaoModalidade, String informacaoExtra, String nomeCompeticao, int numVagas,SistemaDeCompeticao sistemaDeCompeticao, List<Confronto> confrontos, boolean statusFormularioInscricaoPublica, boolean inativo, boolean jogosEmAndamento) {
+        super(idCompeticaoModalidade, informacaoExtra, nomeCompeticao, sistemaDeCompeticao, confrontos, statusFormularioInscricaoPublica, inativo, jogosEmAndamento, numVagas);
         this.competicao = competicao;
         this.modalidadeSolo = modalidadeSolo;
         this.atletasCompeticao = atletasCompeticao;
@@ -71,25 +71,7 @@ public class CompeticaoModalidadeSolo extends CompeticaoModalidade implements Se
 
     
   
-/*   
-    public void distribuirAtletasCompeticao(){
-        
-        if (statusFormularioInscricaoPublica == false) {
-            
-            for (Atleta atleta: modalidadeSolo.getAtletas()){
-                
-                
-                AtletaCompeticao atletaCompeticao = new AtletaCompeticao();
-                Dao<AtletaCompeticao> atletaCompDao = new GenericDAO<>(AtletaCompeticao.class);
-                
-                atletaCompeticao.setAtleta(atleta);
-                atletaCompDao.salvar(atletaCompeticao);
-                
-            }
-        }
-        
-    }
-*/
+
     
     public void adcionarInscricaoModalidadeSolo(InscricaoCompeticaoSolo inscricaoCompeticaoSolo){
         this.inscricoesCompeticaoSolo.add(inscricaoCompeticaoSolo);

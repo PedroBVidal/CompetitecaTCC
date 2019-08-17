@@ -6,7 +6,6 @@
 <%@page import="br.edu.ifpr.irati.ti.modelo.ComunicadoRecebido"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.mensagens.ComunicadoRecebidoControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
-<%@page import="br.edu.ifpr.irati.ti.controle.mensagens.ComunicadoAPRecebidoControle"%>
 
 <%
 UsuarioParticipante2 up2 = (UsuarioParticipante2) session.getAttribute("usuario");

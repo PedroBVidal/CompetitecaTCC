@@ -98,12 +98,30 @@
 
             <%
                 }
+                int emAprov = 0;
+                for (InscricaoCompeticaoColetiva icc : competicao.getInscricoesCompeticoesColetivas()) {
+                    if (icc.getInscricaoAceita() == 'E') {
+                        emAprov++;
+                    }
+                }
             %>
             <!-- Page Heading/Breadcrumbs -->
-            <h1 class="mt-4 mb-3 titulos">Gerenciando competicao <span style="color: red;"><%=competicao.getNomeCompeticao()%></span>
-
-            </h1><br>
-
+            <h1 class="mt-4 mb-3 titulos">Gerenciando competicao <span style="color: red;"><%=competicao.getNomeCompeticao()%> </span>
+            </h1>
+            <%if (competicao.getNumVagasDisp() > 0) {%>
+            <span class="badge badge-pill badge-success" style="width: 1.75in;">Vagas Disp.:&nbsp;<%=competicao.getNumVagasDisp()%>&nbsp;|&nbsp;<%=competicao.getNumVagas()%></span>
+            <%} else {
+            %>
+            <span class="badge badge-pill badge-danger" style="width: 1.75in;">Insc. Fechadas</span>
+            <%}%>
+            &nbsp;
+            <%if (emAprov <= competicao.getNumVagasDisp()) {%>
+            <span class="badge badge-pill badge-success" style="width: 1.75in;">Em aprovação:&nbsp;<%=emAprov%></span>
+            <%} else {%>
+            <span class="badge badge-pill badge-danger" style="width: 1.75in;">Em aprovação:&nbsp;<%=emAprov%></span>
+            <%}%>
+            <br>
+            <br>
 
 
             <!-- List group -->
@@ -224,8 +242,8 @@
                             <tbody>
                                 <%
                                     int contador = 0;
-                                    for(EquipeCompeticao equipeCompeticao : competicao.getEquipesCompeticao()){
-                                       contador++; 
+                                    for (EquipeCompeticao equipeCompeticao : competicao.getEquipesCompeticao()) {
+                                        contador++;
                                 %>
                                 <tr>
                                     <th scope="row"><%=contador%>°</th>
@@ -247,7 +265,7 @@
                     <!--TAB PANE DOS JOGOS DA COMPETIÇÃO!-->
 
                     <div class="tab-pane active" id="jogos" role="tabpanel">
-                        
+
                         <div class="card text-center">
                             <div class="card-header">
                                 <ul class="nav nav-tabs card-header-tabs">
@@ -435,7 +453,7 @@
                     <div class="tab-pane active" id="messages" role="tabpanel">
 
                     </div>
-                                                        
+
                     <!--Tab pane competidores-->
                     <div class="tab-pane" id="competidores" role="tabpanel">
                         <div class="form-group input-group">
@@ -504,9 +522,9 @@
                             </div>
                             <%}%>
                         </table>
-                       
-                        
-                        
+
+
+
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmarGerarJogos">
                             Gerar jogos da competição
@@ -517,7 +535,12 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
+                                        <%if (competicao.isJogosEmAndamento()) {%>
+                                                <h5 class="modal-title" id="exampleModalLabel">Deseja gerar novamente os jogos desta competição? <%=competicao.getNomeCompeticao()%></h5>
+                                           <%}else{
+                                        %>
                                         <h5 class="modal-title" id="exampleModalLabel">Deseja realmente gerar os jogos da competição <%=competicao.getNomeCompeticao()%></h5>
+                                        <%}%>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -528,22 +551,22 @@
                                             <input type="hidden" value="<%=competicao.getIdCompeticaoModalidade()%>" name="idCompModColetiva">
                                             <button type="submit" class="btn btn-primary">Sim</button>
                                         </form>
-                                        
+
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        
-
-                        
                     </div>
-                        
+
                 </div>
 
             </div>
         </div>
+                        
+                        
+
+                        
 
         <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
@@ -664,3 +687,4 @@
     </body>
 
 </html>
+

@@ -24,6 +24,7 @@ import org.hibernate.annotations.Type;
 
 @Entity(name = "competicao")
 @Proxy(lazy = false)
+
 public class Competicao implements Serializable {
 
     @Id
@@ -231,7 +232,7 @@ public class Competicao implements Serializable {
 
     public void adicionarAdministrador(UsuarioParticipante up) {
         this.getAdministradores().add(up);
-        up.adicionarCompeticao(this);
+        //up.adicionarCompeticao(this);
     }
 
     public void removerAdministrador(UsuarioParticipante up) {

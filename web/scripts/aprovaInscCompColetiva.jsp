@@ -30,85 +30,88 @@
     int idInsc = Integer.parseInt(request.getParameter("idInsc"));
     int opt = Integer.parseInt(request.getParameter("opt"));
     int idComp = Integer.parseInt(request.getParameter("idComp"));
-    
+
     InscricaoCompeticaoColetivaControle icmsc = new InscricaoCompeticaoColetivaControle();
     EquipeCompeticaoControle equipeCompeticaoControle = new EquipeCompeticaoControle();
     UsuarioParticipante2Controle up2c = new UsuarioParticipante2Controle();
     ComunicadoRecebidoControle crc = new ComunicadoRecebidoControle();
     CompeticaoModalidadeColetivaControle cmcc = new CompeticaoModalidadeColetivaControle();
-    
+
     InscricaoCompeticaoColetiva icms = icmsc.buscarId(idInsc);
     UsuarioParticipante2 up2 = up2c.buscarPorId(icms.getEquipe().getAdministrador().getIdUsuario());
     CompeticaoModalidadeColetiva cmc = cmcc.buscarPorId(idComp);
-    
+
     UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
+    if (cmc.getNumVagasDisp() > 0) {
+        if (opt == 1) {
+            cmc.adicionarParticipante();
+            String atletas = "<ul>";
+            icms.setInscricaoAceita('A');
+            icmsc.alterar(icms);
 
-    if (opt == 1) {
-        String atletas = "<ul>";
-        icms.setInscricaoAceita('A');
-        icmsc.alterar(icms);
-        
-        for (Atleta atl : icms.getAtletas()) {
-            atletas += "<li>" + atl.getUsuarioParticipante().getNome() + "</li>";
+            for (Atleta atl : icms.getAtletas()) {
+                atletas += "<li>" + atl.getUsuarioParticipante().getNome() + "</li>";
+            }
+            atletas += "</ul>";
+            icmsc.fecharSessaoDAOGeneric();
+            ComunicadoRecebido comunicado = new ComunicadoRecebido("Parabéns, a inscrição da equipe " + icms.getEquipe().getNome() + " na competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " foi aceita. <br> Os seguintes atletas foram inscritos <br> " + atletas, 0, false, icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Inscrição Aceita", up);
+            //comunicado.adicionarUsuarioParticipante(up);
+            crc.salvar(comunicado);
+            crc.fecharSessaoDAOGeneric();
+
+            EquipeCompeticao equipeCompeticao = new EquipeCompeticao(0, icms.getEquipe(), icms.getAtletas());
+            equipeCompeticaoControle.salvar(equipeCompeticao);
+            equipeCompeticaoControle.fecharSessaoDAOGeneric();
+
+            cmc.getEquipesCompeticao().add(equipeCompeticao);
+            cmcc.alterar(cmc);
+            cmcc.fecharSessaoDAOGeneric();
+            //icmsc.fecharSessaoDAOGeneric();
+
+            up2.adicionarMensagemRecebida(comunicado);
+
+            up2c.atualizarCad(up2);
+            up2c.fecharSessaoDAOGeneric();
+
+            // ComunicadoAPEnviado comunicado2 = new ComunicadoAPEnviado("Parabéns, sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi aceita",0,"Inscrição Aceita");
+            response.sendRedirect("../gerenciarCompModColetiva.jsp?id=" + idComp + "&msg=Inscrição aprovada com sucesso&color=success");
+        } else if (opt == 2) {
+            ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente a inscrição da equipe " + icms.getEquipe().getNome() + " na competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " foi recusada.", 0, false, icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Inscrição Recusada", up);
+            // ComunicadoAPEnviado comunicado2 = new ComunicadoAPEnviado("Parabéns, sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi aceita",0,"Inscrição Aceita");
+            response.sendRedirect("../gerenciarCompModColetiva.jsp?id=" + idComp + "&msg=Inscrição aprovada com sucesso&color=success");
+        } else if (opt == 2) {
+            ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente a inscrição da equipe " + icms.getEquipe().getNome() + " na competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " foi recusada.", 0, false, icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Inscrição Recusada", up);
+            //comunicado.adicionarUsuarioParticipante(up);
+            crc.salvar(comunicado);
+            up2.adicionarMensagemRecebida(comunicado);
+            up2c.atualizarCad(up2);
+            up2c.fecharSessaoDAOGeneric();
+            crc.fecharSessaoDAOGeneric();
+
+            icms.setInscricaoAceita('N');
+            icmsc.alterar(icms);
+            icmsc.fecharSessaoDAOGeneric();
+            //comunicado.adicionarUsuarioParticipante(up);
+            crc.salvar(comunicado);
+            up2.adicionarMensagemRecebida(comunicado);
+            up2c.atualizarCad(up2);
+            up2c.fecharSessaoDAOGeneric();
+
+            response.sendRedirect("../gerenciarCompModColetiva.jsp?id=" + idComp + "&msg=Incrição negada com sucesso&color=success");
+        } else if (opt == 3) {
+            cmc.retirarParticipante();
+            cmcc.alterar(cmc);
+            cmcc.fecharSessaoDAOGeneric();
+            ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente a equipe " + icms.getEquipe().getNome() + " foi expulsa da competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + ", sendo assim não há mais a necessidade de comparecer ao evento.", 0, false, icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Expulsão", up);
+            icms.setInscricaoAceita('N');
+            icmsc.alterar(icms);
+            icmsc.fecharSessaoDAOGeneric();
+            crc.fecharSessaoDAOGeneric();
+
         }
-        atletas += "</ul>";
-        icmsc.fecharSessaoDAOGeneric();
-        ComunicadoRecebido comunicado = new ComunicadoRecebido("Parabéns, a inscrição da equipe " + icms.getEquipe().getNome() + " na competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " foi aceita. <br> Os seguintes atletas foram inscritos <br> " + atletas, 0, false, icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Inscrição Aceita", up);
-        //comunicado.adicionarUsuarioParticipante(up);
-        crc.salvar(comunicado);
-        crc.fecharSessaoDAOGeneric();
-        
-        EquipeCompeticao equipeCompeticao = new EquipeCompeticao(0, icms.getEquipe(), icms.getAtletas());
-        equipeCompeticaoControle.salvar(equipeCompeticao);
-        equipeCompeticaoControle.fecharSessaoDAOGeneric();
-        
-        cmc.getEquipesCompeticao().add(equipeCompeticao);
-        cmcc.alterar(cmc);
-        cmcc.fecharSessaoDAOGeneric();
-        //icmsc.fecharSessaoDAOGeneric();
-        
-        
-        up2.adicionarMensagemRecebida(comunicado);
+    } else {
+        response.sendRedirect("../gerenciarCompModColetiva.jsp?id=" + idComp + "&msg=Infelizmente as inscrições fecharam antes da sua ser efetuada&color=danger");
 
-        up2c.atualizarCad(up2);
-        up2c.fecharSessaoDAOGeneric();
-
-        // ComunicadoAPEnviado comunicado2 = new ComunicadoAPEnviado("Parabéns, sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi aceita",0,"Inscrição Aceita");
-        response.sendRedirect("../gerenciarCompModColetiva.jsp?id=" + idComp + "&msg=Inscrição aprovada com sucesso&color=success");
-    } else if (opt == 2) {
-        ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente a inscrição da equipe " + icms.getEquipe().getNome() + " na competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " foi recusada.", 0, false, icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Inscrição Recusada", up);
-       // ComunicadoAPEnviado comunicado2 = new ComunicadoAPEnviado("Parabéns, sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi aceita",0,"Inscrição Aceita");
-        response.sendRedirect("../gerenciarCompModColetiva.jsp?id="+idComp+"&msg=Inscrição aprovada com sucesso&color=success");
-    }else if(opt == 2){
-        ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente a inscrição da equipe "+icms.getEquipe().getNome()+" na competição "+icms.getCompeticaoModalidadeColetiva().getNomeCompeticao()+" foi recusada.",0,false,icms.getCompeticaoModalidadeColetiva().getNomeCompeticao()+" - Inscrição Recusada",up);
-        //comunicado.adicionarUsuarioParticipante(up);
-        crc.salvar(comunicado);
-        up2.adicionarMensagemRecebida(comunicado);
-        up2c.atualizarCad(up2);
-        up2c.fecharSessaoDAOGeneric();
-        crc.fecharSessaoDAOGeneric();
-
-        icms.setInscricaoAceita('N');
-        icmsc.alterar(icms);
-        icmsc.fecharSessaoDAOGeneric();
-        //comunicado.adicionarUsuarioParticipante(up);
-        crc.salvar(comunicado);
-        up2.adicionarMensagemRecebida(comunicado);
-        up2c.atualizarCad(up2);
-        up2c.fecharSessaoDAOGeneric();
-
-        response.sendRedirect("../gerenciarCompModColetiva.jsp?id=" + idComp + "&msg=Incrição negada com sucesso&color=success");
-    } else if (opt == 3) {
-        ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente a equipe " + icms.getEquipe().getNome() + " foi expulsa da competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + ", sendo assim não há mais a necessidade de comparecer ao evento.", 0, false, icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Expulsão", up);
-          response.sendRedirect("../gerenciarCompModColetiva.jsp?id="+idComp+"&msg=Incrição negada com sucesso&color=success");
-    }else if(opt == 3){
-        ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente a equipe "+icms.getEquipe().getNome()+" foi expulsa da competição "+icms.getCompeticaoModalidadeColetiva().getNomeCompeticao()+", sendo assim não há mais a necessidade de comparecer ao evento.",0,false,icms.getCompeticaoModalidadeColetiva().getNomeCompeticao()+" - Expulsão",up);
-        icms.setInscricaoAceita('N');
-        icmsc.alterar(icms);
-        icmsc.fecharSessaoDAOGeneric();
-        crc.fecharSessaoDAOGeneric();
-        
     }
-
 
 %>

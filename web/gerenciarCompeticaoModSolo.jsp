@@ -92,11 +92,32 @@
 
             <%
             }
+            int emAprov = 0;
+            for (InscricaoCompeticaoSolo ics : competicao.getInscricoesCompeticaoSolo()) {
+                    if (ics.getInscricaoAceita() == 'E') {
+                            emAprov++;
+                        }
+                }
             %>
             <!-- Page Heading/Breadcrumbs -->
             <h1 class="mt-4 mb-3 titulos">Gerenciando competicao <span style="color: red;"><%=competicao.getNomeCompeticao()%></span>
 
-            </h1><br>
+            </h1>
+            <%if (competicao.getNumVagasDisp() > 0) {%>
+            <span class="badge badge-pill badge-success" style="width: 1.75in;">Vagas Disp.:&nbsp;<%=competicao.getNumVagasDisp()%>&nbsp;|&nbsp;<%=competicao.getNumVagas()%></span>
+            <%} else {
+            %>
+            <span class="badge badge-pill badge-danger" style="width: 1.75in;">Insc. Fechadas</span>
+            <%}%>
+            &nbsp;
+            <%if (emAprov <= competicao.getNumVagasDisp()) {%>
+            <span class="badge badge-pill badge-success" style="width: 1.75in;">Em aprovação:&nbsp;<%=emAprov%></span>
+            <%} else {%>
+            <span class="badge badge-pill badge-danger" style="width: 1.75in;">Em aprovação:&nbsp;<%=emAprov%></span>
+            <%}%>
+            <br>
+            <br>
+
 
 
 
