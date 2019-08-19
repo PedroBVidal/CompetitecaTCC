@@ -62,7 +62,7 @@
 <script>
     window.onload = enviarFormulario();
     function enviarFormulario(){
-            document.forms["formAlterarDadosJogo"].action = "teste.jsp";
+            document.forms["formAlterarDadosJogo"].action = "../gerenciarCompModColetiva.jsp";
             document.forms["formAlterarDadosJogo"].submit();  
     }
 </script>

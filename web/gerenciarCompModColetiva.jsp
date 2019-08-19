@@ -46,7 +46,7 @@
         <title>Modern Business - Start Bootstrap Template</title>
         <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>            
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>            
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -83,7 +83,8 @@
 
         <!-- Page Content -->
         <div class="container">
-            <%                request.setCharacterEncoding("UTF-8");
+            <%  
+                request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("msg") != null) {
                     String mensagem = request.getParameter("msg");
                     String cor = request.getParameter("color");
@@ -135,7 +136,7 @@
 
 
                 </div>
-
+            
                 <!-- Tab panes -->
                 <div class="tab-content col-10">
                     <div class="tab-pane dark" id="inscricao" role="tabpanel">
@@ -322,18 +323,24 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">Jogo <%=numeroJogo%></h5>
                                                     <%
+                                                        /*
                                                         System.out.println("Confronto: "+ numeroJogo);
                                                         System.out.println("Data jogo: "+ sDataJogo);
                                                         System.out.println("Hora inicio: "+ sHoraInicio);
                                                         System.out.println("Hora final: "+ sHoraFinal);
                                                         System.out.println("ID LOCAL: "+ confronModColetiva.getLocal().getIdLocal());
+                                                       */
                                                     %>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(0).getEquipe().getNome()%></span>
                                                         </div>
-                                                        <input type="text" aria-label="First name" class="form-control">
-                                                        <input type="text" aria-label="Last name" class="form-control">
+                                                        <form action="scripts/finalizarJogo.jsp">
+                                                        <input type="text" class="form-control numberMask">
+                                                        <input type="hidden" value="<%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>" id="placarConfronto<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>">
+                                                        <input type="text" class="form-control numberMask">
+                                                        <input type="hidden" value="<%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>" id="placarConfronto<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>">
+                                                        </form>
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(1).getEquipe().getNome()%></span>
                                                         </div>
@@ -349,7 +356,7 @@
                                                     </p>
                                                     
                                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalInserirDadosJogo<%=confronModColetiva.getIdConfronto()%>">Inserir dados do jogo</button>
-                                                    <button type="button" class="btn btn-success">Finalizar jogo</button>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalFinalizarJogo<%=confronModColetiva.getIdConfronto()%>">Finalizar jogo</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -416,6 +423,28 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                                
+                                                                <!-- Modal FINALIZAR DADOS JOGO-->
+                                                                <div class="modal fade" id="modalFinalizarJogo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">Deseja realmente finalizar o jogo</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                ...
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>            
+                                                                
                                                     
                                         
                                         <%  numeroJogo++;}}
@@ -447,11 +476,12 @@
                         <script>
                         $('.dateMask').mask('00/00/0000', {reverse: true});
                         $('.timeMask').mask('00:00', {reverse: true});
+                        $('.numberMask').mask('000', {reverse: true});
                         </script>
                     </div>
 
-                    <div class="tab-pane active" id="messages" role="tabpanel">
-
+                    <div class="tab-pane" id="messages" role="tabpanel">
+                        
                     </div>
 
                     <!--Tab pane competidores-->
@@ -563,7 +593,9 @@
 
             </div>
         </div>
-                        
+    </body>
+
+</html>                        
                         
 
                         
@@ -579,13 +611,13 @@
                 alert("idConfronto: "+ idConfronto);
                 
                 var divErroData = document.getElementById('divErroData'+idConfronto);
-                alert(divErroData);
+                
                 var divErroHora = document.getElementById('divErroHora'+idConfronto);
-                alert(divErroHora);
+                
                 var sDataInicioCpt = document.getElementById('dataInicioCpt').value;
-                alert(sDataInicioCpt);
+                
                 var sDataTerminoCpt = document.getElementById('dataTerminoCpt').value;
-                alert(sDataTerminoCpt);
+                
                 // variáveis boleanas 
                 var dataValida, horaValida;
                 
@@ -608,7 +640,7 @@
                     divErroData.innerHTML = '<p class="text-danger text-left">A data do jogo está fora do período do evento.</p>';
                 }
                 if(horaValida === true && dataValida === true){
-                    alert("Entrei aqui!");
+                    
                     document.forms["formDadosJogo"+idConfronto].submit();
                 }
                 
@@ -616,13 +648,13 @@
             
             function isHoraInicialMenorHoraFinal(idConfronto)
             {
-                alert("Entrei na função de comparação de horas");
+                
                 
                 var horaInicial = document.getElementById('horaInicioJogo'+idConfronto).value;
-                alert("Hora incial: "+ horaInicial);
+                
                 var horaFinal = document.getElementById('horaFinalJogo'+idConfronto).value; 
                 
-                alert("Hora final: "+ horaFinal);
+                
 
                 horaIni = horaInicial.split(':'); horaFim = horaFinal.split(':'); 
 
@@ -659,7 +691,7 @@
             function dataJogoEstaEntreDataInicioETerminoCompeticao(sDataInicioCompeticao, sDataTerminoCompeticao,idConfronto){
                 var sDataJogo = document.getElementById('dataJogo'+idConfronto).value;
                 
-                alert("Data inserida: "+ sDataJogo);
+                
                 var partsDataJogo = sDataJogo.split('/');
                 var partsDataInicioCpt = sDataInicioCompeticao.split('/');
                 var partsDataTerminoCpt = sDataTerminoCompeticao.split('/');
@@ -669,11 +701,11 @@
                 var dataTerminoCompeticao = new Date(partsDataTerminoCpt[2], partsDataTerminoCpt[1] - 1, partsDataTerminoCpt[0]);
                 
                 if(dataJogo >= dataInicioCompeticao && dataJogo <= dataTerminoCompeticao){
-                    alert("data do jogo está correta!");
+                    
                     return true;
                 }
                 else{
-                    alert("Data do jogo está incorreta!");
+                    
                     return false;
                 }
             }
@@ -684,7 +716,5 @@
         <%
             }
         %>
-    </body>
 
-</html>
 
