@@ -4,6 +4,8 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.AtletaCompeticao"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.AtletaCompeticaoControle"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.mensagens.ComunicadoRecebidoControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.ComunicadoRecebido"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoSolo"%>
@@ -33,7 +35,11 @@
     UsuarioParticipante2 up2 = up2c.buscarPorId(icms.getAtleta().getUsuarioParticipante().getIdUsuario());
     ComunicadoRecebidoControle crc = new ComunicadoRecebidoControle();
     UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
+    AtletaCompeticaoControle acc = new AtletaCompeticaoControle();
     if(opt == 1){
+        AtletaCompeticao ac = new AtletaCompeticao(0,up2.getAtleta(), 0.0, 0.0);
+        acc.criarAtletaCompeticao(ac);
+        acc.fecharSessaoDAOGeneric();
         cms.adicionarParticipante();
         cmc.alterar(cms);
         cmc.fecharSessaoDAOGeneric();
@@ -48,6 +54,7 @@
         up2.adicionarMensagemRecebida(comunicado);
         up2c.atualizarCad(up2);
         up2c.fecharSessaoDAOGeneric();
+        
        // ComunicadoAPEnviado comunicado2 = new ComunicadoAPEnviado("Parabéns, sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi aceita",0,"Inscrição Aceita");
         //response.sendRedirect("../gerenciarCompeticaoModSolo.jsp?id="+idComp+"&msg=Inscrição aprovada com sucesso&color=success");
     }else if(opt == 2){
