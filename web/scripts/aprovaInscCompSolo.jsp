@@ -40,6 +40,7 @@
         AtletaCompeticao ac = new AtletaCompeticao(0,up2.getAtleta(), 0.0, 0.0);
         acc.criarAtletaCompeticao(ac);
         acc.fecharSessaoDAOGeneric();
+        cms.getAtletasCompeticao().add(ac);
         cms.adicionarParticipante();
         cmc.alterar(cms);
         cmc.fecharSessaoDAOGeneric();
