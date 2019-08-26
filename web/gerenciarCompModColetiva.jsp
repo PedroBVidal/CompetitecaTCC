@@ -297,7 +297,7 @@
 
                                                         ConfrontoModalidadeColetiva confronModColetiva = (ConfrontoModalidadeColetiva) confronto;
                                                         SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
-                                                        SimpleDateFormat sdfHora = new SimpleDateFormat("dd/MM/yyyy");
+                                                        SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
                                                         String sDataJogo, sHoraInicio, sHoraFinal;
                                                         int idConfronto = confronModColetiva.getIdConfronto();
                                                         
@@ -336,7 +336,7 @@
                                                             <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(0).getEquipe().getNome()%></span>
                                                         </div>
                                                         
-                                                        <input type="text" class="form-control numberMask" id="placarConfronto<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>">
+                                                            <input type="text" class="form-control numberMask" id="placarConfronto<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>">
                                                         <input type="hidden" value="<%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>">
                                                         <input type="text" class="form-control numberMask" id="placarConfronto<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>">
                                                         <input type="hidden" value="<%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>">
@@ -356,7 +356,7 @@
                                                     </p>
                                                     
                                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalInserirDadosJogo<%=confronModColetiva.getIdConfronto()%>">Inserir dados do jogo</button>
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" onclick="abrirModalFinalizarJogo(<%=idConfronto%>, <%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>, <%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>);">Finalizar jogo</button>
+                                                    <button type="button" class="btn btn-success" data-toggle="modal" onclick="abrirModalFinalizarJogo(<%=idConfronto%>, <%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>, <%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>);">Finalizar jogo</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -385,11 +385,11 @@
                                                                         <div class="form-group">
                                                                             
                                                                             <p class="text-left">Hora de início:</p>
-                                                                            <input type="text" class="timeMask form-control" id="horaInicioJogo<%=idConfronto%>" name="horaInicioJogo<%=idConfronto%>">
+                                                                            <input type="text" class="timeMask form-control" id="horaInicioJogo<%=idConfronto%>" name="horaInicioJogo<%=idConfronto%>" value="<%=sHoraInicio%>">
                                                                         </div>   
                                                                         <div class="form-group">    
                                                                             <p class="text-left">Hora de término:</p>
-                                                                            <input type="text" class="timeMask form-control" id="horaFinalJogo<%=idConfronto%>" name="horaTerminoJogo<%=idConfronto%>">
+                                                                            <input type="text" class="timeMask form-control" id="horaFinalJogo<%=idConfronto%>" name="horaTerminoJogo<%=idConfronto%>" value="<%=sHoraFinal%>">
                                                                              <div id="divErroHora<%=idConfronto%>">
                                                                             </div>
                                                                         </div>
@@ -428,6 +428,11 @@
                                                                 <div class="modal fade bd-example-modal-lg" id="modalFinalizarJogo<%=confronModColetiva.getIdConfronto()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                     <div class="modal-dialog modal-lg" role="document">
                                                                         <div class="modal-content">
+                                                                            <form action="scripts/finalizarJogo.jsp" method="POST">
+                                                                                <input type="hidden" name="idCompeticao" value="<%=idCompeticao%>">
+                                                                                <input type="hidden" name="idConfronto" value="<%=idConfronto%>">
+                                                                                <input type="hidden" name="idEquipe1" value="<%=confronModColetiva.getEquipes().get(0).getIdEquipeCompeticao()%>">
+                                                                                <input type="hidden" name="idEquipe2" value="<%=confronModColetiva.getEquipes().get(1).getIdEquipeCompeticao()%>">
                                                                             <div class="modal-header">
                                                                                 <h5 class="modal-title" id="exampleModalLabel">Deseja realmente finalizar o jogo</h5>
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -435,18 +440,19 @@
                                                                                 </button>
                                                                             </div>
                                                                             <div class="modal-body" onload="inserirDados();">
+                                                                                
                                                                                 <p class="text-bolder">Resultado do jogo:</p>
                                                                                 <div class="input-group">
                                                                                     
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><%=confronModColetiva.getEquipes().get(0).getEquipe().getNome()%></span>
                                                                                     </div>
-
-                                                                                    <input type="text" readonly="true" class="form-control numberMask" disabled="true">
-                                                                                    <input type="hidden" value="<%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>" id="placarConfrontoModal<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>">
-                                                                                    <input type="text" class="form-control numberMask" disabled="true">
-                                                                                    <input type="hidden" value="<%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>" id="placarConfrontoModal<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>">
-
+                                                                                    
+                                                                                    <input type="text" readonly class="form-control" id="placarConfrontoModal<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>" name="placarConfrontoModal<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(0).getIdEquipeCompeticao()%>" style="text-align:center;">
+                                                                                    <input type="hidden" value="<%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>" name="confrontoEquipe<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>">
+                                                                                    <input type="text" readonly class="form-control" id="placarConfrontoModal<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>" name="placarConfrontoModal<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(1).getIdEquipeCompeticao()%>" style="text-align:center;">
+                                                                                    <input type="hidden" value="<%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>" name="confrontoEquipe<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>">
+                                                                                    
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><%=confronModColetiva.getEquipes().get(1).getEquipe().getNome()%></span>
                                                                                     </div>
@@ -456,11 +462,13 @@
                                                                                         <p class="text-left" style="margin-top: 10px;">Informações adicionais do jogo:</p>
                                                                                         <textarea class="form-control" id="message-text"></textarea>
                                                                                     </div>
+                                                                                
                                                                             </div>
                                                                             <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                <button type="button" class="btn btn-primary">Salvar</button>
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                                <button type="submit" class="btn btn-success">Finalizar jogo</button>
                                                                             </div>
+                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                 </div>            
@@ -633,14 +641,15 @@
                 alert(valorPlacarEquipe1);
                 alert(valorPlacarEquipe2);
                 
-                document.getElementById("placarConfrontoModal"+idConfronto+idEquipe1).value = 666;
-                placarEquipeModal2 = document.getElementById("placarConfrontoModal"+idConfronto+idEquipe2);
+                placarEquipeModal1 = document.getElementById('placarConfrontoModal'+idConfronto+idEquipe1);
+                placarEquipeModal2 = document.getElementById('placarConfrontoModal'+idConfronto+idEquipe2);
                 
-                alert(placarEquipeModal1);
-                alert(placarEquipeModal2);
-                
-                placarEquipeModal1.value = "valorPlacarEquipe1";
+                placarEquipeModal1.value = valorPlacarEquipe1;
                 placarEquipeModal2.value = valorPlacarEquipe2;
+                
+                alert("VALOR PLACAR EQUIPE 1: "+ placarEquipeModal1.value);
+                alert("VALOR PLACAR EQUIPE 2:"+ placarEquipeModal2.value);
+
                 
                 $('#modalFinalizarJogo'+idConfronto).modal('show');
             }
