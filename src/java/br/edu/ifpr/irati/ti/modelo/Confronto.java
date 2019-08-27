@@ -39,6 +39,7 @@ public abstract class Confronto implements Serializable {
     protected Date horaTermino;
     
     
+    
     @Column (name = "periodo", nullable = false, length = 100)
     protected String periodo;
     

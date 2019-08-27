@@ -30,10 +30,10 @@ public class EquipeCompeticao implements Serializable {
     private List<Atleta> atletasEquipe;
     
     @Column(name="pontosMarcados")
-    private int pontosMarcados;
+    private double pontosMarcados;
     
     @Column(name="pontosSofridos")
-    private int pontosSofridos;
+    private double pontosSofridos;
     
     @Column(name="vitorias")
     private int vitorias;
@@ -48,7 +48,7 @@ public class EquipeCompeticao implements Serializable {
     private int jogos;
     
     @Column(name="pontos")
-    private int pontos;
+    private double pontos;
     
 
     
@@ -94,7 +94,7 @@ public class EquipeCompeticao implements Serializable {
         this.empates = 0;
     }
 
-    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, List<Atleta> atletasEquipe, int pontosMarcados, int pontosSofridos, int vitorias, int empates, int derrotas, int jogos, int pontos, List<Equipe> adversariosQueAEquipeVenceu, List<Equipe> adversariosQueAEquipePerdeu, List<Equipe> adversariosQueAEquipeEmpatou) {
+    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, List<Atleta> atletasEquipe, double pontosMarcados, double pontosSofridos, int vitorias, int empates, int derrotas, int jogos, double pontos, List<Equipe> adversariosQueAEquipeVenceu, List<Equipe> adversariosQueAEquipePerdeu, List<Equipe> adversariosQueAEquipeEmpatou) {
         this.idEquipeCompeticao = idEquipeCompeticao;
         this.equipe = equipe;
         this.atletasEquipe = atletasEquipe;
@@ -109,14 +109,6 @@ public class EquipeCompeticao implements Serializable {
         this.adversariosQueAEquipePerdeu = adversariosQueAEquipePerdeu;
         this.adversariosQueAEquipeEmpatou = adversariosQueAEquipeEmpatou;
     }
-
-    
-
-    
-
-    
-
-    
 
     
 
@@ -149,10 +141,31 @@ public class EquipeCompeticao implements Serializable {
     }
 
     /**
+     * @return the atletasEquipe
+     */
+    public List<Atleta> getAtletasEquipe() {
+        return atletasEquipe;
+    }
+
+    /**
+     * @param atletasEquipe the atletasEquipe to set
+     */
+    public void setAtletasEquipe(List<Atleta> atletasEquipe) {
+        this.atletasEquipe = atletasEquipe;
+    }
+
+    /**
      * @return the pontosMarcados
      */
     public double getPontosMarcados() {
         return pontosMarcados;
+    }
+
+    /**
+     * @param pontosMarcados the pontosMarcados to set
+     */
+    public void setPontosMarcados(double pontosMarcados) {
+        this.pontosMarcados = pontosMarcados;
     }
 
     /**
@@ -162,6 +175,82 @@ public class EquipeCompeticao implements Serializable {
         return pontosSofridos;
     }
 
+    /**
+     * @param pontosSofridos the pontosSofridos to set
+     */
+    public void setPontosSofridos(double pontosSofridos) {
+        this.pontosSofridos = pontosSofridos;
+    }
+
+    /**
+     * @return the vitorias
+     */
+    public int getVitorias() {
+        return vitorias;
+    }
+
+    /**
+     * @param vitorias the vitorias to set
+     */
+    public void setVitorias(int vitorias) {
+        this.vitorias = vitorias;
+    }
+
+    /**
+     * @return the empates
+     */
+    public int getEmpates() {
+        return empates;
+    }
+
+    /**
+     * @param empates the empates to set
+     */
+    public void setEmpates(int empates) {
+        this.empates = empates;
+    }
+
+    /**
+     * @return the derrotas
+     */
+    public int getDerrotas() {
+        return derrotas;
+    }
+
+    /**
+     * @param derrotas the derrotas to set
+     */
+    public void setDerrotas(int derrotas) {
+        this.derrotas = derrotas;
+    }
+
+    /**
+     * @return the jogos
+     */
+    public int getJogos() {
+        return jogos;
+    }
+
+    /**
+     * @param jogos the jogos to set
+     */
+    public void setJogos(int jogos) {
+        this.jogos = jogos;
+    }
+
+    /**
+     * @return the pontos
+     */
+    public double getPontos() {
+        return pontos;
+    }
+
+    /**
+     * @param pontos the pontos to set
+     */
+    public void setPontos(double pontos) {
+        this.pontos = pontos;
+    }
 
     /**
      * @return the adversariosQueAEquipeVenceu
@@ -205,103 +294,7 @@ public class EquipeCompeticao implements Serializable {
         this.adversariosQueAEquipeEmpatou = adversariosQueAEquipeEmpatou;
     }
 
-    /**
-     * @return the atletasEquipe
-     */
-    public List<Atleta> getAtletasEquipe() {
-        return atletasEquipe;
-    }
-
-    /**
-     * @param atletasEquipe the atletasEquipe to set
-     */
-    public void setAtletasEquipe(List<Atleta> atletasEquipe) {
-        this.atletasEquipe = atletasEquipe;
-    }
-
-    /**
-     * @return the vitorias
-     */
-    public int getVitorias() {
-        return vitorias;
-    }
-
-    /**
-     * @param vitorias the vitorias to set
-     */
-    public void setVitorias(int vitorias) {
-        this.vitorias = vitorias;
-    }
-
-    /**
-     * @return the jogos
-     */
-    public int getJogos() {
-        return jogos;
-    }
-
-    /**
-     * @param jogos the jogos to set
-     */
-    public void setJogos(int jogos) {
-        this.jogos = jogos;
-    }
-
-    /**
-     * @return the pontos
-     */
-    public int getPontos() {
-        return pontos;
-    }
-
-    /**
-     * @param pontos the pontos to set
-     */
-    public void setPontos(int pontos) {
-        this.pontos = pontos;
-    }
-
-    /**
-     * @return the empates
-     */
-    public int getEmpates() {
-        return empates;
-    }
-
-    /**
-     * @param empates the empates to set
-     */
-    public void setEmpates(int empates) {
-        this.empates = empates;
-    }
-
-    /**
-     * @return the derrotas
-     */
-    public int getDerrotas() {
-        return derrotas;
-    }
-
-    /**
-     * @param derrotas the derrotas to set
-     */
-    public void setDerrotas(int derrotas) {
-        this.derrotas = derrotas;
-    }
-
-    /**
-     * @param pontosMarcados the pontosMarcados to set
-     */
-    public void setPontosMarcados(int pontosMarcados) {
-        this.pontosMarcados = pontosMarcados;
-    }
-
-    /**
-     * @param pontosSofridos the pontosSofridos to set
-     */
-    public void setPontosSofridos(int pontosSofridos) {
-        this.pontosSofridos = pontosSofridos;
-    }
+    
     
     
 

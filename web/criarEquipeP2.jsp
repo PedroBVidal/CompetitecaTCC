@@ -117,7 +117,7 @@ div.ex4 {
                                     ModalidadeColetiva modalidadeColetivaSelecionada = mcc.buscaPorId(idModalidadeColetivaSelecionada);
                                     
                                     List<CompeticaoModalidadeColetiva> competicoesModalidadesColetivas = cmcc.buscarCompeticoesColetivasVinculasModalidade(idModalidadeColetivaSelecionada);
-                                    List<Competicao> competicoesPrivadas = new ArrayList<>();
+                                    List<Competicao> competicoesPrivadas = new ArrayList<Competicao>();
                                     int contadorCheckBox = 0;
                                     
                                     

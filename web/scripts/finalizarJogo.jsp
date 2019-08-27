@@ -22,9 +22,9 @@
     int idEquipe2 = Integer.parseInt(request.getParameter("idEquipe2"));
     int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
     
-    
-    String placarEquipe1 = request.getParameter("placarConfrontoModal"+idConfronto+idEquipe1);
-    String placarEquipe2 = request.getParameter("placarConfrontoModal"+idConfronto+idEquipe2);
+
+    int placarEquipe1 = Integer.parseInt(request.getParameter("placarConfrontoModal"+idConfronto+idEquipe1));
+    int placarEquipe2 = Integer.parseInt(request.getParameter("placarConfrontoModal"+idConfronto+idEquipe2));
     
     CompeticaoModalidadeColetivaControle competicaoModalidadeColetivaControle = new CompeticaoModalidadeColetivaControle();
     EquipeCompeticaoControle equipeCompeticaoControle = new EquipeCompeticaoControle();
@@ -35,10 +35,11 @@
     EquipeCompeticao equipe1 = equipeCompeticaoControle.buscarPorId(idEquipe1);
     EquipeCompeticao equipe2 = equipeCompeticaoControle.buscarPorId(idEquipe2);
     
-    int valorVitoria, valorDerrota, valorEmpate;
+    int valorVitoria = 0, valorDerrota= 0, valorEmpate = 0;
     
     confronto.setFinalizado(true);
-    confronto.setResultado(resultado);
+    confronto.setPlacarEquipe1(placarEquipe1);
+    confronto.setPlacarEquipe2(placarEquipe2);
     
     
     if(competicaoColetiva.getSistemaDeCompeticao() instanceof SistemaTodosContraTodos){
@@ -50,10 +51,168 @@
         valorEmpate = sistemaDeContagem.getValorEmpate();
     }
     
-    
+    // CASO DE EMPATE
     if(placarEquipe1 == placarEquipe2){
+        String resultadoConfronto = equipe1.getEquipe().getNome()+" "+placarEquipe1+" X "+placarEquipe2+" "+equipe2.getEquipe().getNome();
+        confronto.setResultado(resultadoConfronto);
+
+        int numJogosEquipe1 = equipe1.getJogos();
+        int numEmpatesEquipe1 = equipe1.getEmpates();
+        double pontosMarcadosEquipe1 = equipe1.getPontosMarcados();
+        double pontosSofridosEquipe1 = equipe1.getPontosSofridos();
+        double pontosEquipe1 = equipe1.getPontos();
         
+        
+        numJogosEquipe1++;
+        numEmpatesEquipe1++;
+        pontosMarcadosEquipe1 += placarEquipe1;
+        pontosSofridosEquipe1 += placarEquipe2;
+        pontosEquipe1 += valorEmpate;
+        
+        equipe1.setJogos(numJogosEquipe1);
+        equipe1.setEmpates(numEmpatesEquipe1);
+        equipe1.setPontosMarcados(pontosMarcadosEquipe1);
+        equipe1.setPontosSofridos(pontosSofridosEquipe1);
+        equipe1.setPontos(pontosEquipe1);
+        
+        int numJogosEquipe2 = equipe2.getJogos();
+        int numEmpatesEquipe2 = equipe2.getEmpates();
+        double pontosMarcadosEquipe2 = equipe2.getPontosMarcados();
+        double pontosSofridosEquipe2 = equipe2.getPontosSofridos();
+        double pontosEquipe2 = equipe2.getPontos();
+        
+        
+        numJogosEquipe2++;
+        numEmpatesEquipe2++;
+        pontosMarcadosEquipe2 += placarEquipe2;
+        pontosSofridosEquipe2 += placarEquipe1;
+        pontosEquipe2 += valorEmpate;
+        
+        
+        equipe2.setJogos(numJogosEquipe2);
+        equipe2.setEmpates(numEmpatesEquipe2);
+        equipe2.setPontosMarcados(pontosMarcadosEquipe2);
+        equipe2.setPontosSofridos(pontosSofridosEquipe2);
+        equipe2.setPontos(pontosEquipe2);
+        
+        
+        equipeCompeticaoControle.alterar(equipe1);
+        equipeCompeticaoControle.alterar(equipe2);
+        confrontoModalidadeColetivaControle.alterar(confronto);
+        
+        equipeCompeticaoControle.fecharSessaoDAOGeneric();
+        confrontoModalidadeColetivaControle.fecharSessaoDAOGeneric();
+        competicaoModalidadeColetivaControle.fecharSessaoDAOGeneric();
     }
+        // CASO EQUIPE 1 VITORIOSA
+        if(placarEquipe1 > placarEquipe2){
+        String resultadoConfronto = equipe1.getEquipe().getNome()+" "+placarEquipe1+" X "+placarEquipe2+" "+equipe2.getEquipe().getNome();
+        confronto.setResultado(resultadoConfronto);
+
+        int numJogosEquipe1 = equipe1.getJogos();
+        int numVitoriasEquipe1 = equipe1.getVitorias();
+        double pontosMarcadosEquipe1 = equipe1.getPontosMarcados();
+        double pontosSofridosEquipe1 = equipe1.getPontosSofridos();
+        double pontosEquipe1 = equipe1.getPontos();
+        
+        
+        numJogosEquipe1++;
+        numVitoriasEquipe1++;
+        pontosMarcadosEquipe1 += placarEquipe1;
+        pontosSofridosEquipe1 += placarEquipe2;
+        pontosEquipe1 += valorVitoria;
+        
+        equipe1.setJogos(numJogosEquipe1);
+        equipe1.setVitorias(numVitoriasEquipe1);
+        equipe1.setPontosMarcados(pontosMarcadosEquipe1);
+        equipe1.setPontosSofridos(pontosSofridosEquipe1);
+        equipe1.setPontos(pontosEquipe1);
+        
+        int numJogosEquipe2 = equipe2.getJogos();
+        int numDerrotasEquipe2 = equipe2.getDerrotas();
+        double pontosMarcadosEquipe2 = equipe2.getPontosMarcados();
+        double pontosSofridosEquipe2 = equipe2.getPontosSofridos();
+        double pontosEquipe2 = equipe2.getPontos();
+        
+        
+        numJogosEquipe2++;
+        numDerrotasEquipe2++;
+        pontosMarcadosEquipe2 += placarEquipe2;
+        pontosSofridosEquipe2 += placarEquipe1;
+        pontosEquipe2 += valorDerrota;
+        
+        
+        equipe2.setJogos(numJogosEquipe2);
+        equipe2.setDerrotas(numDerrotasEquipe2);
+        equipe2.setPontosMarcados(pontosMarcadosEquipe2);
+        equipe2.setPontosSofridos(pontosSofridosEquipe2);
+        equipe2.setPontos(pontosEquipe2);
+        
+        
+        equipeCompeticaoControle.alterar(equipe1);
+        equipeCompeticaoControle.alterar(equipe2);
+        confrontoModalidadeColetivaControle.alterar(confronto);
+        
+        equipeCompeticaoControle.fecharSessaoDAOGeneric();
+        confrontoModalidadeColetivaControle.fecharSessaoDAOGeneric();
+        competicaoModalidadeColetivaControle.fecharSessaoDAOGeneric();
+    }
+        
+
+        // CASO EQUIPE 2 VITORIOSA
+        if(placarEquipe1 < placarEquipe2){
+        String resultadoConfronto = equipe1.getEquipe().getNome()+" "+placarEquipe1+" X "+placarEquipe2+" "+equipe2.getEquipe().getNome();
+        confronto.setResultado(resultadoConfronto);
+
+        int numJogosEquipe1 = equipe1.getJogos();
+        int numDerrotasEquipe1 = equipe1.getDerrotas();
+        double pontosMarcadosEquipe1 = equipe1.getPontosMarcados();
+        double pontosSofridosEquipe1 = equipe1.getPontosSofridos();
+        double pontosEquipe1 = equipe1.getPontos();
+        
+        
+        numJogosEquipe1++;
+        numDerrotasEquipe1++;
+        pontosMarcadosEquipe1 += placarEquipe1;
+        pontosSofridosEquipe1 += placarEquipe2;
+        pontosEquipe1 += valorDerrota;
+        
+        equipe1.setJogos(numJogosEquipe1);
+        equipe1.setDerrotas(numDerrotasEquipe1);
+        equipe1.setPontosMarcados(pontosMarcadosEquipe1);
+        equipe1.setPontosSofridos(pontosSofridosEquipe1);
+        equipe1.setPontos(pontosEquipe1);
+        
+        int numJogosEquipe2 = equipe2.getJogos();
+        int numVitoriasEquipe2 = equipe2.getVitorias();
+        double pontosMarcadosEquipe2 = equipe2.getPontosMarcados();
+        double pontosSofridosEquipe2 = equipe2.getPontosSofridos();
+        double pontosEquipe2 = equipe2.getPontos();
+        
+        
+        numJogosEquipe2++;
+        numVitoriasEquipe2++;
+        pontosMarcadosEquipe2 += placarEquipe2;
+        pontosSofridosEquipe2 += placarEquipe1;
+        pontosEquipe2 += valorVitoria;
+        
+        
+        equipe2.setJogos(numJogosEquipe2);
+        equipe2.setVitorias(numVitoriasEquipe2);
+        equipe2.setPontosMarcados(pontosMarcadosEquipe2);
+        equipe2.setPontosSofridos(pontosSofridosEquipe2);
+        equipe2.setPontos(pontosEquipe2);
+        
+        
+        equipeCompeticaoControle.alterar(equipe1);
+        equipeCompeticaoControle.alterar(equipe2);
+        confrontoModalidadeColetivaControle.alterar(confronto);
+        
+        equipeCompeticaoControle.fecharSessaoDAOGeneric();
+        confrontoModalidadeColetivaControle.fecharSessaoDAOGeneric();
+        competicaoModalidadeColetivaControle.fecharSessaoDAOGeneric();
+    }
+
     
 %>
 
