@@ -54,7 +54,7 @@
                 //sresponse.setIntHeader("Refresh", 100);
                 String sIdCompeticao = request.getParameter("idCompeticao");
 
-                List<Competicao> competicoes = new ArrayList<>();
+                List<Competicao> competicoes = new ArrayList();
                 CompeticaoControle competicaoControle = new CompeticaoControle();
                 UsuarioParticipante2Controle usuarioParticipante2Controle = new UsuarioParticipante2Controle();
                 competicoes = competicaoControle.buscarTodasCompeticoes();
@@ -154,7 +154,7 @@
                 <%
 
 
-                    List<Competicao> competicoesASeremRemovidas = new ArrayList<>();
+                    List<Competicao> competicoesASeremRemovidas = new ArrayList();
 
                     //List<Atleta> atletas = up.getAtletas();
                     for (Competicao competicao : competicoes) {

@@ -24,7 +24,7 @@
     
     Equipe equipe = equipeControle.buscarPorId(idEquipe);
     
-    List<Atleta> membrosEquipe = new ArrayList<>();
+    List<Atleta> membrosEquipe = new ArrayList();
     
     
     if(contador != 0){

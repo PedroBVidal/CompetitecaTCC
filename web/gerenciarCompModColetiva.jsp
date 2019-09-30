@@ -235,9 +235,9 @@
                                     <th scope="col">V</th>
                                     <th scope="col">E</th>
                                     <th scope="col">D</th>
-                                    <th scope="col">GP</th>
-                                    <th scope="col">GC</th>
-                                    <th scope="col">SG</th>
+                                    <th scope="col">PP</th>
+                                    <th scope="col">PC</th>
+                                    <th scope="col">SP</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -245,18 +245,27 @@
                                     int contador = 0;
                                     for (EquipeCompeticao equipeCompeticao : competicao.getEquipesCompeticao()) {
                                         contador++;
+                                        
+                                        int pontos = (int) equipeCompeticao.getPontos();
+                                        int pontosMarcados = (int) equipeCompeticao.getPontosMarcados();
+                                        int pontosSofridos = (int) equipeCompeticao.getPontosSofridos();
+                                        int saldoPontos = (int) (equipeCompeticao.getPontosMarcados() - equipeCompeticao.getPontosSofridos());
+                                        int jogos = equipeCompeticao.getJogos();
+                                        int vitorias = equipeCompeticao.getVitorias();
+                                        int empates = equipeCompeticao.getEmpates();
+                                        int derrotas = equipeCompeticao.getDerrotas();
                                 %>
                                 <tr>
                                     <th scope="row"><%=contador%>°</th>
                                     <td><%=equipeCompeticao.getEquipe().getNome()%></td>
-                                    <td><%=equipeCompeticao.getPontosMarcados()%></td>
-                                    <td><%=equipeCompeticao.getPontos()%></td>
-                                    <td><%=equipeCompeticao.getJogos()%></td>
-                                    <td><%=equipeCompeticao.getVitorias()%></td>
-                                    <td><%=equipeCompeticao.getEmpates()%></td>
-                                    <td><%=equipeCompeticao.getDerrotas()%></td>
-                                    <td><%=equipeCompeticao.getPontosMarcados()%></td>
-                                    <td><%=equipeCompeticao.getPontosSofridos()%></td>
+                                    <td><%=pontos%></td>
+                                    <td><%=jogos%></td>
+                                    <td><%=vitorias%></td>
+                                    <td><%=empates%></td>
+                                    <td><%=derrotas%></td>
+                                    <td><%=pontosMarcados%></td>
+                                    <td><%=pontosSofridos%></td>
+                                    <td><%=saldoPontos%></td>
                                 </tr>
                                 <%}%>
 
@@ -269,6 +278,7 @@
 
                         <div class="card text-center">
                             <div class="card-header">
+                                
                                 <ul class="nav nav-tabs card-header-tabs">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
@@ -284,8 +294,9 @@
                                 </ul>
                             </div>
                             <div class="card-body">
-
+                                <p class="text-sm-left"><button type="button" class="btn btn-success">Success</button></p>
                                 <div class="tab-content" id="myTabContent">
+                                    
                                     <!--Tab JOGOS-->
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">

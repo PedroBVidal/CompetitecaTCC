@@ -21,7 +21,7 @@
     
     request.setCharacterEncoding("UTF-8");
     CompeticaoModalidadeColetivaControle cmc = new CompeticaoModalidadeColetivaControle();
-    List<CompeticaoModalidadeColetiva> competicoesModalidadeColetiva = new ArrayList<>();
+    List<CompeticaoModalidadeColetiva> competicoesModalidadeColetiva = new ArrayList<CompeticaoModalidadeColetiva>();
     
     int contador = Integer.parseInt(request.getParameter("contador"));
 

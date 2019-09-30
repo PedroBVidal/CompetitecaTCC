@@ -22,7 +22,7 @@
     int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
     int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
     int idComModCol = Integer.parseInt(request.getParameter("idCompModCol"));
-    List<Atleta> atls = new ArrayList<>();
+    List<Atleta> atls = new ArrayList();
     AtletaControle atc = new AtletaControle();
     InscricaoCompeticaoColetivaControle iccc = new InscricaoCompeticaoColetivaControle();
     CompeticaoModalidadeColetivaControle cmcc = new CompeticaoModalidadeColetivaControle();

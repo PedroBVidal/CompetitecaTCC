@@ -20,10 +20,12 @@ public class ConfrontoModalidadeSolo extends Confronto implements Serializable {
     @ManyToMany//(mappedBy = "confrontosModalidadeSolo", fetch=FetchType.EAGER)
     private List<AtletaCompeticao> atletas;
     
+    @ManyToOne
+    private AtletaCompeticao atletaVitorioso;
     
     @ManyToOne
     protected ModalidadeSolo modalidadeSolo;
-
+    
     public ConfrontoModalidadeSolo() {
         super();
         this.atletas = new ArrayList<>();
@@ -38,6 +40,13 @@ public class ConfrontoModalidadeSolo extends Confronto implements Serializable {
     public ConfrontoModalidadeSolo(List<AtletaCompeticao> atletas, ModalidadeSolo modalidadeSolo) {
         super();
         this.atletas = atletas;
+        this.modalidadeSolo = modalidadeSolo;
+    }
+
+    public ConfrontoModalidadeSolo(List<AtletaCompeticao> atletas, AtletaCompeticao atletaVitorioso, ModalidadeSolo modalidadeSolo, int idConfronto, Date data, Date horaInicio, Date horaTermino, String periodo, Local local, boolean finalizado, String resultado) {
+        super(idConfronto, data, horaInicio, horaTermino, periodo, local, finalizado, resultado);
+        this.atletas = atletas;
+        this.atletaVitorioso = atletaVitorioso;
         this.modalidadeSolo = modalidadeSolo;
     }
 
@@ -69,6 +78,20 @@ public class ConfrontoModalidadeSolo extends Confronto implements Serializable {
      */
     public void setAtletas(List<AtletaCompeticao> atletas) {
         this.atletas = atletas;
+    }
+
+    /**
+     * @return the atletaVitorioso
+     */
+    public AtletaCompeticao getAtletaVitorioso() {
+        return atletaVitorioso;
+    }
+
+    /**
+     * @param atletaVitorioso the atletaVitorioso to set
+     */
+    public void setAtletaVitorioso(AtletaCompeticao atletaVitorioso) {
+        this.atletaVitorioso = atletaVitorioso;
     }
     
     
