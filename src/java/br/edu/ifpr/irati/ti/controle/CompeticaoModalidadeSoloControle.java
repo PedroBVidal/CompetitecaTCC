@@ -66,10 +66,42 @@ public class CompeticaoModalidadeSoloControle {
             block++;
             
         }
-        
+        cms.setJogosEmAndamento(true);
         cms.setConfrontos(lcms);
         competicaoModalidadeSoloDAO.alterar(cms);
         competicaoModalidadeSoloDAO.fecharSessao();
+    }
+    private boolean verificaInteiro (double raiz){
+        int numEtapasI;
+        try{
+            numEtapasI = (int) raiz;
+        }catch(Exception e){
+            return false;
+        }
+        return true;
+    }
+    private int criarEtapas(int numComp){
+        return 0;
+    }
+    public void gerarConfrontosEliminatorias(CompeticaoModalidadeSolo cms){
+        int tamanho = cms.getAtletasCompeticao().size();
+        boolean isencao = false;
+        int i = 0;
+        while(i >= 0) {
+            if (Math.pow(2,i) == tamanho) {
+                isencao = false;
+                break;
+            }if(Math.pow(2, i) > tamanho){
+                isencao = true;
+                break;
+            }
+            i++;
+        }
+        
+        if (isencao == false) {
+            int numEtapasI;
+            
+        }
     }
 
 }

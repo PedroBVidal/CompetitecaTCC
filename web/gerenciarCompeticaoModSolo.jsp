@@ -275,7 +275,10 @@
                                     <!--Tab JOGOS-->
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
-                                            <%  LocalControle lclc = new LocalControle();
+                                            <%  if (!competicao.getSistemaDeCompeticao().getNome().equals("Sistema eliminatório")) {
+                                                    
+                                                
+                                                LocalControle lclc = new LocalControle();
                                                 if (competicao.isJogosEmAndamento() == true) {
 
                                                     int numeroJogo = 1;
@@ -454,7 +457,7 @@
 
 
                                             <%  numeroJogo++;
-                                                    }
+                                                    }}
                                                 }
                                             %>                                                                                                              
                                         </div>
@@ -587,6 +590,7 @@
                                 </div>
                             </div>
                         </div>
+                                            <%System.out.println(competicao.getConfrontos().size());%>
                         <script>
                             //Código de busca da tabela
                             $('input#txt_consulta').quicksearch('table#tabela tbody tr');

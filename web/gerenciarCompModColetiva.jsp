@@ -4,6 +4,7 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.BlocoEliminatorio"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.ConfrontoModalidadeColetivaControle"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Local"%>
@@ -73,7 +74,7 @@
                 LocalControle localControle = new LocalControle();
                 int idCompeticao = Integer.parseInt(request.getParameter("id"));
                 CompeticaoModalidadeColetiva competicao = competicaoControle.buscarPorId(idCompeticao);
-                
+
         %>
 
         <header>
@@ -83,8 +84,7 @@
 
         <!-- Page Content -->
         <div class="container">
-            <%  
-                request.setCharacterEncoding("UTF-8");
+            <%                request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("msg") != null) {
                     String mensagem = request.getParameter("msg");
                     String cor = request.getParameter("color");
@@ -136,7 +136,7 @@
 
 
                 </div>
-            
+
                 <!-- Tab panes -->
                 <div class="tab-content col-10">
                     <div class="tab-pane dark" id="inscricao" role="tabpanel">
@@ -290,185 +290,241 @@
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
                                             <%
-                                                if (competicao.isJogosEmAndamento() == true) {
+                                                if (!competicao.getSistemaDeCompeticao().getNome().equals("Sistema eliminatório")) {
+                                                    if (competicao.isJogosEmAndamento() == true) {
 
-                                                    int numeroJogo = 1;
-                                                    for (Confronto confronto : competicao.getConfrontos()) {
+                                                        int numeroJogo = 1;
+                                                        for (Confronto confronto : competicao.getConfrontos()) {
 
-                                                        ConfrontoModalidadeColetiva confronModColetiva = (ConfrontoModalidadeColetiva) confronto;
-                                                        SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
-                                                        SimpleDateFormat sdfHora = new SimpleDateFormat("dd/MM/yyyy");
-                                                        String sDataJogo, sHoraInicio, sHoraFinal;
-                                                        int idConfronto = confronModColetiva.getIdConfronto();
-                                                        
-                                                        if (confronModColetiva.getDataConfronto() != null) {
-                                                            sDataJogo = sdfData.format(confronModColetiva.getDataConfronto());
-                                                        } else {
-                                                            sDataJogo = "";
-                                                        }
-                                                        if (confronModColetiva.getHoraInicio() != null) {
-                                                            sHoraInicio = sdfHora.format(confronto.getHoraInicio());
-                                                        } else {
-                                                            sHoraInicio = "";
-                                                        }
-                                                        if (confronModColetiva.getHoraTermino() != null) {
-                                                            sHoraFinal = sdfHora.format(confronto.getHoraTermino());
-                                                        } else {
-                                                            sHoraFinal = "";
-                                                        }
+                                                            ConfrontoModalidadeColetiva confronModColetiva = (ConfrontoModalidadeColetiva) confronto;
+                                                            SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
+                                                            SimpleDateFormat sdfHora = new SimpleDateFormat("dd/MM/yyyy");
+                                                            String sDataJogo, sHoraInicio, sHoraFinal;
+                                                            int idConfronto = confronModColetiva.getIdConfronto();
+
+                                                            if (confronModColetiva.getDataConfronto() != null) {
+                                                                sDataJogo = sdfData.format(confronModColetiva.getDataConfronto());
+                                                            } else {
+                                                                sDataJogo = "";
+                                                            }
+                                                            if (confronModColetiva.getHoraInicio() != null) {
+                                                                sHoraInicio = sdfHora.format(confronto.getHoraInicio());
+                                                            } else {
+                                                                sHoraInicio = "";
+                                                            }
+                                                            if (confronModColetiva.getHoraTermino() != null) {
+                                                                sHoraFinal = sdfHora.format(confronto.getHoraTermino());
+                                                            } else {
+                                                                sHoraFinal = "";
+                                                            }
                                             %>
-                                        
-                                        <div class="col-sm-6">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Jogo <%=numeroJogo%></h5>
-                                                    <%
-                                                        /*
-                                                        System.out.println("Confronto: "+ numeroJogo);
-                                                        System.out.println("Data jogo: "+ sDataJogo);
-                                                        System.out.println("Hora inicio: "+ sHoraInicio);
-                                                        System.out.println("Hora final: "+ sHoraFinal);
-                                                        System.out.println("ID LOCAL: "+ confronModColetiva.getLocal().getIdLocal());
-                                                       */
-                                                    %>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(0).getEquipe().getNome()%></span>
+
+                                            <div class="col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Jogo <%=numeroJogo%></h5>
+                                                        <%
+                                                            /*
+                                                            System.out.println("Confronto: "+ numeroJogo);
+                                                            System.out.println("Data jogo: "+ sDataJogo);
+                                                            System.out.println("Hora inicio: "+ sHoraInicio);
+                                                            System.out.println("Hora final: "+ sHoraFinal);
+                                                            System.out.println("ID LOCAL: "+ confronModColetiva.getLocal().getIdLocal());
+                                                             */
+                                                        %>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(0).getEquipe().getNome()%></span>
+                                                            </div>
+
+                                                            <input type="text" class="form-control numberMask" id="placarConfronto<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>">
+                                                            <input type="hidden" value="<%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>">
+                                                            <input type="text" class="form-control numberMask" id="placarConfronto<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>">
+                                                            <input type="hidden" value="<%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>">
+
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(1).getEquipe().getNome()%></span>
+                                                            </div>
                                                         </div>
-                                                        
-                                                        <input type="text" class="form-control numberMask" id="placarConfronto<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>">
-                                                        <input type="hidden" value="<%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>">
-                                                        <input type="text" class="form-control numberMask" id="placarConfronto<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>">
-                                                        <input type="hidden" value="<%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>">
-                                                        
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" style="width: 8.6rem;"><%=confronModColetiva.getEquipes().get(1).getEquipe().getNome()%></span>
-                                                        </div>
+                                                        <p class="text-sm-left" style="margin-top: 10px;">Local:<%if (confronModColetiva.getLocal() != null) {%><%=confronModColetiva.getLocal().getNome()%><%}%></p>
+                                                        <p class="text-sm-left">Data:<%=sDataJogo%></p>
+                                                        <p>
+                                                            <%if (confronModColetiva.isFinalizado()) {%>
+                                                            <span class="badge badge-pill badge-success">Realizado</span>
+                                                            <%} else {%>
+                                                            <span class="badge badge-pill badge-warning">Não realizado</span>
+                                                            <%}%>
+                                                        </p>
+
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalInserirDadosJogo<%=confronModColetiva.getIdConfronto()%>">Inserir dados do jogo</button>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" onclick="abrirModalFinalizarJogo(<%=idConfronto%>, <%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>, <%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>);">Finalizar jogo</button>
                                                     </div>
-                                                    <p class="text-sm-left" style="margin-top: 10px;">Local:<%if(confronModColetiva.getLocal() != null){%><%=confronModColetiva.getLocal().getNome()%><%}%></p>
-                                                    <p class="text-sm-left">Data:<%=sDataJogo%></p>
-                                                    <p>
-                                                        <%if(confronModColetiva.isFinalizado()){%>
-                                                        <span class="badge badge-pill badge-success">Realizado</span>
-                                                        <%}else{%>
-                                                        <span class="badge badge-pill badge-warning">Não realizado</span>
-                                                        <%}%>
-                                                    </p>
-                                                    
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalInserirDadosJogo<%=confronModColetiva.getIdConfronto()%>">Inserir dados do jogo</button>
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" onclick="abrirModalFinalizarJogo(<%=idConfronto%>, <%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>, <%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>);">Finalizar jogo</button>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                                    <!-- Modal inserir dados do jogo-->
-                                                    <div class="modal fade" id="modalInserirDadosJogo<%=confronModColetiva.getIdConfronto()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Inserir dados do jogo <%=numeroJogo%></h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
+                                            <!-- Modal inserir dados do jogo-->
+                                            <div class="modal fade" id="modalInserirDadosJogo<%=confronModColetiva.getIdConfronto()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Inserir dados do jogo <%=numeroJogo%></h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="scripts/editarConfrontoColetivo.jsp" name="formDadosJogo<%=confronModColetiva.getIdConfronto()%>">
+                                                                <input type="hidden" value="1" name="op">
+                                                                <input type="hidden" value="<%=idCompeticao%>" name="idCompeticao">
+                                                                <input type="hidden" value="<%=confronModColetiva.getIdConfronto()%>" name="idConfronto">
+                                                                <div class="form-group">
+                                                                    <p class="text-left">Data do jogo:</p>
+                                                                    <input type="text" class="dateMask form-control" id="dataJogo<%=idConfronto%>" name="dataJogo<%=idConfronto%>">
+                                                                    <div id="divErroData<%=idConfronto%>">
+                                                                    </div>
                                                                 </div>
-                                                                <div class="modal-body">
-                                                                    <form action="scripts/editarConfrontoColetivo.jsp" name="formDadosJogo<%=confronModColetiva.getIdConfronto()%>">
-                                                                        <input type="hidden" value="1" name="op">
-                                                                        <input type="hidden" value="<%=idCompeticao%>" name="idCompeticao">
-                                                                        <input type="hidden" value="<%=confronModColetiva.getIdConfronto()%>" name="idConfronto">
-                                                                        <div class="form-group">
-                                                                            <p class="text-left">Data do jogo:</p>
-                                                                            <input type="text" class="dateMask form-control" id="dataJogo<%=idConfronto%>" name="dataJogo<%=idConfronto%>">
-                                                                            <div id="divErroData<%=idConfronto%>">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            
-                                                                            <p class="text-left">Hora de início:</p>
-                                                                            <input type="text" class="timeMask form-control" id="horaInicioJogo<%=idConfronto%>" name="horaInicioJogo<%=idConfronto%>">
-                                                                        </div>   
-                                                                        <div class="form-group">    
-                                                                            <p class="text-left">Hora de término:</p>
-                                                                            <input type="text" class="timeMask form-control" id="horaFinalJogo<%=idConfronto%>" name="horaTerminoJogo<%=idConfronto%>">
-                                                                             <div id="divErroHora<%=idConfronto%>">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                        <p class="text-left">Local do jogo:</p>
-                                                                        <select required="true" class="form-control" id="selectJogo<%=idConfronto%>" name="localJogo<%=idConfronto%>">
-                                                                            <%
-                                                                                
-                                                                                for(Local local : localControle.buscarTodosLocal()){
-                                                                            %>
-                                                                            <option value="<%=local.getIdLocal()%>"><%=local.getNome()%></option>
-                                                                            <%}%>
-                                                                        </select>
-                                                                        </div>
-                                                                    <%
-                                                                        /*Formata as datas de início e término da competição para criar inputs com seus respectivos valores*/
-                                                                        
-                                                                        String sDataInicioCpt = sdfData.format(competicao.getCompeticao().getDataInicio());
-                                                                        String sDataTerminoCpt = sdfData.format(competicao.getCompeticao().getDataTermino());
-                                                                    %>
-                                                                    <input type="hidden" value="<%=sDataInicioCpt%>" id="dataInicioCpt">
-                                                                    <input type="hidden" value="<%=sDataTerminoCpt%>" id="dataTerminoCpt">
-                                                                    
-                                                                    </form>
+                                                                <div class="form-group">
+
+                                                                    <p class="text-left">Hora de início:</p>
+                                                                    <input type="text" class="timeMask form-control" id="horaInicioJogo<%=idConfronto%>" name="horaInicioJogo<%=idConfronto%>">
+                                                                </div>   
+                                                                <div class="form-group">    
+                                                                    <p class="text-left">Hora de término:</p>
+                                                                    <input type="text" class="timeMask form-control" id="horaFinalJogo<%=idConfronto%>" name="horaTerminoJogo<%=idConfronto%>">
+                                                                    <div id="divErroHora<%=idConfronto%>">
+                                                                    </div>
                                                                 </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                                                    
-                                                                    <button type="button" class="btn btn-success" onclick="validarDadosJogo(<%=confronModColetiva.getIdConfronto()%>);">Salvar</button>
+                                                                <div class="form-group">
+                                                                    <p class="text-left">Local do jogo:</p>
+                                                                    <select required="true" class="form-control" id="selectJogo<%=idConfronto%>" name="localJogo<%=idConfronto%>">
+                                                                        <%
+
+                                                                            for (Local local : localControle.buscarTodosLocal()) {
+                                                                        %>
+                                                                        <option value="<%=local.getIdLocal()%>"><%=local.getNome()%></option>
+                                                                        <%}%>
+                                                                    </select>
+                                                                </div>
+                                                                <%
+                                                                    /*Formata as datas de início e término da competição para criar inputs com seus respectivos valores*/
+
+                                                                    String sDataInicioCpt = sdfData.format(competicao.getCompeticao().getDataInicio());
+                                                                    String sDataTerminoCpt = sdfData.format(competicao.getCompeticao().getDataTermino());
+                                                                %>
+                                                                <input type="hidden" value="<%=sDataInicioCpt%>" id="dataInicioCpt">
+                                                                <input type="hidden" value="<%=sDataTerminoCpt%>" id="dataTerminoCpt">
+
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+                                                            <button type="button" class="btn btn-success" onclick="validarDadosJogo(<%=confronModColetiva.getIdConfronto()%>);">Salvar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal FINALIZAR DADOS JOGO-->
+                                            <div class="modal fade bd-example-modal-lg" id="modalFinalizarJogo<%=confronModColetiva.getIdConfronto()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente finalizar o jogo</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body" onload="inserirDados();">
+                                                            <p class="text-bolder">Resultado do jogo:</p>
+                                                            <div class="input-group">
+
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><%=confronModColetiva.getEquipes().get(0).getEquipe().getNome()%></span>
+                                                                </div>
+
+                                                                <input type="text" readonly="true" class="form-control numberMask" disabled="true">
+                                                                <input type="hidden" value="<%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>" id="placarConfrontoModal<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>">
+                                                                <input type="text" class="form-control numberMask" disabled="true">
+                                                                <input type="hidden" value="<%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>" id="placarConfrontoModal<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>">
+
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><%=confronModColetiva.getEquipes().get(1).getEquipe().getNome()%></span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <p class="text-left" style="margin-top: 10px;">Informações adicionais do jogo:</p>
+                                                                <textarea class="form-control" id="message-text"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-primary">Salvar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>            
+
+
+
+                                            <%  numeroJogo++;
+                                                    }
+                                                }
+                                            } else {
+                                                for (BlocoEliminatorio bloco : competicao.getBlocosEliminatorios()) {
+
+                                            %>
+
+                                            <div class="card" style="width: 3in;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"><%=bloco.getEtapa()%></h5>
+                                                    <%for (Confronto ccmmcc : bloco.getConfrontos()) {
+                                                            ConfrontoModalidadeColetiva cmac = (ConfrontoModalidadeColetiva) ccmmcc;
+                                                    %>
+                                                    <div class="card" style="//width: 18rem;">
+
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">A1</h5>
+                                                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                                            <div class="col-auto">
+                                                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                                                <div class="input-group mb-2">
+                                                                    <%if(cmac.getEquipes().get(0).getEquipe().getNome().equals("")){%>
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text"><%=cmac.getEquipes().get(0).getEquipe().getNome()%></div>
+                                                                    </div>
+                                                                    <%}else{%>
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text"><%=cmac.getEquipes().get(0).getEquipe().getNome()%></div>
+                                                                    </div>
+                                                                    <%}%>
+                                                                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                                                <div class="input-group mb-2">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text"><%=cmac.getEquipes().get(1).getEquipe().getNome()%></div>
+                                                                    </div>
+                                                                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username">
                                                                 </div>
                                                             </div>
                                                         </div>
+
+
+
+
                                                     </div>
-                                                                
-                                                                <!-- Modal FINALIZAR DADOS JOGO-->
-                                                                <div class="modal fade bd-example-modal-lg" id="modalFinalizarJogo<%=confronModColetiva.getIdConfronto()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-lg" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel">Deseja realmente finalizar o jogo</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body" onload="inserirDados();">
-                                                                                <p class="text-bolder">Resultado do jogo:</p>
-                                                                                <div class="input-group">
-                                                                                    
-                                                                                    <div class="input-group-prepend">
-                                                                                        <span class="input-group-text"><%=confronModColetiva.getEquipes().get(0).getEquipe().getNome()%></span>
-                                                                                    </div>
+                                                    <%}%>
 
-                                                                                    <input type="text" readonly="true" class="form-control numberMask" disabled="true">
-                                                                                    <input type="hidden" value="<%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>" id="placarConfrontoModal<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>">
-                                                                                    <input type="text" class="form-control numberMask" disabled="true">
-                                                                                    <input type="hidden" value="<%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>" id="placarConfrontoModal<%=confronModColetiva.getIdConfronto()%><%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>">
+                                                </div>
+                                            </div>
 
-                                                                                    <div class="input-group-prepend">
-                                                                                        <span class="input-group-text"><%=confronModColetiva.getEquipes().get(1).getEquipe().getNome()%></span>
-                                                                                    </div>
-                                                                                </div>
-                                                                                
-                                                                                    <div class="form-group">
-                                                                                        <p class="text-left" style="margin-top: 10px;">Informações adicionais do jogo:</p>
-                                                                                        <textarea class="form-control" id="message-text"></textarea>
-                                                                                    </div>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                <button type="button" class="btn btn-primary">Salvar</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>            
-                                                                
-                                                    
-                                        
-                                        <%  numeroJogo++;}}
-                                        %>                                                                                                              
+                                            <%}
+                                                }
+                                            %>                                                                                                              
                                         </div>
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination">
@@ -494,14 +550,14 @@
                             </div>
                         </div>
                         <script>
-                        $('.dateMask').mask('00/00/0000', {reverse: true});
-                        $('.timeMask').mask('00:00', {reverse: true});
-                        $('.numberMask').mask('000', {reverse: true});
+                            $('.dateMask').mask('00/00/0000', {reverse: true});
+                            $('.timeMask').mask('00:00', {reverse: true});
+                            $('.numberMask').mask('000', {reverse: true});
                         </script>
                     </div>
 
                     <div class="tab-pane" id="messages" role="tabpanel">
-                        
+
                     </div>
 
                     <!--Tab pane competidores-->
@@ -586,8 +642,8 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <%if (competicao.isJogosEmAndamento()) {%>
-                                                <h5 class="modal-title" id="exampleModalLabel">Deseja gerar novamente os jogos desta competição? <%=competicao.getNomeCompeticao()%></h5>
-                                           <%}else{
+                                        <h5 class="modal-title" id="exampleModalLabel">Deseja gerar novamente os jogos desta competição? <%=competicao.getNomeCompeticao()%></h5>
+                                        <%} else {
                                         %>
                                         <h5 class="modal-title" id="exampleModalLabel">Deseja realmente gerar os jogos da competição <%=competicao.getNomeCompeticao()%></h5>
                                         <%}%>
@@ -616,145 +672,139 @@
     </body>
 
 </html>                        
-                        
 
-                        
 
-        <!-- Bootstrap core JavaScript -->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-           <script>
-                $('input#txt_consulta').quicksearch('table#tabela tbody tr');
-                
-            function abrirModalFinalizarJogo(idConfronto, idEquipe1, idEquipe2){
-                alert("Entrei aquie!");
-                valorPlacarEquipe1 = document.getElementById('placarConfronto'+idConfronto+idEquipe1).value;
-                valorPlacarEquipe2 = document.getElementById('placarConfronto'+idConfronto+idEquipe2).value;
-                alert(valorPlacarEquipe1);
-                alert(valorPlacarEquipe2);
-                
-                document.getElementById("placarConfrontoModal"+idConfronto+idEquipe1).value = 666;
-                placarEquipeModal2 = document.getElementById("placarConfrontoModal"+idConfronto+idEquipe2);
-                
-                alert(placarEquipeModal1);
-                alert(placarEquipeModal2);
-                
-                placarEquipeModal1.value = "valorPlacarEquipe1";
-                placarEquipeModal2.value = valorPlacarEquipe2;
-                
-                $('#modalFinalizarJogo'+idConfronto).modal('show');
-            }
-            function validarDadosJogo(idConfronto){
-                
-                alert("idConfronto: "+ idConfronto);
-                
-                var divErroData = document.getElementById('divErroData'+idConfronto);
-                
-                var divErroHora = document.getElementById('divErroHora'+idConfronto);
-                
-                var sDataInicioCpt = document.getElementById('dataInicioCpt').value;
-                
-                var sDataTerminoCpt = document.getElementById('dataTerminoCpt').value;
-                
-                // variáveis boleanas 
-                var dataValida, horaValida;
-                
-                dataValida = dataJogoEstaEntreDataInicioETerminoCompeticao(sDataInicioCpt, sDataTerminoCpt, idConfronto);
-                horaValida = isHoraInicialMenorHoraFinal(idConfronto);
-                
-                alert(horaValida);
-                
-                
-                if(horaValida === true){
-                    divErroHora.innerHTML = '';
-                }
-                else{
-                    divErroHora.innerHTML = '<p class="text-danger text-left">Horas de início e término inválidas.</p>';
-                }
-                if(dataValida === true){
-                    divErroData.innerHTML = '';
-                }
-                else{
-                    divErroData.innerHTML = '<p class="text-danger text-left">A data do jogo está fora do período do evento.</p>';
-                }
-                if(horaValida === true && dataValida === true){
-                    
-                    document.forms["formDadosJogo"+idConfronto].submit();
-                }
-                
-            }
-            
-            function isHoraInicialMenorHoraFinal(idConfronto)
-            {
-                
-                
-                var horaInicial = document.getElementById('horaInicioJogo'+idConfronto).value;
-                
-                var horaFinal = document.getElementById('horaFinalJogo'+idConfronto).value; 
-                
-                
 
-                horaIni = horaInicial.split(':'); horaFim = horaFinal.split(':'); 
 
-                // Verifica as horas. Se forem diferentes, é só ver se a inicial 
-                // é menor que a final. 
-                hIni = parseInt(horaIni[0], 10); 
-                hFim = parseInt(horaFim[0], 10); 
-                if(hIni !== hFim){ 
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+                            $('input#txt_consulta').quicksearch('table#tabela tbody tr');
 
-                  if(hIni < hFim){
-                      return true;
-                  }
-                  else{
-                      return false;
-                  }
-                }
-                else{
-                mIni = parseInt(horaIni[1], 10); 
-                mFim = parseInt(horaFim[1], 10); 
-                if(mIni !== mFim){ 
-                  if(mIni < mFim){
-                      return true;
-                  }
-                  else{
-                      return false;
-                  }
-                }
-                else{
-                  return false;
-                }
-                }
-            }
-            
-            function dataJogoEstaEntreDataInicioETerminoCompeticao(sDataInicioCompeticao, sDataTerminoCompeticao,idConfronto){
-                var sDataJogo = document.getElementById('dataJogo'+idConfronto).value;
-                
-                
-                var partsDataJogo = sDataJogo.split('/');
-                var partsDataInicioCpt = sDataInicioCompeticao.split('/');
-                var partsDataTerminoCpt = sDataTerminoCompeticao.split('/');
+                            function abrirModalFinalizarJogo(idConfronto, idEquipe1, idEquipe2) {
+                                alert("Entrei aquie!");
+                                valorPlacarEquipe1 = document.getElementById('placarConfronto' + idConfronto + idEquipe1).value;
+                                valorPlacarEquipe2 = document.getElementById('placarConfronto' + idConfronto + idEquipe2).value;
+                                alert(valorPlacarEquipe1);
+                                alert(valorPlacarEquipe2);
 
-                var dataJogo = new Date(partsDataJogo[2], partsDataJogo[1] - 1, partsDataJogo[0]);
-                var dataInicioCompeticao = new Date(partsDataInicioCpt[2], partsDataInicioCpt[1] - 1, partsDataInicioCpt[0]);
-                var dataTerminoCompeticao = new Date(partsDataTerminoCpt[2], partsDataTerminoCpt[1] - 1, partsDataTerminoCpt[0]);
-                
-                if(dataJogo >= dataInicioCompeticao && dataJogo <= dataTerminoCompeticao){
-                    
-                    return true;
-                }
-                else{
-                    
-                    return false;
-                }
-            }
-            
-            
-            
-            
-            </script>
+                                document.getElementById("placarConfrontoModal" + idConfronto + idEquipe1).value = 666;
+                                placarEquipeModal2 = document.getElementById("placarConfrontoModal" + idConfronto + idEquipe2);
 
-        <%
-            }
-        %>
+                                alert(placarEquipeModal1);
+                                alert(placarEquipeModal2);
+
+                                placarEquipeModal1.value = "valorPlacarEquipe1";
+                                placarEquipeModal2.value = valorPlacarEquipe2;
+
+                                $('#modalFinalizarJogo' + idConfronto).modal('show');
+                            }
+                            function validarDadosJogo(idConfronto) {
+
+                                alert("idConfronto: " + idConfronto);
+
+                                var divErroData = document.getElementById('divErroData' + idConfronto);
+
+                                var divErroHora = document.getElementById('divErroHora' + idConfronto);
+
+                                var sDataInicioCpt = document.getElementById('dataInicioCpt').value;
+
+                                var sDataTerminoCpt = document.getElementById('dataTerminoCpt').value;
+
+                                // variáveis boleanas 
+                                var dataValida, horaValida;
+
+                                dataValida = dataJogoEstaEntreDataInicioETerminoCompeticao(sDataInicioCpt, sDataTerminoCpt, idConfronto);
+                                horaValida = isHoraInicialMenorHoraFinal(idConfronto);
+
+                                alert(horaValida);
+
+
+                                if (horaValida === true) {
+                                    divErroHora.innerHTML = '';
+                                } else {
+                                    divErroHora.innerHTML = '<p class="text-danger text-left">Horas de início e término inválidas.</p>';
+                                }
+                                if (dataValida === true) {
+                                    divErroData.innerHTML = '';
+                                } else {
+                                    divErroData.innerHTML = '<p class="text-danger text-left">A data do jogo está fora do período do evento.</p>';
+                                }
+                                if (horaValida === true && dataValida === true) {
+
+                                    document.forms["formDadosJogo" + idConfronto].submit();
+                                }
+
+                            }
+
+                            function isHoraInicialMenorHoraFinal(idConfronto)
+                            {
+
+
+                                var horaInicial = document.getElementById('horaInicioJogo' + idConfronto).value;
+
+                                var horaFinal = document.getElementById('horaFinalJogo' + idConfronto).value;
+
+
+
+                                horaIni = horaInicial.split(':');
+                                horaFim = horaFinal.split(':');
+
+                                // Verifica as horas. Se forem diferentes, é só ver se a inicial 
+                                // é menor que a final. 
+                                hIni = parseInt(horaIni[0], 10);
+                                hFim = parseInt(horaFim[0], 10);
+                                if (hIni !== hFim) {
+
+                                    if (hIni < hFim) {
+                                        return true;
+                                    } else {
+                                        return false;
+                                    }
+                                } else {
+                                    mIni = parseInt(horaIni[1], 10);
+                                    mFim = parseInt(horaFim[1], 10);
+                                    if (mIni !== mFim) {
+                                        if (mIni < mFim) {
+                                            return true;
+                                        } else {
+                                            return false;
+                                        }
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            }
+
+                            function dataJogoEstaEntreDataInicioETerminoCompeticao(sDataInicioCompeticao, sDataTerminoCompeticao, idConfronto) {
+                                var sDataJogo = document.getElementById('dataJogo' + idConfronto).value;
+
+
+                                var partsDataJogo = sDataJogo.split('/');
+                                var partsDataInicioCpt = sDataInicioCompeticao.split('/');
+                                var partsDataTerminoCpt = sDataTerminoCompeticao.split('/');
+
+                                var dataJogo = new Date(partsDataJogo[2], partsDataJogo[1] - 1, partsDataJogo[0]);
+                                var dataInicioCompeticao = new Date(partsDataInicioCpt[2], partsDataInicioCpt[1] - 1, partsDataInicioCpt[0]);
+                                var dataTerminoCompeticao = new Date(partsDataTerminoCpt[2], partsDataTerminoCpt[1] - 1, partsDataTerminoCpt[0]);
+
+                                if (dataJogo >= dataInicioCompeticao && dataJogo <= dataTerminoCompeticao) {
+
+                                    return true;
+                                } else {
+
+                                    return false;
+                                }
+                            }
+
+
+
+
+</script>
+
+<%
+    }
+%>
 
 

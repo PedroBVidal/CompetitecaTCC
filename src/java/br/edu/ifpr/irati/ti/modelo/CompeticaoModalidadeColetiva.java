@@ -31,7 +31,9 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     @OneToMany(mappedBy = "competicaoModalidadeColetiva", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas;
-
+    
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<BlocoEliminatorio> blocosEliminatorios;
     public CompeticaoModalidadeColetiva() {
         super();
         this.modalidadeColetiva = new ModalidadeColetiva();
@@ -63,8 +65,13 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
     }
 
-    
+    public List<BlocoEliminatorio> getBlocosEliminatorios() {
+        return blocosEliminatorios;
+    }
 
+    public void setBlocosEliminatorios(List<BlocoEliminatorio> blocosEliminatorios) {
+        this.blocosEliminatorios = blocosEliminatorios;
+    }
     /**
      * @return the modalidadeColetiva
      */

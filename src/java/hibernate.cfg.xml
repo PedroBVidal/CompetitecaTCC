@@ -13,6 +13,7 @@
     <property name="hibernate.connection.password"></property>
     <mapping class="br.edu.ifpr.irati.ti.modelo.Atleta"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.AtletaCompeticao"/>
+    <mapping class="br.edu.ifpr.irati.ti.modelo.BlocoEliminatorio"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.Competicao"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidade"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"/>
