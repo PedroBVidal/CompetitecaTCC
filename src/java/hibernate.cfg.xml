@@ -46,6 +46,6 @@
     <mapping class="br.edu.ifpr.irati.ti.modelo.SolicitacaoEntradaEquipeEnviada"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.SolicitacaoEntradaEquipeRecebida"/>
     <mapping class="br.edu.ifpr.irati.ti.modelo.Segmento"/>
-
+    <mapping class="br.edu.ifpr.irati.ti.modelo.BlocoEliminatorio"/>
   </session-factory>
 </hibernate-configuration>
