@@ -32,18 +32,14 @@ public class ConfrontoModalidadeSolo extends Confronto implements Serializable {
         this.modalidadeSolo = new ModalidadeSolo();
     }
 
-    public ConfrontoModalidadeSolo(List<AtletaCompeticao> atletas, ModalidadeSolo modalidadeSolo, int idConfronto, Date data, Date horaInicio, Date horaTermino, String periodo, Local local, boolean finalizado, String resultado) {
-        super(idConfronto, data, horaInicio, horaTermino, periodo, local, finalizado, resultado);
-        this.atletas = atletas;
-        this.modalidadeSolo = modalidadeSolo;
-    }
-
-    public ConfrontoModalidadeSolo(List<AtletaCompeticao> atletas, AtletaCompeticao atletaVitorioso, ModalidadeSolo modalidadeSolo, int idConfronto, Date data, Date horaInicio, Date horaTermino, String periodo, Local local, boolean finalizado, String resultado) {
-        super(idConfronto, data, horaInicio, horaTermino, periodo, local, finalizado, resultado);
+    public ConfrontoModalidadeSolo(List<AtletaCompeticao> atletas, AtletaCompeticao atletaVitorioso, ModalidadeSolo modalidadeSolo, int idConfronto, Date dataConfronto, Date horaInicio, Date horaTermino, String nomeJogo, String periodo, Local local, boolean finalizado, String resultado) {
+        super(idConfronto, dataConfronto, horaInicio, horaTermino, nomeJogo, periodo, local, finalizado, resultado);
         this.atletas = atletas;
         this.atletaVitorioso = atletaVitorioso;
         this.modalidadeSolo = modalidadeSolo;
     }
+
+    
 
     
 

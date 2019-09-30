@@ -16,7 +16,9 @@ import java.util.List;
 public class ConfrontoModalidadeColetivaDAO extends Sessao {
     
 
-    
+    public void excluirRelacaoConfrontoModColetivaEquipeCompeticao(){
+        
+    }
     
     
     

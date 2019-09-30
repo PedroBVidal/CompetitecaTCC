@@ -63,7 +63,6 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
     }
 
-    
 
     /**
      * @return the modalidadeColetiva

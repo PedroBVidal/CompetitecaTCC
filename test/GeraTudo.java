@@ -42,8 +42,8 @@ public class GeraTudo {
         //upDAO.salvar(up);
        // up2DAO.salvar(up2);
         SistemaDeContagem sistemaDeContagem1 = new SistemaDeContagem(0, 1, 0, 0, "Sistema 1-0");
-        SistemaDeContagem sistemaDeContagem2 = new SistemaDeContagem(0, 2, 1, 0, "Sistema 2-1");
-        SistemaDeContagem sistemaDeContagem3 = new SistemaDeContagem(0, 3, 1, 0, "Sistema 3-1");
+        SistemaDeContagem sistemaDeContagem2 = new SistemaDeContagem(0, 2, 0, 1, "Sistema 2-1");
+        SistemaDeContagem sistemaDeContagem3 = new SistemaDeContagem(0, 3, 0, 1, "Sistema 3-1");
         SistemaDeContagem sistemaDeContagem = new SistemaDeContagem();
         
         ModalidadeSolo modalidadeSolo1 = new ModalidadeSolo(0, "Tenis de Mesa");

@@ -23,9 +23,13 @@
     CompeticaoModalidadeColetivaControle cmcc = new CompeticaoModalidadeColetivaControle();
 
     CompeticaoModalidadeColetiva cmc = cmcc.buscarPorId(idCompeticaoModalidadeColetiva);
-    cmcc.fecharSessaoDAOGeneric();
+    //cmcc.fecharSessaoDAOGeneric();
+    
     if (cmc.isJogosEmAndamento()) {
-        cmc.setConfrontos(new ArrayList<Confronto>());
+        cmc.setConfrontos(new ArrayList());
+
+        cmcc.zerarPontosEquipesCompeticao(cmc);
+        
         cmcc.alterar(cmc);
         cmcc.fecharSessaoDAOGeneric();
         cmcc.gerarConfrontosSistemaTodosContraTodos(cmc);
@@ -43,7 +47,7 @@
 </form>
 
 <script>
-    window.onload = enviarFormulario();
+    //window.onload = enviarFormulario();
     function enviarFormulario() {
         document.forms["formEnviarIdCompeticaoColetivaAlterada"].action = "../gerenciarCompModColetiva.jsp";
         document.forms["formEnviarIdCompeticaoColetivaAlterada"].submit();

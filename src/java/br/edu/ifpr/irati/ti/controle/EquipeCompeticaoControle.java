@@ -39,4 +39,8 @@ public class EquipeCompeticaoControle {
         equipeCompeticaoDAOGeneric.fecharSessao();
     }
     
+    public void ordenarEquipesCompeticao(String desempatePrimario, String desempateSecundario){
+        
+    }
+    
 }

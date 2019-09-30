@@ -7,12 +7,14 @@ package br.edu.ifpr.irati.ti.controle;
 
 import br.edu.ifpr.irati.ti.dao.CompeticaoModalidadeColetivaDAO;
 import br.edu.ifpr.irati.ti.dao.Dao;
+import br.edu.ifpr.irati.ti.dao.EquipeCompeticaoDAO;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
 import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva;
 import br.edu.ifpr.irati.ti.modelo.Confronto;
 import br.edu.ifpr.irati.ti.modelo.ConfrontoModalidadeColetiva;
 import br.edu.ifpr.irati.ti.modelo.EquipeCompeticao;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ public class CompeticaoModalidadeColetivaControle {
     
     Dao<CompeticaoModalidadeColetiva> competicaoModalidadeColetivaDAOGeneric = new GenericDAO<>(CompeticaoModalidadeColetiva.class);
     CompeticaoModalidadeColetivaDAO competicaoModalidadeColetivaDAO = new CompeticaoModalidadeColetivaDAO();
-    
+    EquipeCompeticaoDAO equipeCompeticaoDAO = new EquipeCompeticaoDAO();
     
     public void salvar(CompeticaoModalidadeColetiva competicaoModalidadeColetiva){
         competicaoModalidadeColetivaDAOGeneric.salvar(competicaoModalidadeColetiva);
@@ -53,6 +55,11 @@ public class CompeticaoModalidadeColetivaControle {
         return competicaoModalidadeColetivaDAOGeneric.getSessao().isOpen();
     }
     
+    public List<EquipeCompeticao> ordenarEquipesCompeticao(String desempate1, String desempate2, int idCompeticaoColetiva){
+        List<EquipeCompeticao> equipesOrdenadas = equipeCompeticaoDAO.ordenarEquipesCompeticao(desempate1, desempate2,idCompeticaoColetiva);
+        Collections.reverse(equipesOrdenadas);
+        return equipesOrdenadas;
+    }
 
     
     public void gerarConfrontosSistemaTodosContraTodos(CompeticaoModalidadeColetiva cmc){
@@ -76,7 +83,7 @@ public class CompeticaoModalidadeColetivaControle {
             List<EquipeCompeticao> equipesConfrontantes = new ArrayList<>();
             equipesConfrontantes.add(e1);
             equipesConfrontantes.add(e2);
-            ConfrontoModalidadeColetiva confrontoColetivo = new ConfrontoModalidadeColetiva(equipesConfrontantes, cmc.getModalidadeColetiva());
+            ConfrontoModalidadeColetiva confrontoColetivo = new ConfrontoModalidadeColetiva(equipesConfrontantes, cmc.getModalidadeColetiva());            
             confrontosModalidadesColetivas.add(confrontoColetivo);
             j++;
             z++;
@@ -87,12 +94,7 @@ public class CompeticaoModalidadeColetivaControle {
         }
         int cont = 1;
         for(Confronto confronmc : confrontosModalidadesColetivas){
-            /*
-            System.out.println("Confronto "+ cont);
-            System.out.println(confronmc.getEquipes().get(0).getEquipe().getNome()+"("+confronmc.getEquipes().get(0).getIdEquipeCompeticao());
-            System.out.println(confronmc.getEquipes().get(1).getEquipe().getNome()+"("+confronmc.getEquipes().get(1).getIdEquipeCompeticao());
-            System.out.println("");
-            */
+            
             confrontoColetivoControle.salvar((ConfrontoModalidadeColetiva) confronmc);
             
             cont++;
@@ -102,6 +104,28 @@ public class CompeticaoModalidadeColetivaControle {
         cmcc.alterar(cmc);
         
     }
+    
+    
+    public CompeticaoModalidadeColetiva zerarPontosEquipesCompeticao(CompeticaoModalidadeColetiva competicaoModalidadeColetiva){
+        
+        
+        for(EquipeCompeticao equipeCompeticao : competicaoModalidadeColetiva.getEquipesCompeticao()){
+            equipeCompeticao.setAdversariosQueAEquipeVenceu(new ArrayList());
+            equipeCompeticao.setAdversariosQueAEquipeEmpatou(new ArrayList());
+            equipeCompeticao.setAdversariosQueAEquipePerdeu(new ArrayList());
+            equipeCompeticao.setPontos(0);
+            equipeCompeticao.setDerrotas(0);
+            equipeCompeticao.setEmpates(0);
+            equipeCompeticao.setVitorias(0);
+            equipeCompeticao.setJogos(0);
+            equipeCompeticao.setPontosMarcados(0);
+            equipeCompeticao.setPontosSofridos(0);
+            equipeCompeticao.setSaldoDePontos(0);
+        }
+        return competicaoModalidadeColetiva;
+        
+    }
+    
     
     
 }
