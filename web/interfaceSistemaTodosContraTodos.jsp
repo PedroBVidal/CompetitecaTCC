@@ -756,9 +756,6 @@
 <!--Copiar DAQUIII!!!!-->
 
 
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
         $('input#txt_consulta').quicksearch('table#tabela tbody tr');
 

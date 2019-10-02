@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -40,6 +41,11 @@ public class ConfrontoModalidadeColetiva extends Confronto implements Serializab
     @Column(name="placarEquipe2")
     private int placarEquipe2;
     
+    @Column(name="confrontoRodada", nullable = true)
+    private int confrontoRodada;
+    
+    @ManyToOne
+    private ParesConfronto paresConfronto;
 
     public ConfrontoModalidadeColetiva() {
         super();
@@ -124,6 +130,34 @@ public class ConfrontoModalidadeColetiva extends Confronto implements Serializab
         this.placarEquipe2 = placarEquipe2;
     }
 
+    /**
+     * @return the confrontoRodada
+     */
+    public int getConfrontoRodada() {
+        return confrontoRodada;
+    }
 
+    /**
+     * @param confrontoRodada the confrontoRodada to set
+     */
+    public void setConfrontoRodada(int confrontoRodada) {
+        this.confrontoRodada = confrontoRodada;
+    }
+
+    /**
+     * @return the paresConfronto
+     */
+    public ParesConfronto getParesConfronto() {
+        return paresConfronto;
+    }
+
+    /**
+     * @param paresConfronto the paresConfronto to set
+     */
+    public void setParesConfronto(ParesConfronto paresConfronto) {
+        this.paresConfronto = paresConfronto;
+    }
+
+    
     
 }

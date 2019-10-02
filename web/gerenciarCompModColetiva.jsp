@@ -127,177 +127,23 @@
             <br>
             <br>
             
+            <%
+                if(competicao.getSistemaDeCompeticao().getNome().equals("Sistema todos contra todos")){
+            %>
             <jsp:include page="interfaceSistemaTodosContraTodos.jsp" flush="true" />
-            
-            
+            <%}
+                else if (competicao.getSistemaDeCompeticao().getNome().equals("Sistema eliminatório")){
+            %>
+            <jsp:include page="interfaceSistemaEliminatorio.jsp" flush="true" />
+            <%}%>
         </div>
     </body>
 
 </html>                        
                         
 
-                        
-
-        <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-           <script>
-                $('input#txt_consulta').quicksearch('table#tabela tbody tr');
-                
-            function abrirModalFinalizarJogo(idConfronto, idEquipe1, idEquipe2){
-                alert("Entrei aquie!");
-                valorPlacarEquipe1 = document.getElementById('placarConfronto'+idConfronto+idEquipe1).value;
-                valorPlacarEquipe2 = document.getElementById('placarConfronto'+idConfronto+idEquipe2).value;
-                alert(valorPlacarEquipe1);
-                alert(valorPlacarEquipe2);
-                
-                placarEquipeModal1 = document.getElementById('placarConfrontoModal'+idConfronto+idEquipe1);
-                placarEquipeModal2 = document.getElementById('placarConfrontoModal'+idConfronto+idEquipe2);
-                
-                placarEquipeModal1.value = valorPlacarEquipe1;
-                placarEquipeModal2.value = valorPlacarEquipe2;
-                
-                alert("VALOR PLACAR EQUIPE 1: "+ placarEquipeModal1.value);
-                alert("VALOR PLACAR EQUIPE 2:"+ placarEquipeModal2.value);
-
-                
-                $('#modalFinalizarJogo'+idConfronto).modal('show');
-            }
-            function validarDadosJogo(idConfronto){
-                
-                alert("idConfronto: "+ idConfronto);
-                
-                var divErroData = document.getElementById('divErroData'+idConfronto);
-                
-                var divErroHora = document.getElementById('divErroHora'+idConfronto);
-                
-                var sDataInicioCpt = document.getElementById('dataInicioCpt').value;
-                
-                var sDataTerminoCpt = document.getElementById('dataTerminoCpt').value;
-                
-                var op = document.getElementById('op'+idConfronto).value;
-                
-                alert(op);
-                
-
-                
-                alert('YEAH');
-                var dataValida, horaValida;
-                
-                dataValida = dataJogoEstaEntreDataInicioETerminoCompeticao(sDataInicioCpt, sDataTerminoCpt, idConfronto);
-                alert("DATA VÁLIDA: "+dataValida);
-                horaValida = isHoraInicialMenorHoraFinal(idConfronto);
-                
-                alert(horaValida);
-                
-                
-                if(horaValida === true){
-                    divErroHora.innerHTML = '';
-                }
-                else{
-                    divErroHora.innerHTML = '<p class="text-danger text-left">Horas de início e término inválidas.</p>';
-                }
-                if(dataValida === true){
-                    divErroData.innerHTML = '';
-                }
-                else{
-                    divErroData.innerHTML = '<p class="text-danger text-left">A data do jogo está fora do período do evento.</p>';
-                }
-                if(horaValida === true && dataValida === true){
-                    if(op === '1'){
-                        
-                        var equipe1 = document.getElementById('selectEquipe1').value;
-                        var equipe2 = document.getElementById('selectEquipe2').value;
-                        alert("Equipe 1: "+ equipe1);
-                        alert("Equipe 2: "+ equipe2);
-                        
-                        if(equipe1 !== '0' && equipe2 !== 0){
-                            if(equipe1 !== equipe2){
-                                
-                                document.forms["formDadosJogo"+idConfronto].submit();
-                            }
-                        }
-                    }
-                    
-                    if(op === '2'){
-                        document.forms["formDadosJogo"+idConfronto].submit();
-                        
-                    }
-
-                }
-                
-            }
-            
-            function isHoraInicialMenorHoraFinal(idConfronto)
-            {
-                
-                
-                var horaInicial = document.getElementById('horaInicioJogo'+idConfronto).value;
-                
-                var horaFinal = document.getElementById('horaFinalJogo'+idConfronto).value; 
-                
-                
-
-                horaIni = horaInicial.split(':'); horaFim = horaFinal.split(':'); 
-
-                // Verifica as horas. Se forem diferentes, é só ver se a inicial 
-                // é menor que a final. 
-                hIni = parseInt(horaIni[0], 10); 
-                hFim = parseInt(horaFim[0], 10); 
-                if(hIni !== hFim){ 
-
-                  if(hIni < hFim){
-                      return true;
-                  }
-                  else{
-                      return false;
-                  }
-                }
-                else{
-                mIni = parseInt(horaIni[1], 10); 
-                mFim = parseInt(horaFim[1], 10); 
-                if(mIni !== mFim){ 
-                  if(mIni < mFim){
-                      return true;
-                  }
-                  else{
-                      return false;
-                  }
-                }
-                else{
-                  return false;
-                }
-                }
-            }
-            
-            function dataJogoEstaEntreDataInicioETerminoCompeticao(sDataInicioCompeticao, sDataTerminoCompeticao,idConfronto){
-                alert("idConfronto: "+ idConfronto);
-                var sDataJogo = document.getElementById('dataJogo'+idConfronto).value;
-                
-                
-                var partsDataJogo = sDataJogo.split('/');
-                var partsDataInicioCpt = sDataInicioCompeticao.split('/');
-                var partsDataTerminoCpt = sDataTerminoCompeticao.split('/');
-
-                var dataJogo = new Date(partsDataJogo[2], partsDataJogo[1] - 1, partsDataJogo[0]);
-                var dataInicioCompeticao = new Date(partsDataInicioCpt[2], partsDataInicioCpt[1] - 1, partsDataInicioCpt[0]);
-                var dataTerminoCompeticao = new Date(partsDataTerminoCpt[2], partsDataTerminoCpt[1] - 1, partsDataTerminoCpt[0]);
-                
-                if(dataJogo >= dataInicioCompeticao && dataJogo <= dataTerminoCompeticao){
-                    
-                    return true;
-                }
-                else{
-                    
-                    return false;
-                }
-            }
-            
-            
-            
-            
-            </script>
-
         <%
             }
         %>

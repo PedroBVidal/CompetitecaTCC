@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package br.edu.ifpr.irati.ti.modelo;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -20,14 +21,17 @@ import org.hibernate.annotations.Proxy;
  */
 @Entity(name = "bloco_eliminatorio")
 @Proxy(lazy = false)
-public class BlocoEliminatorio {
+public class BlocoEliminatorio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idBloco;
+    
     @Column
     private int etapa;
+    
     @OneToMany(fetch = FetchType.LAZY)
     private List<Confronto> confrontos;
+    
     public BlocoEliminatorio() {
         this.idBloco = 0;
         this.etapa = 0;
@@ -38,6 +42,12 @@ public class BlocoEliminatorio {
         this.etapa = etapa;
         this.confrontos = confrontos;
     }
+    
+    public void adicionarConfronto(Confronto confronto){
+        this.confrontos.add(confronto);
+    }
+    
+    
     public int getEtapa() {
         return etapa;
     }
