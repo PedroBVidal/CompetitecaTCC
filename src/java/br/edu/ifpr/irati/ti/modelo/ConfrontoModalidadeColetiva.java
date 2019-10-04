@@ -50,7 +50,6 @@ public class ConfrontoModalidadeColetiva extends Confronto implements Serializab
     public ConfrontoModalidadeColetiva() {
         super();
         equipes = new ArrayList<>();
-        modalidadeColetiva = new ModalidadeColetiva();
     }
 
     public ConfrontoModalidadeColetiva(List<EquipeCompeticao> equipes, ModalidadeColetiva modalidadeColetiva) {

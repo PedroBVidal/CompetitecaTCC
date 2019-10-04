@@ -136,6 +136,7 @@ public class CompeticaoModalidadeColetivaControle {
         List<ConfrontoModalidadeColetiva> confrontos = new ArrayList();
         List<ParesConfronto> listParesConfronto = new ArrayList();
         ParesConfronto paresConfronto = new ParesConfronto(0, numParConfronto);
+        listParesConfronto.add(paresConfronto);
         BlocoEliminatorio blocoEliminatorio = new BlocoEliminatorio();
         blocoEliminatorio.setEtapa(numBolocoEliminatorio);
         List<BlocoEliminatorio> blocosElimitorio = new ArrayList();
@@ -156,44 +157,45 @@ public class CompeticaoModalidadeColetivaControle {
                 numBolocoEliminatorio++;
                 blocoEliminatorio = new BlocoEliminatorio();
                 blocoEliminatorio.setEtapa(numBolocoEliminatorio);
-                
+
                 paresConfronto = new ParesConfronto(0, 1);
-                // (CASO ESPECÍFICO)Instancia o confronto coletivo final e disputa pelo 3 e 4 lugar.
+                // Instancia o confronto coletivo final e disputa pelo 3 e 4 lugar.
                 confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
                 confrontoModalidadeColetiva.setConfrontoRodada(1);
                 confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
                 confrontos.add(confrontoModalidadeColetiva);
                 blocoEliminatorio.adicionarConfronto(confrontoModalidadeColetiva);
-                
+
                 confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
                 confrontoModalidadeColetiva.setConfrontoRodada(2);
                 confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
                 confrontos.add(confrontoModalidadeColetiva);
                 blocoEliminatorio.adicionarConfronto(confrontoModalidadeColetiva);
-                
+
+                listParesConfronto.add(paresConfronto);
                 blocosElimitorio.add(blocoEliminatorio);
                 break;
             }
             else{
                 numeroDeConfrontosColetivos = numeroDeConfrontosColetivos/2;
                 j = 0;
-                
                 numBolocoEliminatorio++;
                 blocoEliminatorio = new BlocoEliminatorio();
                 blocoEliminatorio.setEtapa(numBolocoEliminatorio);
-                blocosElimitorio.add(blocoEliminatorio);                
+                blocosElimitorio.add(blocoEliminatorio);
+                
                 numParConfronto = 0;
             }
         }
         if(j % 2 == 0){
-            listParesConfronto.add(paresConfronto);
             numParConfronto++;
             paresConfronto = new ParesConfronto(0, numParConfronto);
+            listParesConfronto.add(paresConfronto);
         }
         
     }
         // persiste os dados no banco
-        persistirGerarSistemaEliminatorio(confrontos, listParesConfronto, blocosElimitorio);
+        persistirGerarSistemaEliminatorio(cmc,confrontos, listParesConfronto, blocosElimitorio);
 
     }
     // Verifica o tamanho do sistema de chaves de acordo com um dado número de equipes
@@ -215,11 +217,12 @@ public class CompeticaoModalidadeColetivaControle {
     }
     
     
-    private void persistirGerarSistemaEliminatorio(List<ConfrontoModalidadeColetiva> confrontos, List<ParesConfronto> paresConfrontos, List<BlocoEliminatorio> blocosEliminatorios){
+    private void persistirGerarSistemaEliminatorio(CompeticaoModalidadeColetiva cmc, List<ConfrontoModalidadeColetiva> confrontos, List<ParesConfronto> paresConfrontos, List<BlocoEliminatorio> blocosEliminatorios){
         
         ConfrontoModalidadeColetivaControle confrontoModalidadeColetivaControle = new ConfrontoModalidadeColetivaControle();
         ParesConfrontoControle paresConfrontoControle = new ParesConfrontoControle();
         BlocoEliminatorioControle blocoEliminatorioControle = new BlocoEliminatorioControle();
+        CompeticaoModalidadeColetivaControle cmcc = new CompeticaoModalidadeColetivaControle();
         
         for(ParesConfronto p: paresConfrontos){
             paresConfrontoControle.salvar(p);
@@ -232,6 +235,13 @@ public class CompeticaoModalidadeColetivaControle {
         for(BlocoEliminatorio bE : blocosEliminatorios){
             blocoEliminatorioControle.salvar(bE);
         }
+        confrontoModalidadeColetivaControle.fecharSessaoDAOGeneric();
+        paresConfrontoControle.fecharSessaoDAOGeneric();
+        blocoEliminatorioControle.fecharSessaoDAOGeneric();
+        
+        cmc.setBlocosEliminatorios(blocosEliminatorios);
+        cmcc.alterar(cmc);
+        
     }
     
 

@@ -1,6 +1,9 @@
 
 package algoritmoGerarChaveamento;
 
+import br.edu.ifpr.irati.ti.controle.BlocoEliminatorioControle;
+import br.edu.ifpr.irati.ti.controle.ConfrontoModalidadeColetivaControle;
+import br.edu.ifpr.irati.ti.controle.ParesConfrontoControle;
 import br.edu.ifpr.irati.ti.modelo.BlocoEliminatorio;
 import br.edu.ifpr.irati.ti.modelo.Confronto;
 import br.edu.ifpr.irati.ti.modelo.ConfrontoModalidadeColetiva;
@@ -51,6 +54,7 @@ public class algortimoGerarChaveamento {
     List<ConfrontoModalidadeColetiva> confrontos = new ArrayList();
     List<ParesConfronto> listParesConfronto = new ArrayList();
     ParesConfronto paresConfronto = new ParesConfronto(0, numParConfronto);
+    listParesConfronto.add(paresConfronto);
     BlocoEliminatorio blocoEliminatorio = new BlocoEliminatorio();
     blocoEliminatorio.setEtapa(numBolocoEliminatorio);
     List<BlocoEliminatorio> blocosElimitario = new ArrayList();
@@ -85,6 +89,7 @@ public class algortimoGerarChaveamento {
                 confrontos.add(confrontoModalidadeColetiva);
                 blocoEliminatorio.adicionarConfronto(confrontoModalidadeColetiva);
                 
+                listParesConfronto.add(paresConfronto);
                 blocosElimitario.add(blocoEliminatorio);
                 break;
             }
@@ -99,14 +104,15 @@ public class algortimoGerarChaveamento {
                 blocosElimitario.add(blocoEliminatorio);
                 System.out.println("CRIANDO BLOCO "+numBolocoEliminatorio);
                 System.out.println(blocosElimitario);
-                ;
+                
                 numParConfronto = 0;
             }
         }
         if(j % 2 == 0){
-            listParesConfronto.add(paresConfronto);
+            
             numParConfronto++;
             paresConfronto = new ParesConfronto(0, numParConfronto);
+            listParesConfronto.add(paresConfronto);
         }
         
     }
@@ -122,8 +128,29 @@ public class algortimoGerarChaveamento {
             System.out.println("");
         }
     }
-
     
+        ParesConfrontoControle pControle = new ParesConfrontoControle();
+        ConfrontoModalidadeColetivaControle confrontoModalidadeColetivaControle = new ConfrontoModalidadeColetivaControle();
+        BlocoEliminatorioControle blocoEliminatorioControle = new BlocoEliminatorioControle();
+        System.out.println("Tamanho pares confronto"+ listParesConfronto.size());
+        System.out.println("Tamanho confrontos"+ confrontos.size());
+        
+      
+    for(ParesConfronto p3 : listParesConfronto){
+        pControle.salvar(p3);
+    }
+    
+    for(ConfrontoModalidadeColetiva c: confrontos){
+        confrontoModalidadeColetivaControle.salvar(c);
+    }
+    
+    for(BlocoEliminatorio b: blocosElimitario){
+        blocoEliminatorioControle.salvar(b);
+    }
+    
+    
+    
+    System.exit(0);
     }
     
 }

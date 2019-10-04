@@ -15,6 +15,7 @@
     CompeticaoModalidadeColetivaControle cptModColetivaControle = new CompeticaoModalidadeColetivaControle();
     
     CompeticaoModalidadeColetiva cmc = cptModColetivaControle.buscarPorId(idCompeticaoColetiva);
+    cptModColetivaControle.fecharSessaoDAOGeneric();
     
     cptModColetivaControle.gerarConfrontosSistemaEliminatorio(cmc);
 %>

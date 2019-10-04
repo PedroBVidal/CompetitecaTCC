@@ -62,14 +62,12 @@ public abstract class CompeticaoModalidade implements Serializable {
     public CompeticaoModalidade() {
         idCompeticaoModalidade = 0;
         nomeCompeticao = "";
-        confrontos = new ArrayList();
         statusFormularioInscricaoPublica = false;
         informacaoExtra = "";
         jogosEmAndamento = false;
         numVagas = 0;
         numParticipantes = 0;
     }
-
     public CompeticaoModalidade(int idCompeticaoModalidade, String nomeCompeticao, SistemaDeCompeticao sistemaDeCompeticao, int numVagas) {
         this.idCompeticaoModalidade = idCompeticaoModalidade;
         this.nomeCompeticao = nomeCompeticao;
