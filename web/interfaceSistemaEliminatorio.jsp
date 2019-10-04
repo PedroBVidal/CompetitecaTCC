@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.BlocoEliminatorio"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -142,34 +143,83 @@
 
             <div class="card text-center">
                 <div class="card-header">
-
+                    <%
+                    
+                        int numeroPaginas = (int) Math.rint(competicao.getBlocosEliminatorios().size()/3);
+                        
+                        if(numeroPaginas != 1){
+                    %>
                     <nav aria-label="Page navigation example" style="margin-bottom: -12px;">
                         <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Voltar</a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <%
+                                for(int i = 1; i <= numeroPaginas; i++){
+                            %>
+                            <li class="page-item"><a class="page-link" href="#"><%=i%></a></li>
+                            <%}%>
                             <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
+                                <a class="page-link" href="#">Próximo</a>
                             </li>
                         </ul>
                     </nav>
+                    <%}%>
                 </div>
                 <div class="card-body">
-                    <div class="row">          
-                        <div class="card" style="width: 18rem;">
+                    <%
+                        if(numeroPaginas == 1){
+                    %>
+                    <div class="row">
+                    <%
+                            int numeroConfrontosBlocoAnterior = 0;
+                            int numeroConfrontosBlocoAtual = 0;
+                        for(BlocoEliminatorio bE : competicao.getBlocosEliminatorios()){
+                            
+                        numeroConfrontosBlocoAtual = bE.getConfrontos().size();
+                    %>   
+                     <div class="card" style="width: 18rem;">
                             <div class="card-body">
-                                <h5 class="card-title">Rodada 1</h5>
-
-
+                                <h5 class="card-title">Rodada <%=bE.getEtapa()%></h5>
+                        <%
+                            int contadorCardsInvisiveis = 0;
+                            int contador = 1;
+                            int cardsInvisiveis = 0;
+                            
+                            if(bE.getEtapa() != 1){
+                                cardsInvisiveis = numeroConfrontosBlocoAnterior - numeroConfrontosBlocoAtual;
+                                if(cardsInvisiveis == 0){
+                                    cardsInvisiveis = 2;
+                                }
+                            for(int i = 0; i <(cardsInvisiveis/2); i++){
+                                
+                             
+                        %>
+                        <div style="margin-bottom: 15px; height: 6.5rem;"></div>                        
+                        <%}}%>
+                        <%
+                            for(Confronto c: bE.getConfrontos()){
+                            
+                            ConfrontoModalidadeColetiva confmc = (ConfrontoModalidadeColetiva) c;
+                            String nomeEquipe1 = "", nomeEquipe2 = "";
+                            if(confmc.getEquipes().size() == 0){
+                                
+                            }
+                            else{
+                            if(confmc.getEquipes().get(0) != null){
+                            nomeEquipe1 = confmc.getEquipes().get(0).getEquipe().getNome();
+                            }
+                            if(confmc.getEquipes().get(1) != null){
+                            nomeEquipe2 = confmc.getEquipes().get(1).getEquipe().getNome();
+                            }
+                            }
+                        %>
                                 <div class="card" style="margin-bottom: 15px; height: 9rem;">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">  
                                             <div class="input-group mb-2 mr-sm-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text" style="width: 10rem;">Fulanos</div>
+                                                    <div class="input-group-text" style="width: 10rem;"></div>
                                                 </div>
                                                 
                                                 <input type="text" class="form-control" id="inlineFormInputGroupUsername2">
@@ -177,76 +227,135 @@
                                             </div>
                                             <div class="input-group mb-2 mr-sm-2">
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text" style="width: 10rem;">Magnatas</div>
+                                                    <div class="input-group-text" style="width: 10rem;"></div>
                                                 </div>
                                                 <input type="text" class="form-control" id="inlineFormInputGroupUsername2">
                                             </div>
                                             
                                             <a href="#" class="badge badge-info"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="badge badge-primary">Inserir dados do jogo</a>
+                                            <a href="javascript:acionarModalInserirDadosConfronto(<%=confmc%>);" class="badge badge-primary">Inserir dados do jogo</a>
                                             <a href="#" class="badge badge-success"><i class="fas fa-greater-than"></i></a>
                                             
                                         </li>
                                     </ul>
                                 </div>
+                                                     
+                                            <!-- Modal novo jogo-->
+                                            <div class="modal fade" id="modalNovoJogo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Cadastrar novo jogo</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="scripts/editarConfrontoColetivo.jsp" name="formDadosJogoNovoJogo">
+                                                                <input type="hidden" value="1" name="op" id="opNovoJogo">
+                                                                <input type="hidden" value="<%=idCompeticao%>" name="idCompeticao">
+
+                                                                <div class="form-group">
+                                                                    <p class="text-left">Equipes confrontantes:</p>
+                                                                    <div class="form-row">
+                                                                        <select required="true" class="form-control col" id="selectEquipe1" name="selectEquipe1" style="margin-right: 6px;">
+                                                                            <option selected value="0">Selecione a equipe</option>
+                                                                            <%
+                                                                                List<EquipeCompeticao> equipesCompeticao = competicao.getEquipesCompeticao();
+                                                                                for (EquipeCompeticao equipe1 : equipesCompeticao) {
+
+                                                                            %>
+                                                                            <option value="<%=equipe1.getIdEquipeCompeticao()%>"><%=equipe1.getEquipe().getNome()%></option>
+                                                                            <%}%>
+                                                                        </select>
+                                                                        <select required="true" class="form-control col" id="selectEquipe2" name="selectEquipe2">
+                                                                            <option selected>Selecione a equipe</option>
+                                                                            <%
+
+                                                                                for (EquipeCompeticao equipe2 : equipesCompeticao) {
+
+                                                                            %>
+                                                                            <option value="<%=equipe2.getIdEquipeCompeticao()%>"><%=equipe2.getEquipe().getNome()%></option>
+                                                                            <%}%>
+                                                                        </select>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="form-row">
+                                                                    <div class="form-group col">
+                                                                        <p class="text-left">Data do jogo:</p>
+                                                                        <input type="text" class="dateMask form-control" id="dataJogoNovoJogo" name="dataJogoNovoJogo">
+                                                                    </div>
+                                                                </div>
+                                                                <div id="divErroDataNovoJogo">
+                                                                </div>
+
+                                                                <div class="form-row">
+                                                                    <div class="form-group col">
+
+                                                                        <p class="text-left">Hora de início:</p>
+                                                                        <input type="text" class="timeMask form-control" id="horaInicioJogoNovoJogo" name="horaInicioJogoNovoJogo">
+                                                                    </div>   
+                                                                    <div class="form-group col">    
+                                                                        <p class="text-left">Hora de término:</p>
+                                                                        <input type="text" class="timeMask form-control" id="horaFinalJogoNovoJogo" name="horaTerminoJogoNovoJogo">
+                                                                    </div>
+                                                                </div>
+                                                                <div id="divErroHoraNovoJogo">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <p class="text-left">Local do jogo:</p>
+                                                                    <select required="true" class="form-control" id="selectJogoNovoJogo" name="localJogoNovoJogo">
+                                                                        <%
+                                                                            for (Local local : localControle.buscarTodosLocal()) {
+                                                                        %>
+
+                                                                        <option value="<%=local.getIdLocal()%>"><%=local.getNome()%></option>
+                                                                        <%
+                                                    }%>
+                                                                    </select>
+                                                                </div>
+                                                                <%
+                                                                    /*Formata as datas de início e término da competição para criar inputs com seus respectivos valores*/
+
+                                                                    String sDataInicioCpt = sdfData.format(competicao.getCompeticao().getDataInicio());
+                                                                    String sDataTerminoCpt = sdfData.format(competicao.getCompeticao().getDataTermino());
+                                                                %>
+                                                                <input type="hidden" value="<%=sDataInicioCpt%>" id="dataInicioCpt">
+                                                                <input type="hidden" value="<%=sDataTerminoCpt%>" id="dataTerminoCpt">
+
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+                                                            <button type="button" class="btn btn-success" onclick="validarDadosJogo('NovoJogo');">Salvar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                 
+                                <%
+                                contador++;
+                                if(contador == bE.getConfrontos().size()){
+                                    numeroConfrontosBlocoAnterior = bE.getConfrontos().size();
+
+                                }%>
+                                <%}%>
+                                
+                                
                             </div>
                         </div>
-                        <div class="card" style="width: 18rem; margin-left: 10px;">
-                            <div class="card-body">
-                                <h5 class="card-title">Rodada 2</h5>
-
-                                <div style="margin-bottom: 15px; height: 6.5rem;">
-
-                                </div>
-                                <div class="card" style="margin-bottom: 15px; height: 6.5rem;">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                                        <li class="list-group-item">Vestibulum at eros</li>
-                                    </ul>
-                                </div>
-                                <div class="card" style="margin-bottom: 15px; height: 6.5rem;">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                                        <li class="list-group-item">Vestibulum at eros</li>
-                                    </ul>
-                                </div>
-                                <div style="margin-bottom: 15px; height: 6.5rem;">
-
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                        <div class="card" style="width: 18rem; margin-left: 10px;">
-                            <div class="card-body">
-                                <h5 class="card-title">Rodada 3</h5>
-
-                                <div style="margin-bottom: 15px; height: 6.5rem;">
-
-                                </div>
-                                <div class="card" style="margin-bottom: 15px; height: 8rem;">
-                                    <span>Final</span>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                                        <li class="list-group-item">Vestibulum at eros</li>
-                                    </ul>
-                                </div>
-                                <div class="card" style="margin-bottom: 15px; height: 8rem;">
-                                    <span>DISPUTA DE 3º E 4º</span>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                                        <li class="list-group-item">Vestibulum at eros</li>
-                                    </ul>
-                                </div>
-                                <div style="margin-bottom: 15px; height: 6.5rem;">
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>          
+                        <%
+                        for(int i = 0; i <(cardsInvisiveis/2); i++){   
+                        %>
+                        <div style="margin-bottom: 15px; height: 6.5rem;"></div>                        
+                        <%}%> 
+                    
+                    <%}}%>
+                    </div>
                 </div>
             </div>
         </div>
@@ -359,3 +468,8 @@
     </div>
 </div>
 
+<script>
+    function acionarModalInserirDadosConfronto(idConfronto){
+        $('#').modal(options)
+    }
+</script>

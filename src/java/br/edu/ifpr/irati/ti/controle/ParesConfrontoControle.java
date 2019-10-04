@@ -18,7 +18,9 @@ public class ParesConfrontoControle {
        paresConfrontoGenericDAO.salvar(paresConfronto);
     }
     
-    
+    public void fecharSessaoDAOGeneric(){
+        paresConfrontoGenericDAO.fecharSessao();
+    }
     
     
 }
