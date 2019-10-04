@@ -67,6 +67,9 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     }
 
 
+    public void setBlocosEliminatorios(List<BlocoEliminatorio> blocosEliminatorios) {
+        this.blocosEliminatorios = blocosEliminatorios;
+    }
     /**
      * @return the modalidadeColetiva
      */
@@ -127,9 +130,6 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
         return blocosEliminatorios;
     }
 
-    public void setBlocosEliminatorios(List<BlocoEliminatorio> blocosEliminatorios) {
-        this.blocosEliminatorios = blocosEliminatorios;
-    }
     
     
     

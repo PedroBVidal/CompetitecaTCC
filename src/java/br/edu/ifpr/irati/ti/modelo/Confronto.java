@@ -58,14 +58,11 @@ public abstract class Confronto implements Serializable {
 
     
     
-    
-
-    public Confronto(int idConfronto, Date data, Date horaInicio, Date horaTermino, String periodo) {
+     public Confronto(int idConfronto, Date data, Date horaInicio, Date horaTermino) {
         this.idConfronto = idConfronto;
         this.dataConfronto = data;
         this.horaInicio = horaInicio;
         this.horaTermino = horaTermino;
-        this.periodo = periodo;
         this.resultado = "";
         this.finalizado = false;
     }
@@ -75,7 +72,6 @@ public abstract class Confronto implements Serializable {
         this.dataConfronto = dataConfronto;
         this.horaInicio = horaInicio;
         this.horaTermino = horaTermino;
-        this.periodo = periodo;
         this.local = local;
         this.finalizado = finalizado;
         this.resultado = resultado;
@@ -127,19 +123,7 @@ public abstract class Confronto implements Serializable {
         this.horaTermino = horaTermino;
     }
 
-    /**
-     * @return the periodo
-     */
-    public String getPeriodo() {
-        return periodo;
-    }
-
-    /**
-     * @param periodo the periodo to set
-     */
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
-    }
+  
 
     /**
      * @return the local

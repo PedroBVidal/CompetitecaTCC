@@ -34,7 +34,7 @@
         cmcc.fecharSessaoDAOGeneric();
         cmcc.gerarConfrontosSistemaTodosContraTodos(cmc);
     } else {
-
+        cmcc.fecharSessaoDAOGeneric();
         cmcc.gerarConfrontosSistemaTodosContraTodos(cmc);
     }
 

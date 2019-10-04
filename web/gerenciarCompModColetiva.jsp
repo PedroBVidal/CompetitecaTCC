@@ -4,6 +4,7 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.BlocoEliminatorio"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.ConfrontoModalidadeColetivaControle"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Local"%>
@@ -85,8 +86,7 @@
 
         <!-- Page Content -->
         <div class="container">
-            <%  
-                request.setCharacterEncoding("UTF-8");
+            <%                request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("msg") != null) {
                     String mensagem = request.getParameter("msg");
                     String cor = request.getParameter("color");
@@ -140,7 +140,6 @@
     </body>
 
 </html>                        
-                        
 
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

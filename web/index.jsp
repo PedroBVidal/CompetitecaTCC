@@ -3,6 +3,9 @@
     Created on : 01/10/2018, 09:16:10
     Author     : Usuário
 --%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
@@ -32,34 +35,34 @@
     </head>
 
     <body>
-        
+
         <%
-           Object usuario = session.getAttribute("usuario");
-           if (usuario instanceof UsuarioParticipante2) {
+            Object usuario = session.getAttribute("usuario");
+            if (usuario instanceof UsuarioParticipante2) {
 
         %>
-        
+
         <header>
             <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
         </header>
-                
+
         <% } else if (usuario == null) {
-            
+
         %>
         <header>
             <jsp:include page="navbarindex.jsp" flush="true" />
         </header>
 
-         <%} else if(usuario instanceof UsuarioParticipante){
-                
+        <%} else if (usuario instanceof UsuarioParticipante) {
+
         %>
         <header>
             <jsp:include page="navbarUsuarioAdministrador.jsp" flush="true" />
         </header>
 
         <%}%>
-        
-        
+
+
 
 
         <header>
@@ -71,21 +74,21 @@
                 </ol>
                 <div class="carousel-inner" role="listbox">
                     <!-- Slide One - Set the background image for this slide in the line below -->
-                    <div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
+                    <div class="carousel-item active" style="background-image: url('img/competiteca_default.png')">
                         <div class="carousel-caption d-none d-md-block">
                             <h3>First Slide</h3>
                             <p>This is a description for the first slide.</p>
                         </div>
                     </div>
                     <!-- Slide Two - Set the background image for this slide in the line below -->
-                    <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+                    <div class="carousel-item" style="background-image: url('img/competiteca_default.png')">
                         <div class="carousel-caption d-none d-md-block">
                             <h3>Second Slide</h3>
                             <p>This is a description for the second slide.</p>
                         </div>
                     </div>
                     <!-- Slide Three - Set the background image for this slide in the line below -->
-                    <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+                    <div class="carousel-item" style="background-image: url('img/competiteca_default.png')">
                         <div class="carousel-caption d-none d-md-block">
                             <h3>Third Slide</h3>
                             <p>This is a description for the third slide.</p>
@@ -147,64 +150,145 @@
             <!-- /.row -->
 
             <!-- Portfolio Section -->
-            <h2>Competições em Destaque</h2>
+            <h2>Competições em Andamento</h2>
 
             <div class="row">
-           <%
-           CompeticaoControle cptcc = new CompeticaoControle();
-           //List<Competicao> cptcl = cptcc.buscarTodasCompeticoes();
-            for(Competicao cptc : cptcc.buscarTodasCompeticoes()){
-           %>
+                <%
+                    CompeticaoControle cptcc = new CompeticaoControle();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    //List<Competicao> cptcl = cptcc.buscarTodasCompeticoes();
+                    int i = 0;
+                    for (Competicao cptc : cptcc.buscarTodasCompeticoes()) {
 
+                %>
+                <!--Início Modal-->
+                <div class="modal fade" id="<%=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Escolha uma competição a acompanhar</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h3>Competições Coletivas</h3>
+                                <hr>
+                                <table class="table table-striped">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%  if (cptc.getCmodalidadecole().size() > 0) {
+
+                                                for (CompeticaoModalidadeColetiva cmc : cptc.getCmodalidadecole()) {
+
+                                        %>
+
+
+                                        <tr>
+
+                                            <td><%=cmc.getNomeCompeticao()%></td>
+                                            <td><a class="btn btn-success" href="acompanharComp.jsp?idCompeticao=<%=cmc.getIdCompeticaoModalidade()%>" role="button">Ir</a></td>
+
+                                        </tr>
+                                        <%}
+                                        } else {%>
+                                        <tr>
+                                            <td>Não Há competições coletivas disponíveis</td>
+                                            <td></td>
+                                        </tr>
+                                        <%}
+                                        %>
+                                    </tbody>
+                                </table>
+
+                                <h3>Competições Individuais</h3>
+                                <hr>
+                                <table class="table table-striped">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%if (cptc.getCmodalidadesolo().size() > 0) {
+
+                                                for (CompeticaoModalidadeSolo cms : cptc.getCmodalidadesolo()) {
+
+                                        %>
+
+
+                                        <tr>
+
+                                            <td><%=cms.getNomeCompeticao()%></td>
+                                            <td><a class="btn btn-success" href="acompanharComp.jsp?idCompeticao=<%=cms.getIdCompeticaoModalidade()%>" role="button">Ir</a></td>
+
+                                        </tr>
+                                        <%}
+                                        } else {%>
+                                        <tr>
+
+                                            <td>Não há competições solo disponíveis</td>
+                                            <td></td>
+
+                                        </tr>
+                                        <%}
+                                        %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Fim Modal-->
                 <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <a href="#"><img class="card-img-top" src="img/competiteca_default.png" alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
                                 <a href="#"><%=cptc.getNome()%></a>
                             </h4>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+                            <p class="card-text">
+                                <b>Período da Competição:</b>&nbsp;<%=sdf.format(cptc.getDataInicio())%> a <%=sdf.format(cptc.getDataTermino())%> <br>
+                                <%  int inscritos = 0;
+                                    if (cptc.getCmodalidadecole().size() > 0) {
+                                        for (CompeticaoModalidadeColetiva cmc : cptc.getCmodalidadecole()) {
+                                            inscritos += cmc.getNumParticipantes();
+                                        }
+                                    }
+                                    if (cptc.getCmodalidadesolo().size() > 0) {
+                                        for (CompeticaoModalidadeSolo cms : cptc.getCmodalidadesolo()) {
+                                            inscritos += cms.getNumParticipantes();
+                                        }
+                                    }
+                                %>
+                                <b>Número de Participantes:</b>&nbsp;<%=inscritos%><br>
+
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <button style="float:right;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#<%=i%>">
+                                Acompanhe
+                            </button>
                         </div>
                     </div>
                 </div>
-                <%}%>
+                <%i++;
+                    }%>
 
             </div>
             <!-- /.row -->
 
-            <!-- Features Section -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <h2>Modern Business Features</h2>
-                    <p>The Modern Business template by Start Bootstrap includes:</p>
-                    <ul>
-                        <li>
-                            <strong>Bootstrap v4</strong>
-                        </li>
-                        <li>jQuery</li>
-                        <li>Font Awesome</li>
-                        <li>Working contact form with validation</li>
-                        <li>Unstyled page elements for easy customization</li>
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
-                </div>
-                <div class="col-lg-6">
-                    <img class="img-fluid rounded" src="http://placehold.it/700x450" alt="">
-                </div>
-            </div>
-            <!-- /.row -->
 
-            <hr>
-
-            <!-- Call to Action Section -->
-            <div class="row mb-4">
-                <div class="col-md-8">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, expedita, saepe, vero rerum deleniti beatae veniam harum neque nemo praesentium cum alias asperiores commodi.</p>
-                </div>
-                <div class="col-md-4">
-                    <a class="btn btn-lg btn-secondary btn-block" href="#">Call to Action</a>
-                </div>
-            </div>
 
         </div>
         <!-- /.container -->
@@ -212,7 +296,7 @@
         <!-- Footer -->
         <footer class="py-5 bg-dark">
             <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+                <p class="m-0 text-center text-white">Copyright 2019 &copy; A Oliveira & Vidal Software</p>
             </div>
 
             <!-- /.container -->
