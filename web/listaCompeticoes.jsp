@@ -170,7 +170,7 @@
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" 
+                        <a href="#"><img class="card-img-top" src="img/competiteca_default.png" 
                                          alt=""></a>
                         <div class="card-body">
                             <h4 class="card-title">
@@ -187,7 +187,7 @@
                                 <form action="forminscricaocompeticao.jsp" method="POST">
                                     <input type="hidden" name="idCompeticao" value="<%=competicao.getIdCompeticao()%>">
                                     <input type="hidden" name="idAtleta" value="<%=atletaVinculadoUp.getIdAtleta()%>">
-                                    <button class="btn btn-success" type="submit" role="button">Inscrever-se em competições do evento</button><p>
+                                    <button class="btn btn-success" type="submit" role="button">Inscreva-se</button><p>
                                 </form>
                                 
                             </div>
