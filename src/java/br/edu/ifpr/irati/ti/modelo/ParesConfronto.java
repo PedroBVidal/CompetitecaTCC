@@ -2,11 +2,9 @@
 package br.edu.ifpr.irati.ti.modelo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import org.hibernate.annotations.Proxy;
 
 @Entity(name="paresconfronto")
@@ -18,18 +16,22 @@ public class ParesConfronto implements Serializable{
     @Id
     private int idParConfronto;
     
-    @OneToMany
-    private List<Confronto> confrontos;
-
+    
+    @Column(name="numParConfrontoRodada", nullable = true)
+    private int numParConfrontoRodada;
+    
+    
     public ParesConfronto() {
         this.idParConfronto = 0;
-        this.confrontos = new ArrayList<>();
+        this.numParConfrontoRodada = 0;
     }
 
-    public ParesConfronto(int idParConfronto, List<Confronto> confrontos) {
+    public ParesConfronto(int idParConfronto, int numParConfrontoRodada) {
         this.idParConfronto = idParConfronto;
-        this.confrontos = confrontos;
+        this.numParConfrontoRodada = numParConfrontoRodada;
     }
+
+    
 
     /**
      * @return the idParConfronto
@@ -45,18 +47,19 @@ public class ParesConfronto implements Serializable{
         this.idParConfronto = idParConfronto;
     }
 
+
     /**
-     * @return the confrontos
+     * @return the numParConfrontoRodada
      */
-    public List<Confronto> getConfrontos() {
-        return confrontos;
+    public int getNumParConfrontoRodada() {
+        return numParConfrontoRodada;
     }
 
     /**
-     * @param confrontos the confrontos to set
+     * @param numParConfrontoRodada the numParConfrontoRodada to set
      */
-    public void setConfrontos(List<Confronto> confrontos) {
-        this.confrontos = confrontos;
+    public void setNumParConfrontoRodada(int numParConfrontoRodada) {
+        this.numParConfrontoRodada = numParConfrontoRodada;
     }
     
     

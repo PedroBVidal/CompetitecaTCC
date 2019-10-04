@@ -31,7 +31,7 @@
       
      // Declaração de Variáveis
      //var nome   = document.getElementById("txtnome").value;
-     var result = document.getElementById("placar-"+id);
+     var result = document.getElementById("partidas");
      var xmlreq = CriaRequest();
       
      // Exibi a imagem de progresso
@@ -55,5 +55,5 @@
          }
      };
      xmlreq.send();
-     setTimeout('getDados('+id+')',100);
+     setTimeout('getDados('+id+')',500);
  }

@@ -35,6 +35,11 @@ public class ConfrontoModalidadeColetivaControle {
         confrontoModalidadeColetivaDAOGeneric.alterar(confrontoModalidadeColetiva);
     }
     
+    public void excluir(ConfrontoModalidadeColetiva confrontoModalidadeColetiva){
+        confrontoModalidadeColetivaDAOGeneric.excluir(confrontoModalidadeColetiva);
+    }
+    
+    
     public void fecharSessaoDAOGeneric(){
         confrontoModalidadeColetivaDAOGeneric.fecharSessao();
     }
@@ -42,6 +47,8 @@ public class ConfrontoModalidadeColetivaControle {
     public boolean sessaoDAOGenericEstaAberta(){
         return confrontoModalidadeColetivaDAOGeneric.getSessao().isOpen();
     }
+    
+    
     
     public void gerarConfrontosModalidadeColetiva(CompeticaoModalidadeColetiva cmc){
         

@@ -50,7 +50,8 @@ public class EquipeCompeticao implements Serializable {
     @Column(name="pontos")
     private double pontos;
     
-
+    @Column(name="saldoDePontos")
+    private double saldoDePontos; 
     
     
     @OneToMany
@@ -76,6 +77,7 @@ public class EquipeCompeticao implements Serializable {
         pontos = 0;
         derrotas = 0;
         empates = 0;
+        saldoDePontos = 0;
     }
 
     public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe,List<Atleta> atletasEquipe) {
@@ -92,9 +94,10 @@ public class EquipeCompeticao implements Serializable {
         this.pontos = 0;
         this.derrotas = 0;
         this.empates = 0;
+        this.saldoDePontos = 0;
     }
 
-    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, List<Atleta> atletasEquipe, double pontosMarcados, double pontosSofridos, int vitorias, int empates, int derrotas, int jogos, double pontos, List<Equipe> adversariosQueAEquipeVenceu, List<Equipe> adversariosQueAEquipePerdeu, List<Equipe> adversariosQueAEquipeEmpatou) {
+    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, List<Atleta> atletasEquipe, double pontosMarcados, double pontosSofridos, int vitorias, int empates, int derrotas, int jogos, double pontos, double saldoDePontos, List<Equipe> adversariosQueAEquipeVenceu, List<Equipe> adversariosQueAEquipePerdeu, List<Equipe> adversariosQueAEquipeEmpatou) {
         this.idEquipeCompeticao = idEquipeCompeticao;
         this.equipe = equipe;
         this.atletasEquipe = atletasEquipe;
@@ -105,10 +108,13 @@ public class EquipeCompeticao implements Serializable {
         this.derrotas = derrotas;
         this.jogos = jogos;
         this.pontos = pontos;
+        this.saldoDePontos = saldoDePontos;
         this.adversariosQueAEquipeVenceu = adversariosQueAEquipeVenceu;
         this.adversariosQueAEquipePerdeu = adversariosQueAEquipePerdeu;
         this.adversariosQueAEquipeEmpatou = adversariosQueAEquipeEmpatou;
     }
+
+    
 
     
 
@@ -292,6 +298,20 @@ public class EquipeCompeticao implements Serializable {
      */
     public void setAdversariosQueAEquipeEmpatou(List<Equipe> adversariosQueAEquipeEmpatou) {
         this.adversariosQueAEquipeEmpatou = adversariosQueAEquipeEmpatou;
+    }
+
+    /**
+     * @return the saldoDePontos
+     */
+    public double getSaldoDePontos() {
+        return saldoDePontos;
+    }
+
+    /**
+     * @param saldoDePontos the saldoDePontos to set
+     */
+    public void setSaldoDePontos(double saldoDePontos) {
+        this.saldoDePontos = saldoDePontos;
     }
 
     

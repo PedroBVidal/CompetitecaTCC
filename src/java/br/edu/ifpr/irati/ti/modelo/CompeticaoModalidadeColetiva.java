@@ -34,6 +34,7 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     
     @OneToMany(fetch = FetchType.EAGER)
     private List<BlocoEliminatorio> blocosEliminatorios;
+
     public CompeticaoModalidadeColetiva() {
         super();
         this.modalidadeColetiva = new ModalidadeColetiva();
@@ -65,9 +66,6 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
     }
 
-    public List<BlocoEliminatorio> getBlocosEliminatorios() {
-        return blocosEliminatorios;
-    }
 
     public void setBlocosEliminatorios(List<BlocoEliminatorio> blocosEliminatorios) {
         this.blocosEliminatorios = blocosEliminatorios;
@@ -127,6 +125,11 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
       public void removerInscricao(InscricaoCompeticaoColetiva icc){
         this.inscricoesCompeticoesColetivas.remove(icc);
     }
+
+    public List<BlocoEliminatorio> getBlocosEliminatorios() {
+        return blocosEliminatorios;
+    }
+
     
     
     

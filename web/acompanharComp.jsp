@@ -53,7 +53,7 @@
 
     </head>
 
-    <body style='font-family: "Quicksand";'>
+    <body onload="getDados(<%=Integer.parseInt(request.getParameter("idCompeticao"))%>)" style='font-family: "Quicksand";'>
         <%
             CompeticaoModalidadeColetivaControle competicaoControle = new CompeticaoModalidadeColetivaControle();
 
@@ -173,35 +173,11 @@
                         <div class="tab-pane dark active" id="partidas" role="tabpanel">
 
                             <%}%>
+                            <div id='partidas'>
 
-                            <div class="card">
-                                <div class="card-header">
-                                    <%=competicao.getNomeCompeticao()%>
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="row">
-                                        <%  
-                                            for (Confronto cnft : competicao.getConfrontos()) {
-                                                ConfrontoModalidadeColetiva cmc = (ConfrontoModalidadeColetiva) cnft;%>
-                                        <div class="card" style="width: 18rem;">
-                                            <div class="card-body">
-                                                <div id="placar-<%=cmc.getIdConfronto()%>" onload="getDados(<%=cmc.getIdConfronto()%>)">
-                                                    <!--<button onclick="">Clique aqui!</button>-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <% }
-                                        %>
-                                    </div>
-                                </div>
                             </div>
-
                         </div>
                     </div>
-
-
-
 
                     <!-- Bootstrap core JavaScript -->
 

@@ -61,40 +61,42 @@
         double pontosMarcadosEquipe1 = equipe1.getPontosMarcados();
         double pontosSofridosEquipe1 = equipe1.getPontosSofridos();
         double pontosEquipe1 = equipe1.getPontos();
-        
+        double saldoDePontosEquipe1;
         
         numJogosEquipe1++;
         numEmpatesEquipe1++;
         pontosMarcadosEquipe1 += placarEquipe1;
         pontosSofridosEquipe1 += placarEquipe2;
         pontosEquipe1 += valorEmpate;
+        saldoDePontosEquipe1 = (pontosMarcadosEquipe1 - pontosSofridosEquipe1);
         
         equipe1.setJogos(numJogosEquipe1);
         equipe1.setEmpates(numEmpatesEquipe1);
         equipe1.setPontosMarcados(pontosMarcadosEquipe1);
         equipe1.setPontosSofridos(pontosSofridosEquipe1);
         equipe1.setPontos(pontosEquipe1);
+        equipe1.setSaldoDePontos(saldoDePontosEquipe1);
         
         int numJogosEquipe2 = equipe2.getJogos();
         int numEmpatesEquipe2 = equipe2.getEmpates();
         double pontosMarcadosEquipe2 = equipe2.getPontosMarcados();
         double pontosSofridosEquipe2 = equipe2.getPontosSofridos();
         double pontosEquipe2 = equipe2.getPontos();
-        
+        double saldoDePontosEquipe2;
         
         numJogosEquipe2++;
         numEmpatesEquipe2++;
         pontosMarcadosEquipe2 += placarEquipe2;
         pontosSofridosEquipe2 += placarEquipe1;
         pontosEquipe2 += valorEmpate;
-        
+        saldoDePontosEquipe2 = (pontosMarcadosEquipe2 - pontosSofridosEquipe2);
         
         equipe2.setJogos(numJogosEquipe2);
         equipe2.setEmpates(numEmpatesEquipe2);
         equipe2.setPontosMarcados(pontosMarcadosEquipe2);
         equipe2.setPontosSofridos(pontosSofridosEquipe2);
         equipe2.setPontos(pontosEquipe2);
-        
+        equipe2.setSaldoDePontos(saldoDePontosEquipe2);
         
         equipeCompeticaoControle.alterar(equipe1);
         equipeCompeticaoControle.alterar(equipe2);
@@ -114,40 +116,42 @@
         double pontosMarcadosEquipe1 = equipe1.getPontosMarcados();
         double pontosSofridosEquipe1 = equipe1.getPontosSofridos();
         double pontosEquipe1 = equipe1.getPontos();
-        
+        double saldoDePontosEquipe1;
         
         numJogosEquipe1++;
         numVitoriasEquipe1++;
         pontosMarcadosEquipe1 += placarEquipe1;
         pontosSofridosEquipe1 += placarEquipe2;
         pontosEquipe1 += valorVitoria;
+        saldoDePontosEquipe1 = (pontosMarcadosEquipe1 - pontosSofridosEquipe1);
         
         equipe1.setJogos(numJogosEquipe1);
         equipe1.setVitorias(numVitoriasEquipe1);
         equipe1.setPontosMarcados(pontosMarcadosEquipe1);
         equipe1.setPontosSofridos(pontosSofridosEquipe1);
         equipe1.setPontos(pontosEquipe1);
+        equipe1.setSaldoDePontos(saldoDePontosEquipe1);
         
         int numJogosEquipe2 = equipe2.getJogos();
         int numDerrotasEquipe2 = equipe2.getDerrotas();
         double pontosMarcadosEquipe2 = equipe2.getPontosMarcados();
         double pontosSofridosEquipe2 = equipe2.getPontosSofridos();
         double pontosEquipe2 = equipe2.getPontos();
-        
+        double saldoDePontosEquipe2;
         
         numJogosEquipe2++;
         numDerrotasEquipe2++;
         pontosMarcadosEquipe2 += placarEquipe2;
         pontosSofridosEquipe2 += placarEquipe1;
         pontosEquipe2 += valorDerrota;
-        
+        saldoDePontosEquipe2 = (pontosMarcadosEquipe2 - pontosSofridosEquipe2);
         
         equipe2.setJogos(numJogosEquipe2);
         equipe2.setDerrotas(numDerrotasEquipe2);
         equipe2.setPontosMarcados(pontosMarcadosEquipe2);
         equipe2.setPontosSofridos(pontosSofridosEquipe2);
         equipe2.setPontos(pontosEquipe2);
-        
+        equipe2.setSaldoDePontos(saldoDePontosEquipe2);
         
         equipeCompeticaoControle.alterar(equipe1);
         equipeCompeticaoControle.alterar(equipe2);
@@ -169,40 +173,42 @@
         double pontosMarcadosEquipe1 = equipe1.getPontosMarcados();
         double pontosSofridosEquipe1 = equipe1.getPontosSofridos();
         double pontosEquipe1 = equipe1.getPontos();
-        
+        double saldoDePontosEquipe1;
         
         numJogosEquipe1++;
         numDerrotasEquipe1++;
         pontosMarcadosEquipe1 += placarEquipe1;
         pontosSofridosEquipe1 += placarEquipe2;
         pontosEquipe1 += valorDerrota;
+        saldoDePontosEquipe1 = (pontosMarcadosEquipe1 - pontosSofridosEquipe1);
         
         equipe1.setJogos(numJogosEquipe1);
         equipe1.setDerrotas(numDerrotasEquipe1);
         equipe1.setPontosMarcados(pontosMarcadosEquipe1);
         equipe1.setPontosSofridos(pontosSofridosEquipe1);
         equipe1.setPontos(pontosEquipe1);
+        equipe2.setSaldoDePontos(saldoDePontosEquipe1);
         
         int numJogosEquipe2 = equipe2.getJogos();
         int numVitoriasEquipe2 = equipe2.getVitorias();
         double pontosMarcadosEquipe2 = equipe2.getPontosMarcados();
         double pontosSofridosEquipe2 = equipe2.getPontosSofridos();
         double pontosEquipe2 = equipe2.getPontos();
-        
+        double saldoDePontosEquipe2;
         
         numJogosEquipe2++;
         numVitoriasEquipe2++;
         pontosMarcadosEquipe2 += placarEquipe2;
         pontosSofridosEquipe2 += placarEquipe1;
         pontosEquipe2 += valorVitoria;
-        
+        saldoDePontosEquipe2 = (pontosMarcadosEquipe2 - pontosMarcadosEquipe2);
         
         equipe2.setJogos(numJogosEquipe2);
         equipe2.setVitorias(numVitoriasEquipe2);
         equipe2.setPontosMarcados(pontosMarcadosEquipe2);
         equipe2.setPontosSofridos(pontosSofridosEquipe2);
         equipe2.setPontos(pontosEquipe2);
-        
+        equipe2.setSaldoDePontos(saldoDePontosEquipe2);
         
         equipeCompeticaoControle.alterar(equipe1);
         equipeCompeticaoControle.alterar(equipe2);

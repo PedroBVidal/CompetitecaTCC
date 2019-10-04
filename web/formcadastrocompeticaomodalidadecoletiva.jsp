@@ -159,7 +159,8 @@
                                         <div class="form-group">
                                             <label for="inputState">Sistema de desempate:</label>
                                             <select id="sistemaDesempate1" class="form-control" name="sistemaDesempate">
-                                                <option selected>Pontos sofridos</option>
+                                                <option selected>Saldo de pontos</option>
+                                                <option>Pontos sofridos</option>
                                                 <option>Pontos marcados</option>
                                                 <option>Vitorias</option>
                                             </select>
@@ -168,7 +169,8 @@
                                         <div class="form-group">
                                             <label for="inputState">Sistema de desempate secundário:</label>
                                             <select id="sistemaDesempate2" class="form-control" name="sistemaDesempateSecundario">
-                                                <option selected>Pontos sofridos</option>
+                                                <option selected>Saldo de pontos</option>
+                                                <option>Pontos sofridos</option>
                                                 <option>Pontos marcados</option>
                                                 <option>Vitorias</option>
                                             </select>

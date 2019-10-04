@@ -3,7 +3,6 @@ package br.edu.ifpr.irati.ti.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,10 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 
@@ -39,7 +36,9 @@ public abstract class Confronto implements Serializable {
     protected Date horaTermino;
     
     
-
+    
+    @Column (name = "periodo", length = 100)
+    protected String periodo;
     
     @ManyToOne(fetch = FetchType.EAGER)
     protected Local local;
@@ -54,10 +53,10 @@ public abstract class Confronto implements Serializable {
     protected String resultado;
 
     public Confronto() {
-        this.idConfronto = 0;
-        this.resultado = "";
-        this.finalizado = false;
+        this.periodo = "";
     }
+
+    
     
      public Confronto(int idConfronto, Date data, Date horaInicio, Date horaTermino) {
         this.idConfronto = idConfronto;
@@ -67,16 +66,18 @@ public abstract class Confronto implements Serializable {
         this.resultado = "";
         this.finalizado = false;
     }
-    
-    public Confronto(int idConfronto, Date data, Date horaInicio, Date horaTermino, Local local, boolean finalizado, String resultado) {
+
+    public Confronto(int idConfronto, Date dataConfronto, Date horaInicio, Date horaTermino, String nomeJogo, String periodo, Local local, boolean finalizado, String resultado) {
         this.idConfronto = idConfronto;
-        this.dataConfronto = data;
+        this.dataConfronto = dataConfronto;
         this.horaInicio = horaInicio;
         this.horaTermino = horaTermino;
         this.local = local;
         this.finalizado = finalizado;
         this.resultado = resultado;
     }
+
+    
 
     /**
      * @return the idConfronto
@@ -179,6 +180,8 @@ public abstract class Confronto implements Serializable {
     public void setDataConfronto(Date dataConfronto) {
         this.dataConfronto = dataConfronto;
     }
+
+
     
     
   

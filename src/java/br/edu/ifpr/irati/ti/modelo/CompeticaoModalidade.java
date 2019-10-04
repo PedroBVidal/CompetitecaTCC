@@ -62,7 +62,7 @@ public abstract class CompeticaoModalidade implements Serializable {
     public CompeticaoModalidade() {
         idCompeticaoModalidade = 0;
         nomeCompeticao = "";
-        confrontos = new ArrayList<>();
+        confrontos = new ArrayList();
         statusFormularioInscricaoPublica = false;
         informacaoExtra = "";
         jogosEmAndamento = false;
@@ -74,7 +74,7 @@ public abstract class CompeticaoModalidade implements Serializable {
         this.idCompeticaoModalidade = idCompeticaoModalidade;
         this.nomeCompeticao = nomeCompeticao;
         this.sistemaDeCompeticao = sistemaDeCompeticao;
-        this.confrontos = new ArrayList<>();
+        this.confrontos = new ArrayList();
         this.statusFormularioInscricaoPublica = false;
         this.jogosEmAndamento = false;
         this.numVagas = numVagas;
@@ -87,7 +87,7 @@ public abstract class CompeticaoModalidade implements Serializable {
         this.nomeCompeticao = nomeCompeticao;
         this.sistemaDeCompeticao = sistemaDeCompeticao;
         this.informacaoExtra = informacaoExtra;
-        this.confrontos = new ArrayList<>();
+        this.confrontos = new ArrayList();
         this.statusFormularioInscricaoPublica = false;
         this.jogosEmAndamento = false;
         this.numVagas = numVagas;
@@ -108,7 +108,14 @@ public abstract class CompeticaoModalidade implements Serializable {
         this.numParticipantes = 0;
         this.numVagasDisp = numVagas;
     }
-
+    
+    public void adicionarConfronto(Confronto confronto){
+        this.confrontos.add(confronto);
+    }
+    
+    public void removerConfronto(Confronto confronto){
+        this.confrontos.remove(confronto);
+    }
     /**
      * @return the idCompeticaoModalidade
      */
