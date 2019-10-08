@@ -3,6 +3,7 @@
     Created on : 01/10/2018, 09:16:10
     Author     : Usuário
 --%>
+<%@page import="java.util.Date"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeSolo"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -16,13 +17,13 @@
 <html lang="pt-br">
 
     <head>
-
+<link rel="shortcut icon" href="img/favicon.ico">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Modern Business - Start Bootstrap Template!</title>
+        <title>Competiteca</title>
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -159,7 +160,10 @@
                     //List<Competicao> cptcl = cptcc.buscarTodasCompeticoes();
                     int i = 0;
                     for (Competicao cptc : cptcc.buscarTodasCompeticoes()) {
-
+                        Date dataHj = new Date();
+                        if ((cptc.getDataInicio().equals(dataHj) ||cptc.getDataInicio().before(dataHj)) && (cptc.getDataTermino().equals(dataHj) ||cptc.getDataTermino().after(dataHj))) {
+                                
+                            
                 %>
                 <!--Início Modal-->
                 <div class="modal fade" id="<%=i%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -243,8 +247,7 @@
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                             </div>
                         </div>
                     </div>
@@ -283,7 +286,7 @@
                     </div>
                 </div>
                 <%i++;
-                    }%>
+                    }}%>
 
             </div>
             <!-- /.row -->

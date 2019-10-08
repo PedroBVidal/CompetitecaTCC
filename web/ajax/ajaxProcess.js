@@ -57,18 +57,19 @@ function getDados(id) {
     xmlreq.send();
     setTimeout('getDados(' + id + ')', 500);
 }
-function getPesquisa() {
+function getPesquisa(idAtleta) {
 
     // Declaração de Variáveis
     var nome   = document.getElementById("nomeComp").value;
     var result = document.getElementById("eventos");
     var xmlreq = CriaRequest();
+    var botao = document.getElementById("botaoPesquisa");
 
     // Exibi a imagem de progresso
-    //result.innerHTML = '<img src="Progresso1.gif"/>';
+   //botao.innerHTML = ' <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class="sr-only">Carregando</span>';
 
     // Iniciar uma requisição
-    xmlreq.open("GET", "ajax/buscarEventos.jsp?nome="+nome, true);
+    xmlreq.open("GET", "ajax/buscarEventos.jsp?nome="+nome+"&idAtleta="+idAtleta, true);
 
     // Atribui uma função para ser executada sempre que houver uma mudança de ado
     xmlreq.onreadystatechange = function () {
@@ -86,4 +87,5 @@ function getPesquisa() {
     };
     
     xmlreq.send();
+    //setTimeout('getPesquisa(' + idAtleta + ')', 350);
 }

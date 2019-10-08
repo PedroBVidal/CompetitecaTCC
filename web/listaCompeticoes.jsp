@@ -17,7 +17,7 @@
 <html lang="pt-br">
 
     <head>
-
+        <script type="text/javascript" src="ajax/ajaxProcess.js"></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-
               fit=no">
@@ -42,7 +42,7 @@
   <link rel="stylesheet" type="text/css"
           href="css/fonte/style.css"/>
     </head>
-
+    
     <body style="font-family: 'Quicksand';">
 
         <%
@@ -124,10 +124,9 @@
                 </div>
             </div>
 
-            <form class="form-inline col" style="margin-bottom: 10px;" action="" 
-                  method="POST" id="frm">
+            <div class="form-inline col" style="margin-bottom: 10px;">
                 <p class="my-4 fontOverpass col-3">Pesquisar competição:</p>
-                <input id="txt_consulta" class="form-control col-7" type="search" aria-label="Buscar" 
+                <input onkeyup="getPesquisa(<%=atletaVinculadoUp.getIdAtleta()%>)" id="nomeComp" class="form-control col-7" type="search" aria-label="Buscar" 
                        name="nomeCompeticao" list="competicoes">
                 <datalist id="competicoes">
                     <%
@@ -140,13 +139,13 @@
                         }
                     %>
                 </datalist>
-                <button class="btn btn-outline-success col-2" type="submit">Buscar 
+                <button class="btn btn-outline-success col-2" onclick='getPesquisa(<%=usuarioParticipante.getAtleta().getIdAtleta()%>)'>Buscar 
                 </button>
 
 
-            </form>
+            </div>
 
-            <div class="card-group">
+            <div class="card-group" id="eventos">
                 <%
                     if (sIdCompeticao == null) {
                        
@@ -187,7 +186,8 @@
                                 <form action="forminscricaocompeticao.jsp" method="POST">
                                     <input type="hidden" name="idCompeticao" value="<%=competicao.getIdCompeticao()%>">
                                     <input type="hidden" name="idAtleta" value="<%=atletaVinculadoUp.getIdAtleta()%>">
-                                    <button class="btn btn-success" type="submit" role="button">Inscreva-se</button><p>
+                                    
+                                    <button style="float:right;" class="btn btn-success" type="submit" role="button">Inscreva-se</button><p>
                                 </form>
                                 
                             </div>
