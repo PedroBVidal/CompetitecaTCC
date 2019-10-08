@@ -25,7 +25,7 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     @OneToOne
     private ModalidadeColetiva modalidadeColetiva;
     
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<EquipeCompeticao> equipesCompeticao;
     
     @OneToMany(mappedBy = "competicaoModalidadeColetiva", fetch = FetchType.LAZY)

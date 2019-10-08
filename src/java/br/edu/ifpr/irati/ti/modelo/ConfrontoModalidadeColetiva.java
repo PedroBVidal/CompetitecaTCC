@@ -71,8 +71,13 @@ public class ConfrontoModalidadeColetiva extends Confronto implements Serializab
         equipes.removeAll(equipes);
     }
     
-
-
+    public void adicionarEquipeCompeticao(EquipeCompeticao equipeCompeticao){
+        equipes.add(equipeCompeticao);
+    }
+    
+    public void removerEquipeCompeticao(EquipeCompeticao equipeCompeticao){
+        equipes.remove(equipeCompeticao);
+    }
     /**
      * @return the modalidadeColetiva
      */
