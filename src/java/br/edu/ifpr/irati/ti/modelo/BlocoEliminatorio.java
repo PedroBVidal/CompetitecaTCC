@@ -60,4 +60,11 @@ public class BlocoEliminatorio implements Serializable {
     public void setConfrontos(List<Confronto> confrontos) {
         this.confrontos = confrontos;
     }
+
+    public int getIdBloco() {
+        return idBloco;
+    }
+    
+    
+    
 }

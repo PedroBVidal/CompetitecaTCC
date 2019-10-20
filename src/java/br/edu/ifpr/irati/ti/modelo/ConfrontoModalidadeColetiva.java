@@ -27,9 +27,7 @@ public class ConfrontoModalidadeColetiva extends Confronto implements Serializab
     @ManyToMany(fetch=FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<EquipeCompeticao> equipes;
-    
-    
-    
+
     @ManyToOne
     protected ModalidadeColetiva modalidadeColetiva;
     

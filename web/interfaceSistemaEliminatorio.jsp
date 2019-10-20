@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.BlocoEliminatorio"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.InscricaoCompeticaoColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Atleta"%>
@@ -178,9 +179,11 @@
                             int numeroConfrontosBlocoAnterior = 0;
                             int numeroConfrontosBlocoAtual = 0;
                             for (BlocoEliminatorio bE : competicao.getBlocosEliminatorios()) {
-                                
-                            List<EquipeCompeticao> equipesCompeticao = competicao.getEquipesCompeticao();
 
+                            List<EquipeCompeticao> equipesCompeticao   = competicao.getEquipesCompeticao();
+                            List<EquipeCompeticao> equipesJaSelecionadas = new ArrayList();
+                            
+                            System.out.println("ANTES PUB: "+bE.getEtapa()+"-"+equipesCompeticao);
                             // Verifica se já faz parte do bloco eliminatorio
                             for (Confronto confronto : bE.getConfrontos()) {
                                 
@@ -191,17 +194,18 @@
                                     for(EquipeCompeticao equipeCompeticao: equipesCompeticao){
                                         if(eq.getIdEquipeCompeticao() == equipeCompeticao.getIdEquipeCompeticao()){
                                             
-                                            System.out.println("CCC: "+equipeCompeticao.getEquipe().getNome());
-                                            equipesCompeticao.remove(equipeCompeticao);
+                                            equipesJaSelecionadas.add(equipeCompeticao);
                                             break;
                                         }
                                     }
                                 }
                             }
                             }
-                                
+                            System.out.println("DEPOIS PUB: "+bE.getEtapa()+"-"+equipesCompeticao);
+                               
                                 numeroConfrontosBlocoAtual = bE.getConfrontos().size();
-                        %>   
+                        %>
+                        <input type="hidden" value="<%=bE.getConfrontos().size()%>" id="numeroConfrontosBlocoEliminatorio<%=bE.getIdBloco()%>">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
                                 <h5 class="card-title">Rodada <%=bE.getEtapa()%></h5>
@@ -226,14 +230,34 @@
 
                                         ConfrontoModalidadeColetiva confmc = (ConfrontoModalidadeColetiva) c;
                                         String nomeEquipe1 = "", nomeEquipe2 = "";
+                                        String dataJogo = "", horaInicioJogo = "", horaFinalJogo = "";
+                                        
+                                        if(confmc.getDataConfronto() != null){
+                                        dataJogo = sdfData.format(confmc.getDataConfronto());
+                                        }
+                                        if(confmc.getHoraInicio() != null){
+                                        horaInicioJogo = sdfHora.format(confmc.getHoraInicio());
+                                        }
+                                        if(confmc.getHoraTermino() != null){
+                                        horaFinalJogo = sdfHora.format(confmc.getHoraTermino());
+                                        }
+                                        
                                         if (confmc.getEquipes().size() == 0) {
 
                                         } else {
-                                            if (confmc.getEquipes().get(0) != null) {
+                                            
+                                            
+                                            if (confmc.getEquipes().size() == 2) {
                                                 nomeEquipe1 = confmc.getEquipes().get(0).getEquipe().getNome();
-                                            }
-                                            if (confmc.getEquipes().get(1) != null) {
                                                 nomeEquipe2 = confmc.getEquipes().get(1).getEquipe().getNome();
+                                            }
+                                            else if (confmc.getEquipes().size() == 1) {
+                                                if(confmc.getEquipes().get(0).getPosicaoChave() == 1){
+                                                   nomeEquipe1 = confmc.getEquipes().get(0).getEquipe().getNome(); 
+                                                }
+                                                if(confmc.getEquipes().get(0).getPosicaoChave() == 2){
+                                                   nomeEquipe2 = confmc.getEquipes().get(0).getEquipe().getNome(); 
+                                                }
                                             }
                                         }
                                 %>
@@ -276,34 +300,111 @@
                                             <div class="modal-body">
                                                 <form method="POST" action="scripts/editarConfrontoColetivo.jsp" name="formDadosJogo<%=confmc.getIdConfronto()%>">
                                                     <input type="hidden" value="3" name="op" id="op<%=confmc.getIdConfronto()%>">
-                                                    <input type="hidden" value="<%=idCompeticao%>" name="idCompeticao">
+                                                    <input type="hidden" value="<%=idCompeticao%>" name="idCompeticao" id="idCompeticao<%=confmc.getIdConfronto()%>">
                                                     <input type="hidden" value="<%=confmc.getIdConfronto()%>" name="idConfronto">
-                                                    
+                                                    <input type="hidden" value="<%=bE.getIdBloco()%>" name="idBlocoEliminatorio" id="idBlocoEliminatorio<%=confmc.getIdConfronto()%>">
                                                     
                                                     <div class="form-group" >
                                                         <p class="text-left">Equipes confrontantes:</p>
                                                         <div class="form-row">
+                                                            
                                                             <select required="true" class="form-control col" id="selectEquipe1<%=confmc.getIdConfronto()%>" name="selectEquipe1" style="margin-right: 6px;">
                                                                 <option selected value="0"></option>
                                                                 <%
-
-                                                                    
+                                                                    boolean adicionarOption = true;
                                                                     for (EquipeCompeticao equipe1 : equipesCompeticao) {
-                                                                        
+                                                                        adicionarOption = true;
+                                                                        for(EquipeCompeticao equipeSelecionada : equipesJaSelecionadas){
+                                                                            
+                                                                        if(equipeSelecionada.getIdEquipeCompeticao() == equipe1.getIdEquipeCompeticao()){
+                                                                            adicionarOption = false;
+                                                                            break;
+                                                                        }
+                                                                        }
+                                                                        if(adicionarOption == true){
                                                                 %>
+
                                                                 <option value="<%=equipe1.getIdEquipeCompeticao()%>"><%=equipe1.getEquipe().getNome()%></option>
-                                                                <%}%>
+                                                                <%}}%>
+                                                                <%
+                                                                    EquipeCompeticao equipe1Conf = new EquipeCompeticao();
+                                                                    EquipeCompeticao equipe2Conf = new EquipeCompeticao();
+                                                                    if(confmc.getEquipes().size() == 2){
+                                                                    
+                                                                    equipe1Conf = confmc.getEquipes().get(0);
+                                                                    equipe2Conf = confmc.getEquipes().get(1);
+                                                                %>
+                                                                <option value="<%=equipe1Conf.getIdEquipeCompeticao()%>" selected="true"><%=equipe1Conf.getEquipe().getNome()%></option>
+                                                                <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>"><%=equipe2Conf.getEquipe().getNome()%></option>
+                                                                <%}
+                                                                   else if(confmc.getEquipes().size() == 1){
+                                                                    if(confmc.getEquipes().get(0).getPosicaoChave() == 1){
+                                                                        equipe1Conf = confmc.getEquipes().get(0);
+                                                                    
+                                                                %>
+                                                                <option value="<%=equipe1Conf.getIdEquipeCompeticao()%>" selected="true"><%=equipe1Conf.getEquipe().getNome()%></option>
+                                                                <%}
+                                                                    else if(confmc.getEquipes().get(0).getPosicaoChave() == 2){
+                                                                        equipe2Conf = confmc.getEquipes().get(0);
+                                                                  
+                                                                 %> 
+                                                                <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>"><%=equipe2Conf.getEquipe().getNome()%></option>
+
+                                                                <%}}%>
+                                                                
                                                             </select>
+                                                            
                                                             <select required="true" class="form-control col" id="selectEquipe2<%=confmc.getIdConfronto()%>" name="selectEquipe2">
                                                                 <option selected value="0"></option>
                                                                 <%
 
                                                                     for (EquipeCompeticao equipe2 : equipesCompeticao) {
-
+                                                                    adicionarOption = true;
+                                                                    for(EquipeCompeticao equipeSelecionada : equipesJaSelecionadas){
+                                                                            
+                                                                        if(equipeSelecionada.getIdEquipeCompeticao() == equipe2.getIdEquipeCompeticao()){
+                                                                            adicionarOption = false;
+                                                                            break;
+                                                                        }
+                                                                        }
+                                                                        if(adicionarOption == true){
                                                                 %>
                                                                 <option value="<%=equipe2.getIdEquipeCompeticao()%>"><%=equipe2.getEquipe().getNome()%></option>
-                                                                <%}%>
+                                                                <%}}%>
+                                                                
+                                                                
+                                                                <%
+                                                                    if (confmc.getEquipes().size() == 2) {
+                                                                        
+                                                                        
+                                                                            equipe1Conf = confmc.getEquipes().get(0);
+                                                                            equipe2Conf = confmc.getEquipes().get(1);
+
+                                                                %>
+                                                                <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>" selected="true"><%=equipe2Conf.getEquipe().getNome()%></option>
+                                                                <option value="<%=equipe1Conf.getIdEquipeCompeticao()%>"><%=equipe1Conf.getEquipe().getNome()%></option>
+                                                                
+                                                                <%
+                                                                    }
+                                                                    else if(confmc.getEquipes().size() == 1){
+                                                                        if(confmc.getEquipes().get(0).getPosicaoChave() == 1){
+                                                                          equipe1Conf = confmc.getEquipes().get(0);
+   
+                                                                
+                                                                %>
+                                                                <option value="<%=equipe1Conf.getIdEquipeCompeticao()%>"><%=equipe1Conf.getEquipe().getNome()%></option>
+                                                                
+                                                                <%
+                                                                    }
+                                                                    else if(confmc.getEquipes().get(0).getPosicaoChave() == 2){
+                                                                        equipe2Conf = confmc.getEquipes().get(0);
+                                                                    
+                                                                %>
+                                                                <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>" selected="true"><%=equipe2Conf.getEquipe().getNome()%></option>
+                                                                
+                                                                <%}}%>
                                                             </select>
+                                                            
                                                         </div>
 
                                                     </div>
@@ -311,7 +412,7 @@
                                                     <div class="form-row">
                                                         <div class="form-group col">
                                                             <p class="text-left">Data do jogo:</p>
-                                                            <input type="text" class="dateMask form-control" id="dataJogo<%=confmc.getIdConfronto()%>" name="dataJogo<%=confmc.getIdConfronto()%>">
+                                                            <input type="text" class="dateMask form-control" id="dataJogo<%=confmc.getIdConfronto()%>" name="dataJogo<%=confmc.getIdConfronto()%>" value="<%=dataJogo%>">
                                                         </div>
                                                     </div>
                                                     <div id="divErroData<%=confmc.getIdConfronto()%>">
@@ -322,11 +423,11 @@
                                                         <div class="form-group col">
 
                                                             <p class="text-left">Hora de início:</p>
-                                                            <input type="text" class="timeMask form-control" id="horaInicioJogo<%=confmc.getIdConfronto()%>" name="horaInicioJogo<%=confmc.getIdConfronto()%>">
+                                                            <input type="text" class="timeMask form-control" id="horaInicioJogo<%=confmc.getIdConfronto()%>" name="horaInicioJogo<%=confmc.getIdConfronto()%>" value="<%=horaInicioJogo%>">
                                                         </div>   
                                                         <div class="form-group col">    
                                                             <p class="text-left">Hora de término:</p>
-                                                            <input type="text" class="timeMask form-control" id="horaFinalJogo<%=confmc.getIdConfronto()%>" name="horaTerminoJogo<%=confmc.getIdConfronto()%>">
+                                                            <input type="text" class="timeMask form-control" id="horaFinalJogo<%=confmc.getIdConfronto()%>" name="horaTerminoJogo<%=confmc.getIdConfronto()%>" value="<%=horaFinalJogo%>">
                                                         </div>
                                                     </div>
                                                     <div id="divErroHora<%=confmc.getIdConfronto()%>">
@@ -495,7 +596,7 @@
 
     </div>
 </div>
-
+<!--<script type="text/javascript" src="ajax/ajaxProcessSisEliminatorio.js"></script>-->
 <script>
         $('.dateMask').mask('00/00/0000', {reverse: true});
         $('.timeMask').mask('00:00', {reverse: true});
@@ -541,29 +642,16 @@
             divErroData.innerHTML = '<p class="text-danger text-left">A data do jogo está fora do período do evento.</p>';
         }
         if (horaValida === true && dataValida === true) {
-            if (op === '1') {
 
-                var equipe1 = document.getElementById('selectEquipe1').value;
-                var equipe2 = document.getElementById('selectEquipe2').value;
-
-
-                if (equipe1 !== '0' && equipe2 !== 0) {
-                    if (equipe1 !== equipe2) {
-
-                        document.forms["formDadosJogo" + idConfronto].submit();
-                    }
-                }
-            }
-
-            if (op === '2') {
-                document.forms["formDadosJogo" + idConfronto].submit();
-
-            }
+                var idEquipe1 = document.getElementById('selectEquipe1'+idConfronto).value;
+                var idEquipe2 = document.getElementById('selectEquipe2'+idConfronto).value;
             
             if(op === '3'){
-                alert("Entrei aqui!");
-                $('#modalInserirDadosConfronto' + idConfronto).modal('hide');
-                getDados(idConfronto);
+                if(idEquipe1 !== idEquipe2){
+                    $('#modalInserirDadosConfronto' + idConfronto).modal('hide');
+                    getDados2(idConfronto);
+                }
+
             }
 
         }
@@ -575,9 +663,9 @@
 
 
         var horaInicial = document.getElementById('horaInicioJogo' + idConfronto).value;
-
+        alert(horaInicial);
         var horaFinal = document.getElementById('horaFinalJogo' + idConfronto).value;
-
+        alert(horaFinal);
 
 
         horaIni = horaInicial.split(':');
@@ -630,4 +718,113 @@
             return false;
         }
     }
+    
+    
+    /**
+  * Função para criar um objeto XMLHTTPRequest
+  */
+ function CriaRequest() {
+     try{
+         request = new XMLHttpRequest();        
+     }catch (IEAtual){
+          
+         try{
+             request = new ActiveXObject("Msxml2.XMLHTTP");       
+         }catch(IEAntigo){
+          
+             try{
+                 request = new ActiveXObject("Microsoft.XMLHTTP");          
+             }catch(falha){
+                 request = false;
+             }
+         }
+     }
+      
+     if (!request) 
+         alert("Seu Navegador não suporta Ajax!");
+     else
+         return request;
+ }
+  
+ /**
+  * Função para enviar os dados
+  */
+ function getDados2(idConfrontoColetivo) {
+     alert("HELLOO MY NAME IS AJAX 1!");
+     // Declaração de Variáveis
+     //var nome   = document.getElementById("txtnome").value;
+     var result = document.getElementById("cardConfrontoColetivo"+idConfrontoColetivo);
+     
+     var equipeSelect1Value = document.getElementById("selectEquipe1"+idConfrontoColetivo).value;
+
+     var equipeSelect2Value = document.getElementById("selectEquipe2"+idConfrontoColetivo).value;
+
+     var dataJogo = document.getElementById("dataJogo"+idConfrontoColetivo).value;
+
+     var horaInicio = document.getElementById("horaInicioJogo"+idConfrontoColetivo).value;
+
+     var horaFinal = document.getElementById("horaFinalJogo"+idConfrontoColetivo).value;
+
+     var localJogo = document.getElementById("selectLocalJogo"+idConfrontoColetivo).value;
+
+     var idBlocoEliminatorio = document.getElementById("idBlocoEliminatorio"+idConfrontoColetivo).value;
+     
+     var numeroConfrontosBloco = parseInt(document.getElementById("numeroConfrontosBlocoEliminatorio"+idBlocoEliminatorio).value);
+     
+     var idCompeticao = document.getElementById("idCompeticao"+idConfrontoColetivo).value;
+     
+     
+     var xmlreq = CriaRequest();
+      
+     // Exibi a imagem de progresso
+     //result.innerHTML = '<img src="Progresso1.gif"/>';
+      
+     // Iniciar uma requisição
+     xmlreq.open("GET", "ajax/cadastrarConfrontoColetivoSisEliminatorio.jsp?idConfronto=" + idConfrontoColetivo+"&selectEquipe1="+equipeSelect1Value
+     +"&selectEquipe2="+equipeSelect2Value+"&dataJogo="+dataJogo+"&horaInicioJogo="+horaInicio+"&horaFinalJogo="+horaFinal+"&localJogo="+localJogo+
+     "&idBlocoEliminatorio="+idBlocoEliminatorio+"&idCompeticao="+idCompeticao, true);
+      
+     // Atribui uma função para ser executada sempre que houver uma mudança de ado
+     xmlreq.onreadystatechange = function(){
+          
+         // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
+         if (xmlreq.readyState === 4) {
+              
+             // Verifica se o arquivo foi encontrado com sucesso
+             if (xmlreq.status === 200) {
+                 var partsHtmlString = xmlreq.responseText.split('$');
+                 //alert("SPLIT:"+ partsHtmlString[0]);
+                 //alert("SPLIT:"+ partsHtmlString[1]);
+                 result.innerHTML = partsHtmlString[0];
+                 //alert(partsHtmlString[1]);
+                 //alert(partsHtmlString[2]);
+                 //alert(partsHtmlString[3]);
+                 var j = 1;
+                 for(var i = (numeroConfrontosBloco + 1); i<=(2*(numeroConfrontosBloco+1)); i++){
+                     //alert("ok"+i);
+                     //alert("param"+(2*(numeroConfrontosBloco+1));
+                     if((i%2) === 0){
+                        var equipeSelect2 = document.getElementById("selectEquipe2"+partsHtmlString[j]);
+                        equipeSelect2.innerHTML = partsHtmlString[i];
+                        //alert(partsHtmlString[i]);
+                        j++;
+                     }
+                     else{
+                        var equipeSelect1 = document.getElementById("selectEquipe1"+partsHtmlString[j]);
+                        equipeSelect1.innerHTML = partsHtmlString[i];
+                        //alert(partsHtmlString[i]);
+                     }
+                 }
+                 //alert("saí");
+             }else{
+                 
+                 
+                 result.innerHTML = "Erro: " + xmlreq.statusText;
+             }
+         }
+     };
+     xmlreq.send();
+ }
+    
+    
 </script>
