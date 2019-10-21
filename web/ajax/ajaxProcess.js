@@ -28,7 +28,7 @@ function CriaRequest() {
  * Função para enviar os dados
  */
 function getDados(id) {
-
+ 
     // Declaração de Variáveis
     //var nome   = document.getElementById("txtnome").value;
     var result = document.getElementById("partidas");
@@ -58,7 +58,6 @@ function getDados(id) {
     setTimeout('getDados(' + id + ')', 500);
 }
 function getPesquisa(idAtleta) {
-
     // Declaração de Variáveis
     var nome   = document.getElementById("nomeComp").value;
     var result = document.getElementById("eventos");
