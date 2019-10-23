@@ -45,7 +45,7 @@
         <meta name="author" content="">
 
         <title>Modern Business - Start Bootstrap Template</title>
-        <script type="text/javascript" src="ajax/ajaxProcessSisEliminatorio.js"></script>
+        
         <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>            

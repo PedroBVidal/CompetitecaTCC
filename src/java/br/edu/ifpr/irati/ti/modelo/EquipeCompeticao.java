@@ -53,6 +53,9 @@ public class EquipeCompeticao implements Serializable {
     @Column(name="saldoDePontos")
     private double saldoDePontos; 
     
+    // Especifica a posição da equipe na chave (Utilizado apenas no sistema eliminatorio);
+    @Column(name="posicaoChave")
+    private int posicaoChave;
     
     @OneToMany
     private List<Equipe> adversariosQueAEquipeVenceu;
@@ -78,6 +81,7 @@ public class EquipeCompeticao implements Serializable {
         derrotas = 0;
         empates = 0;
         saldoDePontos = 0;
+        posicaoChave = 0;
     }
 
     public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe,List<Atleta> atletasEquipe) {
@@ -95,9 +99,10 @@ public class EquipeCompeticao implements Serializable {
         this.derrotas = 0;
         this.empates = 0;
         this.saldoDePontos = 0;
+        this.saldoDePontos = 0;
     }
 
-    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, List<Atleta> atletasEquipe, double pontosMarcados, double pontosSofridos, int vitorias, int empates, int derrotas, int jogos, double pontos, double saldoDePontos, List<Equipe> adversariosQueAEquipeVenceu, List<Equipe> adversariosQueAEquipePerdeu, List<Equipe> adversariosQueAEquipeEmpatou) {
+    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, List<Atleta> atletasEquipe, double pontosMarcados, double pontosSofridos, int vitorias, int empates, int derrotas, int jogos, double pontos, double saldoDePontos, int posicaoChave, List<Equipe> adversariosQueAEquipeVenceu, List<Equipe> adversariosQueAEquipePerdeu, List<Equipe> adversariosQueAEquipeEmpatou) {
         this.idEquipeCompeticao = idEquipeCompeticao;
         this.equipe = equipe;
         this.atletasEquipe = atletasEquipe;
@@ -109,10 +114,13 @@ public class EquipeCompeticao implements Serializable {
         this.jogos = jogos;
         this.pontos = pontos;
         this.saldoDePontos = saldoDePontos;
+        this.posicaoChave = posicaoChave;
         this.adversariosQueAEquipeVenceu = adversariosQueAEquipeVenceu;
         this.adversariosQueAEquipePerdeu = adversariosQueAEquipePerdeu;
         this.adversariosQueAEquipeEmpatou = adversariosQueAEquipeEmpatou;
     }
+
+    
 
     
 
@@ -312,6 +320,20 @@ public class EquipeCompeticao implements Serializable {
      */
     public void setSaldoDePontos(double saldoDePontos) {
         this.saldoDePontos = saldoDePontos;
+    }
+
+    /**
+     * @return the posicaoChave
+     */
+    public int getPosicaoChave() {
+        return posicaoChave;
+    }
+
+    /**
+     * @param posicaoChave the posicaoChave to set
+     */
+    public void setPosicaoChave(int posicaoChave) {
+        this.posicaoChave = posicaoChave;
     }
 
     
