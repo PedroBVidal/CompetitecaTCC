@@ -36,7 +36,14 @@ public class UsuarioParticipante2Controle {
             throw new Exception("O Email "+user.getEmail()+" ja existe. Tente novamente");
         }
     }
-    
+    public UsuarioParticipante2 recuperaSenhaByEmail(String email) throws Exception{
+        UsuarioParticipante2 up = usuarioParticipanteDAO.buscarPorEmail(email);
+        if (up == null) {
+            throw new Exception("Email inexistente em nossa base de dados de Participantes, verifique se o tipo de usuário ou o email estão corretos.");
+        }else{
+            return up;
+        }
+    }
     public UsuarioParticipante2 buscarPorId(int id){
         return usuarioParticipanteDAO.buscarPorId(id);
     }

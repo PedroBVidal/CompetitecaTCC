@@ -48,6 +48,14 @@ public class UsuarioParticipanteControle {
         
         
     }
+    public UsuarioParticipante recuperaSenhaByEmail(String email) throws Exception{
+        UsuarioParticipante up = genericUsuarioAdministradorDAO.buscarPorEmail(email);
+        if (up == null) {
+            throw new Exception("Email inexistente em nossa base de dados de administradores,  verifique se o tipo ou o email estão corretos.");
+        }else{
+            return up;
+        }
+    }
     public void atualizarCad(UsuarioParticipante user){
         genericUsuarioAdministradorDAO.alterar(user);
     }
