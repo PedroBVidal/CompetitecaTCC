@@ -18,9 +18,17 @@ public class TesteSET {
     
     public static void main(String[] args) {
         
-        UsuarioAdministradorDAO usuarioAdministradorDAO = new UsuarioAdministradorDAO();
+        boolean i = true;
+        int j = 0;
         
-        usuarioAdministradorDAO.buscarPorId(1);
+        while(i == true){
+            j++;
+            if(j == 100){
+                i = false;
+            }
+            
+        }
+        System.out.println("SAÍ "+ i + j);
         
     }
     

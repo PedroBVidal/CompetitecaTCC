@@ -38,6 +38,9 @@
         overflow-x: scroll;
     }
 </style>
+
+
+
 <!-- List group -->
 <div class="row">
     <div class="list-group col-2" id="myList" role="tablist">
@@ -141,43 +144,66 @@
         <!--TAB PANE DOS JOGOS DA COMPETIÇÃO!-->
 
         <div class="tab-pane active" id="jogos" role="tabpanel">
-
+            <input type="hidden" value="1" id="paginaAtualBloco">
+            <input type="hidden" value="1" id="paginaAtualBlocoRepescagem">
             <div class="card text-center">
                 <div class="card-header">
                     <%
 
-                        int numeroPaginas = (int) Math.rint(competicao.getBlocosEliminatorios().size() / 3);
+                        int numeroPaginas = competicao.getBlocosEliminatorios().size() - 2;
+                        System.out.println("Numero páginas: "+ numeroPaginas);
                         // Em casos que o numero de etapas é menor que 3
                         if(numeroPaginas == 0){
                             numeroPaginas = 1;
                         }
                         if (numeroPaginas != 1) {
                     %>
-                    <nav aria-label="Page navigation example" style="margin-bottom: -12px;">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Voltar</a>
-                            </li>
-                            <%
-                                for (int i = 1; i <= numeroPaginas; i++) {
-                            %>
-                            <li class="page-item"><a class="page-link" href="#"><%=i%></a></li>
-                                <%}%>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Próximo</a>
-                            </li>
-                        </ul>
-                    </nav>
+                <ul class="nav nav-tabs card-header-tabs" >
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="teste-tab" data-toggle="tab" href="#teste" role="tab" aria-controls="teste" aria-selected="false">Profile</a>
+
+                </li>
+            </ul>
+                    
                     <%}%>
                 </div>
                 <div class="card-body">
-                    <%
-                        if (numeroPaginas == 1) {
-                    %>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-1"><button type="button" class="btn btn-success">Jogos em andamento</button></div>
+                            <div class="col-md-11">
+                                <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Voltar</a>
+                                </li>
+                                <%
+                                    for (int i = 1; i <= numeroPaginas; i++) {
+                                %>
+                                <li class="page-item"><a class="page-link" href="scripts/carregarBlocos.jsp?pag=<%=i%>&extensao=3&repescagem=false&id=<%=idCompeticao%>"><%=i%></a></li>
+                                <li></li>
+                                    <%}%>
+                                <li class="page-item">
+                                    <a class="page-link" href="">Próximo</a>
+                                </li>
+                            </ul>
+                        </nav>
+                            </div>
+                        </div>
+                    </div>
+     
+                    
+                    
                     <div class="row">
+                        
                         <%
                             int numeroConfrontosBlocoAnterior = 0;
                             int numeroConfrontosBlocoAtual = 0;
+                            
                             for (BlocoEliminatorio bE : competicao.getBlocosEliminatorios()) {
 
                             List<EquipeCompeticao> equipesCompeticao   = competicao.getEquipesCompeticao();
@@ -483,7 +509,7 @@
                         <%}%> 
 
                         <%}
-                        }%>
+                        %>
                     </div>
                 </div>
             </div>
@@ -602,10 +628,26 @@
         $('.timeMask').mask('00:00', {reverse: true});
         $('.numberMask').mask('000', {reverse: true});
         
+    var paginaAtual = 1;
+    
     function acionarModalInserirDadosConfronto(idConfronto) {
         $('#modalInserirDadosConfronto' + idConfronto).modal('show');
     }
-
+    
+    function proximaPagina() {
+        paginaAtual++;
+        alert("Pagina atual: "+ paginaAtual)
+    }
+    
+    function paginaAnterior(){
+        paginaAtual--;
+        alert("Pagina anterior: "+ paginaAtual);
+    }
+    
+    function mudarPagina(p){
+        paginaAtual = p;
+        alert("Pagina atual: "+ paginaAtual);
+    }
 
     function validarDadosJogo(idConfronto) {
 

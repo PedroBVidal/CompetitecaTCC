@@ -11,8 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.annotations.Type;
 
 @Entity(name="atletacompeticao")
 @Proxy(lazy = false)
@@ -41,7 +41,15 @@ public class AtletaCompeticao implements Serializable {
     
     @OneToMany
     private List<Atleta> adversariosQueOAtletaEmpatou;
-
+    
+    
+    
+    // Especifica se o atleta é repescado ou não (Utilizado apenas no sistema eliminatorio)
+    @Column(name="repescada")
+    @Type(type="true_false")
+    private boolean repescado;
+    
+    
     public AtletaCompeticao() {        
         idAtletaCompeticao = 0;
         atleta = new Atleta();
@@ -50,6 +58,7 @@ public class AtletaCompeticao implements Serializable {
         adversariosQueOAtletaVenceu = new ArrayList<>();
         adversariosQueOAtletaPerdeu = new ArrayList<>();
         adversariosQueOAtletaEmpatou = new ArrayList<>();
+        repescado = false;
         
     }
 
@@ -61,9 +70,10 @@ public class AtletaCompeticao implements Serializable {
         this.adversariosQueOAtletaVenceu = new ArrayList<>();
         this.adversariosQueOAtletaPerdeu = new ArrayList<>();
         this.adversariosQueOAtletaEmpatou = new ArrayList<>();
+        this.repescado = false;
     }
 
-    public AtletaCompeticao(int idAtletaCompeticao, Atleta atleta, double pontosMarcados, double pontosSofridos, List<Atleta> adversariosQueOAtletaVenceu, List<Atleta> adversariosQueOAtletaPerdeu, List<Atleta> adversariosQueOAtletaEmpatou) {
+    public AtletaCompeticao(int idAtletaCompeticao, Atleta atleta, double pontosMarcados, double pontosSofridos, List<Atleta> adversariosQueOAtletaVenceu, List<Atleta> adversariosQueOAtletaPerdeu, List<Atleta> adversariosQueOAtletaEmpatou, boolean repescado) {
         this.idAtletaCompeticao = idAtletaCompeticao;
         this.atleta = atleta;
         this.pontosMarcados = pontosMarcados;
@@ -71,7 +81,10 @@ public class AtletaCompeticao implements Serializable {
         this.adversariosQueOAtletaVenceu = adversariosQueOAtletaVenceu;
         this.adversariosQueOAtletaPerdeu = adversariosQueOAtletaPerdeu;
         this.adversariosQueOAtletaEmpatou = adversariosQueOAtletaEmpatou;
+        this.repescado = repescado;
     }
+
+    
 
     /**
      * @return the idAtletaCompeticao
@@ -170,15 +183,19 @@ public class AtletaCompeticao implements Serializable {
     public void setAdversariosQueOAtletaEmpatou(List<Atleta> adversariosQueOAtletaEmpatou) {
         this.adversariosQueOAtletaEmpatou = adversariosQueOAtletaEmpatou;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+    /**
+     * @return the repescado
+     */
+    public boolean isRepescado() {
+        return repescado;
+    }
+
+    /**
+     * @param repescado the repescado to set
+     */
+    public void setRepescado(boolean repescado) {
+        this.repescado = repescado;
+    }
     
 }

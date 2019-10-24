@@ -4,6 +4,8 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.SistemaEliminatorio"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.SistemaDeCompeticao"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeColetivaControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,5 +19,8 @@
     CompeticaoModalidadeColetiva cmc = cptModColetivaControle.buscarPorId(idCompeticaoColetiva);
     cptModColetivaControle.fecharSessaoDAOGeneric();
     
-    cptModColetivaControle.gerarConfrontosSistemaEliminatorio(cmc);
+    SistemaEliminatorio sistemaDeCompeticao = (SistemaEliminatorio) cmc.getSistemaDeCompeticao();
+    boolean repescagem = sistemaDeCompeticao.isRepescagem();
+    
+    cptModColetivaControle.gerarConfrontosSistemaEliminatorio(cmc, repescagem);
 %>

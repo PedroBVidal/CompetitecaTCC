@@ -66,7 +66,21 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
     }
 
-
+    
+    public List<BlocoEliminatorio> filtrarBlocoEliminatorioPorEtapa(CompeticaoModalidadeColetiva cmc,int valor, int extensao, boolean repescagem){
+        
+        List<BlocoEliminatorio> blocos = new ArrayList();
+        for(BlocoEliminatorio bE : cmc.getBlocosEliminatorios()){
+            
+            if(bE.getEtapa() >= valor && bE.getEtapa() <= (valor + extensao -1) && bE.isBlocoRepescagem() == false){
+                blocos.add(bE);
+            }
+        }
+        
+        return blocos;
+    }
+    
+    
     public void setBlocosEliminatorios(List<BlocoEliminatorio> blocosEliminatorios) {
         this.blocosEliminatorios = blocosEliminatorios;
     }
