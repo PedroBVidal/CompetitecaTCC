@@ -31,8 +31,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-  <link rel="stylesheet" type="text/css"
-          href="css/fonte/style.css"/>
+        <link rel="stylesheet" type="text/css"
+              href="css/fonte/style.css"/>
         <title>Modern Business - Start Bootstrap Template</title>
         <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
@@ -49,18 +49,17 @@
     <body style='font-family: "Quicksand";'>
         <%
             UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
-            if(up == null){
-                
+            if (up == null) {
+
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
-            }else{
-                
+            } else {
+
                 CompeticaoControle competicaoControle = new CompeticaoControle();
-                
-                
+
                 int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
                 Competicao competicao = competicaoControle.buscarCompeticaoPorId(idCompeticao);
-                
-                
+
+
         %>
 
         <header>
@@ -70,12 +69,11 @@
 
         <!-- Page Content -->
         <div class="container">
-            <%
-              request.setCharacterEncoding("UTF-8");
-          if(request.getParameter("msg") != null){
-              String mensagem = request.getParameter("msg");
-              String cor = request.getParameter("color");
-              
+            <%                request.setCharacterEncoding("UTF-8");
+                if (request.getParameter("msg") != null) {
+                    String mensagem = request.getParameter("msg");
+                    String cor = request.getParameter("color");
+
             %>
             <br>
             <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
@@ -86,7 +84,7 @@
             </div>
 
             <%
-            }
+                }
             %>
             <!-- Page Heading/Breadcrumbs -->
             <br>
@@ -94,17 +92,17 @@
 
             </h1><br>
 
-            <%if(!competicao.isPrivado()){
-             %>
-             <a href="scripts/privado.jsp?idComp=<%=competicao.getIdCompeticao()%>" class="btn btn-primary"><i class="fas fa-lock"></i> &nbsp; Tornar competição privada</a>
+            <%if (!competicao.isPrivado()) {
+            %>
+            <a href="scripts/privado.jsp?idComp=<%=competicao.getIdCompeticao()%>" class="btn btn-primary"><i class="fas fa-lock"></i> &nbsp; Tornar competição privada</a>
             <br>
             <br>
-            <%}else{%>
+            <%} else {%>
             <b>Chave Pública da Competição:</b><%=competicao.getCodPriv()%> 
             <br>
             <form action="posterPriv.jsp" method="POST" target="_blank">
                 <input type="hidden" name="codigo" value="<%=competicao.getCodPriv()%>">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i>&nbsp; Gerar cartaz da competição</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i>&nbsp; Gerar cartaz da competição</button>
             </form>
             <br>
             <br>
@@ -125,60 +123,61 @@
                     <div class="tab-pane dark" id="administradores" role="tabpanel">
                         <div class="form-group input-group">
                             <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
-                        </a></span>
+                                </a></span>
                             <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
                         </div>
 
-                        
 
-                    
-                    <table id="tabela" class="table table-striped">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Usuário</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Ação</th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            <%
-                                UsuarioParticipanteControle upca = new UsuarioParticipanteControle();
-                                
-                                for(UsuarioParticipante upa: upca.buscarTodos()){
-                                int flag = 0;
-                                String nomeUsuario = upa.getNome();
-                                String email = upa.getEmail();
-                                    for(UsuarioParticipante upacto: competicao.getAdministradores()){
-                                        if(email.equals(upacto.getEmail())){
-                                            flag++;
-                                            
+
+                        <table id="tabela" class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Usuário</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <%
+                                    UsuarioParticipanteControle upca = new UsuarioParticipanteControle();
+
+                                    for (UsuarioParticipante upa : upca.buscarTodos()) {
+                                        int flag = 0;
+                                        String nomeUsuario = upa.getNome();
+                                        String email = upa.getEmail();
+                                        for (UsuarioParticipante upacto : competicao.getAdministradores()) {
+                                            if (email.equals(upacto.getEmail())) {
+                                                flag++;
+
+                                            }
                                         }
-                                    }
-                                    if(flag == 0){
-                            
-                            %>    
-                        
-                        <td><%=nomeUsuario%></td>
-                        <td><%=email%></td>
-                        <td>
-                            <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=upa.getIdUsuario()%>&idComp=<%=competicao.getIdCompeticao()%>&op=1" class="btn btn-success">
-                                <!-- Adicionar icone -->
-                                <i class="fas fa-plus"></i>
-                            </a>
-                        </td>    
+                                        if (flag == 0) {
 
-                        </tbody>
+                                %>    
 
-                        
-                        <%}}%>
-                    </table>
-                    <script>
-                        //Código de busca da tabela
-                        $('input#txt_consulta').quicksearch('table#tabela tbody tr');
+                            <td><%=nomeUsuario%></td>
+                            <td><%=email%></td>
+                            <td>
+                                <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=upa.getIdUsuario()%>&idComp=<%=competicao.getIdCompeticao()%>&op=1" class="btn btn-success">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </td>    
 
-                    </script>
-                </div>
+                            </tbody>
+
+
+                            <%}
+                                }%>
+                        </table>
+                        <script>
+                            //Código de busca da tabela
+                            $('input#txt_consulta').quicksearch('table#tabela tbody tr');
+
+                        </script>
+                    </div>
                     <div class="tab-pane active dark" id="modalidadeSolo" role="tabpanel">
 
                         <table class="table table-striped">
@@ -193,19 +192,18 @@
 
                             <tbody>
                                 <%
-                            
-                                    for(CompeticaoModalidadeColetiva cptMc: competicao.getCmodalidadecole()){
-                                        
-                                        if(!cptMc.isInativo()){
-                                
-                                    String nomeCompeticaoColetiva = cptMc.getNomeCompeticao();
-                                    ModalidadeColetiva modalidadeColetiva = cptMc.getModalidadeColetiva();
-                                    String nomeModalidadeColetiva = modalidadeColetiva.getNome();
-                                    SistemaDeCompeticao sistemaDeCompeticao = cptMc.getSistemaDeCompeticao();
-                                    String nomeSistemaDeCompeticao = sistemaDeCompeticao.getNome();
-                            
-                            
-                            
+
+                                    for (CompeticaoModalidadeColetiva cptMc : competicao.getCmodalidadecole()) {
+
+                                        if (!cptMc.isInativo()) {
+
+                                            String nomeCompeticaoColetiva = cptMc.getNomeCompeticao();
+                                            ModalidadeColetiva modalidadeColetiva = cptMc.getModalidadeColetiva();
+                                            String nomeModalidadeColetiva = modalidadeColetiva.getNome();
+                                            SistemaDeCompeticao sistemaDeCompeticao = cptMc.getSistemaDeCompeticao();
+                                            String nomeSistemaDeCompeticao = sistemaDeCompeticao.getNome();
+
+
                                 %>    
                             <td><%=nomeCompeticaoColetiva%></td>
                             <td><%=nomeModalidadeColetiva%></td>
@@ -214,36 +212,36 @@
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-users-cog"></i>
                                 </a> &nbsp;
-                            <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Inativar<%=cptMc.getIdCompeticaoModalidade()%>">
-                                    <i class="fas fa-trash-alt"></i></button></a>&nbsp;
-                                    
-                           
-                           
+                                <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Inativar<%=cptMc.getIdCompeticaoModalidade()%>">
+                                        <i class="fas fa-trash-alt"></i></button></a>&nbsp;
 
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="Inativar<%=cptMc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir <%=cptMc.getNomeCompeticao()%>?</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-  
-                                        <div class="modal-footer">
-                                            <a href="scripts/inativarCompeticaoModalidadeColetiva.jsp?idEvento=<%=competicao.getIdCompeticao()%>&idCompeticao=<%=cptMc.getIdCompeticaoModalidade()%>"><button class="btn btn-secondary">Sim</button></a>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                                            
+
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="Inativar<%=cptMc.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir <%=cptMc.getNomeCompeticao()%>?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <a href="scripts/inativarCompeticaoModalidadeColetiva.jsp?idEvento=<%=competicao.getIdCompeticao()%>&idCompeticao=<%=cptMc.getIdCompeticaoModalidade()%>"><button class="btn btn-secondary">Sim</button></a>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                                    
-                                    
-                                    
-                                    &nbsp;
+
+
+
+                                &nbsp;
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#<%=cptMc.getIdCompeticaoModalidade()%>">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-eye"></i>
@@ -265,15 +263,15 @@
                                             <ol>
                                                 <li>Sistema de competição:&nbsp; <%=nomeSistemaDeCompeticao%></li>
                                                     <%
-                                                        if(sistemaDeCompeticao instanceof SistemaTodosContraTodos){
-                                                
-                                                        SistemaTodosContraTodos sistemaTodosContraTodos = (SistemaTodosContraTodos) sistemaDeCompeticao;
-                                                        SistemaDeContagem sistemaDeContagem = sistemaTodosContraTodos.getSistemaDeContagem();
-                                                        SistemaDeDesempate sistemaDeDesempate = sistemaTodosContraTodos.getSistemaDeDesempate();
-                                            
-                                                        String nomeSistemaDeContagem = sistemaDeContagem.getNome();
-                                                        String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
-                                                        String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
+                                                        if (sistemaDeCompeticao instanceof SistemaTodosContraTodos) {
+
+                                                            SistemaTodosContraTodos sistemaTodosContraTodos = (SistemaTodosContraTodos) sistemaDeCompeticao;
+                                                            SistemaDeContagem sistemaDeContagem = sistemaTodosContraTodos.getSistemaDeContagem();
+                                                            SistemaDeDesempate sistemaDeDesempate = sistemaTodosContraTodos.getSistemaDeDesempate();
+
+                                                            String nomeSistemaDeContagem = sistemaDeContagem.getNome();
+                                                            String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
+                                                            String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
                                                     %>
                                                 <li>Sistema de contagem:&nbsp; <%=nomeSistemaDeContagem%></li>
                                                 <li>Crtitério de desempate:&nbsp; <%=tipoSistemaDesempate%></li>
@@ -281,42 +279,40 @@
 
                                                 <%}%>
                                                 <%
-                                                    if(sistemaDeCompeticao instanceof SistemaEliminatorio){
-                                                
-                                                    SistemaEliminatorio sistemaEliminatorio = (SistemaEliminatorio) sistemaDeCompeticao;
-                                                    String sPossuiRepescagem;
-                                            
-                                                    if(sistemaEliminatorio.isRepescagem()){
-                                                        sPossuiRepescagem = "sim";
-                                                    }
-                                                    else{
-                                                        sPossuiRepescagem = "não";
-                                                    }
-                                            
+                                                    if (sistemaDeCompeticao instanceof SistemaEliminatorio) {
+
+                                                        SistemaEliminatorio sistemaEliminatorio = (SistemaEliminatorio) sistemaDeCompeticao;
+                                                        String sPossuiRepescagem;
+
+                                                        if (sistemaEliminatorio.isRepescagem()) {
+                                                            sPossuiRepescagem = "sim";
+                                                        } else {
+                                                            sPossuiRepescagem = "não";
+                                                        }
+
                                                 %>
                                                 <li>Eliminatóias com repescagem:&nbsp; <%=sPossuiRepescagem%></li>
                                                     <%}%>
                                                     <%
-                if(sistemaDeCompeticao instanceof SistemaMisto){
-                                                
-                SistemaMisto sistemaMisto = (SistemaMisto) sistemaDeCompeticao;
-                String sPossuiRepescagem;
-                                            
-                if(sistemaMisto.isRepescagem()){
-                    sPossuiRepescagem = "sim";
-                }
-                else{
-                    sPossuiRepescagem = "não";
-                }
-                                            
-                SistemaDeContagem sistemaDeContagem = sistemaMisto.getSistemadecontagem();
-                SistemaDeDesempate sistemaDeDesempate = sistemaMisto.getSistemaDeDesempate();
-                                            
-                String nomeSistemaDeContagem = sistemaDeContagem.getNome();
-                String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
-                String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
-                                            
-                                            
+                                                        if (sistemaDeCompeticao instanceof SistemaMisto) {
+
+                                                            SistemaMisto sistemaMisto = (SistemaMisto) sistemaDeCompeticao;
+                                                            String sPossuiRepescagem;
+
+                                                            if (sistemaMisto.isRepescagem()) {
+                                                                sPossuiRepescagem = "sim";
+                                                            } else {
+                                                                sPossuiRepescagem = "não";
+                                                            }
+
+                                                            SistemaDeContagem sistemaDeContagem = sistemaMisto.getSistemadecontagem();
+                                                            SistemaDeDesempate sistemaDeDesempate = sistemaMisto.getSistemaDeDesempate();
+
+                                                            String nomeSistemaDeContagem = sistemaDeContagem.getNome();
+                                                            String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
+                                                            String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
+
+
                                                     %>
                                                 <li>Sistema de contagem:&nbsp; <%=nomeSistemaDeContagem%></li>
                                                 <li>Crtitério de desempate:&nbsp; <%=tipoSistemaDesempate%></li>
@@ -331,7 +327,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <%}}%>
+                            <%}
+                                }%>
                         </table>
                         <a href="formcadastrocompeticaomodalidadecoletiva.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" class="btn btn-success">
                             <!-- Adicionar icone -->
@@ -357,18 +354,17 @@
                                     System.out.println("Competições solo: " + competicao.getCmodalidadesolo());
                                     System.out.println("Competições coletivas:" + competicao.getCmodalidadecole());
                                     System.out.println(competicaoControle.isDirty());
-                                    for(CompeticaoModalidadeSolo cptMs: competicao.getCmodalidadesolo()){
-                                        
-                                        if(!cptMs.isInativo()){
-                            
-                                    String nomeCompeticaoSolo = cptMs.getNomeCompeticao();
-                                    ModalidadeSolo modalidadeSolo = cptMs.getModalidadeSolo();
-                                    String nomeModalidadeSolo = modalidadeSolo.getNome();
-                                    SistemaDeCompeticao sistemaDeCompeticao = cptMs.getSistemaDeCompeticao();
-                                    String nomeSistemaDeCompeticao = sistemaDeCompeticao.getNome();
-                            
-                            
-                            
+                                    for (CompeticaoModalidadeSolo cptMs : competicao.getCmodalidadesolo()) {
+
+                                        if (!cptMs.isInativo()) {
+
+                                            String nomeCompeticaoSolo = cptMs.getNomeCompeticao();
+                                            ModalidadeSolo modalidadeSolo = cptMs.getModalidadeSolo();
+                                            String nomeModalidadeSolo = modalidadeSolo.getNome();
+                                            SistemaDeCompeticao sistemaDeCompeticao = cptMs.getSistemaDeCompeticao();
+                                            String nomeSistemaDeCompeticao = sistemaDeCompeticao.getNome();
+
+
                                 %>    
                             <td><%=nomeCompeticaoSolo%></td>
                             <td><%=nomeModalidadeSolo%></td>
@@ -377,33 +373,33 @@
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-users-cog"></i>
                                 </a> &nbsp;
-                           
+
                                 <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Inativar<%=cptMs.getIdCompeticaoModalidade()%>">
                                         <i class="fas fa-trash-alt"></i></button></a>&nbsp;
-                                    
-                           
-                           
 
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="Inativar<%=cptMs.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir <%=cptMs.getNomeCompeticao()%>?</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-  
-                                        <div class="modal-footer">
-                                            <a href="scripts/inativarCompeticaoModalidadeSolo.jsp?idEvento=<%=competicao.getIdCompeticao()%>&idCompeticao=<%=cptMs.getIdCompeticaoModalidade()%>"><button class="btn btn-secondary">Sim</button></a>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                                            
+
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="Inativar<%=cptMs.getIdCompeticaoModalidade()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Deseja realmente excluir <%=cptMs.getNomeCompeticao()%>?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <a href="scripts/inativarCompeticaoModalidadeSolo.jsp?idEvento=<%=competicao.getIdCompeticao()%>&idCompeticao=<%=cptMs.getIdCompeticaoModalidade()%>"><button class="btn btn-secondary">Sim</button></a>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#<%=cptMs.getIdCompeticaoModalidade()%>">
                                     <!-- Adicionar icone -->
                                     <i class="fas fa-eye"></i>
@@ -425,15 +421,15 @@
                                             <ol>
                                                 <li>Sistema de competição:&nbsp; <%=nomeSistemaDeCompeticao%></li>
                                                     <%
-                                                        if(sistemaDeCompeticao instanceof SistemaTodosContraTodos){
-                                                
-                                                        SistemaTodosContraTodos sistemaTodosContraTodos = (SistemaTodosContraTodos) sistemaDeCompeticao;
-                                                        SistemaDeContagem sistemaDeContagem = sistemaTodosContraTodos.getSistemaDeContagem();
-                                                        SistemaDeDesempate sistemaDeDesempate = sistemaTodosContraTodos.getSistemaDeDesempate();
-                                            
-                                                        String nomeSistemaDeContagem = sistemaDeContagem.getNome();
-                                                        String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
-                                                        String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
+                                                        if (sistemaDeCompeticao instanceof SistemaTodosContraTodos) {
+
+                                                            SistemaTodosContraTodos sistemaTodosContraTodos = (SistemaTodosContraTodos) sistemaDeCompeticao;
+                                                            SistemaDeContagem sistemaDeContagem = sistemaTodosContraTodos.getSistemaDeContagem();
+                                                            SistemaDeDesempate sistemaDeDesempate = sistemaTodosContraTodos.getSistemaDeDesempate();
+
+                                                            String nomeSistemaDeContagem = sistemaDeContagem.getNome();
+                                                            String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
+                                                            String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
                                                     %>
                                                 <li>Sistema de contagem:&nbsp; <%=nomeSistemaDeContagem%></li>
                                                 <li>Crtitério de desempate:&nbsp; <%=tipoSistemaDesempate%></li>
@@ -441,42 +437,40 @@
 
                                                 <%}%>
                                                 <%
-                                                    if(sistemaDeCompeticao instanceof SistemaEliminatorio){
-                                                
-                                                    SistemaEliminatorio sistemaEliminatorio = (SistemaEliminatorio) sistemaDeCompeticao;
-                                                    String sPossuiRepescagem;
-                                            
-                                                    if(sistemaEliminatorio.isRepescagem()){
-                                                        sPossuiRepescagem = "sim";
-                                                    }
-                                                    else{
-                                                        sPossuiRepescagem = "não";
-                                                    }
-                                            
+                                                    if (sistemaDeCompeticao instanceof SistemaEliminatorio) {
+
+                                                        SistemaEliminatorio sistemaEliminatorio = (SistemaEliminatorio) sistemaDeCompeticao;
+                                                        String sPossuiRepescagem;
+
+                                                        if (sistemaEliminatorio.isRepescagem()) {
+                                                            sPossuiRepescagem = "sim";
+                                                        } else {
+                                                            sPossuiRepescagem = "não";
+                                                        }
+
                                                 %>
                                                 <li>Eliminatóias com repescagem:&nbsp; <%=sPossuiRepescagem%></li>
                                                     <%}%>
                                                     <%
-                if(sistemaDeCompeticao instanceof SistemaMisto){
-                                                
-                SistemaMisto sistemaMisto = (SistemaMisto) sistemaDeCompeticao;
-                String sPossuiRepescagem;
-                                            
-                if(sistemaMisto.isRepescagem()){
-                    sPossuiRepescagem = "sim";
-                }
-                else{
-                    sPossuiRepescagem = "não";
-                }
-                                            
-                SistemaDeContagem sistemaDeContagem = sistemaMisto.getSistemadecontagem();
-                SistemaDeDesempate sistemaDeDesempate = sistemaMisto.getSistemaDeDesempate();
-                                            
-                String nomeSistemaDeContagem = sistemaDeContagem.getNome();
-                String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
-                String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
-                                            
-                                            
+                                                        if (sistemaDeCompeticao instanceof SistemaMisto) {
+
+                                                            SistemaMisto sistemaMisto = (SistemaMisto) sistemaDeCompeticao;
+                                                            String sPossuiRepescagem;
+
+                                                            if (sistemaMisto.isRepescagem()) {
+                                                                sPossuiRepescagem = "sim";
+                                                            } else {
+                                                                sPossuiRepescagem = "não";
+                                                            }
+
+                                                            SistemaDeContagem sistemaDeContagem = sistemaMisto.getSistemadecontagem();
+                                                            SistemaDeDesempate sistemaDeDesempate = sistemaMisto.getSistemaDeDesempate();
+
+                                                            String nomeSistemaDeContagem = sistemaDeContagem.getNome();
+                                                            String tipoSistemaDesempate = sistemaDeDesempate.getTipoDesempate();
+                                                            String tipoSistemaDesempateSecundario = sistemaDeDesempate.getTipoDesempateSecundario();
+
+
                                                     %>
                                                 <li>Sistema de contagem:&nbsp; <%=nomeSistemaDeContagem%></li>
                                                 <li>Crtitério de desempate:&nbsp; <%=tipoSistemaDesempate%></li>
@@ -491,7 +485,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <%}}%>
+                            <%}
+                                }%>
                         </table>
                         <a href="formcadastrocompeticaomodalidadesolo.jsp?idCompeticao=<%=competicao.getIdCompeticao()%>" class="btn btn-success">
                             <!-- Adicionar icone -->
@@ -501,62 +496,81 @@
 
 
                     <div class="tab-pane" id="messages" role="tabpanel">
-                        
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#compor" role="tab" aria-controls="nav-home" aria-selected="true">Compor</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#enviar" role="tab" aria-controls="nav-profile" aria-selected="false">Enviadas</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="compor" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <form method="post" action="script/enviarMensagemEvento.jsp">
+                                    <div class="form-group">
+                                        <label for="titulo">Título</label>
+                                        <input type="text" class="form-control" id="titulo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mensagem">Mensagem</label>
+                                        <textarea class="form-control" id="mensagem" rows="3"></textarea>
+                                    </div>
+                                    <input type='submit' class='btn btn-success' value='Enviar'>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="enviar" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+                        </div> 
                     </div>
                     <div class="tab-pane" id="settings" role="tabpanel">
-                <div class="form-group input-group">
+                        <div class="form-group input-group">
                             <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
-                        </a></span>
+                                </a></span>
                             <input name="consulta" id="txt_consulta2" placeholder="Consultar" type="text" class="form-control">
                         </div>
 
-                        
 
-                    
-                    <table id="tabela2" class="table table-striped">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Usuário</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Ação</th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            <%
-                                //UsuarioParticipanteControle upca = new UsuarioParticipanteControle();
-                                for(UsuarioParticipante upact: competicao.getAdministradores()){
-                                
-                                String nomeUsuario = upact.getNome();
-                                String email = upact.getEmail();
-                                    
-                            
-                            
-                            
-                            %>    
-                        <td><%=nomeUsuario%></td>
-                        <td><%=email%></td>
-                        <td>
-                            <%
-                                if(!email.equals(up.getEmail())){
-                            %>
-                            <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=upact.getIdUsuario()%>&idComp=<%=competicao.getIdCompeticao()%>&op=2" class="btn btn-danger">
-                                <!-- Adicionar icone -->
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
+
+                        <table id="tabela2" class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Usuário</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <%
+                                    //UsuarioParticipanteControle upca = new UsuarioParticipanteControle();
+                                    for (UsuarioParticipante upact : competicao.getAdministradores()) {
+
+                                        String nomeUsuario = upact.getNome();
+                                        String email = upact.getEmail();
+
+
+                                %>    
+                            <td><%=nomeUsuario%></td>
+                            <td><%=email%></td>
+                            <td>
+                                <%
+                                    if (!email.equals(up.getEmail())) {
+                                %>
+                                <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=upact.getIdUsuario()%>&idComp=<%=competicao.getIdCompeticao()%>&op=2" class="btn btn-danger">
+                                    <!-- Adicionar icone -->
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
                                 <%}%>
-                        </td>    
+                            </td>    
 
-                        </tbody>
+                            </tbody>
 
-                        
-                        <%}%>
-                    </table>
-                    <script>
-                        //Código de busca da tabela
-                        $('input#txt_consulta2').quicksearch('table#tabela2 tbody tr');
 
-                    </script>
+                            <%}%>
+                        </table>
+                        <script>
+                            //Código de busca da tabela
+                            $('input#txt_consulta2').quicksearch('table#tabela2 tbody tr');
+
+                        </script>
                     </div>
                 </div>
 
@@ -571,7 +585,7 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <%
-        }
+            }
         %>
     </body>
 

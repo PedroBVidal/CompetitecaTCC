@@ -11,13 +11,13 @@
 <html lang="pt-br">
 
     <head>
-
+        <script type="text/javascript" src="ajax/ajaxProcess.js"></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Modern Business - Start Bootstrap Template</title>
+        <title>Login</title>
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -27,9 +27,9 @@
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
 
- <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css"
-          href="css/fonte/style.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css"
+              href="css/fonte/style.css"/>
     </head>
 
     <body style="font-family: 'Quicksand';">
@@ -97,8 +97,8 @@
 
         <!-- Page Content -->
         <div class="container">
-            
-            
+
+
             <%
                 request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("msg") != null) {
@@ -145,10 +145,43 @@
 
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-success">Entrar</button>&nbsp;&nbsp;<a href="signup.jsp?p=1">Não possui uma conta ainda? Cadastre-se aqui</a>
-                               
+                            <button type="submit" class="btn btn-success">Entrar</button>&nbsp;&nbsp;<a href="signup.jsp?p=1">Não possui uma conta ainda? Cadastre-se aqui</a>&nbsp;&nbsp;<a class="stretched-link text-danger" href="#" data-toggle="modal" data-target="#exampleModal">Putz! Esqueci a senha</a>
+
                         </div>
                         </form> 
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Recuperação de Senha</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="mensagem">
+                                        
+                                    </div>
+                                    <label for="" class="col-md-12">
+                                        E-mail:
+                                        <input id="email" type="email" required class="form-control" name="email" placeholder="Informe seu e-mail">
+                                    </label>
+                                    <label for="" class="col-md-12">
+                                        Tipo de Usuário:
+                                        <select id="opt" name="opt" class="form-control">
+                                            <option value="2">Participante</option>
+                                            <option value="1">Administrador</option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                    <button onclick="recSenha();" type="button" class="btn btn-success">Recuperar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -157,11 +190,11 @@
                 <script src="vendor/jquery/jquery.min.js"></script>
                 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
                 <script>
-                    
-                    function mudarAction(){
-                    $("#frm").attr("action","scripts/ctrlacessoParticipante.jsp");
+
+                    function mudarAction() {
+                        $("#frm").attr("action", "scripts/ctrlacessoParticipante.jsp");
                     }
-                    
+
                 </script>
                 </body>
 

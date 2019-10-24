@@ -124,6 +124,16 @@ public class GenericDAO<T> implements Dao<T> {
         return result;
     }
     @Override
+    public T buscarPorEmail(String email) {
+        abrirSessao();
+        String hql = "from "+classePersistente.getCanonicalName()+" where email = '"+email+"'";
+        Query query = getSessao().createQuery(hql);
+        T result = (T) query.uniqueResult();
+
+        return result;
+    }
+    
+    @Override
     public T buscarCodigoPrivado(String codigo) {
         abrirSessao();
         String hql = "from "+classePersistente.getCanonicalName()+" where codigo = '"+codigo+"'";

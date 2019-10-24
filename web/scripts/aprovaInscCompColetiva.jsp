@@ -4,6 +4,7 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.email.EnviarEmail"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeColetivaControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.EquipeCompeticao"%>
@@ -40,7 +41,7 @@
     InscricaoCompeticaoColetiva icms = icmsc.buscarId(idInsc);
     UsuarioParticipante2 up2 = up2c.buscarPorId(icms.getEquipe().getAdministrador().getIdUsuario());
     CompeticaoModalidadeColetiva cmc = cmcc.buscarPorId(idComp);
-
+    EnviarEmail ee = new EnviarEmail();
     UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
     if (cmc.getNumVagasDisp() > 0) {
         if (opt == 1) {
@@ -72,12 +73,19 @@
 
             up2c.atualizarCad(up2);
             up2c.fecharSessaoDAOGeneric();
-
+            ee.setAssunto(icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Inscrição Aceita");
+            ee.setMsg("Parabéns, a inscrição da equipe " + icms.getEquipe().getNome() + " na competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " foi aceita. <br> Os seguintes atletas foram inscritos <br> " + atletas);
+            ee.setEmailDestinatario(up2.getEmail());
+            ee.enviarGmail();
             // ComunicadoAPEnviado comunicado2 = new ComunicadoAPEnviado("Parabéns, sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi aceita",0,"Inscrição Aceita");
             response.sendRedirect("../gerenciarCompModColetiva.jsp?id=" + idComp + "&msg=Inscrição aprovada com sucesso&color=success");
         } else if (opt == 2) {
             ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente a inscrição da equipe " + icms.getEquipe().getNome() + " na competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " foi recusada.", 0, false, icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Inscrição Recusada", up);
             // ComunicadoAPEnviado comunicado2 = new ComunicadoAPEnviado("Parabéns, sua inscrição na competição "+icms.getCompeticaoModalidadeSolo().getNomeCompeticao()+" foi aceita",0,"Inscrição Aceita");
+            ee.setAssunto(icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Inscrição Recusada");
+            ee.setMsg("Infelizmente a inscrição da equipe " + icms.getEquipe().getNome() + " na competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " foi recusada.");
+            ee.setEmailDestinatario(up2.getEmail());
+            ee.enviarGmail();
             response.sendRedirect("../gerenciarCompModColetiva.jsp?id=" + idComp + "&msg=Inscrição aprovada com sucesso&color=success");
         } else if (opt == 2) {
             ComunicadoRecebido comunicado = new ComunicadoRecebido("Infelizmente a inscrição da equipe " + icms.getEquipe().getNome() + " na competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " foi recusada.", 0, false, icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Inscrição Recusada", up);
@@ -96,7 +104,10 @@
             up2.adicionarMensagemRecebida(comunicado);
             up2c.atualizarCad(up2);
             up2c.fecharSessaoDAOGeneric();
-
+            ee.setAssunto(icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Inscrição Recusada");
+            ee.setMsg("Infelizmente a inscrição da equipe " + icms.getEquipe().getNome() + " na competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " foi recusada.");
+            ee.setEmailDestinatario(up2.getEmail());
+            ee.enviarGmail();
             response.sendRedirect("../gerenciarCompModColetiva.jsp?id=" + idComp + "&msg=Incrição negada com sucesso&color=success");
         } else if (opt == 3) {
             cmc.retirarParticipante();
@@ -107,7 +118,10 @@
             icmsc.alterar(icms);
             icmsc.fecharSessaoDAOGeneric();
             crc.fecharSessaoDAOGeneric();
-
+            ee.setAssunto(icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + " - Expulsão");
+            ee.setMsg("Infelizmente a equipe " + icms.getEquipe().getNome() + " foi expulsa da competição " + icms.getCompeticaoModalidadeColetiva().getNomeCompeticao() + ", sendo assim não há mais a necessidade de comparecer ao evento.");
+            ee.setEmailDestinatario(up2.getEmail());
+            ee.enviarGmail();
         }
     } else {
         response.sendRedirect("../gerenciarCompModColetiva.jsp?id=" + idComp + "&msg=Infelizmente as inscrições fecharam antes da sua ser efetuada&color=danger");

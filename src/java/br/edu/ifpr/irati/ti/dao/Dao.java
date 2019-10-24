@@ -37,6 +37,8 @@ public interface Dao<T> {
     
     public Session getSessao();
     
+    public T buscarPorEmail(String email);
+    
     public void setSessao(Session sessao);
     
     public void flush();
