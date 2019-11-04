@@ -11,6 +11,7 @@ import br.edu.ifpr.irati.ti.dao.UsuarioAdministradorDAO;
 import br.edu.ifpr.irati.ti.modelo.Competicao;
 import br.edu.ifpr.irati.ti.modelo.Usuario;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
+import br.ifpr.irati.ti.util.GerarCodigoAcessoPrivado;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class UsuarioParticipanteControle {
     Dao<Usuario> genericUsuarioDAO = new GenericDAO<>(Usuario.class);
     Dao<UsuarioParticipante> genericUsuarioAdministradorDAO = new GenericDAO<>(UsuarioParticipante.class);
     UsuarioAdministradorDAO usuarioAdministradorDAO = new UsuarioAdministradorDAO();
-    
+    GerarCodigoAcessoPrivado gcap = new GerarCodigoAcessoPrivado();
     public void criar(UsuarioParticipante up) throws Exception{
         try{
         genericUsuarioAdministradorDAO.salvar(up);
@@ -39,7 +40,8 @@ public class UsuarioParticipanteControle {
     }
     
     public UsuarioParticipante buscarLogin(String email, String senha) throws Exception{
-        UsuarioParticipante usuarioParticipante = genericUsuarioAdministradorDAO.buscarLogin(email, senha);
+        
+        UsuarioParticipante usuarioParticipante = genericUsuarioAdministradorDAO.buscarLogin(email, gcap.criptografar(senha));
         if (usuarioParticipante == null) {
             throw new Exception("Acesso Negado. Tente novamente");
         }else{

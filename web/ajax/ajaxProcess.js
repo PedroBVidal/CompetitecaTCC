@@ -118,6 +118,7 @@ function recSenha() {
 }
 function criaSenha(tipo,id) {
     var senha = document.getElementById("password").value;
+    var senha_comp = document.getElementById("confirm_password").value;
     var xmlreq = CriaRequest();
     var result = document.getElementById("mensagem");
     var opt = tipo;
@@ -127,7 +128,9 @@ function criaSenha(tipo,id) {
     result.innerHTML = '<div class="alert alert-warning" role="alert">A Carregar requisição...</div>';
     
     xmlreq.open("GET", "ajax/salvarNovaSenha.jsp?opt="+opt+"&id="+id+"&senha="+senha, true);
-
+    if (senha !== senha_comp) {
+        result.innerHTML = '<div class="alert alert-danger" role="alert">As senhas não conferem, corrija e submeta novamente</div>';
+    }else{
     // Atribui uma função para ser executada sempre que houver uma mudança de ado
     xmlreq.onreadystatechange = function () {
 
@@ -136,12 +139,12 @@ function criaSenha(tipo,id) {
 
             // Verifica se o arquivo foi encontrado com sucesso
             if (xmlreq.status == 200) {
-                result.innerHTML = xmlreq.responseText;
+                window.location.replace("login.jsp?msg=Recuperação Realizada com sucesso!, agora acesse com a sua nova senha!&color=success");
             } else {
                 result.innerHTML = "Erro: " + xmlreq.statusText;
             }
         }
     };
-
+    }
     xmlreq.send();
 }

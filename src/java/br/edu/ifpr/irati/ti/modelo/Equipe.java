@@ -3,7 +3,6 @@ package br.edu.ifpr.irati.ti.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +17,6 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
-import org.hibernate.annotations.Type;
 
 @Entity(name = "equipe")
 @Proxy(lazy = false)
@@ -62,7 +60,9 @@ public class Equipe implements Serializable {
 
     @OneToOne
     private ModalidadeColetiva modalidade;
-
+    @OneToOne
+    private Segmento segmento;
+    
     public Equipe() {
         this.idEquipe = 0;
         this.nome = "";
@@ -73,6 +73,7 @@ public class Equipe implements Serializable {
         this.competicoesModalidadeColeivas = new ArrayList<>();
         this.administrador = new UsuarioParticipante2();
         this.modalidade = new ModalidadeColetiva();
+      //  this.segmento = new Segmento();
     }
 
     public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador) {
@@ -85,6 +86,7 @@ public class Equipe implements Serializable {
         this.competicoesModalidadeColeivas = new ArrayList<>();
         this.administrador = new UsuarioParticipante2();
         this.modalidade = new ModalidadeColetiva();
+        //this.segmento = new Segmento();
     }
 
     public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador, Competicao competicao, boolean aprovada) {
@@ -97,6 +99,7 @@ public class Equipe implements Serializable {
         this.competicoesModalidadeColeivas = new ArrayList<>();
         this.administrador = administrador;
         this.modalidade = new ModalidadeColetiva();
+      //  this.segmento = new Segmento();
     }
 
     public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador, ModalidadeColetiva modalidade, boolean aprovada) {
@@ -109,6 +112,7 @@ public class Equipe implements Serializable {
         this.competicoesModalidadeColeivas = new ArrayList<>();
         this.administrador = administrador;
         this.modalidade = modalidade;
+       // this.segmento = new Segmento();
     }
 
     public Equipe(int idEquipe, String nome, UsuarioParticipante2 administrador, List<Atleta> atletas, ModalidadeColetiva modalidade, boolean aprovada) {
@@ -120,6 +124,7 @@ public class Equipe implements Serializable {
         this.inscricoesCompeticoesColetivas = new ArrayList<>();
         this.competicoesModalidadeColeivas = new ArrayList<>();
         this.modalidade = modalidade;
+       // this.segmento = new Segmento();
     }
 
     public Equipe(int idEquipe, UsuarioParticipante2 administrador, String nome, List<Atleta> atletas, List<Confronto> confrontosModalidadeColetiva, List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas, List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas, ModalidadeColetiva modalidade) {
@@ -131,10 +136,19 @@ public class Equipe implements Serializable {
         this.inscricoesCompeticoesColetivas = inscricoesCompeticoesColetivas;
         this.competicoesModalidadeColeivas = competicoesModalidadeColeivas;
         this.modalidade = modalidade;
+       // this.segmento = new Segmento();
+    }
+
+    public Segmento getSegmento() {
+        return segmento;
+    }
+
+    public void setSegmento(Segmento segmento) {
+        this.segmento = segmento;
     }
 
     
-
+    
     public void adicionarAtleta(Atleta atleta) {
         this.getAtletas().add(atleta);
     }

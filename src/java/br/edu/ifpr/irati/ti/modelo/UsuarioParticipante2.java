@@ -5,6 +5,7 @@
  */
 package br.edu.ifpr.irati.ti.modelo;
 
+import br.ifpr.irati.ti.util.GerarCodigoAcessoPrivado;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +34,16 @@ public class UsuarioParticipante2 extends Usuario implements Serializable {
     @OneToMany(mappedBy = "administrador", fetch = FetchType.LAZY)
     //@Fetch(value = FetchMode.SUBSELECT)
     private List<Equipe> equipe;
+    
+    
 
     public UsuarioParticipante2() {
     }
 
     public UsuarioParticipante2(int idUsuario,String email,String nome, String senha) {
         super(idUsuario, nome);
-        this.senha = senha;
+        GerarCodigoAcessoPrivado gcap = new GerarCodigoAcessoPrivado();
+        this.senha = gcap.criptografar(senha);
         this.email = email;
         this.atleta = new Atleta();
         this.equipe = new ArrayList<>();
@@ -47,7 +51,8 @@ public class UsuarioParticipante2 extends Usuario implements Serializable {
 
     public UsuarioParticipante2(String senha, String email, Atleta atleta, List<Equipe> equipe, int idUsuario, String nome) {
         super(idUsuario, nome);
-        this.senha = senha;
+        GerarCodigoAcessoPrivado gcap = new GerarCodigoAcessoPrivado();
+        this.senha = gcap.criptografar(senha);
         this.email = email;
         this.atleta = atleta;
         this.equipe = equipe;
@@ -73,7 +78,8 @@ public class UsuarioParticipante2 extends Usuario implements Serializable {
      * @param senha the senha to set
      */
     public void setSenha(String senha) {
-        this.senha = senha;
+        GerarCodigoAcessoPrivado gcap = new GerarCodigoAcessoPrivado();
+        this.senha = gcap.criptografar(senha);
     }
 
     /**

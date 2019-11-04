@@ -33,7 +33,7 @@ public class Competicao implements Serializable {
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
-    
+
     @Column(name = "informacaoExtra", nullable = true, length = 400)
     private String informacaoExtra;
 
@@ -54,12 +54,14 @@ public class Competicao implements Serializable {
 
     @Temporal(TemporalType.DATE)
     private Date dataTermino;
-    
+
     @Temporal(TemporalType.DATE)
     private Date dataInicioInsc;
 
     @Temporal(TemporalType.DATE)
     private Date dataTerminoInsc;
+    @Column(nullable = false)
+    private int interseries;
 
     @Column(name = "inativo")
     @Type(type = "true_false")
@@ -84,9 +86,10 @@ public class Competicao implements Serializable {
         inativo = false;
         privado = false;
         informacaoExtra = "";
+        interseries = 0;
     }
 
-    public Competicao(int idCompeticao, String nome, Date dataInicioInsc, Date dataTerminoInsc, Date dataInicio, Date dataTermino) {
+    public Competicao(int idCompeticao, String nome, Date dataInicioInsc, Date dataTerminoInsc, Date dataInicio, Date dataTermino, int interseries) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
         cmodalidadecole = new HashSet<>();
@@ -98,9 +101,10 @@ public class Competicao implements Serializable {
         this.dataTerminoInsc = dataTerminoInsc;
         this.inativo = false;
         this.privado = false;
+        this.interseries = interseries;
     }
-    
-        public Competicao(int idCompeticao, String nome, Date dataInicioInsc, Date dataTerminoInsc, Date dataInicio, Date dataTermino, String informacaoExtra) {
+
+    public Competicao(int idCompeticao, String nome, Date dataInicioInsc, Date dataTerminoInsc, Date dataInicio, Date dataTermino, String informacaoExtra, int interseries) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
         this.cmodalidadecole = new HashSet<>();
@@ -113,9 +117,10 @@ public class Competicao implements Serializable {
         this.inativo = false;
         this.privado = false;
         this.informacaoExtra = informacaoExtra;
+        this.interseries = interseries;
     }
 
-    public Competicao(int idCompeticao, String nome, String informacaoExtra, List<UsuarioParticipante> administradores, Set<CompeticaoModalidadeColetiva> cmodalidadecole, Set<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino, Date dataInicioInsc, Date dataTerminoInsc, boolean inativo, String codPriv, boolean privado) {
+    public Competicao(int idCompeticao, String nome, String informacaoExtra, List<UsuarioParticipante> administradores, Set<CompeticaoModalidadeColetiva> cmodalidadecole, Set<CompeticaoModalidadeSolo> cmodalidadesolo, Date dataInicio, Date dataTermino, Date dataInicioInsc, Date dataTerminoInsc, boolean inativo, String codPriv, boolean privado, int interseries) {
         this.idCompeticao = idCompeticao;
         this.nome = nome;
         this.informacaoExtra = informacaoExtra;
@@ -129,10 +134,17 @@ public class Competicao implements Serializable {
         this.inativo = inativo;
         this.codPriv = codPriv;
         this.privado = privado;
+        this.interseries = interseries;
     }
 
-        
+    public int getInterseries() {
+        return interseries;
+    }
 
+    public void setInterseries(int interseries) {
+        this.interseries = interseries;
+    }
+    
     public Date getDataInicioInsc() {
         return dataInicioInsc;
     }
@@ -149,10 +161,6 @@ public class Competicao implements Serializable {
         this.dataTerminoInsc = dataTerminoInsc;
     }
 
-        
-
-    
-    
     public void adcionarLocal(Local local) {
 
     }
@@ -229,7 +237,6 @@ public class Competicao implements Serializable {
         this.dataTermino = dataTermino;
     }
 
-
     public void adicionarAdministrador(UsuarioParticipante up) {
         this.getAdministradores().add(up);
         //up.adicionarCompeticao(this);
@@ -239,8 +246,6 @@ public class Competicao implements Serializable {
         this.getAdministradores().remove(up);
         up.removerCompeticao(this);
     }
-
-
 
     /* @return the inativo
      */
@@ -285,13 +290,11 @@ public class Competicao implements Serializable {
             GerarCodigoAcessoPrivado gcap = new GerarCodigoAcessoPrivado();
             this.codPriv = gcap.criptografar(Integer.toString(this.idCompeticao));
             this.privado = privado;
-        }else{
+        } else {
             this.privado = privado;
         }
 
     }
-
-    
 
     /**
      * @return the cmodalidadecole
@@ -348,7 +351,5 @@ public class Competicao implements Serializable {
     public void setAdministradores(List<UsuarioParticipante> administradores) {
         this.administradores = administradores;
     }
-    
-    
 
 }

@@ -1,6 +1,7 @@
 
 package br.edu.ifpr.irati.ti.modelo;
 
+import br.ifpr.irati.ti.util.GerarCodigoAcessoPrivado;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Proxy;
 
 @Entity(name = "usuarioParticipante")
@@ -33,13 +31,16 @@ public class UsuarioParticipante  extends Usuario implements Serializable {
     @OneToMany(fetch = FetchType.LAZY)    
     private List<Local> locais;
 
+    
+    
     public UsuarioParticipante() {
     }
 
 
     public UsuarioParticipante(int idUsuario, String nome, String email, String senha) {
         super(idUsuario, nome);
-        this.senha = senha;
+        GerarCodigoAcessoPrivado gcap = new GerarCodigoAcessoPrivado();
+        this.senha = gcap.criptografar(senha);
         this.email = email;
         this.competicoes = new ArrayList<>();
         this.locais = new ArrayList<>();
@@ -47,7 +48,8 @@ public class UsuarioParticipante  extends Usuario implements Serializable {
 
     public UsuarioParticipante(String senha, String email, List<Competicao> competicoes, List<Local> locais, int idUsuario, String nome) {
         super(idUsuario, nome);
-        this.senha = senha;
+        GerarCodigoAcessoPrivado gcap = new GerarCodigoAcessoPrivado();
+        this.senha = gcap.criptografar(senha);
         this.email = email;
         this.competicoes = competicoes;
         this.locais = locais;
@@ -109,7 +111,9 @@ public class UsuarioParticipante  extends Usuario implements Serializable {
      * @param senha the senha to set
      */
     public void setSenha(String senha) {
-        this.senha = senha;
+        GerarCodigoAcessoPrivado gcap = new GerarCodigoAcessoPrivado();
+        String passeuordi = gcap.criptografar(senha);
+        this.senha = passeuordi;
     }
 
     /**

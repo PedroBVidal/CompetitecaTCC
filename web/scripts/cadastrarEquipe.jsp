@@ -4,6 +4,8 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.controle.SegmentoControle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.Segmento"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.ModalidadeColetivaControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.ModalidadeColetiva"%>
 <%@page import="java.util.ArrayList"%>
@@ -18,54 +20,58 @@
 <%@page import="br.edu.ifpr.irati.ti.modelo.Equipe"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    
+
     request.setCharacterEncoding("UTF-8");
+    //int idSegmento = Integer.parseInt(request.getParameter("idsegmento"));
     CompeticaoModalidadeColetivaControle cmc = new CompeticaoModalidadeColetivaControle();
     List<CompeticaoModalidadeColetiva> competicoesModalidadeColetiva = new ArrayList<CompeticaoModalidadeColetiva>();
-    
+    SegmentoControle segmentoc = new SegmentoControle();
+    Segmento segmento = new Segmento();
+    if (request.getParameter("idsegmento") != null) {
+        segmento = segmentoc.buscarSegmentoPorId(Integer.parseInt(request.getParameter("idsegmento")));
+    }
+
     int contador = Integer.parseInt(request.getParameter("contador"));
 
-    if(contador != 0){
-    for(int i = 1; i <= contador; i++){
-        
-        if(request.getParameter("checkBox"+i) != null){
-            CompeticaoModalidadeColetiva compModalidadeColetiva = cmc.buscarPorId(Integer.parseInt(request.getParameter("checkBox"+i)));
-            competicoesModalidadeColetiva.add(compModalidadeColetiva);
+    if (contador != 0) {
+        for (int i = 1; i <= contador; i++) {
+
+            if (request.getParameter("checkBox" + i) != null) {
+                CompeticaoModalidadeColetiva compModalidadeColetiva = cmc.buscarPorId(Integer.parseInt(request.getParameter("checkBox" + i)));
+                competicoesModalidadeColetiva.add(compModalidadeColetiva);
+            }
         }
     }
-    }
-    
-    
+
     int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
     String nomeEquipe = request.getParameter("nomeEquipe");
-     int idModalidadeColetiva = Integer.parseInt(request.getParameter("idModalidadeColetivaSelecionada"));
-    
-     
+    int idModalidadeColetiva = Integer.parseInt(request.getParameter("idModalidadeColetivaSelecionada"));
+
     //Cadastrar nova equipe
-        
-        UsuarioParticipante2Controle upc = new UsuarioParticipante2Controle();
-        UsuarioParticipante2  uADMEquipe = upc.buscarPorId(idUsuario);
-        
-        ModalidadeColetivaControle modalidadeControle = new ModalidadeColetivaControle();
-        ModalidadeColetiva modalidadeColetiva = modalidadeControle.buscaPorId(idModalidadeColetiva);
-        
-        System.out.println("Competicoes modalidade coletiva: "+ competicoesModalidadeColetiva);
-        System.out.println("contador: "+contador);
-        
-        EquipeControle ec = new EquipeControle();
-        
-        Equipe equipe = new Equipe(0, nomeEquipe, uADMEquipe,modalidadeColetiva,false);
-        
-        equipe.setCompeticoesModalidadeColeivas(competicoesModalidadeColetiva);
-        
-        ec.criarEquipe(equipe);
-        
-        uADMEquipe.adicionarEquipe(equipe);
-        upc.atualizarCad(uADMEquipe);
-        
-        
-        response.sendRedirect("../listaEquipes.jsp?msg=Equipe criada com sucesso&color=success");
-        
-    
-    
+    UsuarioParticipante2Controle upc = new UsuarioParticipante2Controle();
+    UsuarioParticipante2 uADMEquipe = upc.buscarPorId(idUsuario);
+
+    ModalidadeColetivaControle modalidadeControle = new ModalidadeColetivaControle();
+    ModalidadeColetiva modalidadeColetiva = modalidadeControle.buscaPorId(idModalidadeColetiva);
+
+    System.out.println("Competicoes modalidade coletiva: " + competicoesModalidadeColetiva);
+    System.out.println("contador: " + contador);
+
+    EquipeControle ec = new EquipeControle();
+
+    Equipe equipe = new Equipe(0, nomeEquipe, uADMEquipe, modalidadeColetiva, false);
+
+    equipe.setCompeticoesModalidadeColeivas(competicoesModalidadeColetiva);
+    if (request.getParameter("idsegmento") != null) {
+        equipe.setSegmento(segmento);
+
+    }
+    ec.criarEquipe(equipe);
+
+    uADMEquipe.adicionarEquipe(equipe);
+    upc.atualizarCad(uADMEquipe);
+
+    response.sendRedirect("../listaEquipes.jsp?msg=Equipe criada com sucesso&color=success");
+
+
 %>

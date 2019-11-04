@@ -1,4 +1,6 @@
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.Segmento"%>
+<%@page import="br.edu.ifpr.irati.ti.controle.SegmentoControle"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Competicao"%>
@@ -21,7 +23,7 @@
 <html lang="pt-br">
 
     <head>
-  
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
@@ -30,7 +32,7 @@
         <title>Modern Business - Start Bootstrap Template</title>
 
         <!-- Bootstrap core CSS -->
-        
+
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
@@ -38,51 +40,51 @@
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
         <style>
-div.ex1 {
-  background-color: lightblue;
-  width: 110px;
-  height: 110px;
-  overflow: scroll;
-}
+            div.ex1 {
+                background-color: lightblue;
+                width: 110px;
+                height: 110px;
+                overflow: scroll;
+            }
 
-div.ex2 {
-  background-color: lightblue;
-  width: 110px;
-  height: 110px;
-  overflow: hidden;
-}
+            div.ex2 {
+                background-color: lightblue;
+                width: 110px;
+                height: 110px;
+                overflow: hidden;
+            }
 
-div.ex3 {
-  width: 600px;
-  height: 330px;
-  overflow: auto;
-}
+            div.ex3 {
+                width: 600px;
+                height: 330px;
+                overflow: auto;
+            }
 
-div.ex4 {
-  background-color: lightblue;
-  width: 110px;
-  height: 110px;
-  overflow: visible;
-}
-</style>
-<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css"
-          href="css/fonte/style.css"/>
+            div.ex4 {
+                background-color: lightblue;
+                width: 110px;
+                height: 110px;
+                overflow: visible;
+            }
+        </style>
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css"
+              href="css/fonte/style.css"/>
     </head>
 
     <body style="font-family: 'Quicksand';">
         <%
             UsuarioParticipante2 up = (UsuarioParticipante2) session.getAttribute("usuario");
-            if(up == null){
-                
+            if (up == null) {
+
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
-            }else{
+            } else {
                 request.setCharacterEncoding("UTF-8");
-                
+
         %>
 
         <!-- Navigation -->
-        
+
         <header>
             <jsp:include page="navbarUsuarioParticipante.jsp" flush="true" />
         </header>
@@ -97,53 +99,74 @@ div.ex4 {
                 </div>
                 <div class="card-body">
 
-            
-
-
-            <form action="criarEquipeP2.jsp" method="POST" class="col">
-                <input type="hidden" name="op" value="1">
-                <input type="hidden" name="idUsuario" value="<%=up.getIdUsuario()%>">
-
-                <label for="" class="col-md-12">
-                    Nome:
-                    <input type="text" required class="form-control" name="nomeEquipe" placeholder="Informe o nome da Equipe" >
-                </label>
-                <label for="" class="col-md-12">
-                    Modalidade:
-                    <select id="modalidadeColetiva" name="modalidade" class="form-control" required="true">
-                        <option value="">Selecione</option>
-
-                        <%
-                            ModalidadeColetivaControle mcc = new ModalidadeColetivaControle();
-                            for(ModalidadeColetiva mc : mcc.buscarTodosModalidadeColetiva()){
-                        %>
-                        <option value="<%=mc.getIdModColetiva()%>"><%=mc.getNome()%></option>
-                        <%}%>
-                    </select>
-                </label>
-                    
 
 
 
+                    <form action="criarEquipeP2.jsp" method="POST" class="col">
+                        <input type="hidden" name="op" value="1">
+                        <input type="hidden" name="idUsuario" value="<%=up.getIdUsuario()%>">
 
-                <label for="" class="col-md-12">
-                    <button class="btn btn-primary" type="submit" role="button">Próximo</button>
-                </label>
+                        <label for="" class="col-md-12">
+                            Nome:
+                            <input type="text" required class="form-control" name="nomeEquipe" placeholder="Informe o nome da Equipe" >
+                        </label>
+                        <label for="" class="col-md-12">
+                            Modalidade:
+                            <select id="modalidadeColetiva" name="modalidade" class="form-control" required="true">
+                                <option value="">Selecione</option>
+
+                                <%
+                                    ModalidadeColetivaControle mcc = new ModalidadeColetivaControle();
+                                    for (ModalidadeColetiva mc : mcc.buscarTodosModalidadeColetiva()) {
+                                %>
+                                <option value="<%=mc.getIdModColetiva()%>"><%=mc.getNome()%></option>
+                                <%}%>
+                            </select>
+                        </label>
+                        <label for="" class="col-md-12">
+                            <input type="checkbox" value="1" id="radioSegmento" onclick="adicionarSelectTurma();">
+                            Equipe Interséries?
+                        </label>
+
+                        <div class="col-md-12" id="segmento">
+
                         </div>
-                    </form>
-                    </div>
-             
+                        
+
+
+
+
+                        <label for="" class="col-md-12">
+                            <button class="btn btn-primary" type="submit" role="button">Próximo</button>
+                        </label>
+                </div>
+                </form>
             </div>
+
+        </div>
 
 
         <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
+        <script>
+                                function adicionarSelectTurma() {
+                                    if (radioSegmento.checked === true) {
+                                        var div = document.getElementById("segmento");
+                                        div.innerHTML = '<label for="inputState">Segmento:</label><select id="segmento" class="form-control" name="segmento"><%SegmentoControle segmentoControle = new SegmentoControle();
+                                            for (Segmento s : segmentoControle.buscarSegmentos()) {%><option value="<%=s.getIdSegmento()%>"><%=s.getNome()%></option><%}%></select><br>';
+                                    }
+                                    if (radioSegmento.checked === false) {
+                                        var div = document.getElementById("segmento");
+                                        div.innerHTML = '';
+                                    }
+                                }
 
+        </script>
 
         <%
-        }
+            }
         %>
     </body>
 
