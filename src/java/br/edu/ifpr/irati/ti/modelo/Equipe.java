@@ -148,7 +148,11 @@ public class Equipe implements Serializable {
     }
 
     
+
     
+
+    
+
     public void adicionarAtleta(Atleta atleta) {
         this.getAtletas().add(atleta);
     }
@@ -294,5 +298,8 @@ public class Equipe implements Serializable {
     public void setModalidade(ModalidadeColetiva modalidade) {
         this.modalidade = modalidade;
     }
+    
+    
+    
 
 }

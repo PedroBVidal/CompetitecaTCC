@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.annotations.Type;
 
 @Entity(name="equipecompeticao")
 @Proxy(lazy = false)
@@ -28,6 +29,9 @@ public class EquipeCompeticao implements Serializable {
     
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Atleta> atletasEquipe;
+    
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<SumulaEquipeConfronto> sumulasEquipeConfronto;
     
     @Column(name="pontosMarcados")
     private double pontosMarcados;
@@ -57,6 +61,11 @@ public class EquipeCompeticao implements Serializable {
     @Column(name="posicaoChave")
     private int posicaoChave;
     
+    // Especifica se a equipe é repescada ou não (Utilizado apenas no sistema eliminatorio)
+    @Column(name="repescada")
+    @Type(type="true_false")
+    private boolean repescada;
+    
     @OneToMany
     private List<Equipe> adversariosQueAEquipeVenceu;
     
@@ -82,6 +91,8 @@ public class EquipeCompeticao implements Serializable {
         empates = 0;
         saldoDePontos = 0;
         posicaoChave = 0;
+        repescada = false;
+        sumulasEquipeConfronto = new ArrayList<>();
     }
 
     public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe,List<Atleta> atletasEquipe) {
@@ -100,12 +111,14 @@ public class EquipeCompeticao implements Serializable {
         this.empates = 0;
         this.saldoDePontos = 0;
         this.saldoDePontos = 0;
+        this.repescada = false;
     }
 
-    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, List<Atleta> atletasEquipe, double pontosMarcados, double pontosSofridos, int vitorias, int empates, int derrotas, int jogos, double pontos, double saldoDePontos, int posicaoChave, List<Equipe> adversariosQueAEquipeVenceu, List<Equipe> adversariosQueAEquipePerdeu, List<Equipe> adversariosQueAEquipeEmpatou) {
+    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, List<Atleta> atletasEquipe, List<SumulaEquipeConfronto> sumulasEquipeConfronto, double pontosMarcados, double pontosSofridos, int vitorias, int empates, int derrotas, int jogos, double pontos, double saldoDePontos, int posicaoChave, boolean repescada, List<Equipe> adversariosQueAEquipeVenceu, List<Equipe> adversariosQueAEquipePerdeu, List<Equipe> adversariosQueAEquipeEmpatou) {
         this.idEquipeCompeticao = idEquipeCompeticao;
         this.equipe = equipe;
         this.atletasEquipe = atletasEquipe;
+        this.sumulasEquipeConfronto = sumulasEquipeConfronto;
         this.pontosMarcados = pontosMarcados;
         this.pontosSofridos = pontosSofridos;
         this.vitorias = vitorias;
@@ -115,16 +128,24 @@ public class EquipeCompeticao implements Serializable {
         this.pontos = pontos;
         this.saldoDePontos = saldoDePontos;
         this.posicaoChave = posicaoChave;
+        this.repescada = repescada;
         this.adversariosQueAEquipeVenceu = adversariosQueAEquipeVenceu;
         this.adversariosQueAEquipePerdeu = adversariosQueAEquipePerdeu;
         this.adversariosQueAEquipeEmpatou = adversariosQueAEquipeEmpatou;
     }
 
     
-
+    public void adicionarSumulaEquipeConfronto(SumulaEquipeConfronto sec){
+        this.getSumulasEquipeConfronto().add(sec);
+    }
     
-
+    public void removerSumulaEquipeConfronto(SumulaEquipeConfronto sec){
+        this.getSumulasEquipeConfronto().remove(sec);
+    }
     
+    public void removerTodasSumulasEquipeConfronto(){
+        this.getSumulasEquipeConfronto().removeAll(getSumulasEquipeConfronto());
+    }
 
     /**
      * @return the idEquipeCompeticao
@@ -334,6 +355,34 @@ public class EquipeCompeticao implements Serializable {
      */
     public void setPosicaoChave(int posicaoChave) {
         this.posicaoChave = posicaoChave;
+    }
+
+    /**
+     * @return the repescada
+     */
+    public boolean isRepescada() {
+        return repescada;
+    }
+
+    /**
+     * @param repescada the repescada to set
+     */
+    public void setRepescada(boolean repescada) {
+        this.repescada = repescada;
+    }
+
+    /**
+     * @return the sumulasEquipeConfronto
+     */
+    public List<SumulaEquipeConfronto> getSumulasEquipeConfronto() {
+        return sumulasEquipeConfronto;
+    }
+
+    /**
+     * @param sumulasEquipeConfronto the sumulasEquipeConfronto to set
+     */
+    public void setSumulasEquipeConfronto(List<SumulaEquipeConfronto> sumulasEquipeConfronto) {
+        this.sumulasEquipeConfronto = sumulasEquipeConfronto;
     }
 
     

@@ -83,12 +83,13 @@ public class algortimoGerarChaveamento {
                 confrontos.add(confrontoModalidadeColetiva);
                 blocoEliminatorio.adicionarConfronto(confrontoModalidadeColetiva);
                 
+                /*
                 confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
                 confrontoModalidadeColetiva.setConfrontoRodada(2);
                 confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
                 confrontos.add(confrontoModalidadeColetiva);
                 blocoEliminatorio.adicionarConfronto(confrontoModalidadeColetiva);
-                
+                */
                 listParesConfronto.add(paresConfronto);
                 blocosElimitario.add(blocoEliminatorio);
                 break;
@@ -129,24 +130,145 @@ public class algortimoGerarChaveamento {
         }
     }
     
+    numParConfronto = 1;
+    paresConfronto.setNumParConfrontoRodada(numParConfronto);
+    listParesConfronto.add(paresConfronto);
+    boolean primeiraIteracao = true;
+    boolean finalizarWhile = false;
+    BlocoEliminatorio blocoParametro = blocosElimitario.get(1);
+    BlocoEliminatorio blocoParametroRepescagem = new BlocoEliminatorio();
+    
+    while(finalizarWhile == false){
+        
+        if(primeiraIteracao){
+
+            int tamanhoBloco = blocosElimitario.get(0).getConfrontos().size();
+            for(int k = 1; k <= (tamanhoBloco/2); k++){
+                ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
+                confrontoModalidadeColetiva.setConfrontoRodada(k);
+                confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
+                confrontos.add(confrontoModalidadeColetiva);
+                blocoParametroRepescagem.adicionarConfronto(confrontoModalidadeColetiva);
+                if(k % 2 == 0){
+                    numParConfronto++;
+                    paresConfronto = new ParesConfronto(0, numParConfronto);
+                    listParesConfronto.add(paresConfronto);
+                }
+
+            }
+            blocoParametroRepescagem.setEtapa(1);
+            blocoParametroRepescagem.setAceitaNovosRepescados(true);
+            blocoParametroRepescagem.setBlocoRepescagem(true);
+            primeiraIteracao = false;
+            blocosElimitario.add(blocoParametroRepescagem);
+            numParConfronto = 1;
+
+            System.out.println("Bloco parametro repescagem"+blocoParametroRepescagem.getEtapa());
+            System.out.println("Num confrontos: "+blocoParametroRepescagem.getConfrontos().size());
+        }
+        else{
+            // Compara se os tamanhos dos blocos parâmetros são iguais ou não
+            int tamanhoBlocoParametro = blocoParametro.getConfrontos().size();
+            int tamanhoBlocoRepescagemParametro = blocoParametroRepescagem.getConfrontos().size();
+            paresConfronto.setNumParConfrontoRodada(numParConfronto);
+            
+            if(tamanhoBlocoParametro == tamanhoBlocoRepescagemParametro){
+                BlocoEliminatorio bER = new BlocoEliminatorio();
+                bER.setEtapa(blocoParametroRepescagem.getEtapa() + 1);
+                for(int k = 1; k <= tamanhoBlocoParametro; k++){
+                    ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
+                    confrontoModalidadeColetiva.setConfrontoRodada(k);
+                    confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
+                    confrontos.add(confrontoModalidadeColetiva);
+                    bER.adicionarConfronto(confrontoModalidadeColetiva);
+                    
+                    if(k % 2 == 0){
+                    numParConfronto++;
+                    paresConfronto = new ParesConfronto(0, numParConfronto);
+                    listParesConfronto.add(paresConfronto);
+                    }
+                }
+                bER.setAceitaNovosRepescados(true);
+                bER.setBlocoRepescagem(true);
+                blocosElimitario.add(bER);
+                blocoParametroRepescagem = bER;
+                numParConfronto = 1;
+                // Seleciona um novo bloco elimitario como parâmetro
+                for(BlocoEliminatorio b : blocosElimitario){
+                    if(b.getEtapa() == (blocoParametro.getEtapa()+1)){
+                        blocoParametro = b;
+                        break;
+                    }
+                }
+                if(blocoParametroRepescagem.getConfrontos().size() == 1){
+                    // CONFRONTO FINAL
+                    BlocoEliminatorio bEF = new BlocoEliminatorio();
+                    ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
+                    paresConfronto = new ParesConfronto(0, 1);
+                    confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
+                    bEF.setEtapa(blocoParametro.getEtapa() +1);
+                    bEF.adicionarConfronto(confrontoModalidadeColetiva);
+                    blocosElimitario.add(bEF);
+                    finalizarWhile = true;
+                }
+                
+            }
+            else if(tamanhoBlocoParametro != tamanhoBlocoRepescagemParametro){
+                BlocoEliminatorio bER = new BlocoEliminatorio();
+                bER.setEtapa(blocoParametroRepescagem.getEtapa() + 1);
+                for(int k = 1; k <= (tamanhoBlocoRepescagemParametro/2); k++){
+                    ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
+                    confrontoModalidadeColetiva.setConfrontoRodada(k);
+                    confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
+                    confrontos.add(confrontoModalidadeColetiva);
+                    bER.adicionarConfronto(confrontoModalidadeColetiva);
+                    
+                    if(k % 2 == 0){
+                    numParConfronto++;
+                    paresConfronto = new ParesConfronto(0, numParConfronto);
+                    listParesConfronto.add(paresConfronto);
+                    }
+                }
+                bER.setAceitaNovosRepescados(false);
+                bER.setBlocoRepescagem(true);
+                blocosElimitario.add(bER);
+                blocoParametroRepescagem = bER;
+                numParConfronto = 1;
+                // Muda o blocoRepescagem tido como parâmetro  
+                
+            }
+            
+            
+        }
+        
+    }
+                System.out.println("Tamanho sistema comum: "+blocosElimitario.size());
+    int cont = 0;
+    for(BlocoEliminatorio bE : blocosElimitario){
+        System.out.println("ETAPA BLOCO ELIMINATORIO REPESCAGEM: "+bE.getEtapa());
+        //System.out.println("ACEITA NOVOS REPESCADOS?"+ bE.isAceitaNovosRepescados());
+        for(Confronto c: bE.getConfrontos()){
+            ConfrontoModalidadeColetiva cmc = (ConfrontoModalidadeColetiva) c;
+            System.out.println("Confronto rodada"+ cmc.getConfrontoRodada());
+            System.out.println("Par confronto pertencente: "+ cmc.getParesConfronto().getNumParConfrontoRodada());
+            cont++;
+
+        }
+    }
+    
+                System.out.println(cont);
+    
+    
+    
+        /*
         ParesConfrontoControle pControle = new ParesConfrontoControle();
         ConfrontoModalidadeColetivaControle confrontoModalidadeColetivaControle = new ConfrontoModalidadeColetivaControle();
         BlocoEliminatorioControle blocoEliminatorioControle = new BlocoEliminatorioControle();
         System.out.println("Tamanho pares confronto"+ listParesConfronto.size());
         System.out.println("Tamanho confrontos"+ confrontos.size());
-        
+        */
       
-    for(ParesConfronto p3 : listParesConfronto){
-        pControle.salvar(p3);
-    }
-    
-    for(ConfrontoModalidadeColetiva c: confrontos){
-        confrontoModalidadeColetivaControle.salvar(c);
-    }
-    
-    for(BlocoEliminatorio b: blocosElimitario){
-        blocoEliminatorioControle.salvar(b);
-    }
+
     
     
     

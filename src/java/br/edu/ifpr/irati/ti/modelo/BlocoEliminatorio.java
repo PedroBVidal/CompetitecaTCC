@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import org.hibernate.annotations.Proxy;
+import org.hibernate.annotations.Type;
 /**
  *
  * @author olive
@@ -31,17 +32,30 @@ public class BlocoEliminatorio implements Serializable {
     
     @OneToMany(fetch = FetchType.LAZY)
     private List<Confronto> confrontos;
+        
+    @Column(name="blocoRepescagem")
+    @Type(type="true_false")
+    private boolean blocoRepescagem;
+    
+    @Column(name="aceitaNovosRepescados")
+    @Type(type="true_false")
+    private boolean aceitaNovosRepescados;
     
     public BlocoEliminatorio() {
         this.idBloco = 0;
         this.etapa = 0;
         this.confrontos = new ArrayList<>();
+        this.blocoRepescagem = false;
     }
-    public BlocoEliminatorio(int etapa, List<Confronto> confrontos) {
-        this.idBloco = 0;
+
+    public BlocoEliminatorio(int idBloco, int etapa, List<Confronto> confrontos, boolean blocoRepescagem, boolean aceitaNovosRepescados) {
+        this.idBloco = idBloco;
         this.etapa = etapa;
         this.confrontos = confrontos;
+        this.blocoRepescagem = blocoRepescagem;
+        this.aceitaNovosRepescados = aceitaNovosRepescados;
     }
+    
     
     public void adicionarConfronto(Confronto confronto){
         this.confrontos.add(confronto);
@@ -63,6 +77,39 @@ public class BlocoEliminatorio implements Serializable {
 
     public int getIdBloco() {
         return idBloco;
+    }
+
+    
+    public void removerTodosConfrontos(){
+        this.confrontos.removeAll(confrontos);
+    }
+    
+    /**
+     * @return the blocoRepescagem
+     */
+    public boolean isBlocoRepescagem() {
+        return blocoRepescagem;
+    }
+
+    /**
+     * @param blocoRepescagem the blocoRepescagem to set
+     */
+    public void setBlocoRepescagem(boolean blocoRepescagem) {
+        this.blocoRepescagem = blocoRepescagem;
+    }
+
+    /**
+     * @return the aceitaNovosRepescados
+     */
+    public boolean isAceitaNovosRepescados() {
+        return aceitaNovosRepescados;
+    }
+
+    /**
+     * @param aceitaNovosRepescados the aceitaNovosRepescados to set
+     */
+    public void setAceitaNovosRepescados(boolean aceitaNovosRepescados) {
+        this.aceitaNovosRepescados = aceitaNovosRepescados;
     }
     
     
