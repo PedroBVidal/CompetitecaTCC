@@ -154,8 +154,8 @@
                                 function adicionarSelectTurma() {
                                     if (radioSegmento.checked === true) {
                                         var div = document.getElementById("segmento");
-                                        div.innerHTML = '<label for="inputState">Segmento:</label><select id="segmento" class="form-control" name="segmento"><%SegmentoControle segmentoControle = new SegmentoControle();
-                                            for (Segmento s : segmentoControle.buscarSegmentos()) {%><option value="<%=s.getIdSegmento()%>"><%=s.getNome()%></option><%}%></select><br>';
+                                        div.innerHTML = '<label for="inputState">Segmento:</label><input readonly id="segmento" class="form-control" value="<%=up.getAtleta().getSegmento().getNome()%>"><br><input type="hidden" name="segmento" value=<%=up.getAtleta().getSegmento().getIdSegmento()%>>';
+                                            
                                     }
                                     if (radioSegmento.checked === false) {
                                         var div = document.getElementById("segmento");
