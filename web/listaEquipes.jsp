@@ -40,8 +40,7 @@
     <body style="font-family: 'Quicksand';">
         <%
             UsuarioParticipante2 up = (UsuarioParticipante2) session.getAttribute("usuario");
-            
-            
+
             if (up == null) {
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             } else {
@@ -53,11 +52,11 @@
         </header>
 
         <div class="container">
-            <%  
+            <%
                 request.setCharacterEncoding("UTF-8");
-                    if (request.getParameter("msg") != null) {
-                        String mensagem = request.getParameter("msg");
-                        String cor = request.getParameter("color");
+                if (request.getParameter("msg") != null) {
+                    String mensagem = request.getParameter("msg");
+                    String cor = request.getParameter("color");
             %>
             <br>
             <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
@@ -74,7 +73,6 @@
             <h1 class="my-4 titulos">Minhas Equipes</h1>
             <div class="row">
                 <%
-                    
                     UsuarioParticipante2 usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
 
                     for (Equipe equipe : usuarioParticipante.getEquipe()) {
@@ -90,16 +88,19 @@
                         <div class="card-body">
                             <h4 class="card-title">
                                 <a href="javascript:enviarFormGerenciarEquipe()"><%=equipe.getNome()%></a>
-                            </h4>
+                            </h4><%if (equipe.getSegmento() != null) {%>
+                                    <span class="badge badge-pill badge-success"><%=equipe.getSegmento().getNome() %></span>
+                                <%}
+                            %>
                             <p class="card-text"><b>Modalidade:</b><%=equipe.getModalidade().getNome()%></p>
-                            
+
                             <div class="row" style="margin-left: 1px;">
-                            <form action="gerenciarEquipe.jsp" method="POST" name="formGerenciarEquipe">
-                            <!-- Button trigger modal -->
-                            <input type="hidden" name="idEquipe" value="<%=equipe.getIdEquipe()%>">
-                            <a href="javascript:enviarFormGerenciarEquipe()"><button class="btn btn-success">Gerenciar equipe</button></a>
-                            <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#<%=equipe.getIdEquipe()%>"><i class="fas fa-trash-alt"></i></button></a>&nbsp;
-                            </form>
+                                <form action="gerenciarEquipe.jsp" method="POST" name="formGerenciarEquipe">
+                                    <!-- Button trigger modal -->
+                                    <input type="hidden" name="idEquipe" value="<%=equipe.getIdEquipe()%>">
+                                    <a href="javascript:enviarFormGerenciarEquipe()"><button class="btn btn-success">Gerenciar equipe</button></a>
+                                    <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#<%=equipe.getIdEquipe()%>"><i class="fas fa-trash-alt"></i></button></a>&nbsp;
+                                </form>
                             </div>
 
 
@@ -129,8 +130,6 @@
                 </div>
                 <%}%>
                 <%
-                    
-                    
 
                     for (Equipe equipe : usuarioParticipante.getAtleta().getEquipes()) {
 
@@ -138,8 +137,8 @@
                         System.out.println("Integrantes: " + equipe.getAtletas());
                         System.out.println("ADM: " + equipe.getAdministrador());
                 %>
-                
-                                <div class="col-lg-4 col-sm-6 portfolio-item">
+
+                <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">
                         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                         <div class="card-body">
@@ -147,15 +146,15 @@
                                 <a href="javascript:enviarFormVisualizarEquipe()"><%=equipe.getNome()%></a>
                             </h4>
                             <p class="card-text"><b>Modalidade:</b><%=equipe.getModalidade().getNome()%></p>
-                            
+
                             <div class="row" style="margin-left: 1px;">
-                            <!-- Button trigger modal -->
-                            <a><button type="hidden" class="btn btn-danger" data-toggle="modal" data-target="#<%=equipe.getIdEquipe()%>"><i class="fas fa-sign-out-alt"></i></button></a>&nbsp;
-                            <form name="formVisualizarEquipe" method="POST" action="gerenciarEquipe.jsp">
-                                <input type="hidden" name="idEquipe" value="<%=equipe.getIdEquipe()%>">
-                                <input type="hidden" name="op" value="2">
-                            <a href="javascript:enviarFormVisualizarEquipe()"><button class="btn btn-success">Visualizar equipe</button></a>
-                            </form>
+                                <!-- Button trigger modal -->
+                                <a><button type="hidden" class="btn btn-danger" data-toggle="modal" data-target="#<%=equipe.getIdEquipe()%>"><i class="fas fa-sign-out-alt"></i></button></a>&nbsp;
+                                <form name="formVisualizarEquipe" method="POST" action="gerenciarEquipe.jsp">
+                                    <input type="hidden" name="idEquipe" value="<%=equipe.getIdEquipe()%>">
+                                    <input type="hidden" name="op" value="2">
+                                    <a href="javascript:enviarFormVisualizarEquipe()"><button class="btn btn-success">Visualizar equipe</button></a>
+                                </form>
                             </div>
 
                             <!-- Modal -->
@@ -178,8 +177,8 @@
                                 </div>
                             </div>
 
-                            
-                            
+
+
                             <span class="badge badge-info"><i class="fas fa-user"></i>&nbsp;Participante</span>
                         </div>
                     </div>
@@ -199,15 +198,15 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
-            
-            function enviarFormVisualizarEquipe(){
+
+            function enviarFormVisualizarEquipe() {
                 document.forms["formVisualizarEquipe"].submit();
             }
-            
-            function enviarFormGerenciarEquipe(){
+
+            function enviarFormGerenciarEquipe() {
                 document.forms["formGerenciarEquipe"].submit();
             }
-            
+
         </script>
         <%
 

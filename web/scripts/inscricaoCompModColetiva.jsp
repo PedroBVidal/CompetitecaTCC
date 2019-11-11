@@ -29,18 +29,22 @@
     CompeticaoModalidadeColetiva cmc = cmcc.buscarPorId(idComModCol);
     EquipeControle eqpc = new EquipeControle();
     Equipe eqp = eqpc.buscarPorId(idEquipe);
-    for (int i = 0; i < numAtl; i++) {
-        if (request.getParameter("op").equals("1")) {
-            if (request.getParameter("idAtl" + i+"+"+idEquipe) != null) {
-                atls.add(atc.buscarPorId(Integer.parseInt(request.getParameter("idAtl" + i+"+"+idEquipe))));
-            }
-        }else{
+    if (numAtl > 0) {
+        for (int i = 0; i < numAtl; i++) {
+            if (request.getParameter("op").equals("1")) {
+                if (request.getParameter("idAtl" + i + "+" + idEquipe) != null) {
+                    atls.add(atc.buscarPorId(Integer.parseInt(request.getParameter("idAtl" + i + "+" + idEquipe))));
+                }
+            } else {
 
-        if (request.getParameter("idAtl" + i) != null) {
-            atls.add(atc.buscarPorId(Integer.parseInt(request.getParameter("idAtl" + i))));
+                if (request.getParameter("idAtl" + i) != null) {
+                    atls.add(atc.buscarPorId(Integer.parseInt(request.getParameter("idAtl" + i))));
+                }
+            }
+            System.out.println(numAtl);
         }
-        }
-        System.out.println(numAtl);
+    } else {
+        response.sendRedirect("../forminscricaocoletiva.jsp?idEquipe=" + eqp.getIdEquipe() + "&idCompeticao=" + idCompeticao + "&msg=É necessário ter atletas na equipe para inscrevê-la&color=warning");
     }
 
     InscricaoCompeticaoColetiva icc = new InscricaoCompeticaoColetiva(0, cmc, eqp, atls, 'E');

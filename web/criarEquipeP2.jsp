@@ -83,7 +83,10 @@ div.ex4 {
                 int idModalidadeColetivaSelecionada = Integer.parseInt(request.getParameter("modalidade"));
                 String nomeEquipe = request.getParameter("nomeEquipe");
                 int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-                
+                int idSegmento = 0;
+                if (request.getParameter("segmento") != null) {
+                        idSegmento = Integer.parseInt(request.getParameter("segmento"));
+                    }
 
         %>
 
@@ -108,7 +111,10 @@ div.ex4 {
                         <input type="hidden" value="<%=idUsuario%>" name="idUsuario">
                         <input type="hidden" value="<%=nomeEquipe%>" name="nomeEquipe">
                         <input type="hidden" value="<%=idModalidadeColetivaSelecionada%>" name="idModalidadeColetivaSelecionada">
-      
+                        <%if (idSegmento > 0) {%>
+                                <input type="hidden" value="<%=idSegmento%>" name="idsegmento">
+                            <%}%>
+                        
                                 <%
                                     ModalidadeColetivaControle mcc = new ModalidadeColetivaControle();
                                     CompeticaoControle competicaoControle = new CompeticaoControle();

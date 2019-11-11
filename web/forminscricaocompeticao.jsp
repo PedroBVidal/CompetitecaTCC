@@ -460,12 +460,13 @@
                                             <div class="accordion" id="equipas<%=cmc.getIdCompeticaoModalidade()%>">
                                                 <%for (Equipe eq : up22.getEquipe()) {
                                                         if (eq.getModalidade().getIdModColetiva() == cmc.getModalidadeColetiva().getIdModColetiva()) {
+                                                            if((competicao.getInterseries() > 0 && eq.getSegmento() != null) || competicao.getInterseries() == 0){
                                                 %>
                                                 <div class="card">
                                                     <div class="card-header" id="<%=i%>-<%=cmc.getIdCompeticaoModalidade()%>">
                                                         <h2 class="mb-0">
                                                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#<%=eq.getIdEquipe()%>-<%=cmc.getIdCompeticaoModalidade()%>" aria-expanded="false" aria-controls="<%=eq.getIdEquipe()%>-<%=cmc.getIdCompeticaoModalidade()%>">
-                                                                <%=eq.getNome()%>
+                                                                <%=eq.getNome()%> &nbsp; <%if(eq.getSegmento() != null){%><span class="badge badge-pill badge-success"><%=eq.getSegmento().getNome()%></span><%}%>
                                                             </button>
                                                         </h2>
                                                     </div>
@@ -527,7 +528,7 @@
 
                                                 <%i++;
                                                         }
-                                                    }%>
+                                                    }}%>
                                             </div>
                                             <%} else {%>
                                             <div class="card card-body">

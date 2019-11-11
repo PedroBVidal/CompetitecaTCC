@@ -34,6 +34,7 @@
     String sDataTerminoCompeticao = request.getParameter("dataTerminoCompeticao");
     String sDataInicioInsc = request.getParameter("dataInicioInsc");
     String sDataTerminoInsc = request.getParameter("dataTerminoInsc");
+    int interseries = 0;
     
     /*System.out.println(nomeCompeticao);
     System.out.println(sDataInicioCompeticao);
@@ -55,11 +56,14 @@
     String msgErro = "As datas de início e termino da competição infromadas não conferem";
     // COMPARA SE A DATA DE INICIO VEM ANTES DA DATA DE TERMINO
     if (dataInicioCompeticao.before(dataTerminoCompeticao)) {
+        if (request.getParameter("checkBoxInterseries") != null) {
+                interseries = 1;
+            }
         Competicao competicao;
         if(request.getParameter("infoadicional") == null || request.getParameter("infoadicional").equals("")){        
-        competicao = new Competicao(0, nomeCompeticao,dataInicioInscricao,dataTerminoInscricao,dataInicioCompeticao,dataTerminoCompeticao);
+        competicao = new Competicao(0, nomeCompeticao,dataInicioInscricao,dataTerminoInscricao,dataInicioCompeticao,dataTerminoCompeticao, interseries);
         }else{
-        competicao = new Competicao(0, nomeCompeticao,dataInicioInscricao,dataTerminoInscricao,dataInicioCompeticao,dataTerminoCompeticao,request.getParameter("infoadicional"));
+        competicao = new Competicao(0, nomeCompeticao,dataInicioInscricao,dataTerminoInscricao,dataInicioCompeticao,dataTerminoCompeticao,request.getParameter("infoadicional"),interseries);
         }
                 
                 competicao.adicionarAdministrador(usuarioADM);

@@ -17,19 +17,19 @@
     if (tipo == 1) {
         UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
         UsuarioParticipante up = upc.buscarPorId(idUsuario);
-        upc.fecharSessaoDAOGeneric();
+        upc.fecharSessaoDAOEspecifico();
         up.setSenha(senha);
         upc.atualizarCad(up);
         upc.fecharSessaoDAOGeneric();
-        out.print("Logue-se");
-        //response.sendRedirect("../login.jsp?msg=Recuperação Realizada com sucesso!, agora acesse com a sua nova senha!&color=success");
+        //out.print("Logue-se");
+        response.sendRedirect("../login.jsp?msg=Recuperação Realizada com sucesso!, agora acesse com a sua nova senha!&color=success");
     } else if (tipo == 2) {
         UsuarioParticipante2Controle upc = new UsuarioParticipante2Controle();
         UsuarioParticipante2 up = upc.buscarPorId(idUsuario);
         up.setSenha(senha);
         upc.atualizarCad(up);
         upc.fecharSessaoDAOGeneric();
-        //response.sendRedirect("../login.jsp?msg=Recuperação Realizada com sucesso!, agora acesse com a sua nova senha!&color=success");
+        response.sendRedirect("../login.jsp?msg=Recuperação Realizada com sucesso!, agora acesse com a sua nova senha!&color=success");
     }
 
 %>

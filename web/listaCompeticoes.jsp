@@ -38,11 +38,11 @@
 
         <!-- Estilo CSS-->
         <link href="css/estilo.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css"
-          href="css/fonte/style.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css"
+              href="css/fonte/style.css"/>
     </head>
-    
+
     <body style="font-family: 'Quicksand';">
 
         <%
@@ -111,13 +111,13 @@
                             <form method="POST" action="scripts/ingressoPvd.jsp">
                                 <center>
                                     <input type="hidden" value="<%=up.getIdUsuario()%>" name="idUsuario">    
-                                <input type="text" class="form-control col-7" name="codigo" placeholder="Insira o código aqui">
-                            </center>
+                                    <input type="text" class="form-control col-7" name="codigo" placeholder="Insira o código aqui">
+                                </center>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success">Entrar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                            
+
                         </div>
                         </form>
                     </div>
@@ -148,12 +148,9 @@
             <div class="card-group" id="eventos">
                 <%
                     if (sIdCompeticao == null) {
-                       
+
                 %>
-                <%
-
-
-                    List<Competicao> competicoesASeremRemovidas = new ArrayList();
+                <%                    List<Competicao> competicoesASeremRemovidas = new ArrayList();
 
                     //List<Atleta> atletas = up.getAtletas();
                     for (Competicao competicao : competicoes) {
@@ -162,6 +159,7 @@
                         String dataInicio = simpleDateFormat.format(competicao.getDataInicio());
                         String dataTermino = simpleDateFormat.format(competicao.getDataTermino());
                         if (!competicao.isInativo() && !competicao.isPrivado() && !hoje.before(competicao.getDataInicioInsc()) && !hoje.after(competicao.getDataTerminoInsc())) {
+
                 %>
 
 
@@ -179,17 +177,28 @@
                                     style="margin-left: 5px;"><%=dataInicio%></span></p>
                             <p class="card-text fontOverpass"><b>Data de Termino:</b><span 
                                     style="margin-left: 5px;"><%=dataTermino%></span></p>
-
+                                <%if (competicao.getInterseries() == 1) {%>
+                            <span class="badge badge-pill badge-danger">Interséries</span>
+                            <%}
+                            %>
                             <div class="form-group">
 
                                 <p class="fontOverpass">
                                 <form action="forminscricaocompeticao.jsp" method="POST">
                                     <input type="hidden" name="idCompeticao" value="<%=competicao.getIdCompeticao()%>">
                                     <input type="hidden" name="idAtleta" value="<%=atletaVinculadoUp.getIdAtleta()%>">
-                                    
-                                    <button style="float:right;" class="btn btn-success" type="submit" role="button">Inscreva-se</button><p>
+                                    <%if (competicao.getInterseries() == 1 && up.getAtleta().getSegmento() != null) {%>
+                                    <button style="float:right;" class="btn btn-success" type="submit" role="button">Inscreva-se</button><p>        
+                                        <%} else if (competicao.getInterseries() == 1 && up.getAtleta().getSegmento() == null) {%>
+                                        <button style="float:right;" class="btn btn-danger disabled" type="submit" role="button">Indisponível para si</button><p>
+                                        <%} else {
+                                        %>
+                                        <br>
+                                        <br>
+                                        <button style="float:right;" class="btn btn-success" type="submit" role="button">Inscreva-se</button><p>
+                                        <%}%>
                                 </form>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -229,7 +238,7 @@
                     </div>
                 </div>        
 
-                
+
             </div>  
 
 

@@ -24,6 +24,7 @@
 <%@page import="br.edu.ifpr.irati.ti.controle.CompeticaoControle"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipanteControle"%>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.ArrayList"%>
 
 <%@page import="br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2"%>
 
@@ -103,8 +104,8 @@
 
                 int idEquipe = Integer.parseInt(request.getParameter("idEquipe"));
                 int op = 0;
-                if(request.getParameter("op") != null){
-                op = Integer.parseInt(request.getParameter("op"));
+                if (request.getParameter("op") != null) {
+                    op = Integer.parseInt(request.getParameter("op"));
                 }
                 Equipe equipe = equipeControle.buscarPorId(idEquipe);
                 p++;
@@ -112,450 +113,462 @@
             %>
             <!-- Page Heading/Breadcrumbs -->
             <br>
-            <%
-                if(op == 0){
+            <%                if (op == 0) {
             %>
             <h1 class="mt-4 mb-3 titulos">Gerenciando equipe <span class="titulos" style="font-style: italic;"><%=equipe.getNome()%></span>
-            <%}%>
-            <%
-                if(op == 2){
-            %>
-            <h1 class="mt-4 mb-3 titulos">Visualizando equipe <span class="titulos" style="font-style: italic;"><%=equipe.getNome()%></span>
-            <%}%>
-            </h1><br>
-
-
-            <!-- List group -->
-            <div class="row">
-                <div class="list-group col-2" id="myList" role="tablist">
-                    
-                    <%
-                        if(op == 0){
-                    %>
-                    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#membros" role="tab">Minha equipe</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#adicionarMembros" role="tab">Adicionar membros</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#competicoes" role="tab">Buscar Competições</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#mcompeticoes" role="tab">Minhas Competições</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#solicitacoes" role="tab">Solicitações</a>
+                <%}%>
+                <%
+                    if (op == 2) {
+                %>
+                <h1 class="mt-4 mb-3 titulos">Visualizando equipe <span class="titulos" style="font-style: italic;"><%=equipe.getNome()%></span>
                     <%}%>
-                    <%
-                    if(op == 2){
-                    %>
-                    <a class="list-group-item list-group-item-action active" data-toggle="list" href="#membros" role="tab">Minha equipe</a>
-                    <a class="list-group-item list-group-item-action disabled" data-toggle="list" href="#adicionarMembros" role="tab">Adicionar membros</a>
-                    <a class="list-group-item list-group-item-action disabled" data-toggle="list" href="#competicoes" role="tab">Buscar Competições</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" href="#mcompeticoes" role="tab">Minhas Competições</a>
-                    <a class="list-group-item list-group-item-action disabled" data-toggle="list" href="#solicitacoes" role="tab">Solicitações</a>
-                    <%}%>
-                </div>
-
-                <!-- Tab panes -->
-                <div class="tab-content col-10">
-
-                    <div class="tab-pane dark active" id="membros" role="tabpanel">
-                        <div class="form-group input-group">
-                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
-                                </a></span>
-                            <input name="consulta" id="txt_consulta1" placeholder="Consultar" type="text" class="form-control">
-                        </div>
+                </h1><br>
 
 
-                        <div class="overflowTableTabPane">
+                <!-- List group -->
+                <div class="row">
+                    <div class="list-group col-2" id="myList" role="tablist">
 
-                            <table id="tabela1" class="table table-striped">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th scope="col">Atleta</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Ação</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    <%
-                                        for (Atleta atleta : equipe.getAtletas()) {
-                                            p++;
-                                            String nome = atleta.getUsuarioParticipante().getNome();
-                                            String email = atleta.getUsuarioParticipante().getEmail();
-
-                                    %>
-                                    <tr>
-                                        <td><%=nome%></td>
-                                        <td><%=email%></td>
-                                        <td>
-                                            <%
-                                                if(op == 0){
-                                            %>
-                                            <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=atleta.getIdAtleta()%>&idComp=<%=atleta.getIdAtleta()%>&op=1" class="btn btn-danger">
-                                                <!-- Adicionar icone -->
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                            <%}%>
-                                            <%  
-                                                if(op == 2){
-                                            %>
-                                            <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=atleta.getIdAtleta()%>&idComp=<%=atleta.getIdAtleta()%>&op=1" class="btn btn-danger disabled">
-                                                <!-- Adicionar icone -->
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                            <%}%>
-                                        </td>    
-                                        <%}%>
-                                    </tr>
-                                </tbody>
-
-
-
-                            </table>
-                        </div>
-                        <script>
-                            //Código de busca da tabela
-                            $('input#txt_consulta1').quicksearch('table#tabela1 tbody tr');
-
-                        </script>
+                        <%
+                            if (op == 0) {
+                        %>
+                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#membros" role="tab">Minha equipe</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#adicionarMembros" role="tab">Adicionar membros</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#competicoes" role="tab">Buscar Competições</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#mcompeticoes" role="tab">Minhas Competições</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#solicitacoes" role="tab">Solicitações</a>
+                        <%}%>
+                        <%
+                            if (op == 2) {
+                        %>
+                        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#membros" role="tab">Minha equipe</a>
+                        <a class="list-group-item list-group-item-action disabled" data-toggle="list" href="#adicionarMembros" role="tab">Adicionar membros</a>
+                        <a class="list-group-item list-group-item-action disabled" data-toggle="list" href="#competicoes" role="tab">Buscar Competições</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#mcompeticoes" role="tab">Minhas Competições</a>
+                        <a class="list-group-item list-group-item-action disabled" data-toggle="list" href="#solicitacoes" role="tab">Solicitações</a>
+                        <%}%>
                     </div>
 
+                    <!-- Tab panes -->
+                    <div class="tab-content col-10">
 
-                    <div class="tab-pane dark" id="competicoes" role="tabpanel">
-                        <div class="form-group input-group">
-                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
-                                </a></span>
-                            <input name="consulta" id="txt_consulta2" placeholder="Consultar" type="text" class="form-control">
-                        </div>
-                        <table id="tabela2" class="table table-striped">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">Data de Início</th>
-                                    <th scope="col">Data de Término</th>
-                                    <th scope="col">Ação</th>
-                                </tr>
-                            </thead>
+                        <div class="tab-pane dark active" id="membros" role="tabpanel">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                    </a></span>
+                                <input name="consulta" id="txt_consulta1" placeholder="Consultar" type="text" class="form-control">
+                            </div>
 
-                            <tbody>
-                                <%
-                                    CompeticaoControle cc = new CompeticaoControle();
-
-                                    for (Competicao cpt : cc.buscarTodasCompeticoes()) {
-
-                                        if (!cpt.isInativo() && !cpt.isPrivado()) {
-
-                                            String nomeCompeticao = cpt.getNome();
-                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                            String dataInicio = sdf.format(cpt.getDataInicio());
-                                            String dataTermino = sdf.format(cpt.getDataTermino());
-
-
-                                %>
-                                <tr>    
-                                    <td><%=nomeCompeticao%></td>
-                                    <td><%=dataInicio%></td>
-                                    <td><%=dataTermino%></td>
-                                    <td><a href="forminscricaocoletiva.jsp?idCompeticao=<%=cpt.getIdCompeticao()%>&idEquipe=<%=equipe.getIdEquipe()%>" class="btn btn-success">
-                                            <!-- Adicionar icone -->
-                                            <i class="fas fa-clipboard-list"></i>
-                                        </a> &nbsp;
-                                    </td>
-                                </tr>
-                                <%}
-                                }%>
-                            </tbody>
-                        </table>
-                        <script>
-                            //Código de busca da tabela
-                            $('input#txt_consulta2').quicksearch('table#tabela2 tbody tr');
-
-                        </script>
-
-                    </div>
-
-
-                    <div class="tab-pane" id="mcompeticoes" role="tabpanel">
-                        <div class="form-group input-group">
-                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
-                                </a></span>
-                            <input name="consulta" id="txt_consulta3" placeholder="Consultar" type="text" class="form-control">
-                        </div>
-                        <table id="tabela3" class="table table-striped">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">Data de Início</th>
-                                    <th scope="col">Data de Término</th>
-                                    <th scope="col">Ação</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <%
-
-                                    for (CompeticaoModalidadeColetiva cpt : equipe.getCompeticoesModalidadeColeivas()) {
-                                        Competicao cptct = cpt.getCompeticao();
-                                        if (!cptct.isInativo() && !cptct.isPrivado()) {
-
-                                            String nomeCompeticao = cptct.getNome();
-                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                            String dataInicio = sdf.format(cptct.getDataInicio());
-                                            String dataTermino = sdf.format(cptct.getDataTermino());
-
-
-                                %>
-                                <tr>
-
-                                    <td><%=nomeCompeticao%></td>
-                                    <td><%=dataInicio%></td>
-                                    <td><%=dataTermino%></td>
-                                    <td><a href="gerenciarCompModColetiva.jsp?id=<%=cptct.getIdCompeticao()%>" class="btn btn-success">
-                                            <!-- Adicionar icone -->
-                                            <i class="fas fa-clipboard-list"></i>
-                                        </a> &nbsp;
-                                    </td>
-
-                                </tr>
-                                <%}
-                                }%>
-                            </tbody>
-
-                        </table>
-                        <script>
-                            //Código de busca da tabela
-                            $('input#txt_consulta3').quicksearch('table#tabela3 tbody tr');
-
-                        </script>
-
-                    </div>
-
-
-
-
-
-
-                    <div class="tab-pane" id="solicitacoes" role="tabpanel">
-                        <div class="form-group input-group">
-                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
-                                </a></span>
-                            <input name="consulta" id="txt_consulta4" placeholder="Consultar" type="text" class="form-control">
-                        </div>
-
-
-
-
-                        <table id="tabela4" class="table table-striped">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">Usuário</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Ação</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                            <td>Nome</td>
-                            <td>Nome</td>
-                            <td>Nome</td>
-
-                            </tbody>
-
-
-
-                        </table>
-                        <script>
-                            //Código de busca da tabela
-                            $('input#txt_consulta4').quicksearch('table#tabela4 tbody tr');
-
-                        </script>
-                    </div>
-
-                    <!-- Tab pane adcionar membros -->                
-                    <div class="tab-pane" id="adicionarMembros" role="tabpanel">
-                        <div class="form-group input-group">
-                            <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
-                                </a></span>
-                            <input name="consulta" id="txt_consulta4" placeholder="Consultar" type="text" class="form-control">
-                        </div>
-
-
-                        <form action="" method="POST" name="formAdicionarMembrosEquipe">
 
                             <div class="overflowTableTabPane">
 
-                                <table id="tabela4" class="table table-striped">
-
+                                <table id="tabela1" class="table table-striped">
                                     <thead class="table-dark">
                                         <tr>
-                                            <th scope="col">Nome usuário</th>
+                                            <th scope="col">Atleta</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Ação</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
+
                                         <%
-                                            boolean flag = false;
-                                            int contador = 0;
-                                            Atleta atletaAdmEquipe = equipe.getAdministrador().getAtleta();
-                                            List<Atleta> equipeGetAtletas = equipe.getAtletas();
-                                            List<Atleta> integrantesEquipe = equipeGetAtletas;
+                                            for (Atleta atleta : equipe.getAtletas()) {
+                                                p++;
+                                                String nome = atleta.getUsuarioParticipante().getNome();
+                                                String email = atleta.getUsuarioParticipante().getEmail();
 
-                                            integrantesEquipe.add(atletaAdmEquipe);
-
-                                            for (UsuarioParticipante2 userParticipante : userParticipanteControle.buscarTodos()) {
-                                                flag = false;
-
-                                                for (Atleta a : integrantesEquipe) {
-                                                    if (a.getIdAtleta() == userParticipante.getAtleta().getIdAtleta()) {
-                                                        flag = true;
-                                                    }
-                                                }
-                                                if (flag == false) {
-                                                    contador++;
-
-                                                    String idTr = "tr" + contador;
-                                                    String idBtnAdd = "btnAdd" + contador;
-                                                    String idBtnModalInfo = "btnAdd" + contador;
-                                                    String idInputSegmento = "inputSegmento" + contador;
-                                                    String idInputEmail = "inputEmail" + contador;
-                                                    String idInputNome = "inputNome" + contador;
-                                                    String idCheckBox = "checkBox" + contador;
-                                                    String dataTargetModal = "modalInfo" + contador;
-
-                                                    Atleta atleta = userParticipante.getAtleta();
                                         %>
-                                        <!--Verifica se o atleta possui um segmento-->   
-                                        <%
-                                            if (atleta.getSegmento() != null) {
-                                        %>
-                                    <input type="hidden" id="<%=idInputSegmento%>" value="<%=atleta.getSegmento().getNome()%>">
-                                    <%} else {%>
-                                    <input type="hidden" id="<%=idInputSegmento%>" value="">
-                                    <%}%>
-                                    <input type="hidden" id="<%=idInputNome%>" value="<%=userParticipante.getNome()%>">
-                                    <input type="hidden" id="<%=idInputEmail%>" value="<%=userParticipante.getEmail()%>">
+                                        <tr>
+                                            <td><%=nome%></td>
+                                            <td><%=email%></td>
+                                            <td>
+                                                <%
+                                                    if (op == 0) {
+                                                %>
+                                                <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=atleta.getIdAtleta()%>&idComp=<%=atleta.getIdAtleta()%>&op=1" class="btn btn-danger">
+                                                    <!-- Adicionar icone -->
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+                                                <%}%>
+                                                <%
+                                                    if (op == 2) {
+                                                %>
+                                                <a href="scripts/addUsuarioAdm.jsp?idUsuario=<%=atleta.getIdAtleta()%>&idComp=<%=atleta.getIdAtleta()%>&op=1" class="btn btn-danger disabled">
+                                                    <!-- Adicionar icone -->
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+                                                <%}%>
+                                            </td>    
+                                            <%}%>
+                                        </tr>
+                                    </tbody>
 
 
-                                    <tr id="<%=idTr%>" class="">
-                                        <td><%=userParticipante.getNome()%></td>
-                                        <td><%=userParticipante.getEmail()%></td>
-                                        <td>
+
+                                </table>
+                            </div>
+                            <script>
+                                //Código de busca da tabela
+                                $('input#txt_consulta1').quicksearch('table#tabela1 tbody tr');
+
+                            </script>
+                        </div>
 
 
-                                            <button type="button" class="btn btn-success" id="<%=idBtnAdd%>" onclick="mudarCorCelula(<%=contador%>);"><i class="fas fa-plus"></i></button>
-                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#<%=dataTargetModal%>"><i class="far fa-eye"></i></button>
-                                            <input type="checkbox" hidden="true" id="<%=idCheckBox%>" name="<%=idCheckBox%>" value="<%=atleta.getIdAtleta()%>">
+                        <div class="tab-pane dark" id="competicoes" role="tabpanel">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                    </a></span>
+                                <input name="consulta" id="txt_consulta2" placeholder="Consultar" type="text" class="form-control">
+                            </div>
+                            <table id="tabela2" class="table table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Data de Início</th>
+                                        <th scope="col">Data de Término</th>
+                                        <th scope="col">Ação</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <%
+                                        CompeticaoControle cc = new CompeticaoControle();
+
+                                        for (Competicao cpt : cc.buscarTodasCompeticoes()) {
+
+                                            if (!cpt.isInativo() && !cpt.isPrivado()) {
+
+                                                String nomeCompeticao = cpt.getNome();
+                                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                                String dataInicio = sdf.format(cpt.getDataInicio());
+                                                String dataTermino = sdf.format(cpt.getDataTermino());
 
 
-
+                                    %>
+                                    <tr>    
+                                        <td><%=nomeCompeticao%></td>
+                                        <td><%=dataInicio%></td>
+                                        <td><%=dataTermino%></td>
+                                        <td><a href="forminscricaocoletiva.jsp?idCompeticao=<%=cpt.getIdCompeticao()%>&idEquipe=<%=equipe.getIdEquipe()%>" class="btn btn-success">
+                                                <!-- Adicionar icone -->
+                                                <i class="fas fa-clipboard-list"></i>
+                                            </a> &nbsp;
                                         </td>
                                     </tr>
-                                    <!-- Modal INFO USER PARTICIPANTE -->
-                                    <div class="modal fade" id="<%=dataTargetModal%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Nome: <%=userParticipante.getNome()%></h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <%
-                                                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                                        String dataNascimento = sdf.format(userParticipante.getAtleta().getDataNascimento());
-                                                    %>
-                                                    <p><span class="font-weight-bold">Email: </span><%=userParticipante.getEmail()%></p>
-                                                    <p><span class="font-weight-bold">Data de nascimento: </span><%=dataNascimento%></p>
-                                                    <%
+                                    <%}
+                                        }%>
+                                </tbody>
+                            </table>
+                            <script>
+                                //Código de busca da tabela
+                                $('input#txt_consulta2').quicksearch('table#tabela2 tbody tr');
 
-                                                        if (userParticipante.getAtleta().getSegmento() != null) {
-                                                    %>
-                                                    <p><span class="font-weight-bold">Segmento IFPR-IRATI: </span><%=userParticipante.getAtleta().getSegmento().getNome()%></p>
-                                                    <%}%>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </script>
 
+                        </div>
+
+
+                        <div class="tab-pane" id="mcompeticoes" role="tabpanel">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                    </a></span>
+                                <input name="consulta" id="txt_consulta3" placeholder="Consultar" type="text" class="form-control">
+                            </div>
+                            <table id="tabela3" class="table table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Data de Início</th>
+                                        <th scope="col">Data de Término</th>
+                                        <th scope="col">Ação</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <%
+
+                                        for (CompeticaoModalidadeColetiva cpt : equipe.getCompeticoesModalidadeColeivas()) {
+                                            Competicao cptct = cpt.getCompeticao();
+                                            if (!cptct.isInativo() && !cptct.isPrivado()) {
+
+                                                String nomeCompeticao = cptct.getNome();
+                                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                                String dataInicio = sdf.format(cptct.getDataInicio());
+                                                String dataTermino = sdf.format(cptct.getDataTermino());
+
+
+                                    %>
+                                    <tr>
+
+                                        <td><%=nomeCompeticao%></td>
+                                        <td><%=dataInicio%></td>
+                                        <td><%=dataTermino%></td>
+                                        <td><a href="gerenciarCompModColetiva.jsp?id=<%=cptct.getIdCompeticao()%>" class="btn btn-success">
+                                                <!-- Adicionar icone -->
+                                                <i class="fas fa-clipboard-list"></i>
+                                            </a> &nbsp;
+                                        </td>
+
+                                    </tr>
+                                    <%}
+                                        }%>
+                                </tbody>
+
+                            </table>
+                            <script>
+                                //Código de busca da tabela
+                                $('input#txt_consulta3').quicksearch('table#tabela3 tbody tr');
+
+                            </script>
+
+                        </div>
+
+
+
+
+
+
+                        <div class="tab-pane" id="solicitacoes" role="tabpanel">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                    </a></span>
+                                <input name="consulta" id="txt_consulta4" placeholder="Consultar" type="text" class="form-control">
+                            </div>
+
+
+
+
+                            <table id="tabela4" class="table table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">Usuário</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Ação</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                <td>Nome</td>
+                                <td>Nome</td>
+                                <td>Nome</td>
+
+                                </tbody>
+
+
+
+                            </table>
+                            <script>
+                                //Código de busca da tabela
+                                $('input#txt_consulta4').quicksearch('table#tabela4 tbody tr');
+
+                            </script>
+                        </div>
+
+                        <!-- Tab pane adcionar membros -->                
+                        <div class="tab-pane" id="adicionarMembros" role="tabpanel">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                                    </a></span>
+                                <input name="consulta" id="txt_consulta4" placeholder="Consultar" type="text" class="form-control">
+                            </div>
+
+
+                            <form action="" method="POST" name="formAdicionarMembrosEquipe">
+
+                                <div class="overflowTableTabPane">
+
+                                    <table id="tabela4" class="table table-striped">
+
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col">Nome usuário</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Ação</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <%
+                                                boolean flag = false;
+                                                int contador = 0;
+                                                Atleta atletaAdmEquipe = equipe.getAdministrador().getAtleta();
+                                                List<Atleta> equipeGetAtletas = equipe.getAtletas();
+                                                List<Atleta> integrantesEquipe = equipeGetAtletas;
+                                                List<UsuarioParticipante2> ufiltro = new ArrayList<>();
+                                                integrantesEquipe.add(atletaAdmEquipe);
+                                                if (equipe.getSegmento() != null) {
+                                                    for (UsuarioParticipante2 up : userParticipanteControle.buscarTodos()) {
+                                                        if (up.getAtleta().getSegmento() != null) {
+
+                                                            if (up.getAtleta().getSegmento().getIdSegmento() == equipe.getSegmento().getIdSegmento()) {
+                                                                ufiltro.add(up);
+                                                            }
+                                                        }
+
+                                                    }
+                                                } else {
+                                                    ufiltro = userParticipanteControle.buscarTodos();
+                                                }
+
+                                                for (UsuarioParticipante2 userParticipante : ufiltro) {
+                                                    flag = false;
+
+                                                    for (Atleta a : integrantesEquipe) {
+                                                        if (a.getIdAtleta() == userParticipante.getAtleta().getIdAtleta()) {
+                                                            flag = true;
+                                                        }
+                                                    }
+                                                    if (flag == false) {
+                                                        contador++;
+
+                                                        String idTr = "tr" + contador;
+                                                        String idBtnAdd = "btnAdd" + contador;
+                                                        String idBtnModalInfo = "btnAdd" + contador;
+                                                        String idInputSegmento = "inputSegmento" + contador;
+                                                        String idInputEmail = "inputEmail" + contador;
+                                                        String idInputNome = "inputNome" + contador;
+                                                        String idCheckBox = "checkBox" + contador;
+                                                        String dataTargetModal = "modalInfo" + contador;
+
+                                                        Atleta atleta = userParticipante.getAtleta();
+                                            %>
+                                            <!--Verifica se o atleta possui um segmento-->   
+                                            <%
+                                                if (atleta.getSegmento() != null) {
+                                            %>
+                                        <input type="hidden" id="<%=idInputSegmento%>" value="<%=atleta.getSegmento().getNome()%>">
+                                        <%} else {%>
+                                        <input type="hidden" id="<%=idInputSegmento%>" value="">
+                                        <%}%>
+                                        <input type="hidden" id="<%=idInputNome%>" value="<%=userParticipante.getNome()%>">
+                                        <input type="hidden" id="<%=idInputEmail%>" value="<%=userParticipante.getEmail()%>">
+
+
+                                        <tr id="<%=idTr%>" class="">
+                                            <td><%=userParticipante.getNome()%></td>
+                                            <td><%=userParticipante.getEmail()%></td>
+                                            <td>
+
+
+                                                <button type="button" class="btn btn-success" id="<%=idBtnAdd%>" onclick="mudarCorCelula(<%=contador%>);"><i class="fas fa-plus"></i></button>
+                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#<%=dataTargetModal%>"><i class="far fa-eye"></i></button>
+                                                <input type="checkbox" hidden="true" id="<%=idCheckBox%>" name="<%=idCheckBox%>" value="<%=atleta.getIdAtleta()%>">
+
+
+
+                                            </td>
+                                        </tr>
+                                        <!-- Modal INFO USER PARTICIPANTE -->
+                                        <div class="modal fade" id="<%=dataTargetModal%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Nome: <%=userParticipante.getNome()%></h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <%
+                                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                                            String dataNascimento = sdf.format(userParticipante.getAtleta().getDataNascimento());
+                                                        %>
+                                                        <p><span class="font-weight-bold">Email: </span><%=userParticipante.getEmail()%></p>
+                                                        <p><span class="font-weight-bold">Data de nascimento: </span><%=dataNascimento%></p>
+                                                        <%
+
+                                                            if (userParticipante.getAtleta().getSegmento() != null) {
+                                                        %>
+                                                        <p><span class="font-weight-bold">Segmento IFPR-IRATI: </span><%=userParticipante.getAtleta().getSegmento().getNome()%></p>
+                                                        <%}%>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <%}
-                                    }%>
-                                    </tbody>
+                                        <%}
+                                            }%>
+                                        </tbody>
 
-                                </table>
+                                    </table>
 
-                            </div>
+                                </div>
 
-                            <!--Valores fixos a serem puxados pelo form-->                                                      
-                            <input type="hidden" name="contador" value="<%=contador%>">
-                            <input type="hidden" name="idEquipe" value="<%=idEquipe%>">
+                                <!--Valores fixos a serem puxados pelo form-->                                                      
+                                <input type="hidden" name="contador" value="<%=contador%>">
+                                <input type="hidden" name="idEquipe" value="<%=idEquipe%>">
 
-                            <div id="divBtnForm" style="margin-top: 10px;">
+                                <div id="divBtnForm" style="margin-top: 10px;">
 
-                            </div>
+                                </div>
 
-                        </form>        
-
-
-                        <!--MODAL "CONFIRMAÇÃO ADICIONAR MEMBROS -->
-                        <div class="modal fade" id="modalAtletasAdicionados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Deseja realmente adicionar os seguintes atletas a sua equipe?</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <table class="table">
-                                            <thead class="thead-dark">
-                                                <tr>
-                                                    <th scope="col">Nome</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">Extra</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="bodyModal">
+                            </form>        
 
 
-                                            </tbody>
-                                        </table>
+                            <!--MODAL "CONFIRMAÇÃO ADICIONAR MEMBROS -->
+                            <div class="modal fade" id="modalAtletasAdicionados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente adicionar os seguintes atletas a sua equipe?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">Nome</th>
+                                                        <th scope="col">Email</th>
+                                                        <th scope="col">Extra</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="bodyModal">
 
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="enviarFormulario();">Sim</button>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="enviarFormulario();">Sim</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>            
+                            </div>            
 
-                        <%
-                            System.out.println("Atletas da equipe: " + equipe.getAtletas());
-                            System.out.println("Estou no final da página gerenciar equipe");
-                            System.out.println("Integrantes da equipe: " + integrantesEquipe);
-                            System.out.println("ADM DA EQUIPE: " + atletaAdmEquipe);
-                            System.out.println("P: "+ p);
+                            <%
+                                System.out.println("Atletas da equipe: " + equipe.getAtletas());
+                                System.out.println("Estou no final da página gerenciar equipe");
+                                System.out.println("Integrantes da equipe: " + integrantesEquipe);
+                                System.out.println("ADM DA EQUIPE: " + atletaAdmEquipe);
+                                System.out.println("P: " + p);
 
-                        %>      
-
+                            %>      
 
 
 
 
-                        <script>
-                            //Código de busca da tabela
-                            $('input#txt_consulta4').quicksearch('table#tabela4 tbody tr');
 
-                        </script>
-                    </div>     
+                            <script>
+                                //Código de busca da tabela
+                                $('input#txt_consulta4').quicksearch('table#tabela4 tbody tr');
 
+                            </script>
+                        </div>     
+
+
+                    </div>
 
                 </div>
-
-            </div>
         </div>
 
 
@@ -568,74 +581,74 @@
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
 
-                            var celulasSelecionadas = 0;
+                                var celulasSelecionadas = 0;
 
-                            function mudarCorCelula(id) {
-
-
-                                var checkBox = document.getElementById('checkBox' + id);
-
-                                if (checkBox.checked === false) {
-
-                                    document.getElementById('tr' + id).className = 'table-success';
-                                    checkBox.checked = true;
-                                    celulasSelecionadas++;
-                                } else {
-                                    document.getElementById('tr' + id).className = '';
-                                    checkBox.checked = false;
-                                    celulasSelecionadas--;
-                                }
-
-                                var divBtnForm = document.getElementById("divBtnForm");
-                                if (celulasSelecionadas !== 0) {
-                                    divBtnForm.innerHTML = '<button type="button" class="btn btn-success" onclick="abrirModalCadastro(<%=contador%>);">Adicionar membros</button>';
-                                } else {
-                                    divBtnForm.innerHTML = '';
-
-                                }
-                            }
-
-                            function enviarFormulario() {
-
-                                document.forms["formAdicionarMembrosEquipe"].action = "scripts/adicionarMembrosEquipe.jsp";
-                                document.forms["formAdicionarMembrosEquipe"].submit();
-
-                            }
-
-                            function abrirModalCadastro(contador) {
+                                function mudarCorCelula(id) {
 
 
-                                var dadosBodyModal = '';
-                                var existeCheckBoxSelecionado = false;
+                                    var checkBox = document.getElementById('checkBox' + id);
 
-                                for (var i = 1; i <= contador; i++) {
+                                    if (checkBox.checked === false) {
 
+                                        document.getElementById('tr' + id).className = 'table-success';
+                                        checkBox.checked = true;
+                                        celulasSelecionadas++;
+                                    } else {
+                                        document.getElementById('tr' + id).className = '';
+                                        checkBox.checked = false;
+                                        celulasSelecionadas--;
+                                    }
 
-                                    var checkBox = document.getElementById("checkBox" + i);
-
-                                    if (checkBox.checked === true) {
-
-                                        existeCheckBoxSelecionado = true;
-                                        var bodyModal = document.getElementById("bodyModal");
-                                        var nome = document.getElementById("inputNome" + i).value;
-                                        var segmento = document.getElementById("inputSegmento" + i).value;
-                                        var email = document.getElementById("inputEmail" + i).value;
-
-
-                                        dadosBodyModal += '<tr><td>' + nome + '</td><td>' + email + '</td><td>' + segmento + '</td></tr>';
+                                    var divBtnForm = document.getElementById("divBtnForm");
+                                    if (celulasSelecionadas !== 0) {
+                                        divBtnForm.innerHTML = '<button type="button" class="btn btn-success" onclick="abrirModalCadastro(<%=contador%>);">Adicionar membros</button>';
+                                    } else {
+                                        divBtnForm.innerHTML = '';
 
                                     }
                                 }
-                                if (existeCheckBoxSelecionado) {
-                                    bodyModal.innerHTML = dadosBodyModal;
-                                    acionarModalAtletasAdicionados();
+
+                                function enviarFormulario() {
+
+                                    document.forms["formAdicionarMembrosEquipe"].action = "scripts/adicionarMembrosEquipe.jsp";
+                                    document.forms["formAdicionarMembrosEquipe"].submit();
+
                                 }
 
-                            }
+                                function abrirModalCadastro(contador) {
 
-                            function acionarModalAtletasAdicionados() {
-                                $('#modalAtletasAdicionados').modal('show');
-                            }
+
+                                    var dadosBodyModal = '';
+                                    var existeCheckBoxSelecionado = false;
+
+                                    for (var i = 1; i <= contador; i++) {
+
+
+                                        var checkBox = document.getElementById("checkBox" + i);
+
+                                        if (checkBox.checked === true) {
+
+                                            existeCheckBoxSelecionado = true;
+                                            var bodyModal = document.getElementById("bodyModal");
+                                            var nome = document.getElementById("inputNome" + i).value;
+                                            var segmento = document.getElementById("inputSegmento" + i).value;
+                                            var email = document.getElementById("inputEmail" + i).value;
+
+
+                                            dadosBodyModal += '<tr><td>' + nome + '</td><td>' + email + '</td><td>' + segmento + '</td></tr>';
+
+                                        }
+                                    }
+                                    if (existeCheckBoxSelecionado) {
+                                        bodyModal.innerHTML = dadosBodyModal;
+                                        acionarModalAtletasAdicionados();
+                                    }
+
+                                }
+
+                                function acionarModalAtletasAdicionados() {
+                                    $('#modalAtletasAdicionados').modal('show');
+                                }
 
         </script>
         <%

@@ -21,10 +21,10 @@
     <head>
         <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
         <link rel=""
-        <meta charset="utf-8">
+              <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
-        
+
 
         <title>Modern Business - Start Bootstrap Template</title>
 
@@ -35,18 +35,18 @@
 
         <!-- Custom styles for this template -->
         <link href="css/modern-business.css" rel="stylesheet">
-       <link rel="stylesheet" type="text/css"
-          href="css/fonte/style.css"/>
+        <link rel="stylesheet" type="text/css"
+              href="css/fonte/style.css"/>
     </head>
-   
+
     <body style="font-family: 'Quicksand';">
         <%
             UsuarioParticipante up = (UsuarioParticipante) session.getAttribute("usuario");
-            
+
             if (up == null) {
                 response.sendRedirect("login.jsp?e=Pagina de acesso restrito, entre primeiro");
             } else {
-                
+
         %>
 
         <header>
@@ -54,13 +54,12 @@
         </header>
 
         <div class="container">
-            <%
-                request.setCharacterEncoding("UTF-8");
-            if(request.getParameter("msg") != null){
-                String mensagem = request.getParameter("msg");
-                String cor = request.getParameter("color");
+            <%                request.setCharacterEncoding("UTF-8");
+                if (request.getParameter("msg") != null) {
+                    String mensagem = request.getParameter("msg");
+                    String cor = request.getParameter("color");
             %>
-           <br>
+            <br>
             <div class="alert alert-<%=cor%> alert-dismissible fade show" role="alert">
                 <strong><%=mensagem%></strong> .
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -69,39 +68,39 @@
             </div>
 
             <%
-            }
+                }
             %>
             <br>
             <h1 class="my-4 titulos">Meus Eventos</h1>
             <div class="row">
                 <%
-                SimpleDateFormat formate = new SimpleDateFormat("dd/MM/yyyy");
-                //UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
-                //UsuarioParticipante upp = upc.buscarPorId(up.getIdUsuario());
-                
-                int flag = 0;
-                UsuarioParticipanteControle upControle = new UsuarioParticipanteControle();
-                //CompeticaoControle competicaoControle = new CompeticaoControle();
-                upControle.abrirSessaoDAOGeneric();
-                upControle.flush();
-                
-                UsuarioParticipante usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
-                try {
-                     usuarioParticipante.getCompeticoes();
+                    SimpleDateFormat formate = new SimpleDateFormat("dd/MM/yyyy");
+                    //UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
+                    //UsuarioParticipante upp = upc.buscarPorId(up.getIdUsuario());
+
+                    int flag = 0;
+                    UsuarioParticipanteControle upControle = new UsuarioParticipanteControle();
+                    //CompeticaoControle competicaoControle = new CompeticaoControle();
+                    upControle.abrirSessaoDAOGeneric();
+                    upControle.flush();
+
+                    UsuarioParticipante usuarioParticipante = upControle.buscarPorId(up.getIdUsuario());
+                    try {
+                        usuarioParticipante.getCompeticoes();
                     } catch (Exception e) {
                         flag = 1;
                     }
-                
-                if(flag == 0){
-                for(Competicao cptc : upControle.buscarCompeticoesVinculadasAoUsuarioParticipante(up.getIdUsuario())){
-                    upControle.flush();
-                    System.out.println("IS DIRTY: "+upControle.isDirty());
-                    System.out.println("Nome:"+cptc.getNome()+"\n Id:"+cptc.getIdCompeticao()+"\n Inativo:"+cptc.isInativo());
-                    if(cptc.isInativo() == false){
-                        
-                    
+
+                    if (flag == 0) {
+                        for (Competicao cptc : upControle.buscarCompeticoesVinculadasAoUsuarioParticipante(up.getIdUsuario())) {
+                            upControle.flush();
+                            System.out.println("IS DIRTY: " + upControle.isDirty());
+                            System.out.println("Nome:" + cptc.getNome() + "\n Id:" + cptc.getIdCompeticao() + "\n Inativo:" + cptc.isInativo());
+                            if (cptc.isInativo() == false) {
+
+
                 %>
-                
+
                 <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">
                         <a href="#"><img class="card-img-top" src="img/competiteca_default.png" alt=""></a>
@@ -111,7 +110,14 @@
                             </h4>
                             <p class="card-text"><b>Data de Início:</b><%=formate.format(cptc.getDataInicio())%></p>
                             <p class="card-text"><b>Data de Encerramento:</b><%=formate.format(cptc.getDataTermino())%></p>
+                            <%if (cptc.getInterseries() == 1) {%>
+                            <span class="badge badge-pill badge-danger">Interséries</span><br><br>
+                            <%} else {%>
+                            <br><br>
+                            <%}
+                            %>
                             <!-- Button trigger modal -->
+
                             <a><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#<%=cptc.getIdCompeticao()%>"><i class="fas fa-trash-alt"></i></button></a>&nbsp;
 
 
@@ -139,7 +145,9 @@
                         </div>
                     </div>
                 </div>
-                <%}}}%>
+                <%}
+                        }
+                    }%>
             </div>
             <a href="criarcompeticao.jsp" class="btn btn-success">
                 <!-- Adicionar icone -->
@@ -154,7 +162,7 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <%
-        }
+            }
         %>
     </body>
 

@@ -99,12 +99,13 @@
 
             <!-- Marketing Icons Section -->
             <div class="row">
-                <div id="mensagem"></div>
+                
                 <div class="col">
                     <div class="card h-100">
                         <h4 class="card-header titulos">Redefina sua senha</h4>
                         <div class="card-body">
                             <!--<form>--> 
+                            <div id="mensagem"></div>
                                 <label for="" class="col-md-12">
                                     Nova senha:
                                     <input type="password" required class="form-control" id="password" name="senha" placeholder="Insira a sua senha">
