@@ -29,7 +29,6 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     private List<EquipeCompeticao> equipesCompeticao;
     
     @OneToMany(mappedBy = "competicaoModalidadeColetiva", fetch = FetchType.LAZY)
-    @Fetch(value = FetchMode.SUBSELECT)
     private List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas;
     
     @OneToMany(fetch = FetchType.LAZY)
@@ -67,16 +66,50 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     }
 
     
-    public List<BlocoEliminatorio> filtrarBlocoEliminatorioPorEtapa(CompeticaoModalidadeColetiva cmc,int valor, int extensao, boolean repescagem){
+    public List<BlocoEliminatorio> filtrarBlocoEliminatorioPorEtapa(int valor, int extensao, boolean repescagem){
         
         List<BlocoEliminatorio> blocos = new ArrayList();
-        for(BlocoEliminatorio bE : cmc.getBlocosEliminatorios()){
+        for(BlocoEliminatorio bE : this.getBlocosEliminatorios()){
             
             if(bE.getEtapa() >= valor && bE.getEtapa() <= (valor + extensao -1) && bE.isBlocoRepescagem() == false){
                 blocos.add(bE);
             }
         }
         
+        return blocos;
+    }
+    
+        public List<BlocoEliminatorio> filtrarBlocoEliminatorioRepescagemPorEtapa(int valor, int extensao, boolean repescagem){
+        
+        List<BlocoEliminatorio> blocos = new ArrayList();
+        for(BlocoEliminatorio bE : this.getBlocosEliminatorios()){
+            
+            if(bE.getEtapa() >= valor && bE.getEtapa() <= (valor + extensao -1) && bE.isBlocoRepescagem() == true){
+                blocos.add(bE);
+            }
+        }
+        
+        return blocos;
+    }
+        
+        
+    public List<BlocoEliminatorio> buscarBlocosEliminatorios(){
+        List<BlocoEliminatorio> blocos = new ArrayList();
+        for(BlocoEliminatorio bE : this.getBlocosEliminatorios()){
+            if(bE.isBlocoRepescagem() == false){
+                blocos.add(bE);
+            }
+        }
+        return blocos;
+    }
+    
+    public List<BlocoEliminatorio> buscarBlocosEliminatoriosRepescagem(){
+        List<BlocoEliminatorio> blocos = new ArrayList();
+        for(BlocoEliminatorio bE : this.getBlocosEliminatorios()){
+            if(bE.isBlocoRepescagem() == true){
+                blocos.add(bE);
+            }
+        }
         return blocos;
     }
     

@@ -1,8 +1,12 @@
 
+import br.edu.ifpr.irati.ti.controle.CompeticaoModalidadeColetivaControle;
 import br.edu.ifpr.irati.ti.dao.Dao;
 import br.edu.ifpr.irati.ti.dao.GenericDAO;
+import br.edu.ifpr.irati.ti.modelo.BlocoEliminatorio;
 import br.edu.ifpr.irati.ti.modelo.Competicao;
+import br.edu.ifpr.irati.ti.modelo.CompeticaoModalidadeColetiva;
 import br.edu.ifpr.irati.ti.modelo.ModalidadeSolo;
+import br.edu.ifpr.irati.ti.modelo.SistemaEliminatorio;
 import java.util.Date;
 
 /*
@@ -18,13 +22,25 @@ import java.util.Date;
 public class TesteCompeticao {
     public static void main(String[] args) {
         
+    CompeticaoModalidadeColetivaControle cptModColetivaControle = new CompeticaoModalidadeColetivaControle();
     
-    Dao<Competicao> comDao = new GenericDAO<>(Competicao.class);
+    CompeticaoModalidadeColetiva cmc = cptModColetivaControle.buscarPorId(5);
+        for(BlocoEliminatorio bE: cmc.buscarBlocosEliminatoriosRepescagem()){
+        System.out.println("ETAPA "+bE.getEtapa());
+            System.out.println("TAMANHO"+bE.getEtapa()+": "+bE.getConfrontos().size());
+            
+    }
+    cptModColetivaControle.fecharSessaoDAOGeneric();
     
-    Competicao competicao = new Competicao(0, "Comp TESTE", new Date(), new Date(), true);
+    SistemaEliminatorio sistemaDeCompeticao = (SistemaEliminatorio) cmc.getSistemaDeCompeticao();
+    boolean repescagem = sistemaDeCompeticao.isRepescagem();
     
-    comDao.salvar(competicao);
     
+
+    
+    //cptModColetivaControle.gerarConfrontosSistemaEliminatorio(cmc, repescagem);
+    
+    System.exit(0);
     
     }
     

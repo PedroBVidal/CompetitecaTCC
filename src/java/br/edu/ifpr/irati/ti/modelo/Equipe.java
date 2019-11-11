@@ -52,12 +52,10 @@ public class Equipe implements Serializable {
     private Competicao competicao;
      */
     
-    @OneToMany(mappedBy = "equipe",fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SELECT)
+    @OneToMany(mappedBy = "equipe",fetch = FetchType.LAZY)
     private List<InscricaoCompeticaoColetiva> inscricoesCompeticoesColetivas;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SELECT)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<CompeticaoModalidadeColetiva> competicoesModalidadeColeivas;
 
     @OneToOne

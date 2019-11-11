@@ -21,41 +21,11 @@ public class TesteArredondamento {
     
     
     public static void main(String[] args) {
-        /*
-        double num = 1.50;
-        System.out.println(cmc.getBlocosEliminatorios().size());
-        double numeroPaginas =  Math.rint(cmc.getBlocosEliminatorios().size() / 3);
-        System.out.println("Número páginas: "+ numeroPaginas);
-        */
-        
-        CompeticaoModalidadeColetivaControle cmcc = new CompeticaoModalidadeColetivaControle();
 
-        
-        CompeticaoModalidadeColetiva cmc = cmcc.buscarPorId(2);
-        List<EquipeCompeticao> equipesCompeticao = cmc.getEquipesCompeticao();
-        System.out.println("Equipes competicao (ANTES): "+equipesCompeticao);
-        for(BlocoEliminatorio bE : cmc.getBlocosEliminatorios()){
-                                        // Verifica se já faz parte do bloco eliminatorio
-                            for (Confronto confronto : bE.getConfrontos()) {
-                                
-                            System.out.println("CCC");
-                            ConfrontoModalidadeColetiva confColetivo = (ConfrontoModalidadeColetiva) confronto;
-                            if(confColetivo.getEquipes().isEmpty() == false){
-                                for(EquipeCompeticao eq: confColetivo.getEquipes()){
-                                    for(EquipeCompeticao equipeCompeticao: equipesCompeticao){
-                                        if(eq.getIdEquipeCompeticao() == equipeCompeticao.getIdEquipeCompeticao()){
-                                            
-                                            System.out.println("CCC: "+equipeCompeticao.getEquipe().getNome());
-                                            equipesCompeticao.remove(equipeCompeticao);
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            }
-        }
-        
-        System.out.println("Equipes competicao (DEPOIS): "+equipesCompeticao);
+        int num = 4;
+        double numeroPaginas =  Math.rint(num/2) + (num % 2);
+        System.out.println("Número páginas: "+ numeroPaginas);
+
         
         System.exit(0);
     }

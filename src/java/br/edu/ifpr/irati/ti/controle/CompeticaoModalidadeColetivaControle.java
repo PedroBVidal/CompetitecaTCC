@@ -154,19 +154,20 @@ public class CompeticaoModalidadeColetivaControle {
                     blocoEliminatorio.setEtapa(numBolocoEliminatorio);
 
                     paresConfronto = new ParesConfronto(0, 1);
-                    // Instancia o confronto coletivo final e disputa pelo 3 e 4 lugar.
+                    
                     confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
                     confrontoModalidadeColetiva.setConfrontoRodada(1);
                     confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
                     confrontos.add(confrontoModalidadeColetiva);
                     blocoEliminatorio.adicionarConfronto(confrontoModalidadeColetiva);
-
+                    // Instancia o confronto coletivo final e disputa pelo 3 e 4 lugar.
+                    if(repescagem == false){
                     confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
                     confrontoModalidadeColetiva.setConfrontoRodada(2);
                     confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
                     confrontos.add(confrontoModalidadeColetiva);
                     blocoEliminatorio.adicionarConfronto(confrontoModalidadeColetiva);
-
+                    }
                     listParesConfronto.add(paresConfronto);
                     blocosElimitorio.add(blocoEliminatorio);
                     break;
@@ -190,121 +191,132 @@ public class CompeticaoModalidadeColetivaControle {
         }
 
         if (repescagem == true) {
-            // Gerar blocos eliminatórios referentes à repescagem
-            numParConfronto = 1;
-            paresConfronto.setNumParConfrontoRodada(numParConfronto);
-            listParesConfronto.add(paresConfronto);
-            boolean primeiraIteracao = true;
-            boolean finalizarWhile = false;
-            /* Pega o bloco localizado na posição 1 da lista como parâmetro,
-            tal bloco sempre será de etapa = 2 */
-            BlocoEliminatorio blocoParametro = blocosElimitorio.get(1);
-            BlocoEliminatorio blocoParametroRepescagem = new BlocoEliminatorio();
-
-            while (finalizarWhile == false) {
-
-                if (primeiraIteracao) {
-
-                    int tamanhoBloco = blocosElimitorio.get(0).getConfrontos().size();
-                    for (int k = 1; k <= (tamanhoBloco / 2); k++) {
-                        ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
-                        confrontoModalidadeColetiva.setConfrontoRodada(k);
-                        confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
-                        confrontos.add(confrontoModalidadeColetiva);
-                        blocoParametroRepescagem.adicionarConfronto(confrontoModalidadeColetiva);
-                        if (k % 2 == 0) {
-                            numParConfronto++;
-                            paresConfronto = new ParesConfronto(0, numParConfronto);
-                            listParesConfronto.add(paresConfronto);
-                        }
-
-                    }
-                    blocoParametroRepescagem.setEtapa(1);
-                    blocoParametroRepescagem.setAceitaNovosRepescados(true);
-                    blocoParametroRepescagem.setBlocoRepescagem(true);
-                    primeiraIteracao = false;
-                    blocosElimitorio.add(blocoParametroRepescagem);
-                    numParConfronto = 1;
-
-                    System.out.println("Bloco parametro repescagem" + blocoParametroRepescagem.getEtapa());
-                    System.out.println("Num confrontos: " + blocoParametroRepescagem.getConfrontos().size());
-                } else {
-                    // Compara se os tamanhos dos blocos parâmetros são iguais ou não
-                    int tamanhoBlocoParametro = blocoParametro.getConfrontos().size();
-                    int tamanhoBlocoRepescagemParametro = blocoParametroRepescagem.getConfrontos().size();
-                    paresConfronto.setNumParConfrontoRodada(numParConfronto);
-
-                    if (tamanhoBlocoParametro == tamanhoBlocoRepescagemParametro) {
-                        BlocoEliminatorio bER = new BlocoEliminatorio();
-                        bER.setEtapa(blocoParametroRepescagem.getEtapa() + 1);
-                        for (int k = 1; k <= tamanhoBlocoParametro; k++) {
-                            ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
-                            confrontoModalidadeColetiva.setConfrontoRodada(k);
-                            confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
-                            confrontos.add(confrontoModalidadeColetiva);
-                            bER.adicionarConfronto(confrontoModalidadeColetiva);
-
-                            if (k % 2 == 0) {
-                                numParConfronto++;
-                                paresConfronto = new ParesConfronto(0, numParConfronto);
-                                listParesConfronto.add(paresConfronto);
-                            }
-                        }
-                        bER.setAceitaNovosRepescados(true);
-                        bER.setBlocoRepescagem(true);
-                        blocosElimitorio.add(bER);
-                        blocoParametroRepescagem = bER;
-                        numParConfronto = 1;
-                        // Seleciona um novo bloco elimitario como parâmetro
-                        for (BlocoEliminatorio b : blocosElimitorio) {
-                            if (b.getEtapa() == (blocoParametro.getEtapa() + 1)) {
-                                blocoParametro = b;
-                                break;
-                            }
-                        }
-                        if (blocoParametroRepescagem.getConfrontos().size() == 1) {
-                            // CONFRONTO FINAL
-                            BlocoEliminatorio bEF = new BlocoEliminatorio();
-                            ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
-                            paresConfronto = new ParesConfronto(0, 1);
-                            confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
-                            bEF.setEtapa(blocoParametro.getEtapa() + 1);
-                            bEF.adicionarConfronto(confrontoModalidadeColetiva);
-                            blocosElimitorio.add(bEF);
-                            finalizarWhile = true;
-                        }
-
-                    } else if (tamanhoBlocoParametro != tamanhoBlocoRepescagemParametro) {
-                        BlocoEliminatorio bER = new BlocoEliminatorio();
-                        bER.setEtapa(blocoParametroRepescagem.getEtapa() + 1);
-                        for (int k = 1; k <= (tamanhoBlocoRepescagemParametro / 2); k++) {
-                            ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
-                            confrontoModalidadeColetiva.setConfrontoRodada(k);
-                            confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
-                            confrontos.add(confrontoModalidadeColetiva);
-                            bER.adicionarConfronto(confrontoModalidadeColetiva);
-
-                            if (k % 2 == 0) {
-                                numParConfronto++;
-                                paresConfronto = new ParesConfronto(0, numParConfronto);
-                                listParesConfronto.add(paresConfronto);
-                            }
-                        }
-                        bER.setAceitaNovosRepescados(false);
-                        bER.setBlocoRepescagem(true);
-                        blocosElimitorio.add(bER);
-                        blocoParametroRepescagem = bER;
-                        numParConfronto = 1;
-                        // Muda o blocoRepescagem tido como parâmetro  
-
-                    }
-
+        numParConfronto = 1;
+        paresConfronto.setNumParConfrontoRodada(numParConfronto);
+        listParesConfronto.add(paresConfronto);
+        boolean primeiraIteracao = true;
+        boolean finalizarWhile = false;
+        BlocoEliminatorio blocoParametro = blocosElimitorio.get(1);
+        BlocoEliminatorio blocoParametroRepescagem = new BlocoEliminatorio();
+        System.out.println("Etapa bloco eliminatório parâmetro: "+blocoEliminatorio.getEtapa());
+         System.out.println("N confrontos bloco eliminatório parâmetro: "+blocoEliminatorio.getConfrontos().size());
+        
+    while(finalizarWhile == false){
+        
+        System.out.println("WHILE");
+        if(primeiraIteracao){
+            System.out.println("Primeira iteração");
+            int tamanhoBloco = blocosElimitorio.get(0).getConfrontos().size();
+            for(int k = 1; k <= (tamanhoBloco/2); k++){
+                ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
+                confrontoModalidadeColetiva.setConfrontoRodada(k);
+                confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
+                confrontos.add(confrontoModalidadeColetiva);
+                blocoParametroRepescagem.adicionarConfronto(confrontoModalidadeColetiva);
+                if(k % 2 == 0){
+                    numParConfronto++;
+                    paresConfronto = new ParesConfronto(0, numParConfronto);
+                    listParesConfronto.add(paresConfronto);
                 }
 
             }
+            blocoParametroRepescagem.setEtapa(1);
+            blocoParametroRepescagem.setAceitaNovosRepescados(true);
+            blocoParametroRepescagem.setBlocoRepescagem(true);
+            primeiraIteracao = false;
+            blocosElimitorio.add(blocoParametroRepescagem);
+            numParConfronto = 1;
+
+            System.out.println("Bloco parametro repescagem"+blocoParametroRepescagem.getEtapa());
+            System.out.println("Num confrontos: "+blocoParametroRepescagem.getConfrontos().size());
+        }
+        else{
+            // Compara se os tamanhos dos blocos parâmetros são iguais ou não
+            int tamanhoBlocoParametro = blocoParametro.getConfrontos().size();
+            int tamanhoBlocoRepescagemParametro = blocoParametroRepescagem.getConfrontos().size();
+            paresConfronto.setNumParConfrontoRodada(numParConfronto);
+            
+            if(tamanhoBlocoParametro == tamanhoBlocoRepescagemParametro){
+                System.out.println("ETAPA 1");
+                BlocoEliminatorio bER = new BlocoEliminatorio();
+                bER.setEtapa(blocoParametroRepescagem.getEtapa() + 1);
+                for(int k = 1; k <= tamanhoBlocoParametro; k++){
+                    ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
+                    confrontoModalidadeColetiva.setConfrontoRodada(k);
+                    confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
+                    confrontos.add(confrontoModalidadeColetiva);
+                    bER.adicionarConfronto(confrontoModalidadeColetiva);
+                    
+                    if(k % 2 == 0){
+                    numParConfronto++;
+                    paresConfronto = new ParesConfronto(0, numParConfronto);
+                    listParesConfronto.add(paresConfronto);
+                    }
+                }
+                bER.setAceitaNovosRepescados(true);
+                bER.setBlocoRepescagem(true);
+                blocosElimitorio.add(bER);
+                blocoParametroRepescagem = bER;
+                numParConfronto = 1;
+                // Seleciona um novo bloco elimitario como parâmetro
+                for(BlocoEliminatorio b : blocosElimitorio){
+                    if(b.getEtapa() == (blocoParametro.getEtapa()+1)){
+                        blocoParametro = b;
+                        break;
+                    }
+                }
+                if(blocoParametroRepescagem.getConfrontos().size() == 1){
+                    // CONFRONTO FINAL
+                    System.out.println("CONFRONTO FINAL");
+                    BlocoEliminatorio bEF = new BlocoEliminatorio();
+                    ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
+                    paresConfronto = new ParesConfronto(0, 1);
+                    confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
+                    confrontos.add(confrontoModalidadeColetiva);
+                    bEF.setEtapa(blocoParametro.getEtapa());
+                    bEF.adicionarConfronto(confrontoModalidadeColetiva);
+                    bEF.setBlocoRepescagem(false);
+                    bEF.setAceitaNovosRepescados(true);
+                    blocosElimitorio.add(bEF);
+                    listParesConfronto.add(paresConfronto);
+                    finalizarWhile = true;
+                }
+                
+            }
+            else if(tamanhoBlocoParametro != tamanhoBlocoRepescagemParametro){
+                System.out.println("ETAPA 2");
+                BlocoEliminatorio bER = new BlocoEliminatorio();
+                bER.setEtapa(blocoParametroRepescagem.getEtapa() + 1);
+                for(int k = 1; k <= (tamanhoBlocoRepescagemParametro/2); k++){
+                    ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
+                    confrontoModalidadeColetiva.setConfrontoRodada(k);
+                    confrontoModalidadeColetiva.setParesConfronto(paresConfronto);
+                    confrontos.add(confrontoModalidadeColetiva);
+                    bER.adicionarConfronto(confrontoModalidadeColetiva);
+                    
+                    if(k % 2 == 0){
+                    numParConfronto++;
+                    paresConfronto = new ParesConfronto(0, numParConfronto);
+                    listParesConfronto.add(paresConfronto);
+                    }
+                }
+                bER.setAceitaNovosRepescados(false);
+                bER.setBlocoRepescagem(true);
+                blocosElimitorio.add(bER);
+                blocoParametroRepescagem = bER;
+                numParConfronto = 1;
+                // Muda o blocoRepescagem tido como parâmetro  
+                
+            }
+            
+            
+        }
+        
+    }
 
         }
-
+        System.out.println("N confrontos a serem salvos: "+confrontos.size());
+        System.out.println("Blocos eliminatorio: "+ blocosElimitorio.size());
         // persiste os dados no banco
         persistirGerarSistemaEliminatorio(cmc, confrontos, listParesConfronto, blocosElimitorio);
 
@@ -338,14 +350,15 @@ public class CompeticaoModalidadeColetivaControle {
         for (ParesConfronto p : paresConfrontos) {
             paresConfrontoControle.salvar(p);
         }
-
+        System.out.println("PARES CONFRONTO FINALIZADO");
         for (ConfrontoModalidadeColetiva c : confrontos) {
             confrontoModalidadeColetivaControle.salvar(c);
         }
-
+        System.out.println("CONFRONTO MOD COLETIVA FINALIZADO");
         for (BlocoEliminatorio bE : blocosEliminatorios) {
             blocoEliminatorioControle.salvar(bE);
         }
+        System.out.println("BLOCO ELIMINATORIO FINALIZADO");
         confrontoModalidadeColetivaControle.fecharSessaoDAOGeneric();
         paresConfrontoControle.fecharSessaoDAOGeneric();
         blocoEliminatorioControle.fecharSessaoDAOGeneric();

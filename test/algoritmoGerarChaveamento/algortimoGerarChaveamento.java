@@ -129,7 +129,7 @@ public class algortimoGerarChaveamento {
             System.out.println("");
         }
     }
-    
+    // INÍCIO 
     numParConfronto = 1;
     paresConfronto.setNumParConfrontoRodada(numParConfronto);
     listParesConfronto.add(paresConfronto);
@@ -137,11 +137,13 @@ public class algortimoGerarChaveamento {
     boolean finalizarWhile = false;
     BlocoEliminatorio blocoParametro = blocosElimitario.get(1);
     BlocoEliminatorio blocoParametroRepescagem = new BlocoEliminatorio();
+    System.out.println("Etapa bloco eliminatório parâmetro: "+blocoEliminatorio.getEtapa());
+    System.out.println("N confrontos bloco eliminatório parâmetro: "+blocoEliminatorio.getConfrontos().size());
     
     while(finalizarWhile == false){
-        
+        System.out.println("WHILE");
         if(primeiraIteracao){
-
+            System.out.println("Primeira iteração");
             int tamanhoBloco = blocosElimitario.get(0).getConfrontos().size();
             for(int k = 1; k <= (tamanhoBloco/2); k++){
                 ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
@@ -173,6 +175,7 @@ public class algortimoGerarChaveamento {
             paresConfronto.setNumParConfrontoRodada(numParConfronto);
             
             if(tamanhoBlocoParametro == tamanhoBlocoRepescagemParametro){
+                System.out.println("ETAPA 1");
                 BlocoEliminatorio bER = new BlocoEliminatorio();
                 bER.setEtapa(blocoParametroRepescagem.getEtapa() + 1);
                 for(int k = 1; k <= tamanhoBlocoParametro; k++){
@@ -202,6 +205,7 @@ public class algortimoGerarChaveamento {
                 }
                 if(blocoParametroRepescagem.getConfrontos().size() == 1){
                     // CONFRONTO FINAL
+                    System.out.println("Confronto final");
                     BlocoEliminatorio bEF = new BlocoEliminatorio();
                     ConfrontoModalidadeColetiva confrontoModalidadeColetiva = new ConfrontoModalidadeColetiva();
                     paresConfronto = new ParesConfronto(0, 1);
@@ -214,6 +218,7 @@ public class algortimoGerarChaveamento {
                 
             }
             else if(tamanhoBlocoParametro != tamanhoBlocoRepescagemParametro){
+                System.out.println("ETAPA 2");
                 BlocoEliminatorio bER = new BlocoEliminatorio();
                 bER.setEtapa(blocoParametroRepescagem.getEtapa() + 1);
                 for(int k = 1; k <= (tamanhoBlocoRepescagemParametro/2); k++){
@@ -242,6 +247,8 @@ public class algortimoGerarChaveamento {
         }
         
     }
+    //FIM
+    
                 System.out.println("Tamanho sistema comum: "+blocosElimitario.size());
     int cont = 0;
     for(BlocoEliminatorio bE : blocosElimitario){
