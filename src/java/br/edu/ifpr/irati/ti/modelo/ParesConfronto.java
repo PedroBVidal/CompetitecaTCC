@@ -13,8 +13,6 @@ import org.hibernate.annotations.Proxy;
 @Proxy(lazy = false)
 public class ParesConfronto implements Serializable{
     
-    
-    // FICAR DE OLHO!
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private int idParConfronto;

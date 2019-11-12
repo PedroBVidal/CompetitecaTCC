@@ -297,6 +297,11 @@
             %>
             <br>
             <h1 class="my-4 titulos">Cadastro para Administradores</h1>
+            
+            <div class="card">
+                <h5 class="card-header">Cadastro</h5>
+                <div class="card-body">
+            
             <!--onblur="pesquisaemail(this.value);"  id="email"-->
 
             <form action="scripts/scriptuserAdministrador.jsp" method="POST" class="col" validate>
@@ -321,11 +326,14 @@
                     </div>
                 </label>
 
-                <br>
-                <button type="submit" class="btn btn-success">Enviar</button>
+                <div class="col-md-12" id="btnEnviar" style="margin-top:10px;">
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                </div>  
 
 
-            </form> 
+            </form>
+            </div>
+            </div>
         </div>
         <%}%>
         <!-- Bootstrap core JavaScript -->

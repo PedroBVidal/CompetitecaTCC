@@ -65,13 +65,14 @@
         %>
 
         <header>
-            <jsp:include page="navbarindex.jsp" flush="true" />
+            <jsp:include page="navbarindex.jsp" flush="true"/>
         </header>
-
+        <input type="hidden" name="idCompeticao" value="<%=idCompeticao%>">
 
         <!-- Page Content -->
         <div class="container">
-            <%                request.setCharacterEncoding("UTF-8");
+            <%  
+                request.setCharacterEncoding("UTF-8");
                 if (request.getParameter("msg") != null) {
                     String mensagem = request.getParameter("msg");
                     String cor = request.getParameter("color");
@@ -102,17 +103,28 @@
                     <%if (competicao.getSistemaDeCompeticao().getNome().equals("Sistema todos contra todos")) {%>
                     <a class="list-group-item list-group-item-action active" data-toggle="list" href="#tabela" role="tab">Tabela</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list" href="#partidas" role="tab">Jogos</a>
-                    <%} else {%>
+                    <%} else if(competicao.getSistemaDeCompeticao().getNome().equals("Sistema eliminatório")){%>
                     <a class="list-group-item list-group-item-action active" data-toggle="list" href="#partidas" role="tab">Jogos</a>
                     <%}
                     %>
 
 
                 </div>
-
+                <%
+                    if(competicao.getSistemaDeCompeticao().getNome().equals("Sistema eliminatório")){
+                %>
                 <!-- Tab panes -->
                 <div class="tab-content col-10">
-                    <%if (competicao.getSistemaDeCompeticao().getNome().equals("Sistema todos contra todos")) {%>
+                    <div class="tab-pane dark active" id="tabela" role="tabpanel">
+                        
+                    </div>
+                </div>
+                <%       }
+                        else if (competicao.getSistemaDeCompeticao().getNome().equals("Sistema todos contra todos")){
+                    %>
+                <!-- Tab panes -->
+                <div class="tab-content col-10">
+
                     <div class="tab-pane dark active" id="tabela" role="tabpanel">
                         <div class="form-group input-group">
                             <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
@@ -178,7 +190,7 @@
                             </div>
                         </div>
                     </div>
-
+                </div>
                     <!-- Bootstrap core JavaScript -->
 
                     <script src="vendor/jquery/jquery.min.js"></script>

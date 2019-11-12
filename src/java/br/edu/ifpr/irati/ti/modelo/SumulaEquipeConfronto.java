@@ -37,6 +37,7 @@ public class SumulaEquipeConfronto implements Serializable{
     @Column(name="pontuacaoFinal", nullable = true)
     private double pontuacaoFinal;
     
+    //Etapa == set
     @OneToMany(fetch = FetchType.LAZY)
     private List<Etapa> etapas;
     
