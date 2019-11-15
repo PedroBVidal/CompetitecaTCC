@@ -18,19 +18,24 @@
     if (request.getParameter("c") != null) {
         session.setAttribute("usuario", null);
         response.sendRedirect("../index.jsp");
-        
-    } else{
+
+    } else {
         if (request.getParameter("tipo").equals("1")) {
             UsuarioParticipanteControle upc = new UsuarioParticipanteControle();
 
             try {
                 UsuarioParticipante up = upc.buscarLogin(email, senha);
                 upc.fecharSessaoDAOGeneric();
-                session.setAttribute("usuario", up);
-                response.sendRedirect("../gerenciamento.jsp");
+                if (up.getAtivo() == 1) {
+                    session.setAttribute("usuario", up);
+                    response.sendRedirect("../gerenciamento.jsp");
+                } else {
+                    response.sendRedirect("../login.jsp?msg=Ative o seu usuário primeiro! Verifique a sua caixa de email&color=danger");
+                }
+
             } catch (Exception e) {
                 session.setAttribute("usuario", null);
-                response.sendRedirect("../login.jsp?msg=" + e.getMessage()+"&color=danger");
+                response.sendRedirect("../login.jsp?msg=" + e.getMessage() + "&color=danger");
             }
 
             if (request.getParameter("c") != null) {
@@ -47,12 +52,18 @@
             try {
                 UsuarioParticipante2 usuarioParticipante = usuarioParticpanteControle.buscarLogin(email, senha);
                 usuarioParticpanteControle.fecharSessaoDAOGeneric();
-                session.setAttribute("usuario", usuarioParticipante);
-                response.sendRedirect("../interfaceDoParticipante.jsp");
+                if (usuarioParticipante.getAtivo() == 1) {
+                    session.setAttribute("usuario", usuarioParticipante);
+                    response.sendRedirect("../interfaceDoParticipante.jsp");
+                } else {
+                    response.sendRedirect("../login.jsp?msg=Ative o seu usuário primeiro! Verifique a sua caixa de email&color=danger");
+
+                }
+
             } catch (Exception e) {
 
                 session.setAttribute("usuario", null);
-                response.sendRedirect("../login.jsp?msg=" + e.getMessage() +"&color=danger");
+                response.sendRedirect("../login.jsp?msg=" + e.getMessage() + "&color=danger");
             }
 
         }

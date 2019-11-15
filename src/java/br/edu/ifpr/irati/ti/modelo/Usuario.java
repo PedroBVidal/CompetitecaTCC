@@ -7,6 +7,7 @@ package br.edu.ifpr.irati.ti.modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,9 +45,12 @@ public abstract class Usuario implements Serializable {
     @Fetch(value = FetchMode.SELECT)
     private List<MensagemRecebida> mensagensRecebidas;
     
-    @Column(name="matricula", unique = true)
+    @Column(name="matricula")
     private String matricula;
-
+    @Column(name="ativo", nullable=false)
+    private int ativo;
+    @Column(name="dataActiv")
+    private Date dataAtivacao;
     public Usuario() {
     }
 
@@ -55,6 +59,23 @@ public abstract class Usuario implements Serializable {
         this.nome = nome;
         this.mensagensEnviadas = new ArrayList<>();
         this.mensagensRecebidas = new ArrayList<>();
+        this.ativo = 0;
+    }
+
+    public Date getDataAtivacao() {
+        return dataAtivacao;
+    }
+
+    public void setDataAtivacao(Date dataAtivacao) {
+        this.dataAtivacao = dataAtivacao;
+    }
+
+    public int getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(int ativo) {
+        this.ativo = ativo;
     }
 
     

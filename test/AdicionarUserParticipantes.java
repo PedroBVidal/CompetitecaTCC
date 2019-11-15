@@ -26,7 +26,8 @@ public class AdicionarUserParticipantes {
         AtletaControle atletaControle = new AtletaControle();
         
         
-        UsuarioParticipante2 u1 = new UsuarioParticipante2(0, "joao@gmail.com", "João Marcos", "senha");       
+        UsuarioParticipante2 u1 = new UsuarioParticipante2(0, "joao@gmail.com", "João Marcos", "senha"); 
+        u1.setAtivo(1);
         Atleta a1 = new Atleta(0, new Date(), "090.976.459-05");
         u1.setAtleta(a1);
         a1.setUsuarioParticipante(u1);
@@ -38,6 +39,7 @@ public class AdicionarUserParticipantes {
         
         
         UsuarioParticipante2 u3 = new UsuarioParticipante2(0, "marina@gmail.com", "Marina", "Marina");       
+        u3.setAtivo(1);
         Atleta a3 = new Atleta(0, new Date(), "090.976.459-05");
         seg = segmento.buscarSegmentoPorId(1);
         a3.setSegmento(seg);
@@ -49,6 +51,7 @@ public class AdicionarUserParticipantes {
         usuarioParticipante2Controle.criar(u3);
         
         UsuarioParticipante2 u4 = new UsuarioParticipante2(0, "ines@gmail.com", "Inês Maria", "senha");       
+        u4.setAtivo(1);
         Atleta a4 = new Atleta(0, new Date(), "090.976.459-05");
         a4.setSegmento(seg);
         u4.setMatricula("20180000001");
@@ -59,6 +62,7 @@ public class AdicionarUserParticipantes {
         usuarioParticipante2Controle.criar(u4);
         
         UsuarioParticipante2 u5 = new UsuarioParticipante2(0, "denis@gmail.com", "Denis", "Denis");       
+        u5.setAtivo(1);
         Atleta a5 = new Atleta(0, new Date(), "090.976.459-05");
         u5.setAtleta(a5);
         a5.setUsuarioParticipante(u5);
@@ -68,6 +72,7 @@ public class AdicionarUserParticipantes {
         
         
         UsuarioParticipante2 u6 = new UsuarioParticipante2(0, "carolina@gmail.om", "Carolina Stanis", "carolina");       
+        u6.setAtivo(1);
         Atleta a6 = new Atleta(0, new Date(), "090.976.459-05");
         u6.setAtleta(a6);
         a6.setUsuarioParticipante(u6);

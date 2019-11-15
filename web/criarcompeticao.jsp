@@ -116,7 +116,11 @@
                             <textarea style="resize:none;" name="infoadicional" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" name="checkBoxInterseries" value="1">&nbsp;<label>Competição do tipo interséries? <a href="javascript:abirModalSaibaMaisInterseries();" class="badge badge-primary"><i class="fas fa-info"></i>&nbsp;Ajuda</a></label><br>
+                            <%if (up.getMatricula() != null) {%>
+                            <input type="checkbox" name="checkBoxInterseries" value="1">&nbsp;<label>Competição do tipo interséries? <a href="javascript:abirModalSaibaMaisInterseries();" class="badge badge-primary"><i class="fas fa-info"></i>&nbsp;Ajuda</a></label><br>        
+                                <%}
+                            %>
+                            
                             
                         </div>
                         <button type="submit" class="btn btn-success">
