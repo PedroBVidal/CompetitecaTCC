@@ -37,7 +37,7 @@ public class CompeticaoModalidadeSoloControle {
     public void fecharSessaoDAOGeneric() {
         competicaoModalidadeSoloDAO.fecharSessao();
     }
-
+    
     public void gerarPartidaTodosContraTodos(CompeticaoModalidadeSolo cms) {
         
         List<AtletaCompeticao> atcl = cms.getAtletasCompeticao();

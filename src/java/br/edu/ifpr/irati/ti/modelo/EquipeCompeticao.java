@@ -33,6 +33,9 @@ public class EquipeCompeticao implements Serializable {
     @OneToMany(fetch = FetchType.LAZY)
     private List<SumulaEquipeConfronto> sumulasEquipeConfronto;
     
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<PosicaoChave> posicoesChave;
+    
     @Column(name="pontosMarcados")
     private double pontosMarcados;
     
@@ -93,6 +96,7 @@ public class EquipeCompeticao implements Serializable {
         posicaoChave = 0;
         repescada = false;
         sumulasEquipeConfronto = new ArrayList<>();
+        posicoesChave = new ArrayList<>();
     }
 
     public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe,List<Atleta> atletasEquipe) {
@@ -104,6 +108,7 @@ public class EquipeCompeticao implements Serializable {
         this.adversariosQueAEquipeVenceu = new ArrayList<>();
         this.adversariosQueAEquipePerdeu = new ArrayList<>();
         this.adversariosQueAEquipeEmpatou = new ArrayList<>();
+        this.posicoesChave = new ArrayList<>();
         this.vitorias = 0;
         this.jogos = 0;
         this.pontos = 0;
@@ -114,11 +119,12 @@ public class EquipeCompeticao implements Serializable {
         this.repescada = false;
     }
 
-    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, List<Atleta> atletasEquipe, List<SumulaEquipeConfronto> sumulasEquipeConfronto, double pontosMarcados, double pontosSofridos, int vitorias, int empates, int derrotas, int jogos, double pontos, double saldoDePontos, int posicaoChave, boolean repescada, List<Equipe> adversariosQueAEquipeVenceu, List<Equipe> adversariosQueAEquipePerdeu, List<Equipe> adversariosQueAEquipeEmpatou) {
+    public EquipeCompeticao(int idEquipeCompeticao, Equipe equipe, List<Atleta> atletasEquipe, List<SumulaEquipeConfronto> sumulasEquipeConfronto, List<PosicaoChave> posicoesChave, double pontosMarcados, double pontosSofridos, int vitorias, int empates, int derrotas, int jogos, double pontos, double saldoDePontos, int posicaoChave, boolean repescada, List<Equipe> adversariosQueAEquipeVenceu, List<Equipe> adversariosQueAEquipePerdeu, List<Equipe> adversariosQueAEquipeEmpatou) {
         this.idEquipeCompeticao = idEquipeCompeticao;
         this.equipe = equipe;
         this.atletasEquipe = atletasEquipe;
         this.sumulasEquipeConfronto = sumulasEquipeConfronto;
+        this.posicoesChave = posicoesChave;
         this.pontosMarcados = pontosMarcados;
         this.pontosSofridos = pontosSofridos;
         this.vitorias = vitorias;
@@ -135,6 +141,8 @@ public class EquipeCompeticao implements Serializable {
     }
 
     
+
+    
     public void adicionarSumulaEquipeConfronto(SumulaEquipeConfronto sec){
         this.getSumulasEquipeConfronto().add(sec);
     }
@@ -146,7 +154,14 @@ public class EquipeCompeticao implements Serializable {
     public void removerTodasSumulasEquipeConfronto(){
         this.getSumulasEquipeConfronto().removeAll(getSumulasEquipeConfronto());
     }
-
+    
+    public void adicionarPosicaoChave(PosicaoChave p){
+        this.getPosicoesChave().add(p);
+    }
+    
+    public void removerPosicaoChave(PosicaoChave p){
+        this.getPosicoesChave().remove(p);
+    }
     /**
      * @return the idEquipeCompeticao
      */
@@ -383,6 +398,20 @@ public class EquipeCompeticao implements Serializable {
      */
     public void setSumulasEquipeConfronto(List<SumulaEquipeConfronto> sumulasEquipeConfronto) {
         this.sumulasEquipeConfronto = sumulasEquipeConfronto;
+    }
+
+    /**
+     * @return the posicoesChave
+     */
+    public List<PosicaoChave> getPosicoesChave() {
+        return posicoesChave;
+    }
+
+    /**
+     * @param posicoesChave the posicoesChave to set
+     */
+    public void setPosicoesChave(List<PosicaoChave> posicoesChave) {
+        this.posicoesChave = posicoesChave;
     }
 
     

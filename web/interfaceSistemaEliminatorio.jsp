@@ -630,6 +630,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <%}else{
+                                %>
+                                <!--DIV em que o modal finalizar jogo pode ser inserido dinamicamente-->
+                                <div id="divModalFinalizarJogo<%=confmc.getIdConfronto()%>">
+                                    
+                                </div>
                                 <%}%>
 
                                 <%
@@ -1186,8 +1192,9 @@
     }
     
     function acionarModalprogredirEquipe(idConfronto, idEquipe1, idEquipe2){
+        alert("MODAL PROGREDIR!");
         // Pré insere dados referente ao resultado final do jogo
-        var placarConfrontoEquipe1 = document.getElementById("placarConfrontoEquipe"+idConfronto+idEquipe1).value;
+        /*var placarConfrontoEquipe1 = document.getElementById("placarConfrontoEquipe"+idConfronto+idEquipe1).value;
         var placarConfrontoEquipe2 = document.getElementById("placarConfrontoEquipe"+idConfronto+idEquipe2).value;
         
         var resultadoJogoEquipe1 = document.getElementById("resultadoConfrontoEquipe"+idConfronto+idEquipe1);
@@ -1195,7 +1202,7 @@
         
         resultadoJogoEquipe1.value = placarConfrontoEquipe1;
         resultadoJogoEquipe2.value = placarConfrontoEquipe2;
-        
+        alert("passei por aqui!");*/
         $('#modalFinalizarJogo' + idConfronto).modal('show');
         
     }
@@ -1665,7 +1672,30 @@
                         //alert(partsHtmlString[i]);
                      }
                  }
-                 //alert("saí");
+                 
+                 var divModalFinalizarJogo = document.getElementById("divModalFinalizarJogo"+idConfrontoColetivo);
+                 /*
+                 alert(i);
+                 alert(partsHtmlString[i]);
+                 i++;
+                 alert("+1:"+i);
+                 alert(partsHtmlString[i]);
+                 i++;
+                 alert("+2:"+i);
+                 alert(partsHtmlString[i]);
+                 i++;
+                 alert("+3:XXX"+i);
+                 alert(partsHtmlString[i]);
+                 alert(this.responseText);
+                 */
+                  
+                  //alert(partsHtmlString[i]);
+                 
+                 //alert("Tamanho parts: "+partsHtmlString.length);
+                 var tamaho = parseInt(partsHtmlString.length) - 2;
+                 //alert("BABAY BABY:"+partsHtmlString[tamaho]);
+                 divModalFinalizarJogo.innerHTML = partsHtmlString[tamaho];
+                 //$('#modalFinalizarJogo' + idConfrontoColetivo).modal('show');
              }else{
                  result.innerHTML = "Erro: " + xmlreq.statusText;
              }

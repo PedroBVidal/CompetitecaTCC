@@ -39,13 +39,16 @@
     
     ConfrontoModalidadeColetivaControle cmcc = new ConfrontoModalidadeColetivaControle();
     ConfrontoModalidadeColetiva conf = cmcc.buscarPorId(idConfronto);
+    
     BlocoEliminatorioControle blocoEliminatorioControle = new BlocoEliminatorioControle();
     BlocoEliminatorio bE = blocoEliminatorioControle.buscarPorId(idBlocoEliminatorio);
+    
     CompeticaoModalidadeColetivaControle competicaoModalidadeColetivaControle = new CompeticaoModalidadeColetivaControle();
     CompeticaoModalidadeColetiva cmc = competicaoModalidadeColetivaControle.buscarPorId(idCompeticao);
+    
     EquipeCompeticaoControle equipeCompeticaoControle = new EquipeCompeticaoControle();
     EquipeCompeticao equipe1 = equipeCompeticaoControle.buscarPorId(idEquipe1);
-    EquipeCompeticao equipe2 = equipeCompeticaoControle.buscarPorId(idEquipe2);
+    //EquipeCompeticao equipe2 = equipeCompeticaoControle.buscarPorId(idEquipe2);
     
     int numParConfronto = conf.getParesConfronto().getNumParConfrontoRodada();
     double numParConfrontoNovo = 0;
@@ -112,8 +115,8 @@
         confrontoNovo.adicionarEquipeCompeticao(equipe1);
         cmcc.alterar(confrontoNovo);
         equipeCompeticaoControle.alterar(equipe1);
-        cmcc.fecharSessaoDAOGeneric();
-        equipeCompeticaoControle.fecharSessaoDAOGeneric();
+        //cmcc.fecharSessaoDAOGeneric();
+        //equipeCompeticaoControle.fecharSessaoDAOGeneric();
     }
     
     
@@ -121,7 +124,7 @@
     
     
     
-    
+    /*
     else if(resultadoJogoEquipe2 > resultadoJogoEquipe1){
         equipe2.setPosicaoChave(posicaoChaveConfrontoNovo);
         if(posicaoChaveConfrontoNovo == 1){
@@ -138,6 +141,7 @@
         cmcc.alterar(confrontoNovo);
         equipeCompeticaoControle.alterar(equipe2);
     }
+    */
     out.print("$"+confrontoNovo.getIdConfronto()+"$");
     %>
                 <div class="card" style="margin-bottom: 15px; height: 9rem;" id="cardConfrontoColetivo<%=confrontoNovo.getIdConfronto()%>">

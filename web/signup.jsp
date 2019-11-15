@@ -310,6 +310,11 @@
             %>
             <br>
             <h1 class="my-4 titulos">Cadastro para Administradores</h1>
+            
+            <div class="card">
+                <h5 class="card-header">Cadastro</h5>
+                <div class="card-body">
+            
             <!--onblur="pesquisaemail(this.value);"  id="email"-->
             <div class="card">
                 <h5 class="card-header">Cadastro</h5>

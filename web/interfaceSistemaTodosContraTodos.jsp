@@ -40,7 +40,7 @@
 
 
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script> 
     <!-- Tab panes -->
     <div class="tab-content col-10">
         <div class="tab-pane dark" id="inscricao" role="tabpanel">
@@ -781,27 +781,27 @@
     $('input#txt_consulta').quicksearch('table#tabela tbody tr');
 
     function abrirModalFinalizarJogo(idConfronto, idEquipe1, idEquipe2) {
-        alert("Entrei aquie!");
+
         valorPlacarEquipe1 = document.getElementById('placarConfronto' + idConfronto + idEquipe1).value;
         valorPlacarEquipe2 = document.getElementById('placarConfronto' + idConfronto + idEquipe2).value;
-        alert(valorPlacarEquipe1);
-        alert(valorPlacarEquipe2);
+        
+        alert("Valor placar EQUIPE 1: "+valorPlacarEquipe1);
+        alert("Valor placar EQUIPE 2: "+valorPlacarEquipe2);
 
         placarEquipeModal1 = document.getElementById('placarConfrontoModal' + idConfronto + idEquipe1);
+        alert("Element input1: "+ placarEquipeModal1);
         placarEquipeModal2 = document.getElementById('placarConfrontoModal' + idConfronto + idEquipe2);
-
+        alert("Element input2: "+placarEquipeModal2);
+        
         placarEquipeModal1.value = valorPlacarEquipe1;
-        placarEquipeModal2.value = valorPlacarEquipe2;
+        placarEquipeModal2.value = "47";
 
-        alert("VALOR PLACAR EQUIPE 1: " + placarEquipeModal1.value);
-        alert("VALOR PLACAR EQUIPE 2:" + placarEquipeModal2.value);
 
 
         $('#modalFinalizarJogo' + idConfronto).modal('show');
     }
     function validarDadosJogo(idConfronto) {
 
-        alert("idConfronto: " + idConfronto);
 
         var divErroData = document.getElementById('divErroData' + idConfronto);
 
@@ -813,18 +813,12 @@
 
         var op = document.getElementById('op' + idConfronto).value;
 
-        alert(op);
-
-
-
-        alert('YEAH');
         var dataValida, horaValida;
 
         dataValida = dataJogoEstaEntreDataInicioETerminoCompeticao(sDataInicioCpt, sDataTerminoCpt, idConfronto);
-        alert("DATA VÁLIDA: " + dataValida);
+
         horaValida = isHoraInicialMenorHoraFinal(idConfronto);
 
-        alert(horaValida);
 
 
         if (horaValida === true) {
@@ -842,8 +836,6 @@
 
                 var equipe1 = document.getElementById('selectEquipe1').value;
                 var equipe2 = document.getElementById('selectEquipe2').value;
-                alert("Equipe 1: " + equipe1);
-                alert("Equipe 2: " + equipe2);
 
                 if (equipe1 !== '0' && equipe2 !== 0) {
                     if (equipe1 !== equipe2) {
@@ -902,7 +894,7 @@
     }
 
     function dataJogoEstaEntreDataInicioETerminoCompeticao(sDataInicioCompeticao, sDataTerminoCompeticao, idConfronto) {
-        alert("idConfronto: " + idConfronto);
+
         var sDataJogo = document.getElementById('dataJogo' + idConfronto).value;
 
 
