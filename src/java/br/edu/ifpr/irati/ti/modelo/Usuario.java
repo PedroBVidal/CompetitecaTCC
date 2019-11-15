@@ -43,6 +43,9 @@ public abstract class Usuario implements Serializable {
     @OneToMany(fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SELECT)
     private List<MensagemRecebida> mensagensRecebidas;
+    
+    @Column(name="matricula", unique = true)
+    private String matricula;
 
     public Usuario() {
     }
@@ -70,6 +73,15 @@ public abstract class Usuario implements Serializable {
 
     public void removerMensagemEnviada(MensagemEnviada mensagemEnviada) {
         this.getMensagensEnviadas().remove(mensagemEnviada);
+    }
+
+    
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
     
     

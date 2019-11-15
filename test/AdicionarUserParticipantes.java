@@ -1,7 +1,9 @@
 
 import br.edu.ifpr.irati.ti.controle.AtletaControle;
+import br.edu.ifpr.irati.ti.controle.SegmentoControle;
 import br.edu.ifpr.irati.ti.controle.UsuarioParticipante2Controle;
 import br.edu.ifpr.irati.ti.modelo.Atleta;
+import br.edu.ifpr.irati.ti.modelo.Segmento;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2;
 import java.util.Date;
 
@@ -18,7 +20,8 @@ import java.util.Date;
 public class AdicionarUserParticipantes {
     
     public static void main(String[] args) throws Exception {
-        
+        SegmentoControle segmento = new SegmentoControle();
+        Segmento seg  = new Segmento();
         UsuarioParticipante2Controle usuarioParticipante2Controle = new UsuarioParticipante2Controle();
         AtletaControle atletaControle = new AtletaControle();
         
@@ -36,6 +39,9 @@ public class AdicionarUserParticipantes {
         
         UsuarioParticipante2 u3 = new UsuarioParticipante2(0, "marina@gmail.com", "Marina", "Marina");       
         Atleta a3 = new Atleta(0, new Date(), "090.976.459-05");
+        seg = segmento.buscarSegmentoPorId(1);
+        a3.setSegmento(seg);
+        u3.setMatricula("20190000001");
         u3.setAtleta(a3);
         a3.setUsuarioParticipante(u3);
         
@@ -44,6 +50,8 @@ public class AdicionarUserParticipantes {
         
         UsuarioParticipante2 u4 = new UsuarioParticipante2(0, "ines@gmail.com", "Inês Maria", "senha");       
         Atleta a4 = new Atleta(0, new Date(), "090.976.459-05");
+        a4.setSegmento(seg);
+        u4.setMatricula("20180000001");
         u4.setAtleta(a4);
         a4.setUsuarioParticipante(u4);
         
