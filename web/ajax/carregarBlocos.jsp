@@ -25,26 +25,46 @@
                             int idCompeticao = Integer.parseInt(request.getParameter("idCompeticao"));
                             int pag = Integer.parseInt(request.getParameter("pag"));        
                             int extensao = Integer.parseInt(request.getParameter("extensao"));
+                            String repescagem = request.getParameter("repescagem");
+                            boolean acompanhamento = false;
+                            if(request.getParameter("acompanhamento") != null){
+                            if(Boolean.parseBoolean(request.getParameter("acompanhamento"))){
+                                acompanhamento = true;
+                            }
+                            }
                             int numeroConfrontosBlocoAnterior = 0;
                             int numeroConfrontosBlocoAtual = 0;
                             int etapaBlocoIncio = pag;
                             CompeticaoModalidadeColetivaControle competicaoModalidadeColetivaControle = new CompeticaoModalidadeColetivaControle();
                             LocalControle localControle = new LocalControle();
                             CompeticaoModalidadeColetiva competicao = competicaoModalidadeColetivaControle.buscarPorId(idCompeticao);
+                            
+                            
+                            
                             if(request.getParameter("etapaParam") != null){
                                 etapaBlocoIncio = Integer.parseInt(request.getParameter("pag"));
                             }
                             if(request.getParameter("extensao") != null){
                                 extensao = Integer.parseInt(request.getParameter("extensao"));
                             }
+                            List<BlocoEliminatorio> filtroBlocos = new ArrayList();
                             int cont = etapaBlocoIncio;
-                            List<BlocoEliminatorio> filtroBlocos = competicao.filtrarBlocoEliminatorioPorEtapa(etapaBlocoIncio, extensao, false);
-                            System.out.println("FILTRO BLOC C4: "+filtroBlocos);
-                            for(BlocoEliminatorio bE : competicao.buscarBlocosEliminatorios()){
-                                System.out.println("ETAPAX "+ bE.getEtapa());
+                            if(repescagem.equals("true")){
+                            filtroBlocos = competicao.filtrarBlocoEliminatorioRepescagemPorEtapa(etapaBlocoIncio, extensao, true);
                             }
-                            List<BlocoEliminatorio> blocosEliminatorios = competicao.getBlocosEliminatorios();
+                            else{
+                            filtroBlocos = competicao.filtrarBlocoEliminatorioPorEtapa(etapaBlocoIncio, extensao, false);  
+                            }
                             
+    
+                            List<BlocoEliminatorio> blocosEliminatorios = new ArrayList();
+                            
+                            if(repescagem.equals("true")){
+                            blocosEliminatorios = competicao.buscarBlocosEliminatoriosRepescagem();
+                            }
+                            else{
+                            blocosEliminatorios = competicao.getBlocosEliminatorios(); 
+                            }
                             for (BlocoEliminatorio bE : filtroBlocos) {
                                 
                             
@@ -165,14 +185,19 @@
                                                 <input type="text" class="form-control" id="inlineFormInputGroupUsername2">
                                             </div>
 
-                                            <a href="#" class="badge badge-info"><i class="fas fa-eye"></i></a>
+                                            <a href="#" class="badge badge-info"><i class="fas fa-eye"></i>&nbsp;Saiba mais</a>
+                                            <%
+                                                if(acompanhamento == false){
+                                            %>
                                             <a href="javascript:acionarModalInserirDadosConfronto(<%=confmc.getIdConfronto()%>);" class="badge badge-primary">Inserir dados do jogo</a>
                                             <a href="#" class="badge badge-success"><i class="fas fa-greater-than"></i></a>
-
+                                            <%}%>
                                         </li>
                                     </ul>
                                 </div>
-
+                                <%
+                                    if(acompanhamento == false){
+                                %>
                                 <!-- Modal inserir dados do jogo-->
                                 <div class="modal fade" id="modalInserirDadosConfronto<%=confmc.getIdConfronto()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -351,15 +376,9 @@
                                     </div>
                                 </div>
 
-                                <%
-                                    contador++;
-                                    if (contador == bE.getConfrontos().size()) {
-                                        numeroConfrontosBlocoAnterior = bE.getConfrontos().size();
-
-                                    }%>
                                 <%}%>
 
-
+                                <%}%>
                             </div>
                         </div>
                         <%

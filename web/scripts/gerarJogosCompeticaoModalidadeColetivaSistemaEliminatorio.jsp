@@ -23,4 +23,6 @@
     boolean repescagem = sistemaDeCompeticao.isRepescagem();
     
     cptModColetivaControle.gerarConfrontosSistemaEliminatorio(cmc, repescagem);
+    
+    response.sendRedirect("../gerenciarCompModColetiva.jsp?id="+idCompeticaoColetiva);
 %>

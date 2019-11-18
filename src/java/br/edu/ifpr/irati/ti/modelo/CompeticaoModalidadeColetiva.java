@@ -130,7 +130,11 @@ public class CompeticaoModalidadeColetiva extends CompeticaoModalidade implement
     public void setModalidadeColetiva(ModalidadeColetiva modalidadeColetiva) {
         this.modalidadeColetiva = modalidadeColetiva;
     }
-
+    
+    public void adicionarEquipeCompeticao(EquipeCompeticao equipeCompeticao){
+        this.equipesCompeticao.add(equipeCompeticao);
+    }
+    
     /**
      * @return the equipeCompeticao
      */

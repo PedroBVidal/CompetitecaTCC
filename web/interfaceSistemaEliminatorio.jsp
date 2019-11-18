@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="br.edu.ifpr.irati.ti.modelo.PosicaoChave"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.SistemaEliminatorio"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.BlocoEliminatorio"%>
@@ -253,11 +254,9 @@
                             List<EquipeCompeticao> equipesCompeticao   = competicao.getEquipesCompeticao();
                             List<EquipeCompeticao> equipesJaSelecionadas = new ArrayList();
                             
-                            System.out.println("ANTES PUB: "+bE.getEtapa()+"-"+equipesCompeticao);
-                            // Verifica se já faz parte do bloco eliminatorio
+                            // Verifica as competições que já fazem parte do bloco eliminatorio.
                             for (Confronto confronto : bE.getConfrontos()) {
-                                
-                            System.out.println("CCC");
+
                             ConfrontoModalidadeColetiva confColetivo = (ConfrontoModalidadeColetiva) confronto;
                             if(confColetivo.getEquipes().isEmpty() == false){
                                 for(EquipeCompeticao eq: confColetivo.getEquipes()){
@@ -302,6 +301,10 @@
                                         String nomeEquipe1 = "", nomeEquipe2 = "";
                                         String dataJogo = "", horaInicioJogo = "", horaFinalJogo = "";
                                         int idEquipe1 = 0, idEquipe2 = 0;
+                                        int idConfronto = c.getIdConfronto();
+                                        
+                                        EquipeCompeticao equipeCompeticao1 = new EquipeCompeticao();
+                                        EquipeCompeticao equipeCompeticao2 = new EquipeCompeticao();
                                         
                                         if(confmc.getDataConfronto() != null){
                                         dataJogo = sdfData.format(confmc.getDataConfronto());
@@ -313,6 +316,26 @@
                                         horaFinalJogo = sdfHora.format(confmc.getHoraTermino());
                                         }
                                         
+                                        
+                                        //Nome equipe1 recebe equipe que possui possição chave (1);
+                                        //Nome equipe2 recebe equipe que possui posição chave (2)
+                                        for(EquipeCompeticao e: confmc.getEquipes()){
+                                            for(PosicaoChave p: e.getPosicoesChave()){
+                                                if(p.getConfronto().getIdConfronto() == idConfronto &&  p.getPosicaoChave() == 1){
+                                                    nomeEquipe1 = e.getEquipe().getNome();
+                                                    idEquipe1 = e.getIdEquipeCompeticao();
+                                                    equipeCompeticao1 = e;
+                                                }
+                                                if(p.getConfronto().getIdConfronto() == idConfronto &&  p.getPosicaoChave() == 2){
+                                                    nomeEquipe2 = e.getEquipe().getNome();
+                                                    idEquipe2 = e.getIdEquipeCompeticao();
+                                                    equipeCompeticao2 = e;
+                                                }
+                                            }
+                                        }
+                                        
+                                        
+                                        /*
                                         if (confmc.getEquipes().size() == 0) {
 
                                         } else {
@@ -325,6 +348,8 @@
                                                 idEquipe2 = confmc.getEquipes().get(1).getIdEquipeCompeticao();
                                             }
                                             else if (confmc.getEquipes().size() == 1) {
+
+                                                
                                                 if(confmc.getEquipes().get(0).getPosicaoChave() == 1){
                                                    nomeEquipe1 = confmc.getEquipes().get(0).getEquipe().getNome();
                                                    idEquipe1 = confmc.getEquipes().get(0).getIdEquipeCompeticao();
@@ -333,10 +358,12 @@
                                                    nomeEquipe2 = confmc.getEquipes().get(0).getEquipe().getNome();
                                                    idEquipe2 = confmc.getEquipes().get(0).getIdEquipeCompeticao();
                                                 }
+                                                
                                             }
                                         }
+                                        */
                                 %>
-                                <div class="card" style="margin-bottom: 15px; height: 9rem;" id="cardConfrontoColetivo<%=confmc.getIdConfronto()%>">
+                                <div class="card" style="margin-bottom: 15px; height: 9rem;" id="cardConfrontoColetivo<%=idConfronto%>">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item disabled">  
                                             <div class="input-group mb-2 mr-sm-2">
@@ -344,27 +371,27 @@
                                                     <div class="input-group-text" style="width: 10rem;"><%=nomeEquipe1%></div>
                                                 </div>
 
-                                                    <input type="text" class="form-control numberMask" id="placarConfrontoEquipe<%=confmc.getIdConfronto()%><%=idEquipe1%>">
+                                                    <input type="text" class="form-control numberMask" id="placarConfrontoEquipe<%=idConfronto%><%=idEquipe1%>">
 
                                             </div>
                                             <div class="input-group mb-2 mr-sm-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text" style="width: 10rem;"><%=nomeEquipe2%></div>
                                                 </div>
-                                                <input type="text" class="form-control numberMask" id="placarConfrontoEquipe<%=confmc.getIdConfronto()%><%=idEquipe2%>">
+                                                <input type="text" class="form-control numberMask" id="placarConfrontoEquipe<%=idConfronto%><%=idEquipe2%>">
                                             </div>
 
                                             <a href="#" class="badge badge-info"><i class="fas fa-eye"></i></a>
-                                            <a href="javascript:acionarModalInserirDadosConfronto(<%=confmc.getIdConfronto()%>);" class="badge badge-primary">Inserir dados do jogo</a>
+                                            <a href="javascript:acionarModalInserirDadosConfronto(<%=idConfronto%>);" class="badge badge-primary">Inserir dados do jogo</a>
                                             <!--ícone progredir-->
-                                            <a href="javascript:acionarModalprogredirEquipe(<%=confmc.getIdConfronto()%>,<%=idEquipe1%>,<%=idEquipe2%>);" class="badge badge-success"><i class="fas fa-greater-than"></i></a>
+                                            <a href="javascript:acionarModalprogredirEquipe(<%=idConfronto%>,<%=idEquipe1%>,<%=idEquipe2%>);" class="badge badge-success"><i class="fas fa-greater-than"></i></a>
 
                                         </li>
                                     </ul>
                                 </div>
 
                                 <!-- Modal inserir dados do jogo-->
-                                <div class="modal fade" id="modalInserirDadosConfronto<%=confmc.getIdConfronto()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalInserirDadosConfronto<%=idConfronto%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -374,111 +401,85 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST" action="scripts/editarConfrontoColetivo.jsp" name="formDadosJogo<%=confmc.getIdConfronto()%>">
-                                                    <input type="hidden" value="3" name="op" id="op<%=confmc.getIdConfronto()%>">
-                                                    <input type="hidden" value="<%=idCompeticao%>" name="idCompeticao" id="idCompeticao<%=confmc.getIdConfronto()%>">
+                                                <form method="POST" action="scripts/editarConfrontoColetivo.jsp" name="formDadosJogo<%=idConfronto%>">
+                                                    <input type="hidden" value="3" name="op" id="op<%=idConfronto%>">
+                                                    <input type="hidden" value="<%=idCompeticao%>" name="idCompeticao" id="idCompeticao<%=idConfronto%>">
                                                     <input type="hidden" value="<%=confmc.getIdConfronto()%>" name="idConfronto">
-                                                    <input type="hidden" value="<%=bE.getIdBloco()%>" name="idBlocoEliminatorio" id="idBlocoEliminatorio<%=confmc.getIdConfronto()%>">
+                                                    <input type="hidden" value="<%=bE.getIdBloco()%>" name="idBlocoEliminatorio" id="idBlocoEliminatorio<%=idConfronto%>">
                                                     
                                                     <div class="form-group" >
                                                         <p class="text-left">Equipes confrontantes:</p>
                                                         <div class="form-row">
                                                             
-                                                            <select required="true" class="form-control col" id="selectEquipe1<%=confmc.getIdConfronto()%>" name="selectEquipe1" style="margin-right: 6px;">
+                                                            <select required="true" class="form-control col" id="selectEquipe1<%=idConfronto%>" name="selectEquipe1" style="margin-right: 6px;">
                                                                 <option selected value="0"></option>
                                                                 <%
-                                                                    boolean adicionarOption = true;
-                                                                    for (EquipeCompeticao equipe1 : equipesCompeticao) {
-                                                                        adicionarOption = true;
-                                                                        for(EquipeCompeticao equipeSelecionada : equipesJaSelecionadas){
-                                                                            
-                                                                        if(equipeSelecionada.getIdEquipeCompeticao() == equipe1.getIdEquipeCompeticao()){
-                                                                            adicionarOption = false;
-                                                                            break;
+                                                                    //Cria uma list de equipes não selecionadas
+                                                                    List<EquipeCompeticao> equipesNaoSelecionadas = new ArrayList();
+                                                                    for(EquipeCompeticao eX: equipesCompeticao){
+                                                                        boolean equipeNaoSelecionada = true;
+                                                                        for(EquipeCompeticao eY: equipesJaSelecionadas){
+                                                                            if(eY.getIdEquipeCompeticao() == eX.getIdEquipeCompeticao()){
+                                                                                equipeNaoSelecionada = false;
+                                                                                break;
+                                                                            }
                                                                         }
+                                                                        if(equipeNaoSelecionada == true){
+                                                                            equipesNaoSelecionadas.add(eX);
                                                                         }
-                                                                        if(adicionarOption == true){
+                                                                    }
+                                                                    for(EquipeCompeticao equipe1 : equipesNaoSelecionadas){
                                                                 %>
 
                                                                 <option value="<%=equipe1.getIdEquipeCompeticao()%>"><%=equipe1.getEquipe().getNome()%></option>
-                                                                <%}}%>
+                                                                <%}%>
                                                                 <%
-                                                                    EquipeCompeticao equipe1Conf = new EquipeCompeticao();
-                                                                    EquipeCompeticao equipe2Conf = new EquipeCompeticao();
-                                                                    if(confmc.getEquipes().size() == 2){
-                                                                    
-                                                                    equipe1Conf = confmc.getEquipes().get(0);
-                                                                    equipe2Conf = confmc.getEquipes().get(1);
-                                                                %>
-                                                                <option value="<%=equipe1Conf.getIdEquipeCompeticao()%>" selected="true"><%=equipe1Conf.getEquipe().getNome()%></option>
-                                                                <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>"><%=equipe2Conf.getEquipe().getNome()%></option>
-                                                                <%}
-                                                                   else if(confmc.getEquipes().size() == 1){
-                                                                    if(confmc.getEquipes().get(0).getPosicaoChave() == 1){
-                                                                        equipe1Conf = confmc.getEquipes().get(0);
-                                                                    
-                                                                %>
-                                                                <option value="<%=equipe1Conf.getIdEquipeCompeticao()%>" selected="true"><%=equipe1Conf.getEquipe().getNome()%></option>
-                                                                <%}
-                                                                    else if(confmc.getEquipes().get(0).getPosicaoChave() == 2){
-                                                                        equipe2Conf = confmc.getEquipes().get(0);
-                                                                  
-                                                                 %> 
-                                                                <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>"><%=equipe2Conf.getEquipe().getNome()%></option>
+                                                                    // Caso o confronto possua duas ou mais equipes, são criados option dessas equipes
+                                                                    // sendo o option da equipe com posição-chave == 1 com a propriedade select="true"
+                                                                    for(EquipeCompeticao eConfronto: confmc.getEquipes()){
+                                                                        for(PosicaoChave p: eConfronto.getPosicoesChave()){
+                                                                            if(p.getConfronto().getIdConfronto() == confmc.getIdConfronto()){
+                                                                                if(p.getPosicaoChave() == 1){
+                                                                                    
 
-                                                                <%}}%>
-                                                                
+                                                                %>
+                                                                <option value="<%=eConfronto.getIdEquipeCompeticao()%>" selected="true"><%=eConfronto.getEquipe().getNome()%></option>
+                                                                <%}
+                                                                                if(p.getPosicaoChave() == 2){
+                                                                %>
+                                                                <option value="<%=eConfronto.getIdEquipeCompeticao()%>"><%=eConfronto.getEquipe().getNome()%></option>
+                                                                <%              }
+                                                                            }
+                                                                        }
+                                                                    }%>
                                                             </select>
                                                             
                                                             <select required="true" class="form-control col" id="selectEquipe2<%=confmc.getIdConfronto()%>" name="selectEquipe2">
                                                                 <option selected value="0"></option>
                                                                 <%
-
-                                                                    for (EquipeCompeticao equipe2 : equipesCompeticao) {
-                                                                    adicionarOption = true;
-                                                                    for(EquipeCompeticao equipeSelecionada : equipesJaSelecionadas){
-                                                                            
-                                                                        if(equipeSelecionada.getIdEquipeCompeticao() == equipe2.getIdEquipeCompeticao()){
-                                                                            adicionarOption = false;
-                                                                            break;
-                                                                        }
-                                                                        }
-                                                                        if(adicionarOption == true){
+                                                                        for(EquipeCompeticao equipe2 : equipesNaoSelecionadas){
                                                                 %>
                                                                 <option value="<%=equipe2.getIdEquipeCompeticao()%>"><%=equipe2.getEquipe().getNome()%></option>
-                                                                <%}}%>
-                                                                
-                                                                
+                                                                <%}%>
                                                                 <%
-                                                                    if (confmc.getEquipes().size() == 2) {
-                                                                        
-                                                                        
-                                                                            equipe1Conf = confmc.getEquipes().get(0);
-                                                                            equipe2Conf = confmc.getEquipes().get(1);
+                                                                    // Caso o confronto possua duas ou mais equipes, são criados option dessas equipes
+                                                                    // sendo o option da equipe com posição-chave == 2 com a propriedade select="true"
+                                                                    for(EquipeCompeticao eConfronto: confmc.getEquipes()){
+                                                                        for(PosicaoChave p: eConfronto.getPosicoesChave()){
+                                                                            if(p.getConfronto().getIdConfronto() == confmc.getIdConfronto()){
+                                                                                if(p.getPosicaoChave() == 2){
+                                                                                    
 
                                                                 %>
-                                                                <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>" selected="true"><%=equipe2Conf.getEquipe().getNome()%></option>
-                                                                <option value="<%=equipe1Conf.getIdEquipeCompeticao()%>"><%=equipe1Conf.getEquipe().getNome()%></option>
-                                                                
-                                                                <%
-                                                                    }
-                                                                    else if(confmc.getEquipes().size() == 1){
-                                                                        if(confmc.getEquipes().get(0).getPosicaoChave() == 1){
-                                                                          equipe1Conf = confmc.getEquipes().get(0);
-   
-                                                                
+                                                                <option value="<%=eConfronto.getIdEquipeCompeticao()%>" selected="true"><%=eConfronto.getEquipe().getNome()%></option>
+                                                                <%}
+                                                                                if(p.getPosicaoChave() == 1){
                                                                 %>
-                                                                <option value="<%=equipe1Conf.getIdEquipeCompeticao()%>"><%=equipe1Conf.getEquipe().getNome()%></option>
-                                                                
-                                                                <%
-                                                                    }
-                                                                    else if(confmc.getEquipes().get(0).getPosicaoChave() == 2){
-                                                                        equipe2Conf = confmc.getEquipes().get(0);
-                                                                    
-                                                                %>
-                                                                <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>" selected="true"><%=equipe2Conf.getEquipe().getNome()%></option>
-                                                                
-                                                                <%}}%>
+                                                                <option value="<%=eConfronto.getIdEquipeCompeticao()%>"><%=eConfronto.getEquipe().getNome()%></option>
+                                                                <%              }
+                                                                            }
+                                                                        }
+                                                                    }%>
                                                             </select>
                                                             
                                                         </div>
@@ -544,7 +545,7 @@
                                     if(confmc.getEquipes().size() == 2){
                                 %>          
                                 <!-- Modal FINALIZAR DADOS JOGO/Progredir equipe-->
-                                <div class="modal fade bd-example-modal-lg" id="modalFinalizarJogo<%=confmc.getIdConfronto()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade bd-example-modal-lg" id="modalFinalizarJogo<%=idConfronto%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                                 <%
@@ -660,7 +661,8 @@
                     
                     </div>
                     </div>
-                    <!--tab pane repescagem-->
+                        
+                    <!--Tab pane repescagem-->
                     <div class="tab-pane fade" id="teste" role="tabpanel" aria-labelledby="teste-tab">
                         
                     <div class="container">
@@ -680,7 +682,7 @@
                                     %>
                                     <nav aria-label="Page navigation example">
                                         <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled" id="liVoltarPagChaveamento">
+                                            <li class="page-item disabled" id="liVoltarPagChaveamentoRepescagem">
                                                 <a class="page-link" href="javascript:paginaAnterior(3, true, <%=idCompeticao%>);" tabindex="-1" aria-disabled="true" id="pagAnteriorChaveamento">Voltar</a>
                                             </li>
                                             <%
@@ -689,17 +691,17 @@
                                             <li class="page-item"><a class="page-link" href="javascript:mudarPagina(<%=i%>,3,true,<%=idCompeticao%>)"><%=i%></a></li>
 
                                             <%}%>
-                                            <li class="page-item" id="liProximaPagChaveamento">
-                                                <a class="page-link" href="javascript:proximaPagina(3, true, <%=idCompeticao%>);" id="proximaPagChaveamento">Próximo</a>
+                                            <li class="page-item" id="liProximaPagChaveamentoRepescagem">
+                                                <a class="page-link" href="javascript:proximaPagina(3, true, <%=idCompeticao%>);" id="proximaPagChaveamentoRepescagem">Próximo</a>
                                             </li>
                                         </ul>
-                                        <input type="hidden" value="<%=numeroPaginasChaveamentoRepescagem%>" id="numeroPaginas">
+                                        <input type="hidden" value="<%=numeroPaginasChaveamentoRepescagem%>" id="numeroPaginasRepescagem">
                                     </nav>
                                     <%}%>
                                 </div>
                             </div>
                         </div>
-                                    <div class="row" id="blocosEliminatorios">
+                        <div class="row" id="blocosEliminatoriosRepescagem">
                         <%
                             numeroConfrontosBlocoAnterior = 0;
                             numeroConfrontosBlocoAtual = 0;
@@ -787,6 +789,10 @@
                                         ConfrontoModalidadeColetiva confmc = (ConfrontoModalidadeColetiva) c;
                                         String nomeEquipe1 = "", nomeEquipe2 = "";
                                         String dataJogo = "", horaInicioJogo = "", horaFinalJogo = "";
+                                        int idEquipe1 = 0, idEquipe2= 0;
+                                        EquipeCompeticao equipeCompeticao1 = new EquipeCompeticao();
+                                        EquipeCompeticao equipeCompeticao2 = new EquipeCompeticao();
+                                        int idConfronto = c.getIdConfronto();
                                         
                                         if(confmc.getDataConfronto() != null){
                                         dataJogo = sdfData.format(confmc.getDataConfronto());
@@ -798,21 +804,19 @@
                                         horaFinalJogo = sdfHora.format(confmc.getHoraTermino());
                                         }
                                         
-                                        if (confmc.getEquipes().size() == 0) {
-
-                                        } else {
-                                            
-                                            
-                                            if (confmc.getEquipes().size() == 2) {
-                                                nomeEquipe1 = confmc.getEquipes().get(0).getEquipe().getNome();
-                                                nomeEquipe2 = confmc.getEquipes().get(1).getEquipe().getNome();
-                                            }
-                                            else if (confmc.getEquipes().size() == 1) {
-                                                if(confmc.getEquipes().get(0).getPosicaoChave() == 1){
-                                                   nomeEquipe1 = confmc.getEquipes().get(0).getEquipe().getNome(); 
+                                        //Nome equipe1 recebe equipe que possui possição chave (1);
+                                        //Nome equipe2 recebe equipe que possui posição chave (2)
+                                        for(EquipeCompeticao e: confmc.getEquipes()){
+                                            for(PosicaoChave p: e.getPosicoesChave()){
+                                                if(p.getConfronto().getIdConfronto() == idConfronto &&  p.getPosicaoChave() == 1){
+                                                    nomeEquipe1 = e.getEquipe().getNome();
+                                                    idEquipe1 = e.getIdEquipeCompeticao();
+                                                    equipeCompeticao1 = e;
                                                 }
-                                                if(confmc.getEquipes().get(0).getPosicaoChave() == 2){
-                                                   nomeEquipe2 = confmc.getEquipes().get(0).getEquipe().getNome(); 
+                                                if(p.getConfronto().getIdConfronto() == idConfronto &&  p.getPosicaoChave() == 2){
+                                                    nomeEquipe2 = e.getEquipe().getNome();
+                                                    idEquipe2 = e.getIdEquipeCompeticao();
+                                                    equipeCompeticao2 = e;
                                                 }
                                             }
                                         }
@@ -864,101 +868,75 @@
                                                         <p class="text-left">Equipes confrontantes:</p>
                                                         <div class="form-row">
                                                             
-                                                            <select required="true" class="form-control col" id="selectEquipe1<%=confmc.getIdConfronto()%>" name="selectEquipe1" style="margin-right: 6px;">
+                                                                                                <select required="true" class="form-control col" id="selectEquipe1<%=idConfronto%>" name="selectEquipe1" style="margin-right: 6px;">
                                                                 <option selected value="0"></option>
                                                                 <%
-                                                                    boolean adicionarOption = true;
-                                                                    for (EquipeCompeticao equipe1 : equipesCompeticao) {
-                                                                        adicionarOption = true;
-                                                                        for(EquipeCompeticao equipeSelecionada : equipesJaSelecionadas){
-                                                                            
-                                                                        if(equipeSelecionada.getIdEquipeCompeticao() == equipe1.getIdEquipeCompeticao()){
-                                                                            adicionarOption = false;
-                                                                            break;
+                                                                    //Cria uma list de equipes não selecionadas
+                                                                    List<EquipeCompeticao> equipesNaoSelecionadas = new ArrayList();
+                                                                    for(EquipeCompeticao eX: equipesCompeticao){
+                                                                        boolean equipeNaoSelecionada = true;
+                                                                        for(EquipeCompeticao eY: equipesJaSelecionadas){
+                                                                            if(eY.getIdEquipeCompeticao() == eX.getIdEquipeCompeticao()){
+                                                                                equipeNaoSelecionada = false;
+                                                                                break;
+                                                                            }
                                                                         }
+                                                                        if(equipeNaoSelecionada == true){
+                                                                            equipesNaoSelecionadas.add(eX);
                                                                         }
-                                                                        if(adicionarOption == true){
+                                                                    }
+                                                                    for(EquipeCompeticao equipe1 : equipesNaoSelecionadas){
                                                                 %>
 
                                                                 <option value="<%=equipe1.getIdEquipeCompeticao()%>"><%=equipe1.getEquipe().getNome()%></option>
-                                                                <%}}%>
+                                                                <%}%>
                                                                 <%
-                                                                    EquipeCompeticao equipe1Conf = new EquipeCompeticao();
-                                                                    EquipeCompeticao equipe2Conf = new EquipeCompeticao();
-                                                                    if(confmc.getEquipes().size() == 2){
-                                                                    
-                                                                    equipe1Conf = confmc.getEquipes().get(0);
-                                                                    equipe2Conf = confmc.getEquipes().get(1);
-                                                                %>
-                                                                <option value="<%=equipe1Conf.getIdEquipeCompeticao()%>" selected="true"><%=equipe1Conf.getEquipe().getNome()%></option>
-                                                                <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>"><%=equipe2Conf.getEquipe().getNome()%></option>
-                                                                <%}
-                                                                   else if(confmc.getEquipes().size() == 1){
-                                                                    if(confmc.getEquipes().get(0).getPosicaoChave() == 1){
-                                                                        equipe1Conf = confmc.getEquipes().get(0);
-                                                                    
-                                                                %>
-                                                                <option value="<%=equipe1Conf.getIdEquipeCompeticao()%>" selected="true"><%=equipe1Conf.getEquipe().getNome()%></option>
-                                                                <%}
-                                                                    else if(confmc.getEquipes().get(0).getPosicaoChave() == 2){
-                                                                        equipe2Conf = confmc.getEquipes().get(0);
-                                                                  
-                                                                 %> 
-                                                                <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>"><%=equipe2Conf.getEquipe().getNome()%></option>
+                                                                    // Caso o confronto possua duas ou mais equipes, são criados option dessas equipes
+                                                                    // sendo o option da equipe com posição-chave == 1 com a propriedade select="true"
+                                                                    for(EquipeCompeticao eConfronto: confmc.getEquipes()){
+                                                                        for(PosicaoChave p: eConfronto.getPosicoesChave()){
+                                                                            if(p.getConfronto().getIdConfronto() == confmc.getIdConfronto()){
+                                                                                if(p.getPosicaoChave() == 1){
+                                                                                    
 
-                                                                <%}}%>
-                                                                
+                                                                %>
+                                                                <option value="<%=eConfronto.getIdEquipeCompeticao()%>" selected="true"><%=eConfronto.getEquipe().getNome()%></option>
+                                                                <%}
+                                                                                if(p.getPosicaoChave() == 2){
+                                                                %>
+                                                                <option value="<%=eConfronto.getIdEquipeCompeticao()%>"><%=eConfronto.getEquipe().getNome()%></option>
+                                                                <%              }
+                                                                            }
+                                                                        }
+                                                                    }%>
                                                             </select>
                                                             
                                                             <select required="true" class="form-control col" id="selectEquipe2<%=confmc.getIdConfronto()%>" name="selectEquipe2">
                                                                 <option selected value="0"></option>
                                                                 <%
-
-                                                                    for (EquipeCompeticao equipe2 : equipesCompeticao) {
-                                                                    adicionarOption = true;
-                                                                    for(EquipeCompeticao equipeSelecionada : equipesJaSelecionadas){
-                                                                            
-                                                                        if(equipeSelecionada.getIdEquipeCompeticao() == equipe2.getIdEquipeCompeticao()){
-                                                                            adicionarOption = false;
-                                                                            break;
-                                                                        }
-                                                                        }
-                                                                        if(adicionarOption == true){
+                                                                        for(EquipeCompeticao equipe2 : equipesNaoSelecionadas){
                                                                 %>
                                                                 <option value="<%=equipe2.getIdEquipeCompeticao()%>"><%=equipe2.getEquipe().getNome()%></option>
-                                                                <%}}%>
-                                                                
-                                                                
+                                                                <%}%>
                                                                 <%
-                                                                    if (confmc.getEquipes().size() == 2) {
-                                                                        
-                                                                        
-                                                                            equipe1Conf = confmc.getEquipes().get(0);
-                                                                            equipe2Conf = confmc.getEquipes().get(1);
+                                                                    // Caso o confronto possua duas ou mais equipes, são criados option dessas equipes
+                                                                    // sendo o option da equipe com posição-chave == 2 com a propriedade select="true"
+                                                                    for(EquipeCompeticao eConfronto: confmc.getEquipes()){
+                                                                        for(PosicaoChave p: eConfronto.getPosicoesChave()){
+                                                                            if(p.getConfronto().getIdConfronto() == confmc.getIdConfronto()){
+                                                                                if(p.getPosicaoChave() == 2){
+                                                                                    
 
                                                                 %>
-                                                                <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>" selected="true"><%=equipe2Conf.getEquipe().getNome()%></option>
-                                                                <option value="<%=equipe1Conf.getIdEquipeCompeticao()%>"><%=equipe1Conf.getEquipe().getNome()%></option>
-                                                                
-                                                                <%
-                                                                    }
-                                                                    else if(confmc.getEquipes().size() == 1){
-                                                                        if(confmc.getEquipes().get(0).getPosicaoChave() == 1){
-                                                                          equipe1Conf = confmc.getEquipes().get(0);
-   
-                                                                
+                                                                <option value="<%=eConfronto.getIdEquipeCompeticao()%>" selected="true"><%=eConfronto.getEquipe().getNome()%></option>
+                                                                <%}
+                                                                                if(p.getPosicaoChave() == 1){
                                                                 %>
-                                                                <option value="<%=equipe1Conf.getIdEquipeCompeticao()%>"><%=equipe1Conf.getEquipe().getNome()%></option>
-                                                                
-                                                                <%
-                                                                    }
-                                                                    else if(confmc.getEquipes().get(0).getPosicaoChave() == 2){
-                                                                        equipe2Conf = confmc.getEquipes().get(0);
-                                                                    
-                                                                %>
-                                                                <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>" selected="true"><%=equipe2Conf.getEquipe().getNome()%></option>
-                                                                
-                                                                <%}}%>
+                                                                <option value="<%=eConfronto.getIdEquipeCompeticao()%>"><%=eConfronto.getEquipe().getNome()%></option>
+                                                                <%              }
+                                                                            }
+                                                                        }
+                                                                    }%>
                                                             </select>
                                                             
                                                         </div>
@@ -1138,7 +1116,7 @@
                             <h5 class="modal-title" id="exampleModalLabel">Deseja gerar novamente os jogos desta competição? <%=competicao.getNomeCompeticao()%></h5>
                             <%} else {
                             %>
-                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente gerar os jogos da competição <%=competicao.getNomeCompeticao()%></h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Deseja realmente gerar os jogos da competição <%=competicao.getNomeCompeticao()%>?</h5>
                             <%}%>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -1260,6 +1238,7 @@
     }
     
     function progredirEquipe(idConfronto,idEquipe1, idEquipe2,idCompeticao,repescagem, idBlocoEliminatorio){
+        alert("Progredir equipe!");
         var numSets = document.getElementById("contadorSets"+idConfronto).value;
         var informacoesAdicionaisConfronto = document.getElementById("informacoesConfronto"+idConfronto).value;
         alert(informacoesAdicionaisConfronto);
@@ -1300,7 +1279,7 @@
                              result.innerHTML = "";
                              result.innerHTML = partsHtmlString[2];
                              handleMasks();
-
+                             $('#modalFinalizarJogo' + idConfronto).modal('hide');
 
                          }else{
                              
@@ -1315,14 +1294,55 @@
 
     
     function proximaPagina(extensao,respescagem,idCompeticao) {
-        var numeroPaginas = parseInt(document.getElementById("numeroPaginas").value);
         
-        if((paginaAtualChaveamento + 1) <= numeroPaginas){
-            paginaAtualChaveamento++;
             if(respescagem){
+                var numeroPaginas = parseInt(document.getElementById("numeroPaginasRepescagem").value);
+                if((paginaAtualChaveamentoRepescagem + 1) <= numeroPaginas){
+                paginaAtualChaveamentoRepescagem++;
+                // Ajustes interface NAV de paginação
+                var liProximaPag = document.getElementById("liProximaPagChaveamentoRepescagem");
+                var liVoltarPag = document.getElementById("liVoltarPagChaveamentoRepescagem");
+                var divBlocosEliminatorios = document.getElementById("blocosEliminatoriosRepescagem");
+                
+                if(paginaAtualChaveamento === numeroPaginas){
+                    liVoltarPag.className = 'page-item';
+                    liProximaPag.className = 'page-item disabled';
+                }
+                else{
+                   liVoltarPag.className = 'page-item';
+                   liProximaPag.className = 'page-item';
+                }
+                var xmlreq = CriaRequest();
 
+                 //Atribui uma função para ser executada sempre que houver uma mudança de ado
+                 xmlreq.onreadystatechange = function(){
+
+                     // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
+                     if (xmlreq.readyState === 4) {
+
+                         // Verifica se o arquivo foi encontrado com sucesso
+                         if (xmlreq.status === 200) {
+                             
+                             divBlocosEliminatorios.innerHTML = "";
+                             divBlocosEliminatorios.innerHTML = this.responseText;
+                             handleMasks();
+
+
+                         }else{
+                             divBlocosEliminatorios.innerHTML = "Erro: " + xmlreq.statusText;
+                         }
+                     }
+                 };
+                 xmlreq.open("GET", "ajax/carregarBlocos.jsp?idCompeticao=" + idCompeticao+"&repescagem="+respescagem
+                 +"&extensao="+extensao+"&pag="+paginaAtualChaveamentoRepescagem, true);
+                 xmlreq.send();
+                }
             }
             else{
+                var numeroPaginas = parseInt(document.getElementById("numeroPaginas").value);
+                if((paginaAtualChaveamento + 1) <= numeroPaginas){
+                paginaAtualChaveamento++;
+                
                 // Ajustes interface NAV de paginação
                 var liProximaPag = document.getElementById("liProximaPagChaveamento");
                 var liVoltarPag = document.getElementById("liVoltarPagChaveamento");
@@ -1367,13 +1387,55 @@
     }
     
     function paginaAnterior(extensao,respescagem,idCompeticao){
-        var numeroPaginas = document.getElementById("numeroPaginas").value;
-        if((paginaAtualChaveamento - 1) >= 1){
-            paginaAtualChaveamento --;
-            if(respescagem){
 
+            if(respescagem){
+            var numeroPaginas = document.getElementById("numeroPaginasRepescagem").value;
+            if((paginaAtualChaveamentoRepescagem - 1) >= 1){
+                paginaAtualChaveamentoRepescagem --; 
+                
+                var liProximaPag = document.getElementById("liProximaPagChaveamentoRepescagem");
+                var liVoltarPag = document.getElementById("liVoltarPagChaveamentoRepescagem");
+                var divBlocosEliminatorios = document.getElementById("blocosEliminatoriosRepescagem");
+                
+                if(paginaAtualChaveamento === 1){
+                    liProximaPag.className = 'page-item';
+                    liVoltarPag.className = 'page-item disabled';
+                }
+                else{
+                   liVoltarPag.className = 'page-item';
+                   liProximaPag.className = 'page-item';
+                }
+                
+                var xmlreq = CriaRequest();
+
+                 // Atribui uma função para ser executada sempre que houver uma mudança de ado
+                 xmlreq.onreadystatechange = function(){
+
+                     // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
+                     if (xmlreq.readyState === 4) {
+
+                         // Verifica se o arquivo foi encontrado com sucesso
+                         if (xmlreq.status === 200) {
+                             divBlocosEliminatorios.innerHTML = "";
+                             divBlocosEliminatorios.innerHTML = this.responseText;
+                             handleMasks();
+
+                         }else{
+                             divBlocosEliminatorios.innerHTML = "Erro: " + xmlreq.statusText;
+                         }
+                     }
+                 };
+                 xmlreq.open("GET", "ajax/carregarBlocos.jsp?idCompeticao=" + idCompeticao+"&repescagem="+respescagem
+                 +"&extensao="+extensao+"&pag="+paginaAtualChaveamentoRepescagem, true);
+                 xmlreq.send();
+                
+                
+            }
             }
             else{
+            var numeroPaginas = document.getElementById("numeroPaginas").value;
+            if((paginaAtualChaveamento - 1) >= 1){
+                paginaAtualChaveamento --;
                 var liProximaPag = document.getElementById("liProximaPagChaveamento");
                 var liVoltarPag = document.getElementById("liVoltarPagChaveamento");
                 var divBlocosEliminatorios = document.getElementById("blocosEliminatorios");
@@ -1417,12 +1479,50 @@
     }
     
     function mudarPagina(valorPagina,extensao,respescagem,idCompeticao){
-        var numeroPaginas = document.getElementById("numeroPaginas").value;
-        paginaAtualChaveamento = valorPagina;
-            if(respescagem){
 
+            if(respescagem){
+                var numeroPaginas = document.getElementById("numeroPaginasRepescagem").value;
+                paginaAtualChaveamentoRepescagem = valorPagina;
+                var liProximaPag = document.getElementById("liProximaPagChaveamentoRepescagem");
+                var liVoltarPag = document.getElementById("liVoltarPagChaveamentoRepescagem");
+                var divBlocosEliminatorios = document.getElementById("blocosEliminatoriosRepescagem");
+                
+                if(paginaAtualChaveamento === 1){
+                    liProximaPag.className = 'page-item';
+                    liVoltarPag.className = 'page-item disabled';
+                }
+                else{
+                   liVoltarPag.className = 'page-item';
+                   liProximaPag.className = 'page-item';
+                }
+                
+                var xmlreq = CriaRequest();
+
+                 // Atribui uma função para ser executada sempre que houver uma mudança de ado
+                 xmlreq.onreadystatechange = function(){
+
+                     // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
+                     if (xmlreq.readyState === 4) {
+
+                         // Verifica se o arquivo foi encontrado com sucesso
+                         if (xmlreq.status === 200) {
+                             divBlocosEliminatorios.innerHTML = "";
+                             divBlocosEliminatorios.innerHTML = this.responseText;
+                             handleMasks();
+
+                         }else{
+                             divBlocosEliminatorios.innerHTML = "Erro: " + xmlreq.statusText;
+                         }
+                     }
+                 };
+                 xmlreq.open("GET", "ajax/carregarBlocos.jsp?idCompeticao=" + idCompeticao+"&repescagem="+respescagem
+                 +"&extensao="+extensao+"&pag="+paginaAtualChaveamentoRepescagem, true);
+                 xmlreq.send();
+                
             }
             else{
+                var numeroPaginas = document.getElementById("numeroPaginas").value;
+                paginaAtualChaveamento = valorPagina;
                 var liProximaPag = document.getElementById("liProximaPagChaveamento");
                 var liVoltarPag = document.getElementById("liVoltarPagChaveamento");
                 var divBlocosEliminatorios = document.getElementById("blocosEliminatorios");

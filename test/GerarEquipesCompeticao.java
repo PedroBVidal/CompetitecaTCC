@@ -28,16 +28,20 @@ public class GerarEquipesCompeticao {
         
         
         Equipe equipe = equipeControle.buscarPorId(1);
-        CompeticaoModalidadeColetiva cmc = competicaoModalidadeColetivaControle.buscarPorId(7);       
+        CompeticaoModalidadeColetiva cmc = competicaoModalidadeColetivaControle.buscarPorId(6);       
         List<EquipeCompeticao> equipesCompeticao = new ArrayList<>();
         
-        for(int i = 1; i <= 8; i++){
+        for(int i = 1; i <= 5; i++){
             EquipeCompeticao equipeCompeticao = new EquipeCompeticao();
             equipeCompeticao.setEquipe(equipe);
+            
             equipesCompeticao.add(equipeCompeticao);
         }
         
-        cmc.setEquipesCompeticao(equipesCompeticao);
+        for(EquipeCompeticao e : equipesCompeticao){
+            cmc.adicionarEquipeCompeticao(e);
+        }
+
         
         for(EquipeCompeticao equipeCompeticao: equipesCompeticao){
             equipeCompeticaoControle.salvar(equipeCompeticao);
