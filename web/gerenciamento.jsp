@@ -1,4 +1,5 @@
 
+<%@page import="java.util.Date"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.UsuarioParticipanteControle"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%-- 
@@ -69,7 +70,7 @@
                         //CompeticaoControle competicaoControle = new CompeticaoControle();
                         upControle.abrirSessaoDAOGeneric();
                         upControle.flush();
-
+                        Date dataHj = new Date();
                         UsuarioParticipante usuarioParticipante = upControle.buscarPorId(usuarioADM.getIdUsuario());
                         try {
                             usuarioParticipante.getCompeticoes();
@@ -78,12 +79,14 @@
                         }
 
                         if (flag == 0) {
+                            int f = 0;
                             for (Competicao cptc : upControle.buscarCompeticoesVinculadasAoUsuarioParticipante(usuarioADM.getIdUsuario())) {
                                 upControle.flush();
                                 System.out.println("IS DIRTY: " + upControle.isDirty());
                                 System.out.println("Nome:" + cptc.getNome() + "\n Id:" + cptc.getIdCompeticao() + "\n Inativo:" + cptc.isInativo());
                                 if (cptc.isInativo() == false) {
-
+                                    if ((cptc.getDataInicio().equals(dataHj) || cptc.getDataInicio().before(dataHj)) && (cptc.getDataTermino().equals(dataHj) || cptc.getDataTermino().after(dataHj))) {
+                                        f++;
 
                     %>
 
@@ -133,7 +136,21 @@
                     </div>
                     <%}
                             }
-                        }%>
+                        }
+                        if (f == 0) {%>
+                    <center>
+                        <div class="">
+                        <div class="card h-100">
+                            <h4 class="card-header">Não há nada para hoje</h4>
+                            <div class="card-body">
+                                <p class="card-text">Relaxe! não há nenhuma competição ocorrendo hoje; volte outro dia e veja as competições que estarão ocorrendo!</p>
+                            </div>
+                           
+                        </div>
+                    </div>
+                        </center>
+                    <%}
+        }%>
                 </div>
 
 
