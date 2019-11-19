@@ -33,7 +33,7 @@ public class GeraTudo {
         /*Dao<UsuarioParticipante> upDAO = new GenericDAO<>(UsuarioParticipante.class);
         Dao<UsuarioParticipante2> up2DAO = new GenericDAO<>(UsuarioParticipante2.class);
         */
-        UsuarioParticipante up = new UsuarioParticipante(0, "Gustavo Henrique de Souza Oliveira(Admin)", "oliveiragustavo1340@gmail.com", "Curitiba320");
+        //UsuarioParticipante up = new UsuarioParticipante(0, "Gustavo Henrique de Souza Oliveira(Admin)", "oliveiragustavo1340@gmail.com", "Curitiba320");
        // UsuarioParticipante2 up2 = new UsuarioParticipante2(0, "Gustavo Henrique de Souza Oliveira(User)", "oliveiragustavo1340@gmail.com", "Curitiba320");
         
         Segmento segum = new Segmento(0, "4o. Info");

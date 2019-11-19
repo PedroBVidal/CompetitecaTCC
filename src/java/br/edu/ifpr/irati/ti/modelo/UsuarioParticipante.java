@@ -4,6 +4,7 @@ package br.edu.ifpr.irati.ti.modelo;
 import br.ifpr.irati.ti.util.GerarCodigoAcessoPrivado;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,18 +31,26 @@ public class UsuarioParticipante  extends Usuario implements Serializable {
     
     @OneToMany(fetch = FetchType.LAZY)    
     private List<Local> locais;
-
+    
+    @Column(name="dataNascimento", nullable = false)
+    private Date dataNascimento;
+    
+    @Column(name="cpf", nullable = false)
+    private String cpf;
+    
     
     
     public UsuarioParticipante() {
     }
 
 
-    public UsuarioParticipante(int idUsuario, String nome, String email, String senha) {
+    public UsuarioParticipante(int idUsuario, String nome, Date dataNascimento, String cpf ,String email, String senha) {
         super(idUsuario, nome);
         GerarCodigoAcessoPrivado gcap = new GerarCodigoAcessoPrivado();
         this.senha = gcap.criptografar(senha);
         this.email = email;
+        this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
         this.competicoes = new ArrayList<>();
         this.locais = new ArrayList<>();
     }
@@ -53,6 +62,22 @@ public class UsuarioParticipante  extends Usuario implements Serializable {
         this.email = email;
         this.competicoes = competicoes;
         this.locais = locais;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     

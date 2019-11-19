@@ -16,15 +16,15 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html"><i class="fas fa-info-circle"></i>&nbsp;Sobre</a>
+                            <a class="nav-link" href="#sobre"><i class="fas fa-info-circle"></i>&nbsp;Sobre</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="services.html"><i class="fas fa-trophy"></i>&nbsp;Competições</a>
+                            <a class="nav-link" href="#comp_andamento"><i class="fas fa-trophy"></i>&nbsp;Competições</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="login.jsp"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <!--<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-clipboard-list"></i>&nbsp;Gerenciar
                             </a>
@@ -58,7 +58,7 @@
                                 <a class="dropdown-item" href="pricing.html">Pricing Table</a>
                             </div>
                         </li>
-                    </ul>
+                    </ul>-->
                 </div>
             </div>
         </nav>

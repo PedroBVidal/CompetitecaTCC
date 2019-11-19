@@ -53,32 +53,11 @@
         <!-- Page Content -->
         <div class="container">
             <br>
-            <h1 class="my-4 titulos">Painel de Controle</h1>
 
             <!-- Marketing Icons Section -->
             <div class="row">
                 <div class="col">
-                    <div class="card h-100">
-                        <h4 class="card-header">Entre</h4>
-                        <div class="card-body">
-                            <form action="scripts/ctrlacessoAdministrador.jsp" method="POST" class="col">
-
-                                <label for="" class="col-md-12">
-                                    E-mail:
-                                    <input type="email" required class="form-control" name="email" placeholder="Informe seu e-mail">
-                                </label>
-                                <label for="" class="col-md-12">
-                                    Senha:
-                                    <input type="password" required class="form-control" name="senha" placeholder="Insira sua senha">
-                                </label>
-
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-success">Logar</button>
-
-                        </div>
-                        </form> 
-                    </div>
+                  
                 </div>
 
 

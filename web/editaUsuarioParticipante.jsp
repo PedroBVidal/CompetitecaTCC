@@ -111,16 +111,14 @@
 
                         <label for="" class="col-md-12">
                             Senha:
-                            <input type="password" required class="form-control" id="password" name="senha" placeholder="Insira a sua senha" value="<%=up.getSenha()%>">
-                            Confirme a Senha:
-                            <input onkeyup="validatePassword()" type="password" required class="form-control" id="confirm_password" placeholder="Confirme a sua senha" value="<%=up.getSenha()%>">
-                            <div class="invalid-feedback">
+                            <br>
+                            <a href="recuperarSenha.jsp?opt=2&usr=<%=up.getIdUsuario()%>" class="btn btn-primary">Alterar senha</a>
 
                             </div>
                         </label>
 
                         <label for="" class="col-md-12">
-                            <input type="checkbox" value="1" id="radioSegmento" onclick="adicionarSelectTurma();">
+                            <input type="checkbox" value="1" id="radioSegmento"<%if(atleta.getSegmento() != null){%>checked<%}%> onclick="adicionarSelectTurma();">
                             Estudo/trabalho no IFPR - Campus Irati
                         </label>
                         
@@ -150,7 +148,7 @@
                                 <%}
                                     upc.fecharSessaoDAOGeneric();
                                 %>
-
+                                <label for="" class="col-md-12">Matrícula/SIAPE:<input type="text" required class="form-control matriculaMasc" maxlength="11" name="matricula"  placeholder="Insira o sua matrícula ou número da matrícula SIAPE" value="<%=up.getMatricula()%>"></label><br>
                         </div>
 
                         <div class="col-md-12" id="btnEnviar" style="margin-top:10px;">
@@ -180,7 +178,8 @@
                 function adicionarSelectTurma(){
                         if(radioSegmento.checked === true){
                         var div = document.getElementById("divSegmento");
-                        div.innerHTML = '<label for="inputState">Segmento:</label><select id="modalidadeColetiva" class="form-control" name="segmento"><%SegmentoControle segmentoControle = new SegmentoControle();for(Segmento s: segmentoControle.buscarSegmentos()){%><option value="<%=s.getIdSegmento()%>"><%=s.getNome()%></option><%}%></select>';
+                        div.innerHTML = '<label for="inputState">Segmento:</label><select id="modalidadeColetiva" class="form-control" name="segmento"><%SegmentoControle segmentoControle = new SegmentoControle();
+                                                for (Segmento s : segmentoControle.buscarSegmentos()) {%><option value="<%=s.getIdSegmento()%>"><%=s.getNome()%></option><%}%></select><br><label for="" class="col-md-12">Matrícula/SIAPE:<input type="text" required class="form-control matriculaMasc" maxlength="11" name="matricula"  placeholder="Insira o sua matrícula ou número da matrícula SIAPE" <%if(up.getMatricula() != null){%>value=<%=up.getMatricula()%><%}%>></label><br>';
                         }
                         if(radioSegmento.checked === false){
                         var div = document.getElementById("divSegmento"); 

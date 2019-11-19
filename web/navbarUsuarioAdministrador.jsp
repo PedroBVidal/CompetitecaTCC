@@ -33,15 +33,15 @@
                                 <span class="sr-only">unread messages</span>Minhas mensagens
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link" href="services.html"><i class="fas fa-trophy"></i>&nbsp;Competições</a>
-                        </li>
+                        </li>-->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-clipboard-list"></i>&nbsp;Gerenciar
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="competicoes.jsp">Competições</a>
+                                <a class="dropdown-item" href="competicoes.jsp">Eventos</a>
                                <!-- <a class="dropdown-item" href="atleta.jsp">Atletas</a>
                                 <a class="dropdown-item" href="equipes.jsp">Equipes</a>-->
                                 <a class="dropdown-item" href="local.jsp">Locais</a>
