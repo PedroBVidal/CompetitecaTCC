@@ -5,8 +5,6 @@
 --%>
 <%@page import="br.edu.ifpr.irati.ti.controle.mensagens.MsgSolicitacaoEntradaRecebidaControle"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.MensagemRecebida"%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.MensagemAPRecebida"%>
-<%@page import="br.edu.ifpr.irati.ti.modelo.MensagemAARecebida"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.SolicitacaoEntradaEquipeRecebida"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.Equipe"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.ModalidadeColetiva"%>
