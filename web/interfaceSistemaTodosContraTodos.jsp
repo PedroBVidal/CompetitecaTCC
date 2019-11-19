@@ -135,15 +135,16 @@
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="compor" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <form method="post" action="script/enviarMensagemCompeticaoColetiva.jsp">
+                    <form method="post" action="scripts/enviarMensagemColetivo.jsp">
                         <div class="form-group">
                             <label for="titulo">Título</label>
-                            <input type="text" class="form-control" id="titulo">
+                            <input type="text" name="titulo" class="form-control" id="titulo">
                         </div>
                         <div class="form-group">
                             <label for="mensagem">Mensagem</label>
-                            <textarea class="form-control" id="mensagem" rows="3"></textarea>
+                            <textarea class="form-control" name="mensagem" id="mensagem" rows="3"></textarea>
                         </div>
+                        <input type="hidden" name="idCompeticaoColetiva" value="<%=idCompeticao%>">
                         <input type='submit' class='btn btn-success' value='Enviar'>
                     </form>
                 </div>

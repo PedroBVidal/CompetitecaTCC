@@ -346,7 +346,6 @@
                             <p class="card-text">Relaxe! não há nenhuma competição ocorrendo hoje; volte outro dia e veja as competições que estarão ocorrendo!</p>
                         </div>
                         <div class="card-footer">
-                            <a href="signup.jsp?p=1" class='btn btn-primary'>Cadastrar-me</a>
                         </div>
                     </div>
                 </div>
