@@ -305,7 +305,9 @@
     resultado+=                                         "<tr class='col-4'>";
     resultado+=                                                           "<th scope='col' style='margin-left: auto;'>";
     resultado+=                                                                "<a href='javascript:novoSet("+confModColetiva.getIdConfronto()+","+idEquipe1+","+idEquipe2+");' class='badge badge-success'><i class='fas fa-plus'></i>&nbsp;Novo set</a>";
+    resultado+=                                                                "\n";
     resultado+=                                                                "<a href='javascript:excluirSet("+confModColetiva.getIdConfronto()+");' class='badge badge-danger'><i class='fas fa-minus'></i>&nbsp;Excluir set</a>";
+    resultado+=                                                                "\n";
     resultado+=                                                            "</th>";
     resultado+=                                                            "<th scope='col'>"+confModColetiva.getEquipes().get(0).getEquipe().getNome()+"</th>";
     resultado+=                                                            "<th scope='col'>"+confModColetiva.getEquipes().get(1).getEquipe().getNome()+"</th>";
@@ -360,7 +362,7 @@
     resultado+=                                             "</div>";
     resultado+=                                             "<div class='modal-footer'>";
     resultado+=                                                 "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>";
-    resultado+=                                                "<button type='submit' class='btn btn-success' onclick='progredirEquipe("+confModColetiva.getIdConfronto()+","+idEquipe1+","+idEquipe2+","+idCompeticao+",'false',"+idBlocoEliminatorio+");' >Finalizar jogo</button>";
+    resultado+=                                                 "<a class='btn btn-success' href='javascript:progredirEquipe("+confModColetiva.getIdConfronto()+","+idEquipe1+","+idEquipe2+","+idCompeticao+",false,"+idBlocoEliminatorio+");'>Finalizar jogo</a>";
     resultado+=                                           "</div>";
                                             
     resultado+=                                     "</div>";

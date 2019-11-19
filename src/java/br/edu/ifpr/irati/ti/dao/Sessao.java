@@ -18,7 +18,6 @@ public abstract class Sessao {
 
     public Session abrirSessao() {
         if (getSessao() == null || getSessao().isOpen() == false) {
-            System.out.println("estou abrindo uma sessão");
             
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             sessao.beginTransaction();

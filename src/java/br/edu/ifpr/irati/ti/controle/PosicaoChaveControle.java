@@ -26,5 +26,8 @@ public class PosicaoChaveControle {
         return posicaoChaveGenericDAO.buscarPorId(id);
     }
     
+    public void fecharSessaoDAOGeneric(){
+        posicaoChaveGenericDAO.fecharSessao();
+    }
     
 }

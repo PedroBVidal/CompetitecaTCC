@@ -34,10 +34,14 @@ public class GerarEquipesCompeticao {
         for(int i = 1; i <= 8; i++){
             EquipeCompeticao equipeCompeticao = new EquipeCompeticao();
             equipeCompeticao.setEquipe(equipe);
+            
             equipesCompeticao.add(equipeCompeticao);
         }
         
-        cmc.setEquipesCompeticao(equipesCompeticao);
+        for(EquipeCompeticao e : equipesCompeticao){
+            cmc.adicionarEquipeCompeticao(e);
+        }
+
         
         for(EquipeCompeticao equipeCompeticao: equipesCompeticao){
             equipeCompeticaoControle.salvar(equipeCompeticao);

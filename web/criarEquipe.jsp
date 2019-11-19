@@ -123,15 +123,18 @@
                                 <%}%>
                             </select>
                         </label>
+                        <%
+                            if(up.getAtleta().getSegmento() != null){
+                        %>
                         <label for="" class="col-md-12">
                             <input type="checkbox" value="1" id="radioSegmento" onclick="adicionarSelectTurma();">
                             Equipe Interséries?
                         </label>
-
+                        
                         <div class="col-md-12" id="segmento">
 
                         </div>
-                        
+                        <%}%>
 
 
 
@@ -150,6 +153,10 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
+        <%
+            //Apenas roda o script se o atleta possuir algum segmento.
+            if(up.getAtleta().getSegmento() != null){
+        %>
         <script>
                                 function adicionarSelectTurma() {
                                     if (radioSegmento.checked === true) {
@@ -166,7 +173,7 @@
         </script>
 
         <%
-            }
+            }}
         %>
     </body>
 

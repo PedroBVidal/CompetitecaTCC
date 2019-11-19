@@ -25,6 +25,8 @@ public class GenericDAO<T> implements Dao<T> {
         if (getSessao() == null || getSessao().isOpen() == false) {
             System.out.println("estou abrindo uma sessão");
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
+            this.sessao.beginTransaction();
+            this.sessao.getTransaction().commit();
         }
         else{
            System.out.println("não é preciso abrir uma sessao"); 

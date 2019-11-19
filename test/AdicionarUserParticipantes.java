@@ -2,8 +2,10 @@
 import br.edu.ifpr.irati.ti.controle.AtletaControle;
 import br.edu.ifpr.irati.ti.controle.SegmentoControle;
 import br.edu.ifpr.irati.ti.controle.UsuarioParticipante2Controle;
+import br.edu.ifpr.irati.ti.controle.UsuarioParticipanteControle;
 import br.edu.ifpr.irati.ti.modelo.Atleta;
 import br.edu.ifpr.irati.ti.modelo.Segmento;
+import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante;
 import br.edu.ifpr.irati.ti.modelo.UsuarioParticipante2;
 import java.util.Date;
 
@@ -23,7 +25,14 @@ public class AdicionarUserParticipantes {
         SegmentoControle segmento = new SegmentoControle();
         Segmento seg  = new Segmento();
         UsuarioParticipante2Controle usuarioParticipante2Controle = new UsuarioParticipante2Controle();
+        UsuarioParticipanteControle usuarioParticipanteControle = new UsuarioParticipanteControle();
         AtletaControle atletaControle = new AtletaControle();
+        
+        UsuarioParticipante uA = new UsuarioParticipante(0, "Pedro", new Date(), "090-976459","cacavidal16@gmail.com", "caca");
+        uA.setAtivo(1);
+        usuarioParticipanteControle.criar(uA);
+        
+        
         
         
         UsuarioParticipante2 u1 = new UsuarioParticipante2(0, "joao@gmail.com", "João Marcos", "senha"); 

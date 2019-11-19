@@ -91,7 +91,7 @@
             %>
             <!-- Page Heading/Breadcrumbs -->
             <br>
-            <h1 class="mt-4 mb-3 titulos">Acompanhando Competição <span style="color: red;"><%=competicao.getNomeCompeticao()%></span>
+            <h1 class="mt-4 mb-3 titulos">Acompanhando competição <span style="text-decoration: underline;"><%=competicao.getNomeCompeticao()%></span>
 
             </h1><br>
 
@@ -115,8 +115,8 @@
                 %>
                 <!-- Tab panes -->
                 <div class="tab-content col-10">
-                    <div class="tab-pane dark active" id="tabela" role="tabpanel">
-                        
+                    <div class="tab-pane dark active" id="jogos" role="tabpanel">
+                        <jsp:include page="acompanharSistemaEliminatorio.jsp" flush="true"/>
                     </div>
                 </div>
                 <%       }
@@ -178,19 +178,16 @@
                             </tbody>
                         </table>
                     </div>
-                    <%}%>
-                    <%if (competicao.getSistemaDeCompeticao().getNome().equals("Sistema todos contra todos")) {%>
+                    
                     <div class="tab-pane dark" id="partidas" role="tabpanel">
-                        <%} else {%>
-                        <div class="tab-pane dark active" id="partidas" role="tabpanel">
-
-                            <%}%>
+                    
                             <div id='partidas'>
 
                             </div>
-                        </div>
+                        
                     </div>
                 </div>
+                <%}%>
                     <!-- Bootstrap core JavaScript -->
 
                     <script src="vendor/jquery/jquery.min.js"></script>
@@ -200,4 +197,5 @@
                     %>
                     </body>
 
-                    </html>
+                 </html>
+                    

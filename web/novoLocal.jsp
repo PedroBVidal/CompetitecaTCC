@@ -124,8 +124,13 @@
         <div class="container">
             <br>
             <h1 class="my-4 titulos">Criar um novo Local</h1>
-
-
+            
+            <div class="card">
+                <div class="card-header">
+                    Cadastro
+                </div>
+                <div class="card-body">
+            
             <form action="scripts/editarLocal.jsp" method="POST" class="col">
                 <input type="hidden" name="op" value="3">
                 <input type="hidden" name="id" value="0">
@@ -156,14 +161,16 @@
                 </label>
                 <label for="" class="col-md-12">
                     Estado:
-                    <input readonly type="text" required class="form-control" name="estado" id="uf" placeholder="Insira a rua" >
+                    <input readonly type="text" required class="form-control" name="estado" id="uf" placeholder="Insira o estado">
                 </label>
 
-
+                <div class="col-md-12">
                 <button type="submit" class="btn btn-success">Salvar</button>
-
+                </div>
 
             </form> 
+            </div>
+          </div>
         </div>
 
 

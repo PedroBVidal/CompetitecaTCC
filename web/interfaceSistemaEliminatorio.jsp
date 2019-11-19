@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : interfaceSistemaEliminatorio
     Created on : 30/09/2019, 14:56:18
     Author     : Usuário
@@ -58,7 +58,7 @@
         <div class="tab-content col-10">
             <div class="tab-pane dark" id="inscricao" role="tabpanel">
                 <div class="form-group input-group">
-                    <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                    <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar
                         </a></span>
                     <input name="consulta" id="txt_consulta1" placeholder="Consultar" type="text" class="form-control">
                 </div>
@@ -112,7 +112,7 @@
                                     <b>Atletas Inscritos:</b><br>
                                     <ul>
                                         <%for (Atleta atl : iMc.getAtletas()) {%>
-                                        <li><%=atl.getUsuarioParticipante().getNome()%></li>   
+                                        <li><%=atl.getUsuarioParticipante().getNome()%></li>  
                                             <%    }
                                             %>
                                     </ul>
@@ -138,32 +138,31 @@
 
 
 
-
-
-            <div class="tab-pane" id="messages" role="tabpanel">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#compor" role="tab" aria-controls="nav-home" aria-selected="true">Compor</a>
-                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#enviar" role="tab" aria-controls="nav-profile" aria-selected="false">Enviadas</a>
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="compor" role="tabpanel" aria-labelledby="nav-home-tab">
-                        <form method="post" action="scripts/enviarMensagemColetivo.jsp">
-                            <div class="form-group">
-                                <label for="titulo">Título</label>
-                                <input type="text" class="form-control" id="titulo">
-                            </div>
-                            <div class="form-group">
-                                <label for="mensagem">Mensagem</label>
-                                <textarea class="form-control" id="mensagem" rows="3"></textarea>
-                            </div>
-                            <input type='submit' class='btn btn-success' value='Enviar'>
-                        </form>
-                    </div>
-                    <div class="tab-pane fade" id="enviar" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+        <div class="tab-pane" id="messages" role="tabpanel">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#compor" role="tab" aria-controls="nav-home" aria-selected="true">Compor</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#enviar" role="tab" aria-controls="nav-profile" aria-selected="false">Enviadas</a>
                 </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="compor" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <form method="post" action="scripts/enviarMensagemColetivo.jsp">
+                        <div class="form-group">
+                            <label for="titulo">Título</label>
+                            <input type="text" name="titulo" class="form-control" id="titulo">
+                        </div>
+                        <div class="form-group">
+                            <label for="mensagem">Mensagem</label>
+                            <textarea class="form-control" name="mensagem" id="mensagem" rows="3"></textarea>
+                        </div>
+                        <input type="hidden" name="idCompeticaoColetiva" value="<%=idCompeticao%>">
+                        <input type='submit' class='btn btn-success' value='Enviar'>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="enviar" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
             </div>
+        </div>
 
             <!--TAB PANE DOS JOGOS DA COMPETIÇÃO!-->
 
@@ -439,7 +438,7 @@
                                                                             <%} else if (confmc.getEquipes().get(0).getPosicaoChave() == 2) {
                                                                                 equipe2Conf = confmc.getEquipes().get(0);
 
-                                                                            %> 
+                                                                            %>
                                                                             <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>"><%=equipe2Conf.getEquipe().getNome()%></option>
 
                                                                             <%}
@@ -516,7 +515,7 @@
 
                                                                         <p class="text-left">Hora de início:</p>
                                                                         <input type="text" class="timeMask form-control" id="horaInicioJogo<%=confmc.getIdConfronto()%>" name="horaInicioJogo<%=confmc.getIdConfronto()%>" value="<%=horaInicioJogo%>">
-                                                                    </div>   
+                                                                    </div>  
                                                                     <div class="form-group col">    
                                                                         <p class="text-left">Hora de término:</p>
                                                                         <input type="text" class="timeMask form-control" id="horaFinalJogo<%=confmc.getIdConfronto()%>" name="horaTerminoJogo<%=confmc.getIdConfronto()%>" value="<%=horaFinalJogo%>">
@@ -617,7 +616,7 @@
                                                                                     <input type="text" class="form-control" id="resultadoConfrontoEquipe<%=confmc.getIdConfronto()%><%=idEquipe1%>" style="text-align: center;">
                                                                                 </div>
                                                                                 <div class="form-group col-md-5"></div>
-                                                                            </div>                                                                       
+                                                                            </div>                                                                      
                                                                         </td>
                                                                         <td>
                                                                             <div class="form-row">
@@ -669,7 +668,7 @@
                                         for (int i = 0; i < blocosInvisiveisP; i++) {
                                     %>
                                     <div style="margin-bottom: 15px; height: 9rem;"></div>                        
-                                    <%}%> 
+                                    <%}%>
 
                                     <%cont++;
                                         }
@@ -915,7 +914,7 @@
                                                                             <%} else if (confmc.getEquipes().get(0).getPosicaoChave() == 2) {
                                                                                 equipe2Conf = confmc.getEquipes().get(0);
 
-                                                                            %> 
+                                                                            %>
                                                                             <option value="<%=equipe2Conf.getIdEquipeCompeticao()%>"><%=equipe2Conf.getEquipe().getNome()%></option>
 
                                                                             <%}
@@ -992,7 +991,7 @@
 
                                                                         <p class="text-left">Hora de início:</p>
                                                                         <input type="text" class="timeMask form-control" id="horaInicioJogo<%=confmc.getIdConfronto()%>" name="horaInicioJogo<%=confmc.getIdConfronto()%>" value="<%=horaInicioJogo%>">
-                                                                    </div>   
+                                                                    </div>  
                                                                     <div class="form-group col">    
                                                                         <p class="text-left">Hora de término:</p>
                                                                         <input type="text" class="timeMask form-control" id="horaFinalJogo<%=confmc.getIdConfronto()%>" name="horaTerminoJogo<%=confmc.getIdConfronto()%>" value="<%=horaFinalJogo%>">
@@ -1048,13 +1047,13 @@
                                         for (int i = 0; i < blocosInvisiveisP; i++) {
                                     %>
                                     <div style="margin-bottom: 15px; height: 9rem;"></div>                        
-                                    <%}%> 
+                                    <%}%>
 
                                     <%cont++;
                                         }
                                     %>
 
-                                </div>   
+                                </div>  
 
 
 
@@ -1069,7 +1068,7 @@
             <!--Tab pane competidores-->
             <div class="tab-pane" id="competidores" role="tabpanel">
                 <div class="form-group input-group">
-                    <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar 
+                    <span class="input-group-addon"><a class="btn btn-success" href="#">Buscar
                         </a></span>
                     <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
                 </div>
@@ -1119,7 +1118,7 @@
                                     <b>Atletas Inscritos:</b><br>
                                     <ul>
                                         <%for (Atleta atl : equipeCompeticao.getAtletasEquipe()) {%>
-                                        <li><%=atl.getUsuarioParticipante().getNome()%></li>       
+                                        <li><%=atl.getUsuarioParticipante().getNome()%></li>      
                                             <% }
                                             %>
                                     </ul>
@@ -1174,7 +1173,7 @@
     </div>
 </html>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
 <script>
 
 
@@ -1534,8 +1533,8 @@
                                                                     horaIni = horaInicial.split(':');
                                                                     horaFim = horaFinal.split(':');
 
-                                                                    // Verifica as horas. Se forem diferentes, é só ver se a inicial 
-                                                                    // é menor que a final. 
+                                                                    // Verifica as horas. Se forem diferentes, é só ver se a inicial
+                                                                    // é menor que a final.
                                                                     hIni = parseInt(horaIni[0], 10);
                                                                     hFim = parseInt(horaFim[0], 10);
                                                                     if (hIni !== hFim) {

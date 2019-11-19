@@ -4,6 +4,8 @@
     Author     : Usuário
 --%>
 
+<%@page import="br.edu.ifpr.irati.ti.controle.PosicaoChaveControle"%>
+<%@page import="br.edu.ifpr.irati.ti.modelo.PosicaoChave"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.ParesConfronto"%>
 <%@page import="br.edu.ifpr.irati.ti.modelo.EquipeCompeticao"%>
 <%@page import="br.edu.ifpr.irati.ti.controle.EquipeCompeticaoControle"%>
@@ -48,7 +50,9 @@
     
     EquipeCompeticaoControle equipeCompeticaoControle = new EquipeCompeticaoControle();
     EquipeCompeticao equipe1 = equipeCompeticaoControle.buscarPorId(idEquipe1);
-    //EquipeCompeticao equipe2 = equipeCompeticaoControle.buscarPorId(idEquipe2);
+    EquipeCompeticao equipe2 = equipeCompeticaoControle.buscarPorId(idEquipe2);
+    
+    PosicaoChaveControle posicaoChaveControle = new PosicaoChaveControle();
     
     int numParConfronto = conf.getParesConfronto().getNumParConfrontoRodada();
     double numParConfrontoNovo = 0;
@@ -100,48 +104,206 @@
     blocoEliminatorioControle.fecharSessaoDAOGeneric();
     cmcc.fecharSessaoDAOGeneric();
     ConfrontoModalidadeColetiva confrontoNovo = cmcc.buscarPorId(idConfrontoNovo);
-    // Equipe vencedora
+
     String nomeEquipe1 = "";
     String nomeEquipe2 = "";
+    //Indica se já existe um equipeCompetição no local em que a equipe deverá ser progredida.
+    boolean flag = false;
     if(resultadoJogoEquipe1 > resultadoJogoEquipe2){
         equipe1.setPosicaoChave(posicaoChaveConfrontoNovo);
-        
+        // CASO POSIÇÃO CHAVE 1
         if(posicaoChaveConfrontoNovo == 1){
+            //Verifica se já existe uma equipeCompeticao na posição chave (1) do confronto.
+            for(EquipeCompeticao e: confrontoNovo.getEquipes()){
+                for(PosicaoChave p: e.getPosicoesChave()){
+                    if(p.getConfronto().getIdConfronto() == confrontoNovo.getIdConfronto() && p.getPosicaoChave() == posicaoChaveConfrontoNovo){
+                        flag = true;
+                    }
+                }
+            }
+            if(flag == false){
+                // Verifica se a equipeCompeticao1 já possui uma posição chave referente ao confronto,
+                    // caso não tenha será vinculada uma nova posição chave referente ao confronto.
+                    PosicaoChave posicaoChave = new PosicaoChave(0, confrontoNovo, posicaoChaveConfrontoNovo);
+                    boolean jaPossuiPosicaoChave = false;
+                    for (PosicaoChave p : equipe1.getPosicoesChave()) {
+                        if (p.getConfronto().getIdConfronto() == confrontoNovo.getIdConfronto()) {
+                            posicaoChave = posicaoChaveControle.buscarPorId(p.getId());
+                            p.setPosicaoChave(1);
+                            posicaoChaveControle.alterar(posicaoChave);
+                            jaPossuiPosicaoChave = true;
+                            break;
+                        }
+                    }
+                    if (jaPossuiPosicaoChave == false) {
+                        posicaoChaveControle.salvar(posicaoChave);
+                        equipe1.adicionarPosicaoChave(posicaoChave);
+                    }
+                //Verifica se existe uma equipeCompeticao com posição chave == 2 no confrontoNovo, e acrescenta
+                //o nome da equipe na variável nomeEquipe2
+                for(EquipeCompeticao e: confrontoNovo.getEquipes()){
+                    if(e.getPosicaoChave() == 2){
+                        nomeEquipe2 = e.getEquipe().getNome();
+                        break;
+                    }
+                } 
             nomeEquipe1 = equipe1.getEquipe().getNome();
+            //Persiste dados no banco
+            equipeCompeticaoControle.alterar(equipe1);
+            confrontoNovo.adicionarEquipeCompeticao(equipe1);
+            cmcc.alterar(confrontoNovo);
         }
+        }
+        
+        // CASO POSIÇÃO CHAVE 2
         if(posicaoChaveConfrontoNovo == 2){
+            equipe1.setPosicaoChave(posicaoChaveConfrontoNovo);
+            //Verifica se já existe uma equipeCompeticao na posição chave (2) do confronto.
+            for(EquipeCompeticao e: confrontoNovo.getEquipes()){
+                for(PosicaoChave p: e.getPosicoesChave()){
+                    if(p.getConfronto().getIdConfronto() == confrontoNovo.getIdConfronto() && p.getPosicaoChave() == posicaoChaveConfrontoNovo){
+                        flag = true;
+                    }
+                }
+            }
+            
+          if(flag == false){
+                // Verifica se a equipeCompeticao1 já possui uma posição chave referente ao confronto,
+                    // caso não tenha será vinculada uma nova posição chave referente ao confronto.
+                    PosicaoChave posicaoChave = new PosicaoChave(0, confrontoNovo, posicaoChaveConfrontoNovo);
+                    boolean jaPossuiPosicaoChave = false;
+                    for (PosicaoChave p : equipe1.getPosicoesChave()) {
+                        if (p.getConfronto().getIdConfronto() == confrontoNovo.getIdConfronto()) {
+                            posicaoChave = posicaoChaveControle.buscarPorId(p.getId());
+                            p.setPosicaoChave(2);
+                            posicaoChaveControle.alterar(posicaoChave);
+                            jaPossuiPosicaoChave = true;
+                            break;
+                        }
+                    }
+                    if (jaPossuiPosicaoChave == false) {
+                        // Persiste nova posição chave
+                        posicaoChaveControle.salvar(posicaoChave);
+                        equipe1.adicionarPosicaoChave(posicaoChave);
+                    }
+                    
+                //Verifica se existe uma equipeCompeticao com posição chave == 1 no confrontoNovo, e acrescenta
+                //o nome da equipe na variável nomeEquipe1
+                for(EquipeCompeticao e: confrontoNovo.getEquipes()){
+                    if(e.getPosicaoChave() == 1){
+                        nomeEquipe1 = e.getEquipe().getNome();
+                        break;
+                    }
+                } 
+             
             nomeEquipe2 = equipe1.getEquipe().getNome();
+            //Persiste dados no banco
+            equipeCompeticaoControle.alterar(equipe1);
+            confrontoNovo.adicionarEquipeCompeticao(equipe1);
+            cmcc.alterar(confrontoNovo);
+        } 
         }
-        confrontoNovo.adicionarEquipeCompeticao(equipe1);
-        cmcc.alterar(confrontoNovo);
-        equipeCompeticaoControle.alterar(equipe1);
-        //cmcc.fecharSessaoDAOGeneric();
-        //equipeCompeticaoControle.fecharSessaoDAOGeneric();
+
+        
     }
     
-    
-    
-    
-    
-    
-    /*
     else if(resultadoJogoEquipe2 > resultadoJogoEquipe1){
         equipe2.setPosicaoChave(posicaoChaveConfrontoNovo);
+        
+        //CASO POSIÇÃO CHAVE 1
         if(posicaoChaveConfrontoNovo == 1){
+            //Verifica se já existe uma equipeCompeticao na posição chave (1) do confronto.
+            for(EquipeCompeticao e: confrontoNovo.getEquipes()){
+                for(PosicaoChave p: e.getPosicoesChave()){
+                    if(p.getConfronto().getIdConfronto() == confrontoNovo.getIdConfronto() && p.getPosicaoChave() == posicaoChaveConfrontoNovo){
+                        flag = true;
+                    }
+                }
+            }
+            if(flag == false){
+                // Verifica se a equipeCompeticao2 já possui uma posição chave referente ao confronto,
+                    // caso não tenha será vinculada uma nova posição chave referente ao confronto.
+                    PosicaoChave posicaoChave = new PosicaoChave(0, confrontoNovo, posicaoChaveConfrontoNovo);
+                    boolean jaPossuiPosicaoChave = false;
+                    for (PosicaoChave p : equipe2.getPosicoesChave()) {
+                        if (p.getConfronto().getIdConfronto() == confrontoNovo.getIdConfronto()) {
+                            posicaoChave = posicaoChaveControle.buscarPorId(p.getId());
+                            p.setPosicaoChave(posicaoChaveConfrontoNovo);
+                            posicaoChaveControle.alterar(posicaoChave);
+                            jaPossuiPosicaoChave = true;
+                            break;
+                        }
+                    }
+                    if (jaPossuiPosicaoChave == false) {
+                        posicaoChaveControle.salvar(posicaoChave);
+                        equipe2.adicionarPosicaoChave(posicaoChave);
+                    }
+                //Verifica se existe uma equipeCompeticao com posição chave == 2 no confrontoNovo, e acrescenta
+                //o nome da equipe na variável nomeEquipe2
+                for(EquipeCompeticao e: confrontoNovo.getEquipes()){
+                    if(e.getPosicaoChave() == 2){
+                        nomeEquipe2 = e.getEquipe().getNome();
+                        break;
+                    }
+                } 
             nomeEquipe1 = equipe2.getEquipe().getNome();
+            //Persiste dados no banco
+            equipeCompeticaoControle.alterar(equipe2);
+            confrontoNovo.adicionarEquipeCompeticao(equipe2);
+            cmcc.alterar(confrontoNovo);
         }
+        }
+        //CASO POSIÇÃO CHAVE == 2
         if(posicaoChaveConfrontoNovo == 2){
+            //Verifica se já existe uma equipeCompeticao na posição chave (2) do confronto.
+            for(EquipeCompeticao e: confrontoNovo.getEquipes()){
+                for(PosicaoChave p: e.getPosicoesChave()){
+                    if(p.getConfronto().getIdConfronto() == confrontoNovo.getIdConfronto() && p.getPosicaoChave() == posicaoChaveConfrontoNovo){
+                        flag = true;
+                    }
+                }
+            }
+            if(flag == false){
+                // Verifica se a equipeCompeticao2 já possui uma posição chave referente ao confronto,
+                    // caso não tenha será vinculada uma nova posição chave referente ao confronto.
+                    PosicaoChave posicaoChave = new PosicaoChave(0, confrontoNovo, posicaoChaveConfrontoNovo);
+                    boolean jaPossuiPosicaoChave = false;
+                    for (PosicaoChave p : equipe2.getPosicoesChave()) {
+                        if (p.getConfronto().getIdConfronto() == confrontoNovo.getIdConfronto()) {
+                            posicaoChave = posicaoChaveControle.buscarPorId(p.getId());
+                            p.setPosicaoChave(posicaoChaveConfrontoNovo);
+                            posicaoChaveControle.alterar(posicaoChave);
+                            jaPossuiPosicaoChave = true;
+                            break;
+                        }
+                    }
+                    if (jaPossuiPosicaoChave == false) {
+                        posicaoChaveControle.salvar(posicaoChave);
+                        equipe2.adicionarPosicaoChave(posicaoChave);
+                    }
+                //Verifica se existe uma equipeCompeticao com posição chave == 1 no confrontoNovo, e acrescenta
+                //o nome da equipe na variável nomeEquipe1
+                for(EquipeCompeticao e: confrontoNovo.getEquipes()){
+                    if(e.getPosicaoChave() == 1){
+                        nomeEquipe1 = e.getEquipe().getNome();
+                        break;
+                    }
+                } 
             nomeEquipe2 = equipe2.getEquipe().getNome();
+            //Persiste dados no banco
+            equipeCompeticaoControle.alterar(equipe2);
+            confrontoNovo.adicionarEquipeCompeticao(equipe2);
+            cmcc.alterar(confrontoNovo);
+
         }
-        cmcc.fecharSessaoDAOGeneric();
-        equipeCompeticaoControle.fecharSessaoDAOGeneric();
-        blocoEliminatorioControle.fecharSessaoDAOGeneric();
-        confrontoNovo.adicionarEquipeCompeticao(equipe2);
-        cmcc.fecharSessaoDAOGeneric();
-        cmcc.alterar(confrontoNovo);
-        equipeCompeticaoControle.alterar(equipe2);
+
     }
-    */
+    }
+    
+    
+    cmcc.fecharSessaoDAOGeneric();
+    equipeCompeticaoControle.fecharSessaoDAOGeneric();
+    
     out.print("$"+confrontoNovo.getIdConfronto()+"$");
     %>
                 <div class="card" style="margin-bottom: 15px; height: 9rem;" id="cardConfrontoColetivo<%=confrontoNovo.getIdConfronto()%>">

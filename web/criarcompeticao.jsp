@@ -51,11 +51,10 @@
         <!-- Page Content -->
         <div class="container">
 
-            <!-- Page Heading/Breadcrumbs -->
-            <h1 class="mt-4 mb-3 titulos">Criar evento
+        <h1 class="my-4 titulos">Criar evento</h1>
+                        
+            
 
-
-            </h1><br>
 
 
 
@@ -80,6 +79,11 @@
                     <%
                     }
                     %>
+                    
+               <div class="card">
+                        <h5 class="card-header">Cadastro</h5>
+                        <div class="card-body">
+                            
                     <form action="scripts/cadastrarcompeticao.jsp" method="POST" class="col">
                         <input type="hidden" name="op" value="2">
                         <input type="hidden" name="id" value="0">
@@ -101,26 +105,22 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Data de início da competição:</label>
+                            <label>Data de início do evento:</label>
                             <input required type="text" class="naozeibeu form-control" name="dataInicioCompeticao"  id="dataInicioCpt">
                         </div>
                         <div class="form-group">
-                            <label> Data de término da competição:</label>
+                            <label> Data de término do evento:</label>
                             <input required type="text" class="naozeibeu form-control" name="dataTerminoCompeticao"  id="dataTerminoCpt">
                             <div id="datasCompeticaoIncorretas">
                                 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Informação adicional sobre a competição(opcional):</label>
+                            <label>Informação adicional sobre o evento(opcional):</label>
                             <textarea style="resize:none;" name="infoadicional" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
-                            <%if (up.getMatricula() != null) {%>
-                            <input type="checkbox" name="checkBoxInterseries" value="1">&nbsp;<label>Competição do tipo interséries? <a href="javascript:abirModalSaibaMaisInterseries();" class="badge badge-primary"><i class="fas fa-info"></i>&nbsp;Ajuda</a></label><br>        
-                                <%}
-                            %>
-                            
+                            <input type="checkbox" name="checkBoxInterseries" value="1">&nbsp;<label>Evento do tipo interséries? <a href="javascript:abirModalSaibaMaisInterseries();" class="badge badge-primary"><i class="fas fa-info"></i>&nbsp;Ajuda</a></label><br>
                             
                         </div>
                         <button type="submit" class="btn btn-success">
@@ -132,6 +132,9 @@
 
                         
             </div>
+                </div>
+            </div>
+                        
             <!-- /.row -->
             <!-- Modal Ajuda interséries-->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -144,7 +147,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Em uma competição do tipo interséries apenas equipes de um mesmo ano poderão inscrever-se nas competições coletivas.</p>
+                            <p>Em um evento do tipo interséries apenas equipes de um mesmo ano poderão inscrever-se nas competições coletivas do evento.</p>
                             <p>Exemplo: Uma equipe do 2º ANO pode ser composta por membros do 2ºANO AGRO E 2ºANO INFO.</p>
                         </div>
                         <div class="modal-footer">
@@ -184,33 +187,11 @@
                 var dateString = dataInicioCompeticao;
                 var momentObj = moment(dataInicioCompeticao, 'dd/MM/yyyy');
                 
-                alert(momentObj);
-                //var momentString = momentObj.format('YYYY-MM-DD');
-                
-                
-                //var day = moment(dataInicioCompeticao);
-                
-                //alert(dataInicioCompeticao);
-                
-                //alert("DATA INICIO INCRICAO: "+ dataInicioInscricao);
-                //alert("DATA TERMINO INCRICAO: "+ dataTerminoIncricao);
-                //alert("DATA INCIO COMPETICAO: "+ dataInicioCompeticao);
-                //alert("DATA INICIO COMPETICAO: "+ dataTerminoCompeticao);
-                
-                                  //document.forms["formCompeticaoModalidadeColetiva"].action = "scripts/cadastrarCompeticaoModalidadeColetiva.jsp";
 
                 if(dataInicioInscricao <= dataTerminoIncricao){
-                    alert("Entrei aqui!");
-                  
-
                 }
-
-                
-
             }
-            
-            
-            
+
         </script>
         <%
         }

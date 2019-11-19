@@ -111,7 +111,7 @@
                 }
             %>
             <!-- Page Heading/Breadcrumbs -->
-            <h1 class="mt-4 mb-3 titulos">Gerenciando competicao <span style="color: red;"><%=competicao.getNomeCompeticao()%> </span>
+            <h1 class="mt-4 mb-3 titulos">Gerenciando competicao <span style="text-decoration: underline;"><%=competicao.getNomeCompeticao()%> </span>
             </h1>
             <%if (competicao.getNumVagasDisp() > 0) {%>
             <span class="badge badge-pill badge-success" style="width: 1.75in;">Vagas Disp.:&nbsp;<%=competicao.getNumVagasDisp()%>&nbsp;|&nbsp;<%=competicao.getNumVagas()%></span>

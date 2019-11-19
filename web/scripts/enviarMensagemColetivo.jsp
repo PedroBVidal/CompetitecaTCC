@@ -30,28 +30,29 @@
     String mensagem = request.getParameter("mensagem");
     ComunicadoEnviado ce = new ComunicadoEnviado(titulo, 0, mensagem);
     ComunicadoRecebidoControle crc = new ComunicadoRecebidoControle();
+    UsuarioParticipante2Controle usuarioParticipante2Controle = new UsuarioParticipante2Controle();
     List<Usuario> dest = new ArrayList<>();
-    UsuarioParticipante2Controle uptc = new UsuarioParticipante2Controle();
     cmcc.fecharSessaoDAOGeneric();
     for (EquipeCompeticao eqc : cmc.getEquipesCompeticao()) {
 
         Usuario uadmc = (Usuario) session.getAttribute("usuario");
         ComunicadoRecebido cr = new ComunicadoRecebido(mensagem, 0, false, titulo, uadmc);
         crc.salvar(cr);
-        crc.fecharSessaoDAOGeneric();
-        UsuarioParticipante2 up2 = eqc.getEquipe().getAdministrador();
-        dest.add(up2);
-        up2.adicionarMensagemRecebida(cr);
-        uptc.atualizarCad(up2);
-        uptc.fecharSessaoDAOGeneric();
+        //crc.fecharSessaoDAOGeneric();
+        int  idUsuarioDest = eqc.getEquipe().getAdministrador().getIdUsuario();
+        UsuarioParticipante2 usuarioParticipante2 =  usuarioParticipante2Controle.buscarPorId(idUsuarioDest);
+        dest.add(usuarioParticipante2);
+        usuarioParticipante2.adicionarMensagemRecebida(cr);
+        usuarioParticipante2Controle.atualizarCad(usuarioParticipante2);
+        usuarioParticipante2Controle.fecharSessaoDAOGeneric();
         ee.setAssunto(titulo);
         ee.setMsg(mensagem);
-        ee.setEmailDestinatario(up2.getEmail());
+        ee.setEmailDestinatario(usuarioParticipante2.getEmail());
         ee.enviarGmail();
     }
     ce.setUsuariosDestinatarios(dest);
     cec.salvar(ce);
-
+    cec.fecharSessaoDAOGeneric();
     response.sendRedirect("../gerenciarCompModColetiva.jsp?id=" + idCompeticaoColetiva);
 
 
