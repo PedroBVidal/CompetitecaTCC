@@ -71,7 +71,7 @@
                 }
             %>
             <br>
-            <h1 class="my-4 titulos">Meus Eventos</h1>
+            <h1 class="my-4 titulos">Meus Eventos <a href="gerenciamento.jsp" class="btn btn-primary">Ver apenas os eventos em andamento</a></h1>
             <div class="row">
                 <%
                     SimpleDateFormat formate = new SimpleDateFormat("dd/MM/yyyy");

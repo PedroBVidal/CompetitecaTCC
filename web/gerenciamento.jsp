@@ -56,7 +56,7 @@
         <!-- Page Content -->
         <div class="container">
             <br>
-            <h1 class="my-4 titulos">Minhas Competições em andamento</h1>
+            <h1 class="my-4 titulos">Meus Eventos em andamento <a href="competicoes.jsp" class="btn btn-primary">Ver todos os eventos</a></h1>
             <!-- Marketing Icons Section -->
             <div class="row">
                 <div class="col">
