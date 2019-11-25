@@ -96,12 +96,11 @@
                                 <b>Nome da Equipe:</b>&nbsp; <%=nomeEquipe%> <br>
                                 <b>Email para Contato:</b>&nbsp;<%=iMc.getEquipe().getAdministrador().getEmail()%><br>
                                 <b>Atletas Inscritos:</b><br>
-                                <ul>
-                                    <%for (Atleta atl : iMc.getAtletas()) {%>
-                                    <li><%=atl.getUsuarioParticipante().getNome()%></li>   
-                                        <%    }
-                                        %>
-                                </ul>
+
+                                <%for (Atleta atl : iMc.getAtletas()) {%>
+                                <li><%=atl.getUsuarioParticipante().getNome()%></li>   
+                                    <%    }
+                                    %>
 
                             </div>
                             <div class="modal-footer">
@@ -335,7 +334,7 @@
                                             <button type="button" disabled class="btn btn-success" data-toggle="modal" onclick="abrirModalFinalizarJogo(<%=idConfronto%>, <%=confronModColetiva.getEquipes().get(0).getEquipe().getIdEquipe()%>, <%=confronModColetiva.getEquipes().get(1).getEquipe().getIdEquipe()%>);">Finalizar jogo</button>
                                             <%}%>
                                             <%} else {
-                                        // CASO O CONFRONTO ESTIVER FINALIZADO CRIA UMA INTERFACE DIFERENTE    
+                                                // CASO O CONFRONTO ESTIVER FINALIZADO CRIA UMA INTERFACE DIFERENTE    
 %>
                                             <h5 class="card-title">Jogo <%=numeroJogo%></h5>
 
@@ -425,13 +424,13 @@
                                                             <%} else {%>
                                                             <option value="<%=local.getIdLocal()%>"><%=local.getNome()%></option>
                                                             <%}
-                                                        }%>
+                                                                }%>
                                                             <%
                                                                 if (confrontoPossuiLocal == false) {
                                                             %>
                                                             <option value="<%=local.getIdLocal()%>"><%=local.getNome()%></option>
                                                             <%}
-                                                        }%>
+                                                                }%>
                                                         </select>
                                                     </div>
                                                     <%
@@ -633,7 +632,7 @@
 
                                                         <option value="<%=local.getIdLocal()%>"><%=local.getNome()%></option>
                                                         <%
-                                                    }%>
+                                                            }%>
                                                     </select>
                                                 </div>
                                                 <%
@@ -706,38 +705,72 @@
 
                 </tbody>
 
-                <div class="modal fade" id="<%=equipeCompeticao.getEquipe().getIdEquipe()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel"><%=nomeEquipe%></h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
 
-                                <b>Nome da Equipe:</b>&nbsp; <%=nomeEquipe%> <br>
-                                <b>Email para Contato:</b>&nbsp;<%=equipeCompeticao.getEquipe().getAdministrador().getEmail()%><br>
-                                <b>Atletas Inscritos:</b><br>
-                                <ul>
+                <%}%>
+            </table>
+            <%for (EquipeCompeticao equipeCompeticao : competicao.getEquipesCompeticao()) {
+
+                    String nomeEquipe = equipeCompeticao.getEquipe().getNome();
+            %>
+            <div class="modal fade" id="<%=equipeCompeticao.getEquipe().getIdEquipe()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"><%=nomeEquipe%></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <b>Nome da Equipe:</b>&nbsp; <%=nomeEquipe%> <br>
+                            <b>Email para Contato:</b>&nbsp;<%=equipeCompeticao.getEquipe().getAdministrador().getEmail()%><br>
+                            <b>Atletas Inscritos:</b><br>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Segmento</th>
+                                        <th scope="col">CPF</th>
+                                        <th scope="col">Matrícula/SIAPE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     <%for (Atleta atl : equipeCompeticao.getAtletasEquipe()) {%>
-                                    <li><%=atl.getUsuarioParticipante().getNome()%></li>       
-                                        <% }
-                                        %>
-                                </ul>
+                                    <tr>
+                                        <td><%=atl.getUsuarioParticipante().getNome()%></td>
+                                        <%if (atl.getSegmento() != null) {%>
+                                        <td><%=atl.getSegmento().getNome()%></td>
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-dager" data-dismiss="modal">Fechar</button>
-                            </div>
+                                        <%} else {%>
+                                        <td style="color:red;">Não Possui</td>
+                                        <%}
+                                        %>
+                                        <td><%=atl.getCpf()%></td>
+                                        <%if (atl.getSegmento() != null) {%>
+                                        <td><%=atl.getUsuarioParticipante().getMatricula()%></td>
+
+                                        <%} else {%>
+                                        <td style="color:red;">Não Possui</td>
+
+                                        <%}
+                                        %>
+                                    </tr>       
+                                    <% }
+                                    %>
+                                    e
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dager" data-dismiss="modal">Fechar</button>
                         </div>
                     </div>
                 </div>
-                <%}%>
-            </table>
-
-
+            </div>
+            <%}%>
 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmarGerarJogos">
@@ -785,15 +818,15 @@
 
         valorPlacarEquipe1 = document.getElementById('placarConfronto' + idConfronto + idEquipe1).value;
         valorPlacarEquipe2 = document.getElementById('placarConfronto' + idConfronto + idEquipe2).value;
-        
-        alert("Valor placar EQUIPE 1: "+valorPlacarEquipe1);
-        alert("Valor placar EQUIPE 2: "+valorPlacarEquipe2);
+
+        alert("Valor placar EQUIPE 1: " + valorPlacarEquipe1);
+        alert("Valor placar EQUIPE 2: " + valorPlacarEquipe2);
 
         placarEquipeModal1 = document.getElementById('placarConfrontoModal' + idConfronto + idEquipe1);
-        alert("Element input1: "+ placarEquipeModal1);
+        alert("Element input1: " + placarEquipeModal1);
         placarEquipeModal2 = document.getElementById('placarConfrontoModal' + idConfronto + idEquipe2);
-        alert("Element input2: "+placarEquipeModal2);
-        
+        alert("Element input2: " + placarEquipeModal2);
+
         placarEquipeModal1.value = valorPlacarEquipe1;
         placarEquipeModal2.value = "47";
 
